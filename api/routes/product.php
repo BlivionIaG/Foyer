@@ -6,56 +6,55 @@ $app->group('/product', function() use ($app) {
 
 	//get all
 	$app->get('/', function($request, $response) {
-		try 
-		{	
+		try {	
 			$response = $response->withJson(Capsule::table('PRODUCT')->get());
 		} catch(Illuminate\Database\QueryException $e) {
-			$response = $response->withJson('{"error":{"text":'. $e->getMessage() .'}}', 400);
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
 		return $response;
 	});
 
 	//get by id_product
 	$app->get('/id_product/{id_product}', function($request, $response, $id_product){
-		try 
-		{	
-			$response = $response->withJson(Capsule::table('PRODUCT')->where('id_product' ,'=' , $id_product)->first());
+		try {	
+			$response = $response->withJson(Capsule::table('PRODUCT')->where('id_product', $id_product)->first());
 		} catch(Illuminate\Database\QueryException $e) {
-			$response = $response->withJson('{"error":{"text":'. $e->getMessage() .'}}', 400);
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
 		return $response;
 	});
 
+	//add product
 	$app->post('/',function ($request, $response)  use ($app) {
-
-		var_dump( $app->isPost());
-		//Capsule::table('PRODUCT')->insert($request);
-		$response = $response->withStatus(400);
+		try {
+			Capsule::table('PRODUCT')->insert(json_decode($app->request()));
+			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+		}
 		return $response;
 	});
 
-	$app->put('/put',function () {
-		echo 'This is a PUT route';
+	//edit product
+	$app->put('/{id_product}', function ($request, $response, $id_product) use ($app){
+		try {
+			var_dump($app->request());
+			Capsule::table('PRODUCT')->where('id_product',$id_product)->update(json_decode($app->request()));
+			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+		}
+		return $response;
 	});
 
-	$app->patch('/patch', function () {
-		echo 'This is a PATCH route';
-	});
-
-	$app->delete('/delete',function () {
-		echo 'This is a DELETE route';
+	//delete product
+	$app->delete('/{id_product}',function ($request, $response, $id_product) {
+		try {
+			Capsule::table('PRODUCT')->where('id_product',$id_product)->update(['available' => 0]);
+			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+		}
+		return $response;
 	});
 });
-
-/*
-CREATE TABLE IF NOT EXISTS `PRODUCT` (
-`id_product` int(11) NOT NULL AUTO_INCREMENT,
-`name` varchar(75) DEFAULT NULL,
-`price` float DEFAULT NULL,
-`description` varchar(150) DEFAULT NULL,
-`available` tinyint(1) DEFAULT '1',
-`date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY (`id_product`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
-
-*/
