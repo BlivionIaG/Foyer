@@ -1,26 +1,39 @@
 <?php
-require 'Slim/Slim.php';
-\Slim\Slim::registerAutoloader();
-$app = new \Slim\Slim();
 
-$app->get('/', function(){
-    echo 'test';
-});
+require 'vendor/autoload.php';
 
-$app->post('/post',function () {
-    echo 'This is a POST route';
-});
+//connexion a la db
+use Illuminate\Database\Capsule\Manager as Capsule;  
 
-$app->put('/put',function () {
-    echo 'This is a PUT route';
-});
+$capsule = new Capsule; 
 
-$app->patch('/patch', function () {
-    echo 'This is a PATCH route';
-});
+$capsule->addConnection(array(
+    'driver'    => 'mysql',
+    'host'      => 'localhost',
+    'database'  => 'Foyer',
+    'username'  => 'root',
+    'password'  => 's3curit3',
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => ''
+));
 
-$app->delete('/delete',function () {
-    echo 'This is a DELETE route';
-});
+// Set the event dispatcher used by Eloquent models... (optional)
+use Illuminate\Container\Container;
+
+// Make this Capsule instance available globally via static methods... (optional)
+$capsule->setAsGlobal();
+
+// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+$capsule->bootEloquent();
+
+
+//ajout de slim pour les routes
+$app = new Slim\App();
+
+$_ENV['SLIM_MODE'] = 'developper';
+
+//ajout des routes
+require 'routes/product.php';
 
 $app->run();
