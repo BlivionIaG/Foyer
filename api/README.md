@@ -1,5 +1,7 @@
 <h1>API</h1>
 
+Api rest du projet foyer.
+
 <h2>Routes</h2>
 
 <h3>Produits</h3>
@@ -35,7 +37,7 @@
   <li>GET <code>/date/</code> : récupération de la date du serveur.</li>
 </ul>
 
-<h3>ApiDoc</h3>
+<h2>Doc</h2>
 Install apidoc <code>npm install apidoc -g</code>.
 Génération de la doc <code>apidoc -i routes/ index.php -o doc/</code>.
 Vous pourrez y accéder en allant à la racine de votre api.
