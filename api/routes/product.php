@@ -7,7 +7,15 @@ $app->group('/product', function() use ($app) {
 	//get all
 	$app->get('/', function($request, $response) {
 		try {
-			$response = $response->withJson(Capsule::table('PRODUCT')->get());
+			//$response = $response->withJson();
+			$products = Capsule::table('PRODUCT')->get();
+			foreach ($products as $key => $value) {
+				if(file_exists('files/product/img/'.$value->id_product.'.jpeg'))
+					$products[$key]->hash_image = md5_file('files/product/img/'.$value->id_product.'.jpeg');
+				else
+					$products[$key]->hash_image = false;
+			}
+			$response = $response->withJson($products);
 		} catch(Illuminate\Database\QueryException $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
