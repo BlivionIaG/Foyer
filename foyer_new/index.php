@@ -1,5 +1,5 @@
 <?php
-  require_once('connect.php');
+  require_once('config/config.php');
   
   if (isset($_GET['controller']) && isset($_GET['action'])) 
   	{

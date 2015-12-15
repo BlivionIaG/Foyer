@@ -12,6 +12,7 @@
 	    	{
 	      	$first_name = $_GET['name'];
 	      	$last_name = '';
+	      	$products = file_get_contents(API_URL.'/products');
 	      	require_once('views/pages/home.php');
 	    	}
 	  	}
