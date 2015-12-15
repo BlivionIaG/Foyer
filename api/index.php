@@ -1,27 +1,24 @@
 <?php
 
 require 'vendor/autoload.php';
+require 'config/config.php';
 
-//connexion a la db
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 $capsule = new Capsule;
-
 $capsule->addConnection(array(
-    'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'Foyer',
-    'username'  => 'root',
-    'password'  => 'korsi29yk',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => ''
+	'driver'    => DB_SGBD,
+	'host'      => DB_HOST,
+	'database'  => DB_BASE,
+	'username'  => DB_USER,
+	'password'  => DB_PASSWORD,
+	'charset'   => DB_CHARSET,
+	'collation' => DB_COLLATION,
+	'prefix'    => DB_PREFIX
 ));
-
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-//ajout de slim pour les routes
 $app = new Slim\App();
 
 //ajout des routes
@@ -32,7 +29,7 @@ require 'routes/other.php';
 
 //redirection vers la doc
 $app->get('/', function($request, $response) use ($app){
-  return $response->withRedirect('doc/');
+	return $response->withRedirect('doc/');
 });
 
 $app->run();
