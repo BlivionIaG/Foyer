@@ -27,6 +27,7 @@ $app = new Slim\App();
 //ajout des routes
 require 'routes/product.php';
 require 'routes/command.php';
+require 'routes/notification.php';
 
 //routes basics
 $app->get('/date', function($request, $response) {

@@ -32,6 +32,16 @@ $app->group('/product', function() use ($app) {
 		return $response;
 	});
 
+	//get by available
+	$app->get('/available/{available}', function($request, $response, $available){
+		try {
+			$response = $response->withJson(Capsule::table('PRODUCT')->where('available', $available)->first());
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+		}
+		return $response;
+	});
+
 	//add product
 	$app->post('/',function ($request, $response)  use ($app) {
 		try {
