@@ -36,5 +36,9 @@
 </ul>
 
 <h3>ApiDoc</h3>
-Install apidoc <code>npm install apidoc -g</code>
-Génération de la doc <code>apidoc -i routes/ index.php -o doc/</code>
+Install apidoc <code>npm install apidoc -g</code>.
+Génération de la doc <code>apidoc -i routes/ index.php -o doc/</code>.
+Vous pourrez y accéder en allant à la racine de votre api.
+
+<h2>Bugs</h2>
+Si vous avez des erreur 404 cela vient surement du rewriting qui ne marche bien, attention à votre conf apache.
