@@ -7,7 +7,15 @@ $app->group('/product', function() use ($app) {
 	//get all
 	$app->get('/', function($request, $response) {
 		try {
-			$response = $response->withJson(Capsule::table('PRODUCT')->get());
+			//$response = $response->withJson();
+			$products = Capsule::table('PRODUCT')->get();
+			foreach ($products as $key => $value) {
+				if(file_exists('files/product/img/'.$value->id_product.'.jpeg'))
+					$products[$key]->hash_image = md5_file('files/product/img/'.$value->id_product.'.jpeg');
+				else
+					$products[$key]->hash_image = false;
+			}
+			$response = $response->withJson($products);
 		} catch(Illuminate\Database\QueryException $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
@@ -18,6 +26,16 @@ $app->group('/product', function() use ($app) {
 	$app->get('/id_product/{id_product}', function($request, $response, $id_product){
 		try {
 			$response = $response->withJson(Capsule::table('PRODUCT')->where('id_product', $id_product)->first());
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+		}
+		return $response;
+	});
+
+	//get by available
+	$app->get('/available/{available}', function($request, $response, $available){
+		try {
+			$response = $response->withJson(Capsule::table('PRODUCT')->where('available', $available)->first());
 		} catch(Illuminate\Database\QueryException $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}

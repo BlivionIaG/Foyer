@@ -26,5 +26,14 @@ $app = new Slim\App();
 
 //ajout des routes
 require 'routes/product.php';
+require 'routes/command.php';
+require 'routes/notification.php';
+
+//routes basics
+$app->get('/date', function($request, $response) {
+  date_default_timezone_set('Europe/Paris');
+  $response = $response->write(date("d m Y H:i"));
+  return $response;
+});
 
 $app->run();

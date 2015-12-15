@@ -4,9 +4,36 @@
 
 <h3>Produits</h3>
 <ul>
-  <li>GET <code>/product</code> : récupération de tous les produits.</li>
+  <li>GET <code>/product/</code> : récupération de tous les produits.</li>
+  <li>GET <code>/product/id_product/{id_product}</code> : récupération d'un produit en fonction de son ID.</li>
+  <li>GET <code>/product/available/{available}</code> : récupération de produits en fonction de leur état.</li>
+  <li>POST <code>/product</code> : ajout d'un nouveau produit.</li>
+  <li>PUT <code>/product/{id_product}</code> : modification d'un produit.</li>
+  <li>DELETE <code>/product/{id_product}</code> : suppression d'un produit.</li>
+</ul>
+
+<h4>Objet<h4>
+<code>{"id_product":"id du produit","name":"nom du produit","price":"prix du produit","description":"description du produit","available":"disponibilité du produit","date":"date de création","hash_image":"hash de l'image (cache)"}</code>
+
+<h3>Commandes</h3>
+<ul>
+  <li>GET <code>/command/</code> : récupération de toutes les commandes.</li>
+  <li>GET <code>/command/id_product/{id_command}</code> : récupération d'une commande en fonction de son ID.</li>
+  <li>POST <code>/command</code> : ajout d'une nouvelle commande.</li>
+  <li>PUT <code>/command/{id_command}</code> : modification d'une commande.</li>
+  <li>DELETE <code>/command/{id_command}</code> : suppression d'une commande.</li>
+</ul>
+
+<h3>Produits</h3>
+<ul>
+  <li>GET <code>/product/</code> : récupération de tous les produits.</li>
   <li>GET <code>/product/id_product/{id_product}</code> : récupération d'un produit en fonction de son ID.</li>
   <li>POST <code>/product</code> : ajout d'un nouveau produit.</li>
   <li>PUT <code>/product/{id_product}</code> : modification d'un produit.</li>
   <li>DELETE <code>/product/{id_product}</code> : suppression d'un produit.</li>
+</ul>
+
+<h3>Autres</h3>
+<ul>
+  <li>GET <code>/date/</code> : récupération de la date du serveur.</li>
 </ul>
