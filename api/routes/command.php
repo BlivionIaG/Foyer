@@ -5,7 +5,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $app->group('/command', function() use ($app) {
 
   /**
-   * @api {get} /command/ Récupération des commandes
+   * @api {get} /command/ Récupération des commandes.
    * @apiName GetCommands
    * @apiGroup Command
    *
@@ -35,7 +35,7 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {get} /command/id_command/:id_command Récupération d'un commande par ID
+   * @api {get} /command/id_command/:id_command Récupération d'un commande par son ID.
    * @apiName GetCommandsByIdCommand
    * @apiGroup Command
    *
@@ -103,7 +103,7 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {put} /command/:id_command Edition d'une commande.
+   * @api {put} /command/:id_command Modification d'une commande.
    * @apiName PutCommand
    * @apiGroup Command
    *

@@ -5,7 +5,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $app->group('/notification', function() use ($app) {
 
   /**
-   * @api {get} /notification/ Récupération des notifications
+   * @api {get} /notification/ Récupération des notifications.
    * @apiName GetNotifications
    * @apiGroup Notification
    *
@@ -35,7 +35,7 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {get} /notification/id_notification/:id_notification Récupération d'un notification par son ID
+   * @api {get} /notification/id_notification/:id_notification Récupération d'un notification par son ID.
    * @apiName GetNotificationById
    * @apiGroup Notification
    *
@@ -131,7 +131,7 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {delete} /notification/:id_notification Suppression d'une commande.
+   * @api {delete} /notification/:id_notification Suppression d'une notification.
    * @apiName DeleteNotification
    * @apiGroup Notification
    *
