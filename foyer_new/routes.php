@@ -1,6 +1,6 @@
 <?php
 
-//on fait appele aux contructeurs
+//on fait appel aux contructeurs
 function call($controller, $action)
 {
   require_once('controllers/' . $controller . '_controller.php');
@@ -10,22 +10,19 @@ function call($controller, $action)
     case 'pages':
     $controller = new PagesController();
     break;
-    case 'home':
-    $controller = new HomeController();
-    break;
   }
 
-  //on fait appele a la methode du l'objet
+  //on fait appel a la methode du l'objet
   $controller->{ $action }();
 }
 
 //liste des routes acceptées
 $controllers = array(
-  'pages' => ['product','command','home'],
-  'home' => ['home', 'error']
+  'pages' => ['product','order','client'],
 );
 
 //on regarde si le controller est dans le tableau
+echo 'Controller : '.$controller;
 if (array_key_exists($controller, $controllers))
 {
   //onregarde si l'action existe bien
