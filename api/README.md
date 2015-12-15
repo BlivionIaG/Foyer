@@ -12,9 +12,6 @@
   <li>DELETE <code>/product/{id_product}</code> : suppression d'un produit.</li>
 </ul>
 
-<h4>Objet<h4>
-<code>{"id_product":"id du produit","name":"nom du produit","price":"prix du produit","description":"description du produit","available":"disponibilité du produit","date":"date de création","hash_image":"hash de l'image (cache)"}</code>
-
 <h3>Commandes</h3>
 <ul>
   <li>GET <code>/command/</code> : récupération de toutes les commandes.</li>
@@ -37,3 +34,7 @@
 <ul>
   <li>GET <code>/date/</code> : récupération de la date du serveur.</li>
 </ul>
+
+<h3>ApiDoc</h3>
+Install apidoc <code>npm install apidoc -g</code>
+Génération de la doc <code>apidoc -i routes/ index.php -o doc/</code>

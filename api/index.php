@@ -28,11 +28,10 @@ $app = new Slim\App();
 require 'routes/product.php';
 require 'routes/command.php';
 require 'routes/notification.php';
+require 'routes/other.php';
 
-//routes basics
-$app->get('/date', function($request, $response) {
-  date_default_timezone_set('Europe/Paris');
-  $response = $response->write(date("d m Y H:i"));
+$app->get('/', function($request, $response) use ($app){
+  $response = $response->withRedirect('doc/');
   return $response;
 });
 
