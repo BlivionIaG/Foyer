@@ -1,1 +1,6 @@
-<?php var_dump($products); ?>
+<div>
+
+	<h1>Product</h1>
+	<?php var_dump($product) ?>
+
+</div>
