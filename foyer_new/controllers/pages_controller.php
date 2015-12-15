@@ -7,6 +7,7 @@ class PagesController
  		}
 	public function product()
   		{
+  		$products = json_decode(file_get_contents(API_URL.'/product/'));
     	require_once('views/pages/product.php');
   		}
     public function order()
