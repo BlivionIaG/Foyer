@@ -12,6 +12,9 @@
   <li>DELETE <code>/product/{id_product}</code> : suppression d'un produit.</li>
 </ul>
 
+<h4>Objet<h4>
+<code>{"id_product":"id du produit","name":"nom du produit","price":"prix du produit","description":"description du produit","available":"disponibilité du produit","date":"date de création","hash_image":"hash de l'image (cache)"}</code>
+
 <h3>Commandes</h3>
 <ul>
   <li>GET <code>/command/</code> : récupération de toutes les commandes.</li>
