@@ -3,5 +3,5 @@
 <h2>Routes</h2>
 
 <ul>
-  <li>GET <code>/products</code> : récupération de tous les produits.</li>
+  <li>GET <code>/product</code> : récupération de tous les produits.</li>
 </ul>
