@@ -4,7 +4,27 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 $app->group('/notification', function() use ($app) {
 
-  //get all notification
+  /**
+   * @api {get} /notification/ Récupération des notifications
+   * @apiName GetNotifications
+   * @apiGroup Notification
+   *
+   * @apiSuccess {Number} id_notification ID de la notification.
+   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {String} notification Message de la notification.
+   * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
+   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Number} method Méthode d'envoi de la notification.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": "code error"
+   *     }
+   */
   $app->get('/', function($request, $response) {
     try {
       $response = $response->withJson(Capsule::table('NOTIFICATION')->get());
@@ -14,7 +34,27 @@ $app->group('/notification', function() use ($app) {
     return $response;
   });
 
-  //get by id_notification
+  /**
+   * @api {get} /notification/id_notification/:id_notification Récupération d'un notification par son ID
+   * @apiName GetNotificationById
+   * @apiGroup Notification
+   *
+   * @apiSuccess {Number} id_notification ID de la notification.
+   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {String} notification Message de la notification.
+   * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
+   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Number} method Méthode d'envoi de la notification.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": "code error"
+   *     }
+   */
   $app->get('/id_notification/{id_notification}', function($request, $response, $id_notification){
     try {
       $response = $response->withJson(Capsule::table('NOTIFICATION')->where('id_notification', id_notification)->first());
@@ -24,7 +64,28 @@ $app->group('/notification', function() use ($app) {
     return $response;
   });
 
-  //add notification
+  /**
+   * @api {post} /notification/ Ajout d'une notification.
+   * @apiName PostNotification
+   * @apiGroup Notification
+   *
+   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {String} notification Message de la notification.
+   * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
+   * @apiSuccess {Number} method Méthode d'envoi de la notification.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "succes": "ok"
+   *     }
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": "code error"
+   *     }
+   */
   $app->post('/',function ($request, $response)  use ($app) {
     try {
       Capsule::table('NOTIFICATION')->insert($request->getParsedBody());
@@ -35,7 +96,30 @@ $app->group('/notification', function() use ($app) {
     return $response;
   });
 
-  //edit notification
+  /**
+   * @api {put} /notification/:id_notification Modification d'une notification.
+   * @apiName PutNotification
+   * @apiGroup Notification
+   *
+   * @apiParam {Number} id_notification ID de la notification.
+   *
+   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {String} notification Message de la notification.
+   * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
+   * @apiSuccess {Number} method Méthode d'envoi de la notification.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "succes": "ok"
+   *     }
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": "code error"
+   *     }
+   */
   $app->put('/{id_notification}', function ($request, $response, $id_notification) use ($app){
     try {
       Capsule::table('NOTIFICATION')->where('id_notification',id_notification)->update($request->getParsedBody());
@@ -46,7 +130,25 @@ $app->group('/notification', function() use ($app) {
     return $response;
   });
 
-  //delete notification
+  /**
+   * @api {delete} /notification/:id_notification Suppression d'une commande.
+   * @apiName DeleteNotification
+   * @apiGroup Notification
+   *
+   * @apiSuccess {Number} id_notification ID de la notification.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "succes": "ok"
+   *     }
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": "code error"
+   *     }
+   */
   $app->delete('/{id_notification}',function ($request, $response, $id_notification) {
     try {
       Capsule::table('NOTIFICATION')->where('id_notification',$id_notification)->delete();

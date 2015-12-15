@@ -30,9 +30,9 @@ require 'routes/command.php';
 require 'routes/notification.php';
 require 'routes/other.php';
 
+//redirection vers la doc
 $app->get('/', function($request, $response) use ($app){
-  $response = $response->withRedirect('doc/');
-  return $response;
+  return $response->withRedirect('doc/');
 });
 
 $app->run();
