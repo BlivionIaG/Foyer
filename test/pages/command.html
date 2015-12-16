@@ -1,5 +1,70 @@
-<div class="jumbotron text-center">
-  <h1>Commande Page</h1>
-
-  <p>{{ message }}</p>
+<h1>Commande Page</h1>
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr ng-hide="(products | filter:search).length == 0">
+        <th>
+          <a ng-click="orderByField = '-id_command'; sortReverse=!sortReverse">Id</a>
+          <span ng-show="orderByField == '-id_command'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-login'; sortReverse=!sortReverse">Login</a>
+          <span ng-show="orderByField == '-login'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-etat'; sortReverse=!sortReverse">Etat</a>
+          <span ng-show="orderByField == '-etat'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-periode_debut'; sortReverse=!sortReverse">Période Début</a>
+          <span ng-show="orderByField == '-periode_debut'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-periode_fin'; sortReverse=!sortReverse">Période Fin</a>
+          <span ng-show="orderByField == '-periode_fin'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th class="table-actions">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse">
+        <td>{{ command.id_commande }}</td>
+        <td>{{ command.login }}</td>
+        <td>{{ command.state }}</td>
+        <td>{{ command.periode_debut }}</td>
+        <td>{{ command.periode_fin }}</td>
+        <td class="table-actions">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <li>
+                <a>
+                  Editer
+                </a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

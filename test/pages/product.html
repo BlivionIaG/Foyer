@@ -1,6 +1,6 @@
-  <h1>Product Page</h1>
+<h1>Product Page</h1>
 
-  <div class="table-responsive">
+<div class="table-responsive">
   <table class="table table-bordered table-condensed">
     <thead>
       <tr ng-hide="(products | filter:search).length == 0">
@@ -28,7 +28,7 @@
         <th>
           <a ng-click="orderByField = '-price'; sortReverse=!sortReverse">Prix</a>
           <span ng-show="orderByField == '-price'">
-            <span class="glyphicon glyphiconchevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
         </th>
@@ -39,14 +39,16 @@
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
         </th>
-        <th class="table-actions"></th>
+        <th class="table-actions">
+          Actions
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
         <td>{{ product.id_product }}</td>
         <td>{{ product.name }}</td>
-        <td>{{ product.descirption }}</td>
+        <td>{{ product.description }}</td>
         <td>{{ product.price }}</td>
         <td>{{ product.available }}</td>
         <td class="table-actions">
