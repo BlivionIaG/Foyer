@@ -22,7 +22,7 @@ $app->group('/command', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->get('/', function($request, $response) {
@@ -54,7 +54,7 @@ $app->group('/command', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->get('/id_command/{id_command}', function($request, $response, $id_command){
@@ -85,7 +85,7 @@ $app->group('/command', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->post('/',function ($request, $response)  use ($app) {
@@ -123,7 +123,7 @@ $app->group('/command', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->put('/{id_command}', function ($request, $response, $id_command) use ($app){
@@ -152,7 +152,7 @@ $app->group('/command', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->delete('/{id_command}',function ($request, $response, $id_command) {

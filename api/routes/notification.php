@@ -22,7 +22,7 @@ $app->group('/notification', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->get('/', function($request, $response) {
@@ -52,12 +52,42 @@ $app->group('/notification', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->get('/id_notification/{id_notification}', function($request, $response, $id_notification){
     try {
-      $response = $response->withJson(Capsule::table('NOTIFICATION')->where('id_notification', id_notification)->first());
+      $response = $response->withJson(Capsule::table('NOTIFICATION')->where('id_notification', $id_notification)->first());
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
+    return $response;
+  });
+
+  /**
+   * @api {get} /notification/login/:login Récupération des notifications par login (broadcast compris).
+   * @apiName GetNotificationByLogin
+   * @apiGroup Notification
+   *
+   * @apiSuccess {Number} id_notification ID de la notification.
+   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {String} notification Message de la notification.
+   * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
+   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Number} method Méthode d'envoi de la notification.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": code error
+   *     }
+   */
+  $app->get('/login/{login}', function($request, $response, $login){
+    try {
+      $response = $response->withJson(Capsule::table('NOTIFICATION')->where('login', $login)->orWhere('login', NULL)->get());
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
@@ -83,7 +113,7 @@ $app->group('/notification', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->post('/',function ($request, $response)  use ($app) {
@@ -117,7 +147,7 @@ $app->group('/notification', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->put('/{id_notification}', function ($request, $response, $id_notification) use ($app){
@@ -146,7 +176,7 @@ $app->group('/notification', function() use ($app) {
    * @apiErrorExample Error-Response:
    *     HTTP/1.1 404 Not Found
    *     {
-   *       "error": "code error"
+   *       "error": code error
    *     }
    */
   $app->delete('/{id_notification}',function ($request, $response, $id_notification) {

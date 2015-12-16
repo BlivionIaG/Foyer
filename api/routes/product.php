@@ -5,7 +5,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 $app->group('/product', function() use ($app) {
 
 	/**
-	 * @api {get} /product/ Récupération des produits
+	 * @api {get} /product/ Récupération des produits.
 	 * @apiName GetProducts
 	 * @apiGroup Product
 	 *
@@ -23,17 +23,18 @@ $app->group('/product', function() use ($app) {
 	 * @apiErrorExample Error-Response:
 	 *     HTTP/1.1 404 Not Found
 	 *     {
-	 *       "error": "code error"
+	 *       "error": code error
 	 *     }
 	 */
 	$app->get('/', function($request, $response) {
 		try {
 			$products = Capsule::table('PRODUCT')->get();
 			foreach ($products as $key => $value) {
-				if(file_exists('files/product/img/'.$value->id_product.'.jpeg'))
-					$products[$key]->hash_image = md5_file('files/product/img/'.$value->id_product.'.jpeg');
-				else
-					$products[$key]->hash_image = false;
+				if (!empty($products[$key]))
+					if(file_exists('files/product/img/'.$value->id_product.'.jpeg'))
+						$products[$key]->hash_image = md5_file('files/product/img/'.$value->id_product.'.jpeg');
+					else
+						$products[$key]->hash_image = false;
 			}
 			$response = $response->withJson($products);
 		} catch(Illuminate\Database\QueryException $e) {
@@ -43,7 +44,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {get} /product/:id_product Récupération d'un produit en fonction de son ID
+	 * @api {get} /product/:id_product Récupération d'un produit en fonction de son ID.
 	 * @apiName GetProductByIdProduct
 	 * @apiGroup Product
 	 *
@@ -63,16 +64,17 @@ $app->group('/product', function() use ($app) {
 	 * @apiErrorExample Error-Response:
 	 *     HTTP/1.1 404 Not Found
 	 *     {
-	 *       "error": "code error"
+	 *       "error": code error
 	 *     }
 	 */
 	$app->get('/id_product/{id_product}', function($request, $response, $id_product){
 		try {
 			$product = Capsule::table('PRODUCT')->where('id_product', $id_product)->first();
-			if(file_exists('files/product/img/'.$product->id_product.'.jpeg'))
-				$product->hash_image = md5_file('files/product/img/'.$product->id_product.'.jpeg');
-			else
-				$product->hash_image = false;
+			if (!empty($product))
+				if(file_exists('files/product/img/'.$product->id_product.'.jpeg'))
+					$product->hash_image = md5_file('files/product/img/'.$product->id_product.'.jpeg');
+				else
+					$product->hash_image = false;
 			$response = $response->withJson($product);
 		} catch(Illuminate\Database\QueryException $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
@@ -81,7 +83,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {get} /product/:id_product Récupération des produits en fonction de leur état.
+	 * @api {get} /product/:id_product Récupération des produits en fonction de son état.
 	 * @apiName GetProductByAvailable
 	 * @apiGroup Product
 	 *
@@ -101,12 +103,12 @@ $app->group('/product', function() use ($app) {
 	 * @apiErrorExample Error-Response:
 	 *     HTTP/1.1 404 Not Found
 	 *     {
-	 *       "error": "code error"
+	 *       "error": code error
 	 *     }
 	 */
 	$app->get('/available/{available}', function($request, $response, $available){
 		try {
-			$response = $response->withJson(Capsule::table('PRODUCT')->where('available', $available)->first());
+			$response = $response->withJson(Capsule::table('PRODUCT')->where('available', $available)->get());
 		} catch(Illuminate\Database\QueryException $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
@@ -114,7 +116,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {post} /product/ Création d'un nouveau produit.
+	 * @api {post} /product/ Ajout d'un nouveau produit.
 	 * @apiName PostProduct
 	 * @apiGroup Product
 	 *
@@ -132,7 +134,7 @@ $app->group('/product', function() use ($app) {
 	 * @apiErrorExample Error-Response:
 	 *     HTTP/1.1 404 Not Found
 	 *     {
-	 *       "error": "code error"
+	 *       "error": code error
 	 *     }
 	 */
 	$app->post('/',function ($request, $response)  use ($app) {
@@ -166,7 +168,7 @@ $app->group('/product', function() use ($app) {
 	 * @apiErrorExample Error-Response:
 	 *     HTTP/1.1 404 Not Found
 	 *     {
-	 *       "error": "code error"
+	 *       "error": code error
 	 *     }
 	 */
 	$app->put('/{id_product}', function ($request, $response, $id_product) use ($app){
@@ -195,7 +197,7 @@ $app->group('/product', function() use ($app) {
 	 * @apiErrorExample Error-Response:
 	 *     HTTP/1.1 404 Not Found
 	 *     {
-	 *       "error": "code error"
+	 *       "error": code error
 	 *     }
 	 */
 	$app->delete('/{id_product}',function ($request, $response, $id_product) {
