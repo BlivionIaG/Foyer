@@ -1,6 +1,10 @@
-var scotchApp = angular.module('foyerApp', ['ngRoute']);
+var App = angular
+.module('foyerApp', ['ngRoute'])
+.constant('CONFIG', {
+  'API_URL': 'http://192.168.1.173/Foyer/api/'
+});
 
-scotchApp.config(function($routeProvider) {
+App.config(function($routeProvider) {
   $routeProvider
 
   .when('/', {
@@ -19,18 +23,18 @@ scotchApp.config(function($routeProvider) {
   });
 });
 
-scotchApp.controller('mainController', function($scope) {
+App.controller('mainController', function($scope) {
 
 });
 
-scotchApp.controller('productController', function($scope, $http) {
-  $http.get('http://192.168.1.173/Foyer/api/product/').success(function(data){
+App.controller('productController', function($scope, $http, CONFIG) {
+  $http.get(CONFIG.API_URL+'product/').success(function(data){
     $scope.products = data;
   });
 });
 
-scotchApp.controller('commandController', function($scope, $http) {
-  $http.get('http://192.168.1.173/Foyer/api/command/').success(function(data){
+App.controller('commandController', function($scope, $http, CONFIG) {
+  $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
   });
 });
