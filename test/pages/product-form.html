@@ -1,0 +1,22 @@
+<h1>Edit Product</h1>
+
+<form>
+  <div class="form-group">
+    <label>ID</label>
+    <input type="number" class="form-control" placeholder="ID" ng-model="product.id_product" readonly>
+  </div>
+  <div class="form-group">
+    <label>Nom</label>
+    <input type="text" class="form-control" placeholder="Nom" ng-model="product.name">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <input type="text" class="form-control" placeholder="Description" ng-model="product.description">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <button type="submit" class="btn btn-default">Enregistrer</button>
+</form>

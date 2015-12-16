@@ -1,10 +1,13 @@
 var App = angular
+
 .module('foyerApp', ['ngRoute'])
+
 .constant('CONFIG', {
   'API_URL': 'http://192.168.1.173/Foyer/api/'
-});
+})
 
-App.config(function($routeProvider) {
+.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  //$locationProvider.html5Mode(true);
   $routeProvider
 
   .when('/', {
@@ -17,23 +20,56 @@ App.config(function($routeProvider) {
     controller  : 'productController'
   })
 
+  .when('/product/edit/:id_product', {
+    templateUrl : 'pages/product-form.html',
+    controller  : 'productEditController'
+  })
+
+  .when('/product/add', {
+    templateUrl : 'pages/product-form.html',
+    controller  : 'productAddController'
+  })
+
   .when('/command', {
     templateUrl : 'pages/command.html',
     controller  : 'commandController'
+  })
+
+  .otherwise({
+    redirectTo: '/404'
   });
-});
+}])
 
-App.controller('mainController', function($scope) {
+.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.defaults.transformRequest = function(data){
+    if (data === undefined) {
+      return data;
+    }
+    return jQuery.param(data);
+  };
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+}])
 
-});
+.controller('mainController', function($scope) {
 
-App.controller('productController', function($scope, $http, CONFIG) {
+})
+
+.controller('productController', function($scope, $http, CONFIG) {
   $http.get(CONFIG.API_URL+'product/').success(function(data){
     $scope.products = data;
   });
-});
+})
 
-App.controller('commandController', function($scope, $http, CONFIG) {
+.controller('productAddController', function($scope, $http, CONFIG) {
+})
+
+.controller('productEditController', function($scope, $http, CONFIG, $routeParams) {
+  $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){
+    $scope.product = data;
+  });
+})
+
+.controller('commandController', function($scope, $http, CONFIG) {
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
   });
