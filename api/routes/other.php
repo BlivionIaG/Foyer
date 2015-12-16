@@ -15,6 +15,5 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 */
 $app->get('/date/', function($request, $response) {
 	date_default_timezone_set('Europe/Paris');
-	$response = $response->write(date("d m Y H:i"));
-	return $response;
+	return $response->write(date("d m Y H:i"));
 });
