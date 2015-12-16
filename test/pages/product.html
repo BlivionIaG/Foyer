@@ -1,0 +1,69 @@
+  <h1>Product Page</h1>
+
+  <div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr ng-hide="(products | filter:search).length == 0">
+        <th>
+          <a ng-click="orderByField = '-id_product'; sortReverse=!sortReverse">Id</a>
+          <span ng-show="orderByField == '-id_product'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-name'; sortReverse=!sortReverse">Nom</a>
+          <span ng-show="orderByField == '-name'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-description'; sortReverse=!sortReverse">Description</a>
+          <span ng-show="orderByField == '-description'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-price'; sortReverse=!sortReverse">Prix</a>
+          <span ng-show="orderByField == '-price'">
+            <span class="glyphicon glyphiconchevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-available'; sortReverse=!sortReverse">Validité</a>
+          <span ng-show="orderByField == '-available'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th class="table-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
+        <td>{{ product.id_product }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.descirption }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.available }}</td>
+        <td class="table-actions">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <li>
+                <a>
+                  Editer
+                </a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
