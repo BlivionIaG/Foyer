@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="foyerApp">
 <head>
+  <meta charset="utf-8" />
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -14,7 +15,7 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Application Foyer</a>
+        <a class="navbar-brand" href="#">Application Foyer</a>
       </div>
 
       <ul class="nav navbar-nav navbar-right">
@@ -22,6 +23,11 @@
         <li><a href="#product"><i class="fa fa-shopping-cart"></i> Produit</a></li>
         <li><a href="#command"><i class="fa fa-credit-card"></i> Commande</a></li>
       </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+        <input type="text" class="form-control ng-valid ng-dirty" ng-model="search" placeholder="filtrer les résultats" autofocus="true">
+        </div>
+      </form>
     </div>
   </nav>
 

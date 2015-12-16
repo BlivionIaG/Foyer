@@ -2,10 +2,10 @@
 <div class="table-responsive">
   <table class="table table-bordered table-condensed">
     <thead>
-      <tr ng-hide="(products | filter:search).length == 0">
+      <tr ng-hide="(commands | filter:search).length == 0">
         <th>
-          <a ng-click="orderByField = '-id_command'; sortReverse=!sortReverse">Id</a>
-          <span ng-show="orderByField == '-id_command'">
+        <a ng-click="orderByField = '-id_commande'; sortReverse=!sortReverse">Id</a>
+          <span ng-show="orderByField == '-id_commande'">
             <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
@@ -18,8 +18,8 @@
           </span>
         </th>
         <th>
-          <a ng-click="orderByField = '-etat'; sortReverse=!sortReverse">Etat</a>
-          <span ng-show="orderByField == '-etat'">
+          <a ng-click="orderByField = '-state'; sortReverse=!sortReverse">Etat</a>
+          <span ng-show="orderByField == '-state'">
             <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
