@@ -22,12 +22,12 @@ var App = angular
 
   .when('/product/edit/:id_product', {
     templateUrl : 'pages/product-form.html',
-    controller  : 'productEditController'
+    controller  : 'productFormController'
   })
 
   .when('/product/add', {
     templateUrl : 'pages/product-form.html',
-    controller  : 'productAddController'
+    controller  : 'productFormController'
   })
 
   .when('/command', {
@@ -60,13 +60,16 @@ var App = angular
   });
 })
 
-.controller('productAddController', function($scope, $http, CONFIG) {
-})
+.controller('productFormController', function($scope, $http, CONFIG, $routeParams) {
+  $scope.product = {};
+  $scope.product.action = 'add';
 
-.controller('productEditController', function($scope, $http, CONFIG, $routeParams) {
-  $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){
-    $scope.product = data;
-  });
+  if ($routeParams.id_product) {
+    $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){
+      $scope.product = data;
+      $scope.product.action = 'edit';
+    });
+  }
 })
 
 .controller('commandController', function($scope, $http, CONFIG) {
