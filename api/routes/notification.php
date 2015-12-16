@@ -87,7 +87,7 @@ $app->group('/notification', function() use ($app) {
    */
   $app->get('/login/{login}', function($request, $response, $login){
     try {
-      $response = $response->withJson(Capsule::table('NOTIFICATION')->where('login', $login)->orWhere('login', NULL)->get());
+      $response = $response->withJson(Capsule::table('NOTIFICATION')->where('login', $login)->orWhere('id_command', -1)->get());
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
