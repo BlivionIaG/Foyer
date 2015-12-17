@@ -11,26 +11,31 @@
   </span>
   <div class="form-group">
     <label>Nom</label>
-    <input type="text" class="form-control" placeholder="Nom" ng-model="product.name">
+    <input type="text" class="form-control" placeholder="Nom" ng-model="product.name" required>
   </div>
   <div class="form-group">
     <label>Description</label>
-    <input type="text" class="form-control" placeholder="Description" ng-model="product.description">
+    <input type="text" class="form-control" placeholder="Description" ng-model="product.description" required>
   </div>
   <div class="form-group">
     <label>Prix</label>
-    <input type="text" class="form-control" placeholder="Prix" ng-model="product.price">
+    <input type="text" class="form-control" placeholder="Prix" ng-model="product.price" required>
   </div>
   <div class="form-group">
     <label>Etat</label>
-    <input type="radio" ng-model="product.available" ng-value="1" ng-checked="product.available == 1"/>Disponible
+    <input type="radio" ng-model="product.available" ng-value="1" ng-checked="true"/>Disponible
     <input type="radio" ng-model="product.available" ng-value="2" ng-checked="product.available == 2"/>Plus en stock
     <input type="radio" ng-model="product.available" ng-value="3" ng-checked="product.available == 3"/>Indisponible
   </div>
   <div class="form-group">
     <label>Ajoutez une image</label>
-    <input type="file">
+    <input type="file" ng-required="action == 'add'">
     <p class="help-block">Image existante: <img src="files/product/{{product.id_product}}.png" height="120" width="120"></p>
   </div>
-  <button type="submit" class="btn btn-default">Enregistrer</button>
+  <div class="pull-right">
+    <a href="#product" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
+    <a ng-if="action == 'edit'" class="btn btn-danger" ng-click="delete()" ng-confirm-click="Êtes-vous sûr de vouloir supprimer ?">Supprimer</a>
+    <a class="btn btn-danger" ng-if="action == 'add'" ng-click="reinitialiser()" ng-confirm-click="Êtes-vous sûr de vouloir tout effacer ?">Ré-initialiser</a>
+    <input type="submit" value="Valider" class="btn btn-primary"/>
+  </div>
 </form>

@@ -6,6 +6,7 @@ var App = angular
   'API_URL': 'http://192.168.1.173/Foyer/api/'
 })
 
+//gestion des routes
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   //$locationProvider.html5Mode(true);
   $routeProvider
@@ -46,35 +47,71 @@ var App = angular
   })
 
   .otherwise({
-    redirectTo: '/404'
+    redirectTo: '/'
   });
 }])
-
+//ajout de headers des requetes
 .config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.transformRequest = function(data){
+    console.log(data);
     if (data === undefined) {
       return data;
     }
+    console.log(jQuery.param(data));
     return jQuery.param(data);
   };
-  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+  $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+  $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+  console.log($httpProvider.defaults.headers);
 }])
+
+//ajout de la directive ng-confirm-click
+.directive('ngConfirmClick', [
+  function(){
+    return {
+      priority: -1,
+      restrict: 'A',
+      link: function(scope, element, attrs){
+        element.bind('click', function(e){
+          var message = attrs.ngConfirmClick;
+          if(message && !window.confirm(message)){
+            e.stopImmediatePropagation();
+            e.preventDefault();
+          }
+        });
+      }
+    };
+  }
+])
 
 .controller('mainController', function($scope) {
 
 })
 
-.controller('productController', function($scope, $http, CONFIG) {
+//controlleur de la page product
+.controller('productController', function($scope, $http, $window, CONFIG) {
+  //recuperation des produits
   $http.get(CONFIG.API_URL+'product/').success(function(data){
     $scope.products = data;
     $scope.loaded = true;
   });
+  //suppression d'un produit
+  $scope.delete = function(item, event) {
+    $http.delete(CONFIG.API_URL+'product/'+item).success(function(data) {
+      $window.location.reload();
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
 })
 
+//controlleur du form de produit
 .controller('productFormController', function($scope, $http, CONFIG, $routeParams, $document, $location) {
   $scope.product = {};
   $scope.action = 'add';
 
+  //recuperation du produit
   if ($routeParams.id_product) {
     $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){
       $scope.product = data;
@@ -82,17 +119,17 @@ var App = angular
     });
   }
 
-  // Post du formulaire
+  //Post du formulaire
   $scope.submitForm = function(item, event) {
-      //edit
-      if($scope.action == 'edit'){
-        $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function(data) {
-          $location.path('#product');
-        }).error(function(data) {
-          $scope.alert = data;
-          $document.scrollTop(0, 250);
-        });
-      }
+    //edit
+    if($scope.action == 'edit'){
+      $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function(data) {
+        $location.path('#product');
+      }).error(function(data) {
+        $scope.alert = data;
+        $document.scrollTop(0, 250);
+      });
+    }
     //ajout
     else{
       $http.post(CONFIG.API_URL+'product/', $scope.product).success(function(data) {
@@ -103,23 +140,51 @@ var App = angular
       });
     }
   };
+  //reinitialisation du form
+  $scope.reinitialiser = function(item, event) {
+    $scope.product = null;
+  };
+  //suppression du produit
+  $scope.delete = function(item, event) {
+    $http.delete(CONFIG.API_URL+'product/'+$scope.product.id_product).success(function(data) {
+      $location.path('#product');
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
 })
 
-.controller('commandController', function($scope, $http, CONFIG) {
+//controller de commande
+.controller('commandController', function($scope, $http, $window, CONFIG) {
+  //recuperation des commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
     $scope.loaded = true;
   });
+
+  //suppression d'une commande
+  $scope.delete = function(item, event) {
+    $http.delete(CONFIG.API_URL+'command/'+item).success(function(data) {
+      $window.location.reload();
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
 })
 
+//controller de form commande
 .controller('commandFormController', function($scope, $http, CONFIG, $routeParams, $document, $location) {
   $scope.command = {};
   $scope.action = 'add';
 
+  //recuperation des users
   $http.get(CONFIG.API_URL+'user/').success(function(data){
     $scope.users = data;
   });
 
+  //recuperation de la commande
   if ($routeParams.id_commande) {
     $http.get(CONFIG.API_URL+'command/id_commande/'+$routeParams.id_commande).success(function(data){
       $scope.command = data;
@@ -127,17 +192,17 @@ var App = angular
     });
   }
 
-  // Post du formulaire
+  //Post du formulaire
   $scope.submitForm = function(item, event) {
-      //edit
-      if($scope.action == 'edit'){
-        $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
-          $location.path('#command');
-        }).error(function(data) {
-          $scope.alert = data;
-          $document.scrollTop(0, 250);
-        });
-      }
+    //edit
+    if($scope.action == 'edit'){
+      $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
+        $location.path('#command');
+      }).error(function(data) {
+        $scope.alert = data;
+        $document.scrollTop(0, 250);
+      });
+    }
     //ajout
     else{
       $http.post(CONFIG.API_URL+'command/', $scope.command).success(function(data) {
@@ -147,5 +212,18 @@ var App = angular
         $document.scrollTop(0, 250);
       });
     }
+  };
+  //reinitialisation du form
+  $scope.reinitialiser = function(item, event) {
+    $scope.command = null;
+  };
+  //supression de la commande
+  $scope.delete = function(item, event) {
+    $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_commande).success(function(data) {
+      $location.path('#command');
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
   };
 });

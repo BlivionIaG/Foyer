@@ -11,21 +11,26 @@
   </span>
   <div class="form-group">
     <label>Login</label>
-    <select class="form-control ng-pristine ng-valid" ng-model="command.login" ng-options="user.login as user.login for user in users" ng-selected="command.login"></select>
+    <select class="form-control ng-pristine ng-valid" ng-model="command.login" ng-options="user.login as user.login for user in users" ng-selected="command.login" required></select>
   </div>
   <div class="form-group">
     <label>Période de début</label>
-    <input type="text" class="form-control" placeholder="Période Début" ng-model="command.periode_debut">
+    <input type="text" class="form-control" placeholder="Période Début" ng-model="command.periode_debut" required>
   </div>
   <div class="form-group">
     <label>Période de fin</label>
-    <input type="text" class="form-control" placeholder="Période Fin" ng-model="command.periode_fin">
+    <input type="text" class="form-control" placeholder="Période Fin" ng-model="command.periode_fin" required>
   </div>
   <div class="form-group">
     <label>Etat de la commande</label>
-    <input type="radio" ng-model="command.state" ng-value="1" ng-checked="command.state == 1"/>En cours de validation
+    <input type="radio" ng-model="command.state" ng-value="1" ng-checked="true"/>En cours de validation
     <input type="radio" ng-model="command.state" ng-value="2" ng-checked="command.state == 2"/>Validé
     <input type="radio" ng-model="command.state" ng-value="3" ng-checked="command.state == 3"/>Servie
   </div>
-  <button type="submit" class="btn btn-default">Enregistrer</button>
+  <div class="pull-right">
+    <a href="#command" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
+    <a ng-if="action == 'edit'" class="btn btn-danger" ng-click="delete()" ng-confirm-click="Êtes-vous sûr de vouloir supprimer ?">Supprimer</a>
+    <a class="btn btn-danger" ng-if="action == 'add'" ng-click="reinitialiser()" ng-confirm-click="Êtes-vous sûr de vouloir tout effacer ?">Ré-initialiser</a>
+    <input type="submit" value="Valider" class="btn btn-primary"/>
+  </div>
 </form>

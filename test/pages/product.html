@@ -45,26 +45,22 @@
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
         </th>
-        <th>
-          <a ng-click="orderByField = '-available'; sortReverse=!sortReverse">Validité</a>
-          <span ng-show="orderByField == '-available'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
         <th class="table-actions">
           Actions
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
+      <tr
+      ng-class="{'success':product.available == 1,
+                'danger':product.available == 0,
+                'warning':product.available == 2}"
+      ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
         <td>{{ product.id_product }}</td>
         <td><img src="files/product/{{product.id_product}}.png" height="120" width="120"></td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
         <td>{{ product.price }}</td>
-        <td>{{ product.available }}</td>
         <td class="table-actions">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -77,7 +73,7 @@
                 </a>
               </li>
               <li>
-                <a>
+                <a ng-click="delete(product.id_product)" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{product.id_product}} ?" ng-disabled="id_product.available == 0">
                   Supprimer
                 </a>
               </li>
