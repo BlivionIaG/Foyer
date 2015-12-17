@@ -53,4 +53,4 @@ Générer la doc avec la commande dans le dossier api <code>apidoc -i routes/ in
 Vous pourrez y accéder en allant à la racine de votre api avec votre navigateur.
 
 <h2>Bugs</h2>
-Si vous avez des erreur 404 cela vient surement du rewriting qui ne marche bien, attention à votre conf apache.
+Si vous avez des erreurs 404 sur vos requètes cela vient sûrement d'un problème de rewriting dans votre conf apache.
