@@ -1,7 +1,7 @@
 <h1>API</h1>
 
 Api rest du projet foyer.
-
+<a href="http://digital-design.github.io/Foyer/">Lien vers la doc</a>
 <h2>Routes</h2>
 
 <h3>Produits</h3>
