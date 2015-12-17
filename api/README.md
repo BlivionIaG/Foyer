@@ -33,6 +33,15 @@ Api rest du projet foyer.
   <li>DELETE <code>/notification/{id_notification}</code> : suppression d'une notification.</li>
 </ul>
 
+<h3>Users</h3>
+<ul>
+  <li>GET <code>/user/</code> : récupération de tous les users.</li>
+  <li>GET <code>/user/login/{login}</code> : récupération d'un user en fonction de son login.</li>
+  <li>POST <code>/user/</code> : ajout d'un nouveau user.</li>
+  <li>PUT <code>/user/{login}</code> : modification d'un user.</li>
+  <li>DELETE <code>/user/{login}</code> : suppression d'un user.</li>
+</ul>
+
 <h3>Autres</h3>
 <ul>
   <li>GET <code>/date/</code> : récupération de la date du serveur.</li>
