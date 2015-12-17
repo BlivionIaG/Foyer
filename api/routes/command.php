@@ -35,7 +35,7 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {get} /command/id_command/:id_command Récupération d'un commande par son ID.
+   * @api {get} /command/id_commande/:id_commande Récupération d'un commande par son ID.
    * @apiName GetCommandsByIdCommand
    * @apiGroup Command
    *
@@ -57,9 +57,9 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->get('/id_command/{id_command}', function($request, $response, $id_command){
+  $app->get('/id_commande/{id_commande}', function($request, $response, $id_commande){
     try {
-      $response = $response->withJson(Capsule::table('COMMAND')->where('id_command', $id_command)->first());
+      $response = $response->withJson(Capsule::table('COMMAND')->where('id_commande', $id_commande)->first());
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
