@@ -73,7 +73,7 @@
                 </a>
               </li>
               <li>
-                <a ng-click="delete(product.id_product)" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{product.id_product}} ?" ng-disabled="id_product.available == 0">
+                <a ng-click="delete(product.id_product)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{product.id_product}} ?" ng-disabled="product.available == 0">
                   Supprimer
                 </a>
               </li>

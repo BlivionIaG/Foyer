@@ -73,7 +73,7 @@
                 </a>
               </li>
               <li>
-                <a>
+                <a ng-click="delete(command.id_commande)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-disabled="command.state == 0">
                   Supprimer
                 </a>
               </li>
