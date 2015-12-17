@@ -48,9 +48,9 @@ Api rest du projet foyer.
 </ul>
 
 <h2>Doc</h2>
-Install apidoc <code>npm install apidoc -g</code>.
-Génération de la doc <code>apidoc -i routes/ index.php -o doc/</code>.
-Vous pourrez y accéder en allant à la racine de votre api.
+Installer apidoc <code>npm install apidoc -g</code>.
+Générer la doc avec la commande dans le dossier api <code>apidoc -i routes/ index.php -o doc/</code>.
+Vous pourrez y accéder en allant à la racine de votre api avec votre navigateur.
 
 <h2>Bugs</h2>
 Si vous avez des erreur 404 cela vient surement du rewriting qui ne marche bien, attention à votre conf apache.
