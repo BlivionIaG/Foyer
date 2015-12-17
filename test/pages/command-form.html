@@ -1,0 +1,31 @@
+
+<h1>Commande <small>/ <span ng-if="command.action == 'add'">Ajouter</span><span ng-if="command.action == 'edit'">Édition da la Commande &laquo; {{ command.id_commande }} &raquo;</span></small></h1>
+<hr />
+
+<form>
+<span ng-if="command.action == 'edit'">
+  <div class="form-group">
+    <label>ID</label>
+    <input type="text" class="form-control" placeholder="ID" ng-model="command.id_commande" ng-disabled="command.action == 'edit'">
+  </div>
+</span>
+  <div class="form-group">
+    <label>Login</label>
+    <input type="text" class="form-control" placeholder="Login" ng-model="command.login">
+  </div>
+  <div class="form-group">
+    <label>Période de début</label>
+    <input type="text" class="form-control" placeholder="Période Début" ng-model="command.periode_debut">
+  </div>
+    <div class="form-group">
+    <label>Période de fin</label>
+    <input type="text" class="form-control" placeholder="Période Fin" ng-model="command.periode_fin">
+  </div>
+  <div class="form-group">
+    <label>Etat de la commande</label>
+    <input type="radio" ng-model="command.state" ng-value="1" ng-checked="command.state == 1"/>En cours de validation
+    <input type="radio" ng-model="command.state" ng-value="2" ng-checked="command.state == 2"/>Validé
+    <input type="radio" ng-model="command.state" ng-value="3" ng-checked="command.state == 3"/>Servie
+  </div>
+  <button type="submit" class="btn btn-default">Enregistrer</button>
+</form>

@@ -3,10 +3,12 @@
 <hr />
 
 <form>
+<span ng-if="product.action == 'edit'">
   <div class="form-group">
     <label>ID</label>
     <input type="text" class="form-control" placeholder="ID" ng-model="product.id_product" ng-disabled="product.action == 'edit'">
   </div>
+</span>
   <div class="form-group">
     <label>Nom</label>
     <input type="text" class="form-control" placeholder="Nom" ng-model="product.name">
@@ -15,10 +17,20 @@
     <label>Description</label>
     <input type="text" class="form-control" placeholder="Description" ng-model="product.description">
   </div>
+    <div class="form-group">
+    <label>Prix</label>
+    <input type="text" class="form-control" placeholder="Prix" ng-model="product.price">
+  </div>
   <div class="form-group">
-    <label for="exampleInputFile">File input</label>
-    <input type="file" id="exampleInputFile">
-    <p class="help-block">Example block-level help text here.</p>
+    <label>Etat</label>
+    <input type="radio" ng-model="product.available" ng-value="1" ng-checked="product.available == 1"/>Disponible
+    <input type="radio" ng-model="product.available" ng-value="2" ng-checked="product.available == 2"/>Plus en stock
+    <input type="radio" ng-model="product.available" ng-value="3" ng-checked="product.available == 3"/>Indisponible
+  </div>
+  <div class="form-group">
+    <label>Ajoutez une image</label>
+    <input type="file">
+    <p class="help-block">Image existante: <img src="files/product/{{product.id_product}}.png" height="120" width="120"></p>
   </div>
   <button type="submit" class="btn btn-default">Enregistrer</button>
 </form>

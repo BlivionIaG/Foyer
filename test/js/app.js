@@ -35,6 +35,16 @@ var App = angular
     controller  : 'commandController'
   })
 
+  .when('/command/edit/:id_commande', {
+    templateUrl : 'pages/command-form.html',
+    controller  : 'commandFormController'
+  })
+
+  .when('/command/add', {
+    templateUrl : 'pages/command-form.html',
+    controller  : 'commandFormController'
+  })
+
   .otherwise({
     redirectTo: '/404'
   });
@@ -57,6 +67,7 @@ var App = angular
 .controller('productController', function($scope, $http, CONFIG) {
   $http.get(CONFIG.API_URL+'product/').success(function(data){
     $scope.products = data;
+    $scope.loaded = true;
   });
 })
 
@@ -75,5 +86,18 @@ var App = angular
 .controller('commandController', function($scope, $http, CONFIG) {
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
+    $scope.loaded = true;
   });
+})
+
+.controller('commandFormController', function($scope, $http, CONFIG, $routeParams) {
+  $scope.command = {};
+  $scope.command.action = 'add';
+
+  if ($routeParams.id_commande) {
+    $http.get(CONFIG.API_URL+'command/id_commande/'+$routeParams.id_commande).success(function(data){
+      $scope.command = data;
+      $scope.command.action = 'edit';
+    });
+  }
 });
