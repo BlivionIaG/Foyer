@@ -1,14 +1,14 @@
 
-<h1>Produit <small>/ <span ng-if="product.action == 'add'">Ajouter</span><span ng-if="product.action == 'edit'">Édition de produit &laquo; {{ product.id_product }} &raquo;</span></small></h1>
+<h1>Produit <small>/ <span ng-if="action == 'add'">Ajouter</span><span ng-if="action == 'edit'">Édition de produit &laquo; {{ product.id_product }} &raquo;</span></small></h1>
 <hr />
 
-<form>
-<span ng-if="product.action == 'edit'">
-  <div class="form-group">
-    <label>ID</label>
-    <input type="text" class="form-control" placeholder="ID" ng-model="product.id_product" ng-disabled="product.action == 'edit'">
-  </div>
-</span>
+<form role="form" class="form-horizontal" ng-submit="submitForm()">
+  <span ng-if="action == 'edit'">
+    <div class="form-group">
+      <label>ID</label>
+      <input type="text" class="form-control" placeholder="ID" ng-model="product.id_product" ng-disabled="action == 'edit'">
+    </div>
+  </span>
   <div class="form-group">
     <label>Nom</label>
     <input type="text" class="form-control" placeholder="Nom" ng-model="product.name">
@@ -17,7 +17,7 @@
     <label>Description</label>
     <input type="text" class="form-control" placeholder="Description" ng-model="product.description">
   </div>
-    <div class="form-group">
+  <div class="form-group">
     <label>Prix</label>
     <input type="text" class="form-control" placeholder="Prix" ng-model="product.price">
   </div>

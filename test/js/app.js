@@ -71,16 +71,38 @@ var App = angular
   });
 })
 
-.controller('productFormController', function($scope, $http, CONFIG, $routeParams) {
+.controller('productFormController', function($scope, $http, CONFIG, $routeParams, $document, $location) {
   $scope.product = {};
-  $scope.product.action = 'add';
+  $scope.action = 'add';
 
   if ($routeParams.id_product) {
     $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){
       $scope.product = data;
-      $scope.product.action = 'edit';
+      $scope.action = 'edit';
     });
   }
+
+  // Post du formulaire
+  $scope.submitForm = function(item, event) {
+      //edit
+      if($scope.action == 'edit'){
+        $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function(data) {
+          $location.path('#product');
+        }).error(function(data) {
+          $scope.alert = data;
+          $document.scrollTop(0, 250);
+        });
+      }
+    //ajout
+    else{
+      $http.post(CONFIG.API_URL+'product/', $scope.product).success(function(data) {
+        $location.path('#product');
+      }).error(function(data) {
+        $scope.alert = data;
+        $document.scrollTop(0, 250);
+      });
+    }
+  };
 })
 
 .controller('commandController', function($scope, $http, CONFIG) {
@@ -90,14 +112,40 @@ var App = angular
   });
 })
 
-.controller('commandFormController', function($scope, $http, CONFIG, $routeParams) {
+.controller('commandFormController', function($scope, $http, CONFIG, $routeParams, $document, $location) {
   $scope.command = {};
-  $scope.command.action = 'add';
+  $scope.action = 'add';
+
+  $http.get(CONFIG.API_URL+'user/').success(function(data){
+    $scope.users = data;
+  });
 
   if ($routeParams.id_commande) {
     $http.get(CONFIG.API_URL+'command/id_commande/'+$routeParams.id_commande).success(function(data){
       $scope.command = data;
-      $scope.command.action = 'edit';
+      $scope.action = 'edit';
     });
   }
+
+  // Post du formulaire
+  $scope.submitForm = function(item, event) {
+      //edit
+      if($scope.action == 'edit'){
+        $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
+          $location.path('#command');
+        }).error(function(data) {
+          $scope.alert = data;
+          $document.scrollTop(0, 250);
+        });
+      }
+    //ajout
+    else{
+      $http.post(CONFIG.API_URL+'command/', $scope.command).success(function(data) {
+        $location.path('#command');
+      }).error(function(data) {
+        $scope.alert = data;
+        $document.scrollTop(0, 250);
+      });
+    }
+  };
 });
