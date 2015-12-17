@@ -165,7 +165,7 @@ $app->group('/notification', function() use ($app) {
    * @apiName DeleteNotification
    * @apiGroup Notification
    *
-   * @apiSuccess {Number} id_notification ID de la notification.
+   * @apiParam {Number} id_notification ID de la notification.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK

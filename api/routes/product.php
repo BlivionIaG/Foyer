@@ -186,7 +186,7 @@ $app->group('/product', function() use ($app) {
 	 * @apiName DeleteProduct
 	 * @apiGroup Product
 	 *
-	 * @apiSuccess {Number} id_product ID du produit.
+	 * @apiParam {Number} id_product ID du produit.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK

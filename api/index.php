@@ -25,6 +25,7 @@ $app = new Slim\App();
 require 'routes/product.php';
 require 'routes/command.php';
 require 'routes/notification.php';
+require 'routes/user.php';
 require 'routes/other.php';
 
 //redirection vers la doc

@@ -141,7 +141,7 @@ $app->group('/command', function() use ($app) {
    * @apiName DeleteCommand
    * @apiGroup Command
    *
-   * @apiSuccess {Number} id_command ID de la commande.
+   * @apiParam {Number} id_command ID de la commande.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
