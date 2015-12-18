@@ -45,6 +45,9 @@ Api rest du projet foyer.
 <h3>Autres</h3>
 <ul>
   <li>GET <code>/date/</code> : récupération de la date du serveur.</li>
+  <li>GET <code>/login/</code> : check la connexion pour l'app admin.</li>
+  <li>POST <code>/login/</code> : connexion pour l'app admin.</li>
+  <li>GET <code>/logout/</code> : deconnexion pour l'app admin.</li>
 </ul>
 
 <h2>Doc</h2>
