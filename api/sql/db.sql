@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `NOTIFICATION` (
 INSERT INTO `NOTIFICATION` (`id_notification`, `id_command`, `notification`, `login`, `method`) VALUES
 (335, 82, 'Votre commande est en cours de validation', 'anicol17', 0),
 (337, 83, 'dazodz ', 'anicol17', 2),
-(340, 83, 'Votre commande a été payée', 'anicol17', 0);
+(340, 83, 'Votre commande a ??pay?', 'anicol17', 0);
 
 CREATE TABLE IF NOT EXISTS `PRODUCT` (
   `id_product` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,13 +48,13 @@ CREATE TABLE IF NOT EXISTS `PRODUCT` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 INSERT INTO `PRODUCT` (`id_product`, `name`, `price`, `description`, `available`, `date`) VALUES
-(2, 'Pizza Italienne', 9.5, 'La pizza italienne est un vrai repas équilibré et complet qui contient des glucides, des protéines et des vitamines', 1, '2015-05-23 16:01:09'),
+(2, 'Pizza Italienne', 9.5, 'La pizza italienne est un vrai repas ?uilibr?et complet qui contient des glucides, des prot?nes et des vitamines', 1, '2015-05-23 16:01:09'),
 (5, 'Verre de coca', 3.5, 'N''est pas du pepsi', 1, '2015-05-23 16:01:09'),
-(6, 'Galette Saucisse', 2, 'J’en mangerai des kilos, et des kilos !, \r\nDans toute l’Ille-et-Vilaine, \r\nAvec du lait Ribot, du lait Ribot ! \r\nEt si tu m’abandonnes, ', 1, '2015-05-23 16:01:09'),
-(16, 'Baguette', 0.8, 'Une baguette de pain ou simplement baguette, ou encore pain français (québécisme et belgicisme), est une variété de pain, reconnaissable à sa forme al', 1, '2015-05-23 16:01:09'),
+(6, 'Galette Saucisse', 2, 'J?en mangerai des kilos, et des kilos !, \r\nDans toute l?Ille-et-Vilaine, \r\nAvec du lait Ribot, du lait Ribot ! \r\nEt si tu m?abandonnes, ', 1, '2015-05-23 16:01:09'),
+(16, 'Baguette', 0.8, 'Une baguette de pain ou simplement baguette, ou encore pain fran?is (qu??isme et belgicisme), est une vari??de pain, reconnaissable ?sa forme al', 1, '2015-05-23 16:01:09'),
 (20, 'Frites', 2, 'Barquette de 200g de frites, fournis avec ses sauces aux choix (ketchup, moutardes ...).', 1, '2015-05-23 16:01:09'),
-(22, 'Lasagne Findus', 3, 'Délicieuse lasagne à la bolognaise (contiens de la viande de cheval).', 1, '2015-05-23 16:01:09'),
-(23, 'Banane', 0.5, 'La banane est le fruit ou la baie dérivant de l’inflorescence du bananier.', 1, '2015-05-11 16:01:09');
+(22, 'Lasagne Findus', 3, 'D?icieuse lasagne ?la bolognaise (contiens de la viande de cheval).', 1, '2015-05-23 16:01:09'),
+(23, 'Banane', 0.5, 'La banane est le fruit ou la baie d?ivant de l?inflorescence du bananier.', 1, '2015-05-11 16:01:09');
 
 CREATE TABLE IF NOT EXISTS `PRODUCT_COMMAND` (
   `quantity` int(11) DEFAULT NULL,
@@ -113,22 +113,13 @@ ALTER TABLE `COMMAND`
   ADD CONSTRAINT `FK_COMMAND_login` FOREIGN KEY (`login`) REFERENCES `USER` (`login`),
   ADD CONSTRAINT `FK_COMMAND_state` FOREIGN KEY (`state`) REFERENCES `STATE` (`state`);
 
---
--- Constraints for table `NOTIFICATION`
---
 ALTER TABLE `NOTIFICATION`
   ADD CONSTRAINT `FK_NOTIFICATION_login` FOREIGN KEY (`login`) REFERENCES `USER` (`login`);
 
---
--- Constraints for table `PRODUCT_COMMAND`
---
 ALTER TABLE `PRODUCT_COMMAND`
   ADD CONSTRAINT `FK_PRODUCT_COMMAND_id_commande` FOREIGN KEY (`id_commande`) REFERENCES `COMMAND` (`id_commande`),
   ADD CONSTRAINT `FK_PRODUCT_COMMAND_id_product` FOREIGN KEY (`id_product`) REFERENCES `PRODUCT` (`id_product`);
 
---
--- Constraints for table `USER_CLUB`
---
 ALTER TABLE `USER_CLUB`
   ADD CONSTRAINT `FK_USER_CLUB_id_club` FOREIGN KEY (`id_club`) REFERENCES `CLUB` (`id_club`),
   ADD CONSTRAINT `FK_USER_CLUB_login` FOREIGN KEY (`login`) REFERENCES `USER` (`login`);

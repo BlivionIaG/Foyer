@@ -138,6 +138,7 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->post('/',function ($request, $response)  use ($app) {
+		var_dump($request->getParsedBody());
 		try {
 			Capsule::table('PRODUCT')->insert($request->getParsedBody());
 			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);

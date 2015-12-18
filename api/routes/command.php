@@ -96,6 +96,7 @@ $app->group('/command', function() use ($app) {
       foreach ($request->getParsedBody()->products as $key => $product) {
         Capsule::table('PRODUCT_COMMAND')->insert($product);
       }
+      $response = $response->withJson(array ("status"  => array("ok" => $e->getMessage())), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
