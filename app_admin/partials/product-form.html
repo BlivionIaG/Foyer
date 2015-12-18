@@ -1,0 +1,46 @@
+
+<h1>Produit <small>/ <span ng-if="action == 'add'">Ajouter</span><span ng-if="action == 'edit'">Édition de produit &laquo; {{ product.id_product }} &raquo;</span></small></h1>
+<hr />
+
+<div class="alert alert-{{ alert.type}}" role="alert" ng-show="alert">
+  <button type="button" class="close" ng-click="alert = false"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <p ng-bind-html="alert.message"></p>
+</div>
+
+<form role="form" class="form-horizontal" ng-submit="submitForm()">
+  <span ng-if="action == 'edit'">
+    <div class="form-group">
+      <label>ID</label>
+      <input type="text" class="form-control" placeholder="ID" ng-model="product.id_product" ng-disabled="action == 'edit'">
+    </div>
+  </span>
+  <div class="form-group">
+    <label>Nom</label>
+    <input type="text" class="form-control" placeholder="Nom" ng-model="product.name" required>
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <input type="text" class="form-control" placeholder="Description" ng-model="product.description" required>
+  </div>
+  <div class="form-group">
+    <label>Prix</label>
+    <input type="text" class="form-control" placeholder="Prix" ng-model="product.price" required>
+  </div>
+  <div class="form-group">
+    <label>Etat</label>
+    <input type="radio" ng-model="product.available" ng-value="1" ng-checked="true"/>Disponible
+    <input type="radio" ng-model="product.available" ng-value="2" ng-checked="product.available == 2"/>Plus en stock
+    <input type="radio" ng-model="product.available" ng-value="3" ng-checked="product.available == 3"/>Indisponible
+  </div>
+  <div class="form-group">
+    <label>Ajoutez une image</label>
+    <input ng-model="product.file" type="file" ng-required="action == 'add'">
+    <p class="help-block">Image existante: <img src="files/product/{{product.id_product}}.png" height="120" width="120"></p>
+  </div>
+  <div class="pull-right">
+    <a href="#product" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
+    <a ng-if="action == 'edit'" class="btn btn-danger" ng-click="delete()" ng-confirm-click="Êtes-vous sûr de vouloir supprimer ?">Supprimer</a>
+    <a class="btn btn-danger" ng-if="action == 'add'" ng-click="reinitialiser()" ng-confirm-click="Êtes-vous sûr de vouloir tout effacer ?">Ré-initialiser</a>
+    <input type="submit" value="Valider" class="btn btn-primary"/>
+  </div>
+</form>
