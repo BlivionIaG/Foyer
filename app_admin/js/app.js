@@ -123,9 +123,12 @@ var App = angular
   $scope.submitForm = function(item, event) {
     //edit
     if($scope.action == 'edit'){
+      console.log($scope.product);
       $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function(data) {
+        console.log(data);
         $location.path('#product');
       }).error(function(data) {
+        console.log(data);
         $scope.alert = data;
         $document.scrollTop(0, 250);
       });
@@ -197,8 +200,10 @@ var App = angular
     //edit
     if($scope.action == 'edit'){
       $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
+        console.log(data);
         $location.path('#command');
       }).error(function(data) {
+        console.log(data);
         $scope.alert = data;
         $document.scrollTop(0, 250);
       });
