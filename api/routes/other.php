@@ -17,3 +17,51 @@ $app->get('/date/', function($request, $response) {
 	date_default_timezone_set('Europe/Paris');
 	return $response->write(date("d m Y H:i"));
 });
+
+/**
+* @api {get} /login/ Check la connexion à l'interface admin.
+* @apiName PostCheckConnexion
+* @apiGroup Others
+*
+* @apiSuccess {String} etat Etat de connexion.
+*
+* @apiSuccessExample Success-Response:
+*     HTTP/1.1 200 OK
+*
+*/
+$app->get('/login/', function($request, $response) {
+  session_start();
+  if(isset($_SESSION['uid']))
+    return $response->withJson(array ("status"  => array("succes" => "ok")), 200);
+  else
+    return $response->withJson(array ("status"  => array("error" => "ok")), 400);
+});
+
+/**
+* @api {post} /login/ Connexion à l'interface admin.
+* @apiName PostConnexion
+* @apiGroup Others
+*
+* @apiParam {String} login Login club.
+* @apiParam {String} password Mot de passe.
+*
+* @apiSuccess {String} etat Etat de connexion.
+*
+* @apiSuccessExample Success-Response:
+*     HTTP/1.1 200 OK
+*
+*/
+$app->post('/login/',function ($request, $response)  use ($app) {
+  try {
+    if(Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
+      session_start();
+      $_SESSION['uid'] = uniqid().'_'.$data['hash'];
+      $response = $response->withJson(array ("status"  => array("succes" => "ok")), 200);
+    }
+    else
+      $response = $response->withJson(array ("status"  => array("error" => "false")), 400);
+  } catch(Illuminate\Database\QueryException $e) {
+    $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+  }
+  return $response;
+});
