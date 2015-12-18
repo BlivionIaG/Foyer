@@ -7,7 +7,7 @@ angular.module('foyerApp', [
   'foyerApp.filters',
   'foyerApp.services',
   'foyerApp.controllers'
-])
+  ])
 
 .constant('CONFIG', {
   'API_URL': 'http://192.168.1.173/Foyer/api/'
@@ -23,11 +23,11 @@ angular.module('foyerApp', [
     controller  : 'homeController'
   })
 
- /* .when('/', {
+  .when('/identification', {
     templateUrl : 'partials/identification.html',
     controller  : 'identificationController'
   })
-*/
+
   .when('/product', {
     templateUrl : 'partials/product.html',
     controller  : 'productController'
@@ -72,22 +72,22 @@ angular.module('foyerApp', [
   };
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-}]);
+}])
 
-
-/*
 // Route permissions
 .run(function($rootScope, $location, loginService) {
   var routeAllowed = ['/identification']; // Route that not required login
   $rootScope.$on('$routeChangeStart', function() {
     if(routeAllowed.indexOf($location.path()) == -1) {
       var connected  = loginService.isLogged();
-      connected.then(function(msg) {
-        if(!msg.data) {
-          $location.path('#identification');
-        }
-      });
+      if(connected)
+        connected.then(function(msg) {
+          if(!msg.data) {
+            $location.path('identification');
+          }
+        });
+      else
+        $location.path('identification');
     }
   });
 });
-*/

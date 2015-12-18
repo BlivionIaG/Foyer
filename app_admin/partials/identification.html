@@ -1,0 +1,14 @@
+<form role="form" name="loginForm" ng-submit="login(user)" class="form-signin">
+  <h1><img src="img/logo.png" height="80" /> App Foyer</h1>
+  <p>Remplissez le formulaire ci-dessous pour vous connecter.</p>
+  <div class="alert alert-danger" role="alert" ng-show="loginMessage">
+    <p>{{ loginMessage }}</p>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Identifiant" ng-model="user.login" name="login" />
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Mot de passe" ng-model="user.password" name="password" />
+  </div>
+  <input type="submit" value="S'identifier" class="btn btn-lg btn-block btn-primary" />
+</form>
