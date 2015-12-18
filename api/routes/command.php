@@ -103,11 +103,11 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {put} /command/:id_command Modification d'une commande.
+   * @api {put} /command/:id_commande Modification d'une commande.
    * @apiName PutCommand
    * @apiGroup Command
    *
-   * @apiParam {Number} id_command ID de la commande.
+   * @apiParam {Number} id_commande ID de la commande.
    *
    * @apiParam {String} login Login de la commande de l'utilisateur.
    * @apiParam {Number} state Etat de la commande.
@@ -126,9 +126,9 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->put('/{id_command}', function ($request, $response, $id_command) use ($app){
+  $app->put('/{id_commande}', function ($request, $response, $id_commande) use ($app){
     try {
-      Capsule::table('PRODUCT')->where('id_command',$id_command)->update($request->getParsedBody());
+      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update($request->getParsedBody());
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
@@ -137,11 +137,11 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {delete} /command/:id_command Suppression d'une commande.
+   * @api {delete} /command/:id_commande Suppression d'une commande.
    * @apiName DeleteCommand
    * @apiGroup Command
    *
-   * @apiParam {Number} id_command ID de la commande.
+   * @apiParam {Number} id_commande ID de la commande.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
@@ -155,9 +155,9 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->delete('/{id_command}',function ($request, $response, $id_command) {
+  $app->delete('/{id_commande}',function ($request, $response, $id_commande) {
     try {
-      Capsule::table('PRODUCT')->where('id_command',$id_command)->update(['state' => 3]);
+      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update(['state' => 3]);
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
