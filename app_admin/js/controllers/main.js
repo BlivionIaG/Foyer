@@ -7,7 +7,7 @@ angular.module('foyerApp.controllers', [])
   $rootScope.$on('$locationChangeStart', function (event, next, current) {
     $scope.search = '';
     var connected  = loginService.isLogged();
-    if(connected)
+    if(connected){
       connected.then(function(msg) {
         if(!msg.data) {
           $rootScope.isLogged = false;
@@ -15,26 +15,22 @@ angular.module('foyerApp.controllers', [])
         }
         else {
           $rootScope.isLogged = true;
+          $rootScope.user = 'ksidor18';
         }
       });
+    }
     else{
       $rootScope.isLogged = false;
       $rootScope.user = false;
     }
-  });
+    });
     // Logout
     $rootScope.logout = function() {
-      loginService.lougout();
+      loginService.logout();
     };
-    // Active menu
-    $rootScope.isActive = function (viewLocation) {
-      var explodeURL = $location.path().slice(1).split('/');
-      return explodeURL.indexOf(viewLocation) === 0;
-    };
-    $rootScope.showAppSwitcher = ($location.absUrl().indexOf('.local') > 0 ? true : false);
-  }])
+}])
 
-.controller('ErrorCtrl', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+.controller('ErrorController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
 
 }])
 
