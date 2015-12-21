@@ -24,6 +24,8 @@ $app->get('/date/', function($request, $response) {
 * @apiGroup Others
 *
 * @apiSuccess {String} etat Etat de connexion.
+* @apiSuccess {String} login Login de connexion.
+* @apiSuccess {String} uid ID de connexion.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
@@ -32,7 +34,7 @@ $app->get('/date/', function($request, $response) {
 $app->get('/login/', function($request, $response) {
   session_start();
   if(isset($_SESSION['uid']))
-    return $response->withJson(array ("status"  => array("succes" => $_SESSION['uid'])), 200);
+    return $response->withJson(array ("status" => "ok", "login" => $_SESSION['login'], "uid" => $_SESSION['uid']), 200);
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
 });
@@ -75,6 +77,7 @@ $app->post('/login/',function ($request, $response)  use ($app) {
     if(Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
       session_start();
       $_SESSION['uid'] = uniqid();
+      $_SESSION['login'] = $request->getParsedBody()['login'];
       $response = $response->withJson(array ("status"  => array("succes" => uniqid())), 200);
     }
     else
