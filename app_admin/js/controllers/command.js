@@ -12,8 +12,8 @@ angular.module('foyerApp.controllers')
 
   //suppression d'une commande
   $scope.delete = function(item, event) {
-    $http.delete(CONFIG.API_URL+'command/'+item).success(function(data) {
-      $window.location.reload();
+    item.state = 0;
+    $http.delete(CONFIG.API_URL+'command/'+item.id_commande).success(function(data) {
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
@@ -25,7 +25,6 @@ angular.module('foyerApp.controllers')
     item.state = 2;
     delete item.$$hashKey;
     $http.put(CONFIG.API_URL+'command/'+item.id_commande,item).success(function(data) {
-      $window.location.reload();
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
@@ -37,7 +36,6 @@ angular.module('foyerApp.controllers')
     item.state = 3;
     delete item.$$hashKey;
     $http.put(CONFIG.API_URL+'command/'+item.id_commande,item).success(function(data) {
-      $window.location.reload();
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);

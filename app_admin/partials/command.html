@@ -55,7 +55,8 @@
     <tbody>
       <tr ng-class="{'success':command.state == 3,
                     'danger':command.state == 1,
-                    'warning':command.state == 2}"
+                    'warning':command.state == 2,
+                    'info':command.state == 0}"
           ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse">
         <td>{{ command.id_commande }}</td>
         <td>{{ command.login }}</td>
@@ -73,17 +74,17 @@
                 </a>
               </li>
               <li>
-                <a ng-click="confirm(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir valider {{command.id_commande}} ?" ng-disabled="command.state == 2 || command.state == 3">
+                <a ng-click="confirm(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir valider {{command.id_commande}} ?" ng-disabled="command.state == 0 || command.state == 2 || command.state == 3">
                   Valider
                 </a>
               </li>
               <li>
-                <a ng-click="final(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir finaliser {{command.id_commande}} ?" ng-disabled="command.state == 1 || command.state == 3">
+                <a ng-click="final(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir finaliser {{command.id_commande}} ?" ng-disabled="command.state == 0 || command.state == 1 || command.state == 3">
                   Servie
                 </a>
               </li>
               <li>
-                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-disabled="command.state == 1 || command.state == 2 || command.state == 3">
+                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-disabled="command.state == 0 || command.state == 2 || command.state == 3">
                   Supprimer
                 </a>
               </li>
