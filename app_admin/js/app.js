@@ -86,8 +86,7 @@ angular.module('foyerApp', [
             $location.path('identification');
           }
         });
-      else
-        $location.path('identification');
+      //else $location.path('identification');
     }
   });
 });

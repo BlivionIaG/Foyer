@@ -5,7 +5,6 @@ angular.module('foyerApp.controllers', [])
 .controller('mainController', ['$rootScope', '$scope', '$http', '$location', 'loginService', 'sessionService', function($rootScope, $scope, $http, $location, loginService, sessionService) {
 
   $rootScope.$on('$locationChangeStart', function (event, next, current) {
-
     $scope.search = '';
     var connected  = loginService.isLogged();
     if(connected)
@@ -16,13 +15,6 @@ angular.module('foyerApp.controllers', [])
         }
         else {
           $rootScope.isLogged = true;
-          // Get user informations
-          if(!$rootScope.user) {
-            var uid = sessionService.get('uid');
-            $http.get('/data/utilisateurs.php?uid='+uid).success(function(data) {
-              $rootScope.user = data;
-            });
-          }
         }
       });
     else{

@@ -6,9 +6,10 @@ angular.module('foyerApp.services', [])
   return {
     login: function(user, $scope) {
       $http.post(CONFIG.API_URL+'login/', user).success(function(data) {
+        console.log(data);
         if(data) {
           sessionService.set('uid', data.status.success);
-          $location.path('home');
+          $location.path('#command');
         }
         else {
           $scope.loginMessage = 'Erreur identification.';
@@ -21,11 +22,8 @@ angular.module('foyerApp.services', [])
       $location.path('identification');
     },
     isLogged: function() {
-      var $checkSessionServer = $http.get(CONFIG.API_URL+'login/').success(function(data) {
-        return $checkSessionServer;
-      }).error(function(data) {
-        return null;
-      });
+      var $checkSessionServer = $http.get(CONFIG.API_URL+'login/');
+      return $checkSessionServer;
     }
   };
 }])
@@ -56,7 +54,7 @@ angular.module('foyerApp.services', [])
         return window.sessionStorage.removeItem(key);
       },
       isAllowed: function() {
-        var $checkDecryptAllowedServer = $http.post('/data/decrypt_allowed.php');
+        var $checkDecryptAllowedServer = $http.get(CONFIG.API_URL+'login/');
         return $checkDecryptAllowedServer;
       }
     };
