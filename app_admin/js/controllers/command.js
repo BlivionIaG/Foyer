@@ -19,6 +19,30 @@ angular.module('foyerApp.controllers')
       $document.scrollTop(0, 250);
     });
   };
+
+  //confirmation d'une commande
+  $scope.confirm = function(item, event) {
+    item.state = 2;
+    delete item.$$hashKey;
+    $http.put(CONFIG.API_URL+'command/'+item.id_commande,item).success(function(data) {
+      $window.location.reload();
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
+
+  //finalisation d'une commande
+  $scope.final = function(item, event) {
+    item.state = 3;
+    delete item.$$hashKey;
+    $http.put(CONFIG.API_URL+'command/'+item.id_commande,item).success(function(data) {
+      $window.location.reload();
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
 }])
 
 //controller de form commande
