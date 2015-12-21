@@ -23,11 +23,12 @@ angular.module('foyerApp.controllers', [])
       $rootScope.isLogged = false;
       $rootScope.user = false;
     }
-    });
-    // Logout
-    $rootScope.logout = function() {
-      loginService.logout();
-    };
+  });
+  // Logout
+  $rootScope.logout = function() {
+    loginService.logout();
+    location.reload();
+  };
 }])
 
 .controller('ErrorController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
@@ -35,6 +36,8 @@ angular.module('foyerApp.controllers', [])
 }])
 
 .controller('identificationController', ['$rootScope', '$scope', '$http', 'loginService', function($rootScope, $scope, $http, loginService) {
+  $scope.login = '';
+  $scope.password = '';
   $scope.login = function(user) {
     loginService.login(user, $scope);
   };

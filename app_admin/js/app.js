@@ -74,4 +74,16 @@ angular.module('foyerApp', [
   $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 }])
 
-;
+// Route permissions
+.run(function($rootScope, $location, loginService) {
+  var routeAllowed = ['/identification']; // Route that not required login
+  $rootScope.$on('$routeChangeStart', function() {
+    if(routeAllowed.indexOf($location.path()) == -1) {
+      var connected  = loginService.isLogged();
+      if(connected)
+        connected.error( function (){
+          $location.path('identification');
+      });
+    }
+  });
+});
