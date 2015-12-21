@@ -2,9 +2,9 @@
 <h1>Produit <small>/ <span ng-if="action == 'add'">Ajouter</span><span ng-if="action == 'edit'">Édition de produit &laquo; {{ product.id_product }} &raquo;</span></small></h1>
 <hr />
 
-<div class="alert alert-{{ alert.type}}" role="alert" ng-show="alert">
-  <button type="button" class="close" ng-click="alert = false"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <p ng-bind-html="alert.message"></p>
+<div class="alert alert-warning alert-dismissible" role="alert" ng-show="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Warning!</strong>{{ alert }}
 </div>
 
 <form role="form" class="form-horizontal" ng-submit="submitForm()">

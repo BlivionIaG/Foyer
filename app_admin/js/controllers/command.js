@@ -3,7 +3,7 @@
 angular.module('foyerApp.controllers')
 
 //controller de commande
-.controller('commandController',['$scope', '$http', '$window', 'CONFIG', function($scope, $http, $window, CONFIG) {
+.controller('commandController',['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
   //recuperation des commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
@@ -22,7 +22,7 @@ angular.module('foyerApp.controllers')
 }])
 
 //controller de form commande
-.controller('commandFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $routeParams, $document, $location, CONFIG) {
+.controller('commandFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $window,$routeParams, $document, $location, CONFIG) {
   $scope.command = {};
   $scope.action = 'add';
 
@@ -44,10 +44,8 @@ angular.module('foyerApp.controllers')
     //edit
     if($scope.action == 'edit'){
       $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
-        console.log(data);
-        $location.path('#command');
+        $location.path('command');
       }).error(function(data) {
-        console.log(data);
         $scope.alert = data;
         $document.scrollTop(0, 250);
       });
@@ -55,7 +53,7 @@ angular.module('foyerApp.controllers')
     //ajout
     else{
       $http.post(CONFIG.API_URL+'command/', $scope.command).success(function(data) {
-        $location.path('#command');
+        $location.path('command');
       }).error(function(data) {
         $scope.alert = data;
         $document.scrollTop(0, 250);
@@ -69,7 +67,7 @@ angular.module('foyerApp.controllers')
   //supression de la commande
   $scope.delete = function(item, event) {
     $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_commande).success(function(data) {
-      $location.path('#command');
+      $location.path('command');
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);

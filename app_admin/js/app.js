@@ -3,6 +3,7 @@
 angular.module('foyerApp', [
   'ngRoute',
   'ngDialog',
+  'angular.morris-chart',
   'foyerApp.directives',
   'foyerApp.filters',
   'foyerApp.services',
