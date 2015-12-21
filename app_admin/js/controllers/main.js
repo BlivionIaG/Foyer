@@ -15,7 +15,7 @@ angular.module('foyerApp.controllers', [])
         }
         else {
           $rootScope.isLogged = true;
-          $rootScope.user = 'ksidor18';
+          //$rootScope.user = 'ksidor18';
         }
       });
     }

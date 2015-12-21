@@ -6,13 +6,10 @@ angular.module('foyerApp.services', [])
   return {
     login: function(user, $scope) {
       $http.post(CONFIG.API_URL+'login/', user).success(function(data) {
-        if(data) {
-          sessionService.set('uid', data.status.success);
-          $location.path('#home');
-        }
-        else {
-          $scope.loginMessage = 'Erreur identification.';
-        }
+        sessionService.set('uid', data.status.success);
+        $location.path('#home');
+      }).error(function(data) {
+        $scope.loginMessage = "Erreur d'identification.";
       });
     },
     logout: function() {
