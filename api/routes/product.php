@@ -138,7 +138,6 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->post('/',function ($request, $response)  use ($app) {
-		var_dump($request->getParsedBody());
 		try {
 			Capsule::table('PRODUCT')->insert($request->getParsedBody());
 			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
@@ -174,7 +173,6 @@ $app->group('/product', function() use ($app) {
 	 */
 	$app->put('/{id_product}', function ($request, $response, $id_product) use ($app){
 		try {
-			var_dump($request->getParsedBody());
 			Capsule::table('PRODUCT')->where('id_product',$id_product)->update($request->getParsedBody());
 			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
 		} catch(Illuminate\Database\QueryException $e) {
