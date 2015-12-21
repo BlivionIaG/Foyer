@@ -32,7 +32,7 @@ $app->get('/date/', function($request, $response) {
 $app->get('/login/', function($request, $response) {
   session_start();
   if(isset($_SESSION['uid']))
-    return $response->withJson(array ("status"  => array("succes" => "ok")), 200);
+    return $response->withJson(array ("status"  => array("succes" => $_SESSION['uid'])), 200);
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
 });
@@ -49,6 +49,7 @@ $app->get('/login/', function($request, $response) {
 *
 */
 $app->get('/logout/', function($request, $response) {
+  session_start();
   if(!session_unset())
     return $response->withJson(array ("status"  => array("succes" => "ok")), 200);
   else
@@ -73,8 +74,8 @@ $app->post('/login/',function ($request, $response)  use ($app) {
   try {
     if(Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
       session_start();
-      $_SESSION['uid'] = uniqid().'_';
-      $response = $response->withJson(array ("status"  => array("succes" => "ok")), 200);
+      $_SESSION['uid'] = uniqid();
+      $response = $response->withJson(array ("status"  => array("succes" => uniqid())), 200);
     }
     else
       $response = $response->withJson(array ("status"  => array("error" => "false")), 400);
