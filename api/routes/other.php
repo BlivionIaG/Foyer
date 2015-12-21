@@ -20,7 +20,7 @@ $app->get('/date/', function($request, $response) {
 
 /**
 * @api {get} /login/ Check la connexion à l'interface admin.
-* @apiName PostCheckConnexion
+* @apiName GetCheckConnexion
 * @apiGroup Others
 *
 * @apiSuccess {String} etat Etat de connexion.
@@ -32,6 +32,24 @@ $app->get('/date/', function($request, $response) {
 $app->get('/login/', function($request, $response) {
   session_start();
   if(isset($_SESSION['uid']))
+    return $response->withJson(array ("status"  => array("succes" => "ok")), 200);
+  else
+    return $response->withJson(array ("status"  => array("error" => "ok")), 400);
+});
+
+/**
+* @api {get} /logout/ Déconnexion de l'interface admin.
+* @apiName GetDeconnexion
+* @apiGroup Others
+*
+* @apiSuccess {String} etat Etat de la déconnexion.
+*
+* @apiSuccessExample Success-Response:
+*     HTTP/1.1 200 OK
+*
+*/
+$app->get('/logout/', function($request, $response) {
+  if(!session_unset())
     return $response->withJson(array ("status"  => array("succes" => "ok")), 200);
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
@@ -55,7 +73,7 @@ $app->post('/login/',function ($request, $response)  use ($app) {
   try {
     if(Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
       session_start();
-      $_SESSION['uid'] = uniqid().'_'.$data['hash'];
+      $_SESSION['uid'] = uniqid().'_';
       $response = $response->withJson(array ("status"  => array("succes" => "ok")), 200);
     }
     else
