@@ -67,6 +67,38 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
+   * @api {get} /command/state/:state Récupération des commandes en fonction de son état.
+   * @apiName GetCommandsByState
+   * @apiGroup Command
+   *
+   * @apiParam {Number} state Etat de la commande.
+   *
+   * @apiSuccess {Number} id_commande ID du commande.
+   * @apiSuccess {String} login Login de la commande de l'utilisateur.
+   * @apiSuccess {Number} state Etat de la commande.
+   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {String} periode_debut Heure de début de la commande.
+   * @apiSuccess {String} periode_fin Heure de fin de la commande.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": code error
+   *     }
+   */
+  $app->get('/state/{state}', function($request, $response, $state){
+    try {
+      $response = $response->withJson(Capsule::table('COMMAND')->where('state', $state)->get());
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
+    return $response;
+  });
+
+  /**
    * @api {post} /command/ Ajout d'une commande.
    * @apiName PostCommand
    * @apiGroup Command
