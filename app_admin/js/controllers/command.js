@@ -10,6 +10,15 @@ angular.module('foyerApp.controllers')
     $scope.loaded = true;
   });
 
+  //total d'une commande
+  $scope.getTotal = function(item, event) {
+    var total = 0;
+    for(var i = 0; i < $scope.cart.products.length; i++){
+        total += item.product.price * item.product.quantity;
+    }
+    return total;
+  };
+
   //suppression d'une commande
   $scope.delete = function(item, event) {
     item.state = 0;

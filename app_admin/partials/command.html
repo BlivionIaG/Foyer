@@ -34,6 +34,13 @@
           </span>
         </th>
         <th>
+          <a ng-click="orderByField = '-commande'; sortReverse=!sortReverse">Commande</a>
+          <span ng-show="orderByField == '-commande'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
           <a ng-click="orderByField = '-periode_debut'; sortReverse=!sortReverse">Période Début</a>
           <span ng-show="orderByField == '-periode_debut'">
             <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
@@ -60,6 +67,17 @@
           ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse">
         <td>{{ command.id_commande }}</td>
         <td>{{ command.login }}</td>
+        <td>
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="product in command.product">
+              <span class="badge">{{ product.quantity }}</span>
+              {{ product.name }}
+            </li>
+            <li class="list-group-item active">
+              Total : {{ command.total }}€
+            </li>
+          </ul>
+        </td>
         <td>{{ command.periode_debut }}</td>
         <td>{{ command.periode_fin }}</td>
         <td class="table-actions">
