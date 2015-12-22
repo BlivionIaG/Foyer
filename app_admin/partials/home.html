@@ -1,20 +1,44 @@
-<div class="jumbotron text-center">
-  <h1>Home Page</h1>
-</div>
+<h1>Hello! <small>What's going on today?</small></h1>
+<hr />
 
-<div
-bar-chart
-bar-data='[
-    { y: "2006", a: 100, b: 90 },
-    { y: "2007", a: 75,  b: 65 },
-    { y: "2008", a: 50,  b: 40 },
-    { y: "2009", a: 75,  b: 65 },
-    { y: "2010", a: 50,  b: 40 },
-    { y: "2011", a: 75,  b: 65 },
-    { y: "2012", a: 100, b: 90 }
-]'
-bar-x='y'
-bar-y='["a", "b"]'
-bar-labels='["Series A", "Series B"]'
-bar-colors='["#31C0BE", "#c7254e"]'>
+<div class="row">
+  <div class="col-sm-8">
+    <div class="panel panel-success" ng-if="true">
+      <div class="panel-heading">
+        <h3 class="panel-title clearfix"><span class="pull-left">Statistiques</span></h3>
+      </div>
+      <div
+      line-chart
+      line-data='[
+          { y: "2006", a: 100, b: 90 },
+          { y: "2007", a: 75,  b: 65 },
+          { y: "2008", a: 50,  b: 40 },
+          { y: "2009", a: 75,  b: 65 },
+          { y: "2010", a: 50,  b: 40 },
+          { y: "2011", a: 75,  b: 65 },
+          { y: "2012", a: 100, b: 90 }
+      ]'
+      line-xkey='y'
+      line-ykeys='["a", "b"]'
+      line-labels='["Serie A", "Serie B"]'
+      line-colors='["#31C0BE", "#c7254e"]'>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title clearfix"><span class="pull-left">Commandes</span> <a href="#command" class="btn btn-xs btn-default pull-right">Consulter la liste complète</a></h3>
+      </div>
+      <table class="table table-condensed table-striped">
+        <tbody>
+          <tr ng-repeat="command_validate in commands_validate | limitTo: 10">
+            <td>{{ command_validate.login }}</td>
+            <td>{{ command_validate.periode_debut }}</td>
+            <td>{{ command_validate.periode_fin }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

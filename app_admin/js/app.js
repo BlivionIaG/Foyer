@@ -62,6 +62,11 @@ angular.module('foyerApp', [
     controller  : 'commandFormController'
   })
 
+  .when('/notification', {
+    templateUrl : 'partials/notification.html',
+    controller  : 'notificationController'
+  })
+
   .otherwise({
     redirectTo: '/'
   });

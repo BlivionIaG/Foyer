@@ -1,0 +1,59 @@
+<h1>Utilisateurs <small>/ Liste <span ng-show="logins">({{ (logins | filter:search).length }})</span></small></h1>
+<hr />
+
+<div class="alert alert-warning alert-dismissible" role="alert" ng-show="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Warning!</strong>{{ alert }}
+</div>
+
+<p><a href="#" class="btn btn-primary"><i class="fa fa-envelope"></i> Envoyer une notification à tout les utilisateurs</a><a style="margin-left:20px;" href="#" class="btn btn-primary"><i class="fa fa-times"></i> Supprimer le message à tous</a></p>
+
+<div class="alert alert-info" role="alert" ng-hide="loaded">
+  <p class="loading">Chargement en cours, merci de patienter...</p>
+</div>
+<div class="alert alert-info" role="alert" ng-show="(logins | filter:search).length == 0">
+  <p>Aucun résultat<span ng-show="search">, veuillez élargir la recherche</span>.</p>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr ng-hide="(logins | filter:search).length == 0">
+        <th>
+          <a ng-click="orderByField = '-login'; sortReverse=!sortReverse">Login</a>
+          <span ng-show="orderByField == '-login'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th class="table-actions">
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="login in logins | filter:search | orderBy:orderByField:sortReverse">
+        <td>{{ login.login }}</td>
+        <td class="table-actions">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span class="glyphicon glyphicon-cog"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+              <li>
+                <a class="btn">
+                  Envoyer une notification
+                </a>
+              </li>
+              <li>
+                <a class="btn">
+                  Supprimer une notification
+                </a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -7,7 +7,10 @@
   <strong>Warning!</strong>{{ alert }}
 </div>
 
-<form role="form" class="form-horizontal" ng-submit="submitForm()">
+<div class="alert alert-danger" role="alert" ng-show="form.periode_fin.$error.pattern || form.periode_debut.$error.pattern">Les périodes doivent être sous la forme XXhXX.</div>
+
+
+<form role="form" name="form" class="form-horizontal" ng-submit="submitForm()">
   <span ng-if="action == 'edit'">
     <div class="form-group">
       <label>ID</label>
@@ -20,11 +23,11 @@
   </div>
   <div class="form-group">
     <label>Période de début</label>
-    <input type="text" class="form-control" placeholder="Période Début" ng-model="command.periode_debut" required>
+    <input name="periode_debut" type="text" class="form-control" placeholder="Période Début" ng-model="command.periode_debut" ng-pattern="/^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$/" required>
   </div>
   <div class="form-group">
     <label>Période de fin</label>
-    <input type="text" class="form-control" placeholder="Période Fin" ng-model="command.periode_fin" required>
+    <input name="periode_fin" type="text" class="form-control" placeholder="Période Fin" ng-model="command.periode_fin" ng-pattern="/^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$/" required>
   </div>
   <div class="form-group">
     <label>Etat de la commande</label>
@@ -36,6 +39,6 @@
     <a href="#command" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
     <a ng-if="action == 'edit'" class="btn btn-danger" ng-click="delete()" ng-confirm-click="Êtes-vous sûr de vouloir supprimer ?">Supprimer</a>
     <a class="btn btn-danger" ng-if="action == 'add'" ng-click="reinitialiser()" ng-confirm-click="Êtes-vous sûr de vouloir tout effacer ?">Ré-initialiser</a>
-    <input type="submit" value="Valider" class="btn btn-primary"/>
+    <input type="submit" value="Valider" class="btn btn-primary" ng-disabled="form.periode_fin.$error.pattern || form.periode_debut.$error.pattern || command.login === ''"/>
   </div>
 </form>
