@@ -190,7 +190,7 @@ $app->group('/command', function() use ($app) {
    */
   $app->delete('/{id_commande}',function ($request, $response, $id_commande) {
     try {
-      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update(['state' => 3]);
+      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update(['state' => 0]);
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
