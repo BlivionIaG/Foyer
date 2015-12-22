@@ -8,4 +8,15 @@ angular.module('foyerApp.controllers')
     $scope.loaded = true;
   });
 
-  }]);
+
+   // $scope.facture = $scope.ngDialogData;
+
+  }])
+
+  .controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog', function($scope, $http, CONFIG, ngDialog) {
+
+    //ngDialog
+  $scope.open = function() {
+    ngDialog.open({ template: 'notification', controller: 'notificationPopupController' });
+  };
+    }]);

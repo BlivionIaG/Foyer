@@ -6,7 +6,10 @@
   <strong>Warning!</strong>{{ alert }}
 </div>
 
-<p><a href="#" class="btn btn-primary"><i class="fa fa-envelope"></i> Envoyer une notification à tout les utilisateurs</a><a style="margin-left:20px;" href="#" class="btn btn-primary"><i class="fa fa-times"></i> Supprimer le message à tous</a></p>
+<p>
+<a class="btn btn-primary" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true"><i class="fa fa-envelope"></i> Envoyer une notification à tout les utilisateurs</a>
+<a style="margin-left:20px;" class="btn btn-primary" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true"><i class="fa fa-times"></i> Supprimer le message à tous</a>
+</p>
 
 <div class="alert alert-info" role="alert" ng-hide="loaded">
   <p class="loading">Chargement en cours, merci de patienter...</p>
@@ -41,12 +44,12 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu">
               <li>
-                <a class="btn">
+                <a class="btn" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true" ng-dialog-data="{{ login }}">
                   Envoyer une notification
                 </a>
               </li>
               <li>
-                <a class="btn">
+                <a class="btn" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true" ng-dialog-data="{{ login }}">
                   Supprimer une notification
                 </a>
               </li>
@@ -57,3 +60,18 @@
     </tbody>
   </table>
 </div>
+
+<!-- Template de la popup de notification-->
+
+<script type="text/ng-template" id="notification">
+  <div class="ng-dialog-message">
+  <h4>Envoyer un message à tout les utilisateurs</h4>
+  <br/>
+  <label>Message : </label><input type="text" class="form-control">
+  </div>
+  <br/>
+  <div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="submitForm()" >Valider</button>
+    <button type="button" class="ngdialog-button ngdialog-button-default" ng-click="closeThisDialog()" >Annuler</button>
+  </div>
+</script>
