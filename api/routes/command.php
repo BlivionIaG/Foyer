@@ -15,7 +15,8 @@ $app->group('/command', function() use ($app) {
    * @apiSuccess {Date} time Date de la commande.
    * @apiSuccess {String} periode_debut Heure de début de la commande.
    * @apiSuccess {String} periode_fin Heure de fin de la commande.
-   *
+   * @apiSuccess {Array} product+quantity Produit de la commande avec la quantité.
+   * @apiSuccess {Number} total Total de la commande.
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
    *
@@ -27,7 +28,20 @@ $app->group('/command', function() use ($app) {
    */
   $app->get('/', function($request, $response) {
     try {
-      $response = $response->withJson(Capsule::table('COMMAND')->get());
+      $commandes = Capsule::table('COMMAND')->get();
+      $commande_products = Capsule::table('PRODUCT_COMMAND')->get();
+      foreach ($commandes as $key_commandes => $commande) {
+        $commandes[$key_commandes]->product = "";
+        foreach ($commande_products as $key_commande_products => $commande_product) {
+          if($commande_product->id_commande == $commande->id_commande){
+            $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
+            $product->quantity = $commande_product->quantity;
+            $commandes[$key_commandes]->total += $product->price;
+            $commandes[$key_commandes]->product[] = $product;
+          }
+        }
+      }
+      $response = $response->withJson($commandes);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
@@ -47,6 +61,8 @@ $app->group('/command', function() use ($app) {
    * @apiSuccess {Date} time Date de la commande.
    * @apiSuccess {String} periode_debut Heure de début de la commande.
    * @apiSuccess {String} periode_fin Heure de fin de la commande.
+   * @apiSuccess {Array} product+quantity Produit de la commande avec la quantité.
+   * @apiSuccess {Number} total Total de la commande.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
@@ -59,7 +75,16 @@ $app->group('/command', function() use ($app) {
    */
   $app->get('/id_commande/{id_commande}', function($request, $response, $id_commande){
     try {
-      $response = $response->withJson(Capsule::table('COMMAND')->where('id_commande', $id_commande)->first());
+      $commande = Capsule::table('COMMAND')->where('id_commande', $id_commande)->first();
+      $commande_products = Capsule::table('PRODUCT_COMMAND')->where('id_commande', $id_commande)->get();
+      $commande->product = "";
+      foreach ($commande_products as $key_commande_products => $commande_product) {
+        $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
+        $product->quantity = $commande_product->quantity;
+        $commande->product[] = $product;
+        $commande->total += $product->price;
+      }
+      $response = $response->withJson($commande);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
