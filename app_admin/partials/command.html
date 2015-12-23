@@ -61,30 +61,34 @@
     </thead>
     <tbody>
       <tr ng-class="{'success':command.state == 3,
-                    'danger':command.state == 1,
-                    'warning':command.state == 2,
-                    'info':command.state == 0}"
-          ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse">
-        <td>{{ command.id_commande }}</td>
-        <td>{{ command.login }}</td>
-        <td>
+      'danger':command.state == 1,
+      'warning':command.state == 2,
+      'info':command.state == 0}"
+      ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse">
+      <td>{{ command.id_commande }}</td>
+      <td>{{ command.login }}</td>
+      <td>
+        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#{{ command.id_commande }}" aria-expanded="false">Plus d'informations sur la commande</button>
+        <div class="collapse" id="{{ command.id_commande }}">
+          <br/>
           <ul class="list-group">
             <li class="list-group-item" ng-repeat="product in command.product">
               <span class="badge">{{ product.quantity }}</span>
-              {{ product.name }}
+              {{ product.name }} - {{ product.price}}€
             </li>
             <li class="list-group-item active">
               Total : {{ command.total }}€
             </li>
           </ul>
-        </td>
-        <td>{{ command.periode_debut }}</td>
-        <td>{{ command.periode_fin }}</td>
-        <td class="table-actions">
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <span class="glyphicon glyphicon-cog"></span>
-            </button>
+        </div>
+      </td>
+      <td>{{ command.periode_debut }}</td>
+      <td>{{ command.periode_fin }}</td>
+      <td class="table-actions">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="glyphicon glyphicon-cog"></span>
+          </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu">
               <li>
                 <a href="#command/edit/{{ command.id_commande }}" class="btn">

@@ -7,8 +7,8 @@
 </div>
 
 <p>
-<a class="btn btn-primary" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true"><i class="fa fa-envelope"></i> Envoyer une notification à tout les utilisateurs</a>
-<a style="margin-left:20px;" class="btn btn-primary" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true"><i class="fa fa-times"></i> Supprimer le message à tous</a>
+<a class="btn btn-primary" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true" ng-dialog-data=""><i class="fa fa-envelope"></i> Envoyer une notification à tout les utilisateurs</a>
+<a style="margin-left:20px;" ng-click="delete()" class="btn btn-primary" ng-confirm-click="Êtes-vous sûr de vouloir supprimer les notifications brodacast ?"><i class="fa fa-times"></i> Supprimer le message broadcast</a>
 </p>
 
 <div class="alert alert-info" role="alert" ng-hide="loaded">
@@ -49,8 +49,8 @@
                 </a>
               </li>
               <li>
-                <a class="btn" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true" ng-dialog-data="{{ login }}">
-                  Supprimer une notification
+                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer les notifications de {{login.login}} ?" >
+                  Supprimer ses notifications
                 </a>
               </li>
             </ul>
@@ -65,9 +65,10 @@
 
 <script type="text/ng-template" id="notification">
   <div class="ng-dialog-message">
-  <h4>Envoyer un message à tout les utilisateurs</h4>
+  <h4 ng-show="!notification.login">Envoyer un message à tout les utilisateurs</h4>
+  <h4 ng-show="notification.login">Envoyer un message à {{ notification.login }}</h4>
   <br/>
-  <label>Message : </label><input type="text" class="form-control">
+  <label>Message : </label><input ng-model="notification.notification" type="text" class="form-control">
   </div>
   <br/>
   <div class="ngdialog-buttons">

@@ -1,22 +1,47 @@
 'use strict';
 
 angular.module('foyerApp.controllers')
-  .controller('notificationController',['$scope', '$http', 'CONFIG', function($scope, $http, CONFIG) {
+.controller('notificationController',['$scope', '$http', 'CONFIG', function($scope, $http, CONFIG) {
   //recuperation des users
   $http.get(CONFIG.API_URL+'user/').success(function(data){
     $scope.logins = data;
     $scope.loaded = true;
   });
 
+  //recuperation des notifications
+  $http.get(CONFIG.API_URL+'notifiaction/').success(function(data){
+    $scope.notifiactions = data;
+    $scope.loaded = true;
+  });
 
-   // $scope.facture = $scope.ngDialogData;
+    $scope.delete = function(NotificationId){
+      $http.delete(CONFIG.API_URL+'notification/'+NotificationId).success(function(data) {
+        $scope.closeThisDialog();
+      });
+    };
 
-  }])
+}])
 
-  .controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog', function($scope, $http, CONFIG, ngDialog) {
+.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog', function($scope, $http, CONFIG, ngDialog) {
+
+    if($scope.ngDialogData !== undefined)
+      $scope.notification = $scope.ngDialogData;
+
+   // console.log($scope.notification);
+
+   // $scope.notification.notification = '';
+   // $scope.notification.method = 2;
 
     //ngDialog
-  $scope.open = function() {
-    ngDialog.open({ template: 'notification', controller: 'notificationPopupController' });
-  };
-    }]);
+    $scope.open = function() {
+      ngDialog.open({ template: 'notification', controller: 'notificationPopupController', scope:$scope });
+    };
+
+    delete $scope.notification.ngDialogId;
+    $scope.submitForm = function(){
+      $http.post(CONFIG.API_URL+'notification/', $scope.notification).success(function(data) {
+        $scope.closeThisDialog();
+      });
+    };
+
+}]);
