@@ -39,7 +39,6 @@ angular.module('foyerApp.controllers')
   $scope.submitForm = function(item, event) {
     //edit
     if($scope.action == 'edit'){
-      delete $scope.product.hash_image;
       $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function(data) {
         fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product);
         $location.path('product');
