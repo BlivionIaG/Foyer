@@ -15,6 +15,7 @@ $app->group('/product', function() use ($app) {
 	 * @apiSuccess {String} description Description du produit.
 	 * @apiSuccess {Number} available Disponibilité du produit.
 	 * @apiSuccess {Date} date Date de création du produit.
+	 * @apiSuccess {String} image Nom fichier de l'image.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -51,6 +52,7 @@ $app->group('/product', function() use ($app) {
 	 * @apiSuccess {String} description Description du produit.
 	 * @apiSuccess {Number} available Disponibilité du produit.
 	 * @apiSuccess {Date} date Date de création du produit.
+	 * @apiSuccess {String} image Nom fichier de l'image.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -85,6 +87,7 @@ $app->group('/product', function() use ($app) {
 	 * @apiSuccess {Number} available Disponibilité du produit.
 	 * @apiSuccess {Date} date Date de création du produit.
 	 * @apiSuccess {String} hash_image Hash de l'image pour check le cache.
+	 * @apiSuccess {String} image Nom fichier de l'image.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
