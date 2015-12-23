@@ -62,7 +62,7 @@
                 'warning':product.available == 2}"
       ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
         <td>{{ product.id_product }}</td>
-        <td><img src="files/product/{{product.id_product}}.png" height="120" width="120"></td>
+        <td><img src="{{ api_url }}files/product/{{product.id_product}}.png" height="120" width="120"></td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
         <td>{{ product.price }}</td>

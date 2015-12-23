@@ -34,7 +34,7 @@
   </div>
   <div class="form-group">
     <label>Ajoutez une image</label>
-    <input ng-model="product.file" type="file" ng-required="action == 'add'">
+    <input file-model="productImage" type="file" ng-required="action == 'add'">
     <p class="help-block">Image existante: <img src="files/product/{{product.id_product}}.png" height="120" width="120"></p>
   </div>
   <div class="pull-right">

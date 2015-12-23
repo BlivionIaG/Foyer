@@ -62,6 +62,11 @@ angular.module('foyerApp.controllers')
     $scope.users = data;
   });
 
+  //recuperation des produits
+  $http.get(CONFIG.API_URL+'product/').success(function(data){
+    $scope.products = data;
+  });
+
   //recuperation de la commande
   if ($routeParams.id_commande) {
     $http.get(CONFIG.API_URL+'command/id_commande/'+$routeParams.id_commande).success(function(data){

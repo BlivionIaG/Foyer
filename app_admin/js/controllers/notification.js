@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('foyerApp.controllers')
-.controller('notificationController',['$scope', '$http', 'CONFIG', function($scope, $http, CONFIG) {
+.controller('notificationController',['$scope', '$http', 'CONFIG','$window', function($scope, $http, CONFIG,$window) {
   //recuperation des users
   $http.get(CONFIG.API_URL+'user/').success(function(data){
     $scope.logins = data;
@@ -14,25 +14,31 @@ angular.module('foyerApp.controllers')
     $scope.loaded = true;
   });
 
-    $scope.delete = function(NotificationId){
-      $http.delete(CONFIG.API_URL+'notification/'+NotificationId).success(function(data) {
-        $scope.closeThisDialog();
-      });
+    $scope.delete = function(item, event){
+      //suppression par login
+      if(item !== undefined)
+        $http.delete(CONFIG.API_URL+'notification/login/'+item).success(function(data) {
+          $window.location.reload();
+        });
+      //suppression du broadcast
+      else
+        $http.delete(CONFIG.API_URL+'notification/method/1').success(function(data) {
+          $window.location.reload();
+        });
     };
 
 }])
 
 .controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window', function($scope, $http, CONFIG, ngDialog, $window) {
 
-
-    if($scope.ngDialogData !== undefined)
+    if($scope.ngDialogData !== undefined){
       $scope.notification = $scope.ngDialogData;
-
-   // console.log($scope.notification);
-
-   // $scope.notification.notification = '';
-   // $scope.notification.method = 2;
-    $scope.notification.method = 2;
+      $scope.notification.method = 2;
+    }
+    else{
+      $scope.notification = $scope.$new;
+      $scope.notification.method = 1;
+    }
 
     //ngDialog
     $scope.open = function() {
