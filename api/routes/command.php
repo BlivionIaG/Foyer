@@ -79,6 +79,7 @@ $app->group('/command', function() use ($app) {
       $commande = Capsule::table('COMMAND')->where('id_commande', $id_commande)->first();
       $commande_products = Capsule::table('PRODUCT_COMMAND')->where('id_commande', $id_commande)->get();
       $commande->product = "";
+      $commande->total = 0;
       foreach ($commande_products as $key_commande_products => $commande_product) {
         $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
         $product->quantity = $commande_product->quantity;
