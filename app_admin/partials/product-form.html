@@ -45,16 +45,14 @@
 </form>
 
 <script>
-
-    $("#productImage").fileinput({
-        initialPreview: [
-            '<img src="{{ api_url }}files/product/{{product.id_product}}.png" height="200" width="400">'
-        ],
-        language: "fr",
-        allowedFileTypes: ["image"],
-        showRemove: false,
-        showUpload: false,
-        overwriteInitial: true
-    });
-
+  $("#productImage").fileinput({
+    initialPreview: [
+    '<img src="{{ api_url }}files/product/{{product.id_product}}.png" height="200" width="400">'
+    ],
+    language: "fr",
+    allowedFileTypes: ["image"],
+    showRemove: false,
+    showUpload: false,
+    overwriteInitial: true
+  });
 </script>
