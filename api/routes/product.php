@@ -164,8 +164,10 @@ $app->group('/product', function() use ($app) {
 					$extension_upload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) );
 						if(in_array($extension_upload,$extensions_valides))
 							if (is_dir(DIR_FILES.'product/') && is_writable(DIR_FILES.'product/'))
-								if(move_uploaded_file($_FILES['file']['tmp_name'], DIR_FILES.'product/'.$id_product["id_product"].'.png'))
+								if(move_uploaded_file($_FILES['file']['tmp_name'], DIR_FILES.'product/'.$id_product["id_product"].'.'.$extension_upload)){
 									$response = $response->withJson(array ("status"  => array("succes" => "fichier uploade")), 200);
+									Capsule::table('PRODUCT')->where('id_product',$id_product)->update(['image' => $id_product["id_product"].'.'.$extension_upload]);
+								}
 								else $response = $response->withJson(array ("status"  => array("error" => DIR_FILES."impossible d'uploader le fichier")), 400);
 							else $response = $response->withJson(array ("status"  => array("error" => "product/ impossible d'uploader dans ce dossier")), 240);
 						else $response = $response->withJson(array ("status"  => array("error" => "mauvaise extension")), 400);
