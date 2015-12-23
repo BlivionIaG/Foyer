@@ -32,6 +32,7 @@ $app->group('/command', function() use ($app) {
       $commande_products = Capsule::table('PRODUCT_COMMAND')->get();
       foreach ($commandes as $key_commandes => $commande) {
         $commandes[$key_commandes]->product = "";
+        $commandes[$key_commandes]->total = 0;
         foreach ($commande_products as $key_commande_products => $commande_product) {
           if($commande_product->id_commande == $commande->id_commande){
             $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();

@@ -9,8 +9,8 @@ angular.module('foyerApp.controllers')
   });
 
   //recuperation des notifications
-  $http.get(CONFIG.API_URL+'notifiaction/').success(function(data){
-    $scope.notifiactions = data;
+  $http.get(CONFIG.API_URL+'notification/').success(function(data){
+    $scope.notifications = data;
     $scope.loaded = true;
   });
 
@@ -22,13 +22,17 @@ angular.module('foyerApp.controllers')
 
 }])
 
-.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog', function($scope, $http, CONFIG, ngDialog) {
+.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window', function($scope, $http, CONFIG, ngDialog, $window) {
+
 
     if($scope.ngDialogData !== undefined)
       $scope.notification = $scope.ngDialogData;
-    $scope.login = 'ok';
 
-    $scope.method = 2;
+   // console.log($scope.notification);
+
+   // $scope.notification.notification = '';
+   // $scope.notification.method = 2;
+    $scope.notification.method = 2;
 
     //ngDialog
     $scope.open = function() {
@@ -38,7 +42,7 @@ angular.module('foyerApp.controllers')
     $scope.submitForm = function(){
       delete $scope.notification.ngDialogId;
       $http.post(CONFIG.API_URL+'notification/', $scope.notification).success(function(data) {
-        $scope.closeThisDialog();
+        $window.location.reload();
       });
     };
 
