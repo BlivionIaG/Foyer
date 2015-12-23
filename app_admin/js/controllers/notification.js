@@ -14,7 +14,7 @@ angular.module('foyerApp.controllers')
     $scope.loaded = true;
   });
 
-    $scope.delete = function(item, event){
+  $scope.delete = function(item, event){
       //suppression par login
       if(item !== undefined)
         $http.delete(CONFIG.API_URL+'notification/login/'+item).success(function(data) {
@@ -27,18 +27,18 @@ angular.module('foyerApp.controllers')
         });
     };
 
-}])
+  }])
 
 .controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window', function($scope, $http, CONFIG, ngDialog, $window) {
 
-    if($scope.ngDialogData !== undefined){
-      $scope.notification = $scope.ngDialogData;
-      $scope.notification.method = 2;
-    }
-    else{
-      $scope.notification = $scope.$new;
-      $scope.notification.method = 1;
-    }
+  if($scope.ngDialogData !== undefined){
+    $scope.notification = $scope.ngDialogData;
+    $scope.notification.method = 2;
+  }
+  else{
+    $scope.notification = $scope.$new;
+    $scope.notification.method = 1;
+  }
 
     //ngDialog
     $scope.open = function() {
@@ -52,4 +52,4 @@ angular.module('foyerApp.controllers')
       });
     };
 
-}]);
+  }]);
