@@ -61,7 +61,7 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
 
 <h2>Doc</h2>
 Installer apidoc <code>npm install apidoc -g</code>.
-Générer la doc avec la commande dans le dossier api <code>apidoc -i routes/ index.php -o doc/</code>.
+Générer la doc avec la commande dans le dossier api <code>apidoc -i routes/ -o doc/</code>.
 Vous pourrez y accéder en allant à la racine de votre api avec votre navigateur.
 
 <h2>Bugs</h2>
