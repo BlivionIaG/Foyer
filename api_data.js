@@ -1,7 +1,7 @@
 define({ "api": [
   {
     "type": "delete",
-    "url": "/command/:id_command",
+    "url": "/command/:id_commande",
     "title": "Suppression d'une commande.",
     "name": "DeleteCommand",
     "group": "Command",
@@ -12,7 +12,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "id_command",
+            "field": "id_commande",
             "description": "<p>ID de la commande.</p>"
           }
         ]
@@ -90,6 +90,20 @@ define({ "api": [
             "optional": false,
             "field": "periode_fin",
             "description": "<p>Heure de fin de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "product",
+            "description": "<p>+quantity Produit de la commande avec la quantité.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "total",
+            "description": "<p>Total de la commande.</p>"
           }
         ]
       },
@@ -129,6 +143,107 @@ define({ "api": [
             "optional": false,
             "field": "id",
             "description": "<p>Commande unique ID.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id_commande",
+            "description": "<p>ID du commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "login",
+            "description": "<p>Login de la commande de l'utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "state",
+            "description": "<p>Etat de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "time",
+            "description": "<p>Date de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "periode_debut",
+            "description": "<p>Heure de début de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "periode_fin",
+            "description": "<p>Heure de fin de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "product",
+            "description": "<p>+quantity Produit de la commande avec la quantité.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "total",
+            "description": "<p>Total de la commande.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/command.php",
+    "groupTitle": "Command"
+  },
+  {
+    "type": "get",
+    "url": "/command/state/:state",
+    "title": "Récupération des commandes en fonction de son état.",
+    "name": "GetCommandsByState",
+    "group": "Command",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "state",
+            "description": "<p>Etat de la commande.</p>"
           }
         ]
       }
@@ -237,6 +352,13 @@ define({ "api": [
             "optional": false,
             "field": "periode_fin",
             "description": "<p>Heure de fin de la commande.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "product",
+            "description": "<p>Tableau contenant les produits : l'id du produit et la quantité.</p>"
           }
         ]
       }
@@ -265,7 +387,7 @@ define({ "api": [
   },
   {
     "type": "put",
-    "url": "/command/:id_command",
+    "url": "/command/:id_commande",
     "title": "Modification d'une commande.",
     "name": "PutCommand",
     "group": "Command",
@@ -276,7 +398,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "id_command",
+            "field": "id_commande",
             "description": "<p>ID de la commande.</p>"
           },
           {
@@ -306,6 +428,13 @@ define({ "api": [
             "optional": false,
             "field": "periode_fin",
             "description": "<p>Heure de fin de la commande.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "product",
+            "description": "<p>Tableau contenant les produits : l'id du produit et la quantité.</p>"
           }
         ]
       }
@@ -347,6 +476,88 @@ define({ "api": [
             "optional": false,
             "field": "id_notification",
             "description": "<p>ID de la notification.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"succes\": \"ok\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/notification.php",
+    "groupTitle": "Notification"
+  },
+  {
+    "type": "delete",
+    "url": "/notification/login/:login",
+    "title": "Suppression des notifications d'un utilisateur.",
+    "name": "DeleteNotificationByLogin",
+    "group": "Notification",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "login",
+            "description": "<p>ID login.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"succes\": \"ok\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/notification.php",
+    "groupTitle": "Notification"
+  },
+  {
+    "type": "delete",
+    "url": "/notification/method/:id_method",
+    "title": "Suppression de notifications en fonction de la methode.",
+    "name": "DeleteNotificationByMethod",
+    "group": "Notification",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id_method",
+            "description": "<p>ID methode.</p>"
           }
         ]
       }
@@ -730,6 +941,50 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/login/",
+    "title": "Check la connexion à l'interface admin.",
+    "name": "GetCheckConnexion",
+    "group": "Others",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "etat",
+            "description": "<p>Etat de connexion.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "login",
+            "description": "<p>Login de connexion.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>ID de connexion.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/other.php",
+    "groupTitle": "Others"
+  },
+  {
+    "type": "get",
     "url": "/date/",
     "title": "Obtention de la date du serveur.",
     "name": "GetDate",
@@ -743,6 +998,86 @@ define({ "api": [
             "optional": false,
             "field": "date",
             "description": "<p>Date du serveur, &quot;d m Y H:i&quot;.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/other.php",
+    "groupTitle": "Others"
+  },
+  {
+    "type": "get",
+    "url": "/logout/",
+    "title": "Déconnexion de l'interface admin.",
+    "name": "GetDeconnexion",
+    "group": "Others",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "etat",
+            "description": "<p>Etat de la déconnexion.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/other.php",
+    "groupTitle": "Others"
+  },
+  {
+    "type": "post",
+    "url": "/login/",
+    "title": "Connexion à l'interface admin.",
+    "name": "PostConnexion",
+    "group": "Others",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "login",
+            "description": "<p>Login club.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Mot de passe.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "etat",
+            "description": "<p>Etat de connexion.</p>"
           }
         ]
       },
@@ -1113,6 +1448,54 @@ define({ "api": [
         {
           "title": "Success-Response:",
           "content": "HTTP/1.1 200 OK\n{\n  \"succes\": \"ok\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/product.php",
+    "groupTitle": "Product"
+  },
+  {
+    "type": "post",
+    "url": "/product/img/:id_product",
+    "title": "Ajouter une image à un produit.",
+    "name": "PostProductImg",
+    "group": "Product",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id_product",
+            "description": "<p>ID du produit.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>Image du produit.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"succes\": \"fichier upload\"\n}",
           "type": "json"
         }
       ]
