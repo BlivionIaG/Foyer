@@ -1,7 +1,13 @@
 <h1>API</h1>
 
 Api rest du projet foyer.
-<a href="http://digital-design.github.io/Foyer/">Lien vers la doc</a>
+
+<a href="http://digital-design.github.io/Foyer/api">Lien vers la doc</a>
+
+<h2>Installation</h2>
+Changer les logs de la base de donnée dans config/config.php. Vous pouvez changer aussi le dossier des fichiers, ce dossier doit contenir les dossiers suivants : product.
+Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner les bons droits en utilisant le commande <code>sudo chown -R www-data:www-data mondossier</code>.
+
 <h2>Routes</h2>
 
 <h3>Produits</h3>
