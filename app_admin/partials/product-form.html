@@ -34,8 +34,7 @@
   </div>
   <div class="form-group">
     <label>Ajoutez une image</label>
-    <input file-model="productImage" type="file" ng-required="action == 'add'">
-    <p class="help-block">Image existante: <img src="files/product/{{product.id_product}}.png" height="120" width="120"></p>
+    <input id="productImage" file-model="productImage" type="file" ng-required="action == 'add'" class="file-loading">
   </div>
   <div class="pull-right">
     <a href="#product" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
@@ -44,3 +43,18 @@
     <input type="submit" value="Valider" class="btn btn-primary"/>
   </div>
 </form>
+
+<script>
+
+    $("#productImage").fileinput({
+        initialPreview: [
+            '<img src="{{ api_url }}files/product/{{product.id_product}}.png" height="200" width="400">'
+        ],
+        language: "fr",
+        allowedFileTypes: ["image"],
+        showRemove: false,
+        showUpload: false,
+        overwriteInitial: true
+    });
+
+</script>
