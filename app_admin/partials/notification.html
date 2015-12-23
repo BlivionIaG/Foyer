@@ -30,6 +30,9 @@
           </span>
         </th>
         <th class="table-actions">
+          Notifications
+        </th>
+        <th class="table-actions">
           Actions
         </th>
       </tr>
@@ -37,6 +40,18 @@
     <tbody>
       <tr ng-repeat="login in logins | filter:search | orderBy:orderByField:sortReverse">
         <td>{{ login.login }}</td>
+        <td>
+          <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#{{ login.login }}" aria-expanded="false">Voir les notification</button>
+          <div class="collapse" id="{{ login.login }}">
+          <br/>
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="notification in notifications" ng-if="login.login == notification.login" ng-class="{'list-group-item-danger':notification.method == 0,'list-group-item-success':notification.method == 2}">
+              <span ng-if="notification.method == 0">Commande n°{{notification.id_command}} : </span>{{ notification.notification }}
+            </li>
+          </ul>
+        </div>
+
+        </td>
         <td class="table-actions">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -68,7 +83,8 @@
   <h4 ng-show="!notification.login">Envoyer un message à tout les utilisateurs</h4>
   <h4 ng-show="notification.login">Envoyer un message à {{ notification.login }}</h4>
   <br/>
-  <label>Message : </label><input ng-model="notification.notification" type="text" class="form-control">
+  <label>Message : </label>
+  <textarea class="form-control" ng-model="notification.notification" row="6" style="resize:none"></textarea>
   </div>
   <br/>
   <div class="ngdialog-buttons">
