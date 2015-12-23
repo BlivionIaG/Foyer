@@ -41,6 +41,13 @@
           </span>
         </th>
         <th>
+          <a ng-click="orderByField = '-total'; sortReverse=!sortReverse">Total</a>
+          <span ng-show="orderByField == '-total'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
           <a ng-click="orderByField = '-periode_debut'; sortReverse=!sortReverse">Période Début</a>
           <span ng-show="orderByField == '-periode_debut'">
             <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
@@ -82,6 +89,7 @@
           </ul>
         </div>
       </td>
+      <td>{{ command.total }}€</td>
       <td>{{ command.periode_debut }}</td>
       <td>{{ command.periode_fin }}</td>
       <td class="table-actions">
