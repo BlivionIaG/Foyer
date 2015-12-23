@@ -16,6 +16,7 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
   <li>GET <code>/product/id_product/{id_product}</code> : récupération d'un produit en fonction de son ID.</li>
   <li>GET <code>/product/available/{available}</code> : récupération de produits en fonction de leur état.</li>
   <li>POST <code>/product/</code> : ajout d'un nouveau produit.</li>
+  <li>POST <code>/product/img/{id_product}</code> : ajout/modification d'une image d'un produit.</li>
   <li>PUT <code>/product/{id_product}</code> : modification d'un produit.</li>
   <li>DELETE <code>/product/{id_product}</code> : suppression d'un produit.</li>
 </ul>
@@ -24,6 +25,7 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
 <ul>
   <li>GET <code>/command/</code> : récupération de toutes les commandes.</li>
   <li>GET <code>/command/id_product/{id_command}</code> : récupération d'une commande en fonction de son ID.</li>
+  <li>GET <code>/command/state/{state}</code> : récupération de commandes en fonction de son état.</li>
   <li>POST <code>/command/</code> : ajout d'une nouvelle commande.</li>
   <li>PUT <code>/command/{id_command}</code> : modification d'une commande.</li>
   <li>DELETE <code>/command/{id_command}</code> : suppression d'une commande.</li>
@@ -37,6 +39,7 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
   <li>POST <code>/notification/</code> : ajout d'une nouvelle notification.</li>
   <li>PUT <code>/notification/{id_notification}</code> : modification d'une notification.</li>
   <li>DELETE <code>/notification/{id_notification}</code> : suppression d'une notification.</li>
+  <li>DELETE <code>/notification/method/{method}</code> : suppression de notifications en fonction de leur méthode.</li>
 </ul>
 
 <h3>Users</h3>
