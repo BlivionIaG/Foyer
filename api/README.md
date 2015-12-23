@@ -2,7 +2,7 @@
 
 Api rest du projet foyer.
 
-<a href="http://digital-design.github.io/Foyer/api">Lien vers la doc</a>
+<a href="http://digital-design.github.io/Foyer/">Lien vers la doc</a>
 
 <h2>Installation</h2>
 Changer les identifiants de la base de donnée dans <code>config/config.php</code>. Vous pouvez changer aussi le dossier des fichiers, ce dossier doit contenir le/les dossier(s) suivant(s) : product.
