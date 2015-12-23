@@ -15,7 +15,6 @@ $app->group('/product', function() use ($app) {
 	 * @apiSuccess {String} description Description du produit.
 	 * @apiSuccess {Number} available Disponibilité du produit.
 	 * @apiSuccess {Date} date Date de création du produit.
-	 * @apiSuccess {String} hash_image Hash de l'image pour check le cache.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -31,11 +30,6 @@ $app->group('/product', function() use ($app) {
 			$products = Capsule::table('PRODUCT')->orderBy('name', 'asc')->get();
 			foreach ($products as $key => $value) {
 				$products[$key]->first_letter = strtoupper($value->name[0]);
-				if (!empty($products[$key]))
-					if(file_exists('files/product/img/'.$value->id_product.'.jpeg'))
-						$products[$key]->hash_image = md5_file('files/product/img/'.$value->id_product.'.jpeg');
-					else
-						$products[$key]->hash_image = false;
 			}
 			$response = $response->withJson($products);
 		} catch(Illuminate\Database\QueryException $e) {
@@ -57,7 +51,6 @@ $app->group('/product', function() use ($app) {
 	 * @apiSuccess {String} description Description du produit.
 	 * @apiSuccess {Number} available Disponibilité du produit.
 	 * @apiSuccess {Date} date Date de création du produit.
-	 * @apiSuccess {String} hash_image Hash de l'image pour check le cache.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -71,11 +64,6 @@ $app->group('/product', function() use ($app) {
 	$app->get('/id_product/{id_product}', function($request, $response, $id_product){
 		try {
 			$product = Capsule::table('PRODUCT')->where('id_product', $id_product)->first();
-			if (!empty($product))
-				if(file_exists('files/product/img/'.$product->id_product.'.jpeg'))
-					$product->hash_image = md5_file('files/product/img/'.$product->id_product.'.jpeg');
-				else
-					$product->hash_image = false;
 			$response = $response->withJson($product);
 		} catch(Illuminate\Database\QueryException $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
