@@ -133,6 +133,7 @@ $app->group('/command', function() use ($app) {
    * @apiParam {Number} state Etat de la commande.
    * @apiParam {String} periode_debut Heure de début de la commande.
    * @apiParam {String} periode_fin Heure de fin de la commande.
+   * @apiParam {Array} product Tableau contenant les produits : l'id du produit et la quantité.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
@@ -148,11 +149,22 @@ $app->group('/command', function() use ($app) {
    */
   $app->post('/',function ($request, $response)  use ($app) {
     try {
+      $commande_products = $request->getParsedBody()['product'];
       //on creer la commande
-      Capsule::table('COMMAND')->insert($request->getParsedBody());
+      $id_commande = Capsule::table('COMMAND')->insertGetId([
+         'login' => $request->getParsedBody()['login'],
+         'state' => $request->getParsedBody()['state'],
+         'periode_debut' => $request->getParsedBody()['periode_debut'],
+         'periode_fin' => $request->getParsedBody()['periode_fin']
+        ],'id_commande');
+
       //on lui ajoute les produits
-      foreach ($request->getParsedBody()->products as $key => $product) {
-        Capsule::table('PRODUCT_COMMAND')->insert($product);
+      foreach ( $commande_products as $key => $commande_product) {
+        Capsule::table('PRODUCT_COMMAND')->insert([
+         'quantity' => $commande_product['quantity'],
+         'id_product' => $commande_product['id_product'],
+         'id_commande' => $id_commande
+        ]);
       }
       $response = $response->withJson(array ("status"  => array("ok" => "succes")), 200);
     } catch(Illuminate\Database\QueryException $e) {
@@ -172,6 +184,7 @@ $app->group('/command', function() use ($app) {
    * @apiParam {Number} state Etat de la commande.
    * @apiParam {String} periode_debut Heure de début de la commande.
    * @apiParam {String} periode_fin Heure de fin de la commande.
+   * @apiParam {Array} product Tableau contenant les produits : l'id du produit et la quantité.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
@@ -187,7 +200,25 @@ $app->group('/command', function() use ($app) {
    */
   $app->put('/{id_commande}', function ($request, $response, $id_commande) use ($app){
     try {
-      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update($request->getParsedBody());
+      $commande_products = $request->getParsedBody()['product'];
+      //on update la commande
+      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
+         'login' => $request->getParsedBody()['login'],
+         'state' => $request->getParsedBody()['state'],
+         'periode_debut' => $request->getParsedBody()['periode_debut'],
+         'periode_fin' => $request->getParsedBody()['periode_fin'],
+         'id_commande'=> $id_commande
+        ]);
+
+      //on lui ajoute les produits
+      Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete();
+      foreach ( $commande_products as $key => $commande_product) {
+        Capsule::table('PRODUCT_COMMAND')->insert([
+         'quantity' => $commande_product['quantity'],
+         'id_product' => $commande_product['id_product'],
+         'id_commande' => $id_commande
+        ]);
+      }
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);

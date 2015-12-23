@@ -188,4 +188,62 @@ $app->group('/notification', function() use ($app) {
     }
     return $response;
   });
+
+  /**
+   * @api {delete} /notification/method/:id_method Suppression de notifications en fonction de la methode.
+   * @apiName DeleteNotificationByMethod
+   * @apiGroup Notification
+   *
+   * @apiParam {Number} id_method ID methode.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "succes": "ok"
+   *     }
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": code error
+   *     }
+   */
+  $app->delete('/method/{id_method}',function ($request, $response, $id_method) {
+    try {
+      Capsule::table('NOTIFICATION')->where('method',$id_method)->delete();
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
+    return $response;
+  });
+
+  /**
+   * @api {delete} /notification/login/:login Suppression des notifications d'un utilisateur.
+   * @apiName DeleteNotificationByLogin
+   * @apiGroup Notification
+   *
+   * @apiParam {String} login ID login.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "succes": "ok"
+   *     }
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": code error
+   *     }
+   */
+  $app->delete('/login/{login}',function ($request, $response, $login) {
+    try {
+      Capsule::table('NOTIFICATION')->where('login',$login)->delete();
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
+    return $response;
+  });
 });

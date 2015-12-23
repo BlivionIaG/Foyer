@@ -9,3 +9,6 @@ define('DB_PASSWORD','korsi29yk');
 define('DB_CHARSET','utf8');
 define('DB_COLLATION','utf8_unicode_ci');
 define('DB_PREFIX','');
+//dossier des fichiers
+define('DIR_FILES','./files/');
+

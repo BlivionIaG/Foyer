@@ -28,8 +28,9 @@ $app->group('/product', function() use ($app) {
 	 */
 	$app->get('/', function($request, $response) {
 		try {
-			$products = Capsule::table('PRODUCT')->get();
+			$products = Capsule::table('PRODUCT')->orderBy('name', 'asc')->get();
 			foreach ($products as $key => $value) {
+				$products[$key]->first_letter = strtoupper($value->name[0]);
 				if (!empty($products[$key]))
 					if(file_exists('files/product/img/'.$value->id_product.'.jpeg'))
 						$products[$key]->hash_image = md5_file('files/product/img/'.$value->id_product.'.jpeg');
@@ -139,11 +140,51 @@ $app->group('/product', function() use ($app) {
 	 */
 	$app->post('/',function ($request, $response)  use ($app) {
 		try {
-			Capsule::table('PRODUCT')->insert($request->getParsedBody());
-			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+			$id_product = Capsule::table('PRODUCT')->insertGetId($request->getParsedBody());
+			$response = $response->withJson(array ("status"  => array("success" => $id_product)), 200);
 		} catch(Illuminate\Database\QueryException $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
+		return $response;
+	});
+
+	/**
+	 * @api {post} /product/img/:id_product Ajouter une image à un produit.
+	 * @apiName PostProductImg
+	 * @apiGroup Product
+	 *
+	 * @apiParam {Number} id_product ID du produit.
+	 * @apiParam {File} file Image du produit.
+	 *
+	 * @apiSuccessExample Success-Response:
+	 *     HTTP/1.1 200 OK
+	 *     {
+	 *       "succes": "fichier upload"
+	 *     }
+	 *
+	 * @apiErrorExample Error-Response:
+	 *     HTTP/1.1 404 Not Found
+	 *     {
+	 *       "error": code error
+	 *     }
+	 */
+	$app->post('/img/{id_product}',function ($request, $response, $id_product)  use ($app) {
+		if(isset($_FILES['file']))
+			if($_FILES['file']['name'])
+				if(!$_FILES['file']['error']){
+					$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
+					$extension_upload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) );
+						if(in_array($extension_upload,$extensions_valides))
+							if (is_dir(DIR_FILES.'product/') && is_writable(DIR_FILES.'product/'))
+								if(move_uploaded_file($_FILES['file']['tmp_name'], DIR_FILES.'product/'.$id_product["id_product"].'.png'))
+									$response = $response->withJson(array ("status"  => array("succes" => "fichier uploade")), 200);
+								else $response = $response->withJson(array ("status"  => array("error" => DIR_FILES."impossible d'uploader le fichier")), 400);
+							else $response = $response->withJson(array ("status"  => array("error" => "product/ impossible d'uploader dans ce dossier")), 240);
+						else $response = $response->withJson(array ("status"  => array("error" => "mauvaise extension")), 400);
+				}else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
+			else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
+		else $response = $response->withJson(array ("status"  => array("error" => "aucun fichier uploader")), 400);
+
 		return $response;
 	});
 
