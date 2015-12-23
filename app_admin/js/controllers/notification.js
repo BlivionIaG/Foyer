@@ -26,19 +26,17 @@ angular.module('foyerApp.controllers')
 
     if($scope.ngDialogData !== undefined)
       $scope.notification = $scope.ngDialogData;
+    $scope.login = 'ok';
 
-   // console.log($scope.notification);
-
-   // $scope.notification.notification = '';
-   // $scope.notification.method = 2;
+    $scope.method = 2;
 
     //ngDialog
     $scope.open = function() {
       ngDialog.open({ template: 'notification', controller: 'notificationPopupController', scope:$scope });
     };
 
-    delete $scope.notification.ngDialogId;
     $scope.submitForm = function(){
+      delete $scope.notification.ngDialogId;
       $http.post(CONFIG.API_URL+'notification/', $scope.notification).success(function(data) {
         $scope.closeThisDialog();
       });

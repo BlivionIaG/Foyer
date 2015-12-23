@@ -49,7 +49,7 @@
                 </a>
               </li>
               <li>
-                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer les notifications de {{login.login}} ?" >
+                <a ng-click="delete(login.login)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer les notifications de {{login.login}} ?" >
                   Supprimer ses notifications
                 </a>
               </li>
@@ -62,13 +62,13 @@
 </div>
 
 <!-- Template de la popup de notification-->
-
 <script type="text/ng-template" id="notification">
   <div class="ng-dialog-message">
   <h4 ng-show="!notification.login">Envoyer un message à tout les utilisateurs</h4>
   <h4 ng-show="notification.login">Envoyer un message à {{ notification.login }}</h4>
   <br/>
-  <label>Message : </label><input ng-model="notification.notification" type="text" class="form-control">
+  <label>Message : </label>
+  <textarea class="form-control" rows="5" ng-model="notification.notification" style="resize: none"></textarea>
   </div>
   <br/>
   <div class="ngdialog-buttons">
