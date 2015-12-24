@@ -202,6 +202,18 @@ $app->group('/command', function() use ($app) {
          'id_command' => $id_commande,
          'notification' => 'Votre commande a été crée'
       ]);
+      
+      //on lui envoie la notification
+      if($id_state == 1) $notification = "ok";
+      elseif($id_state == 2) $notification = "pas ok";
+      else $notification = "ko";
+      
+      Capsule::table('NOTIFICATION')->insert([
+         'login' => $request->getParsedBody()['login'],
+         'method' => 2,
+         'id_command' => $id_commande,
+         'notification' => $notification
+      ]);
 
       $response = $response->withJson(array ("status"  => array("ok" => "succes")), 200);
     } catch(Illuminate\Database\QueryException $e) {
@@ -256,6 +268,18 @@ $app->group('/command', function() use ($app) {
          'id_commande' => $id_commande
         ]);
       }
+      
+      //on lui envoie la notification
+      if($id_state == 1) $notification = "ok";
+      elseif($id_state == 2) $notification = "pas ok";
+      else $notification = "ko";
+      
+      Capsule::table('NOTIFICATION')->insert([
+         'login' => $request->getParsedBody()['login'],
+         'method' => 2,
+         'id_command' => $id_commande,
+         'notification' => $notification
+      ]);
       
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
@@ -335,6 +359,13 @@ $app->group('/command', function() use ($app) {
   $app->delete('/{id_commande}',function ($request, $response, $id_commande) {
     try {
       Capsule::table('COMMAND')->where('id_commande',$id_commande)->update(['state' => 0]);
+      //on lui envoie la notification
+      Capsule::table('NOTIFICATION')->insert([
+         'login' => $request->getParsedBody()['login'],
+         'method' => 2,
+         'id_command' => $id_commande,
+         'notification' => 'Votre commande a été supprimé !'
+      ]);
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
