@@ -317,6 +317,52 @@ define({ "api": [
     "groupTitle": "Command"
   },
   {
+    "type": "get",
+    "url": "/command/stats/",
+    "title": "Récupération les statistiques des commandes.",
+    "name": "GetCommandsStats",
+    "group": "Command",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "date",
+            "description": "<p>Date, année plus mois des commandes.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "nb_command",
+            "description": "<p>Nombre de commande sur une journée.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/command.php",
+    "groupTitle": "Command"
+  },
+  {
     "type": "post",
     "url": "/command/",
     "title": "Ajout d'une commande.",
@@ -1204,6 +1250,13 @@ define({ "api": [
             "optional": false,
             "field": "hash_image",
             "description": "<p>Hash de l'image pour check le cache.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "image",
+            "description": "<p>Nom fichier de l'image.</p>"
           }
         ]
       },
@@ -1296,8 +1349,8 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "hash_image",
-            "description": "<p>Hash de l'image pour check le cache.</p>"
+            "field": "image",
+            "description": "<p>Nom fichier de l'image.</p>"
           }
         ]
       },
@@ -1377,8 +1430,8 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "hash_image",
-            "description": "<p>Hash de l'image pour check le cache.</p>"
+            "field": "image",
+            "description": "<p>Nom fichier de l'image.</p>"
           }
         ]
       },
