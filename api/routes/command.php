@@ -196,21 +196,13 @@ $app->group('/command', function() use ($app) {
       }
       
       //on lui envoie la notification
-      Capsule::table('NOTIFICATION')->insert([
-         'login' => $request->getParsedBody()['login'],
-         'method' => 2,
-         'id_command' => $id_commande,
-         'notification' => 'Votre commande a été crée'
-      ]);
-      
-      //on lui envoie la notification
       if($id_state == 1) $notification = "ok";
       elseif($id_state == 2) $notification = "pas ok";
       else $notification = "ko";
       
       Capsule::table('NOTIFICATION')->insert([
          'login' => $request->getParsedBody()['login'],
-         'method' => 2,
+         'method' => 0,
          'id_command' => $id_commande,
          'notification' => $notification
       ]);
@@ -276,7 +268,7 @@ $app->group('/command', function() use ($app) {
       
       Capsule::table('NOTIFICATION')->insert([
          'login' => $request->getParsedBody()['login'],
-         'method' => 2,
+         'method' => 0,
          'id_command' => $id_commande,
          'notification' => $notification
       ]);
@@ -327,10 +319,12 @@ $app->group('/command', function() use ($app) {
       
       Capsule::table('NOTIFICATION')->insert([
          'login' => $request->getParsedBody()['login'],
-         'method' => 2,
+         'method' => 0,
          'id_command' => $id_commande,
          'notification' => $notification
       ]);
+      
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
@@ -362,7 +356,7 @@ $app->group('/command', function() use ($app) {
       //on lui envoie la notification
       Capsule::table('NOTIFICATION')->insert([
          'login' => $request->getParsedBody()['login'],
-         'method' => 2,
+         'method' => 0,
          'id_command' => $id_commande,
          'notification' => 'Votre commande a été supprimé !'
       ]);
