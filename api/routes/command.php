@@ -323,6 +323,8 @@ $app->group('/command', function() use ($app) {
          'id_command' => $id_commande,
          'notification' => $notification
       ]);
+      
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
