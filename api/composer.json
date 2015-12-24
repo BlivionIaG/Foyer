@@ -4,7 +4,7 @@
 		"slim/extras": "*",
 		"slim/middleware": "*",
 		"illuminate/database": "*",
-		"tuupola/slim-jwt-auth": "*",
+		"tuupola/slim-basic-auth": "^2.0"
 	},
 	"archive": {
 		"exclude": ["vendor", ".DS_Store", "*.log"]

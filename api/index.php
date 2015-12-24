@@ -21,8 +21,8 @@ $capsule->bootEloquent();
 
 $app = new Slim\App();
 
-$app->add(new \Slim\Middleware\HttpBasicAuthentication([
-    "path" => "*",
+$app->add(new Slim\Middleware\HttpBasicAuthentication([
+    "path" => "/",
     "realm" => "Protected",
     "users" => [
         API_USER => API_PASSWORD

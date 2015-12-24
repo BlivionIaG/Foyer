@@ -198,7 +198,7 @@ $app->group('/command', function() use ($app) {
       //on lui envoie la notification
       if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
       elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
-      else($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
       
       Capsule::table('NOTIFICATION')->insert([
@@ -265,7 +265,7 @@ $app->group('/command', function() use ($app) {
       //on lui envoie la notification
       if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
       elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
-      else($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
 
       Capsule::table('NOTIFICATION')->insert([
@@ -315,7 +315,7 @@ $app->group('/command', function() use ($app) {
       //on lui envoie la notification
       if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
       elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
-      else($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
 
       Capsule::table('NOTIFICATION')->insert([
