@@ -196,10 +196,11 @@ $app->group('/command', function() use ($app) {
       }
 
       //on lui envoie la notification
-      if($id_state == 1) $notification = "ok";
-      elseif($id_state == 2) $notification = "pas ok";
-      else $notification = "ko";
-
+      if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
+      elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
+      else($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      else $notification = NOTIF_COMMAND_STATE_0;
+      
       Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
        'method' => 0,
@@ -262,9 +263,10 @@ $app->group('/command', function() use ($app) {
       }
 
       //on lui envoie la notification
-      if($id_state == 1) $notification = "ok";
-      elseif($id_state == 2) $notification = "pas ok";
-      else $notification = "ko";
+      if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
+      elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
+      else($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      else $notification = NOTIF_COMMAND_STATE_0;
 
       Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
@@ -311,9 +313,10 @@ $app->group('/command', function() use ($app) {
        ]);
 
       //on lui envoie la notification
-      if($id_state == 1) $notification = "ok";
-      elseif($id_state == 2) $notification = "pas ok";
-      else $notification = "ko";
+      if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
+      elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
+      else($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      else $notification = NOTIF_COMMAND_STATE_0;
 
       Capsule::table('NOTIFICATION')->insert([
        'login' => $login,
@@ -357,7 +360,7 @@ $app->group('/command', function() use ($app) {
          'login' => $login,
          'method' => 0,
          'id_command' => $id_commande,
-         'notification' => 'Votre commande a été supprimé !'
+         'notification' => NOTIF_COMMAND_STATE_0
       ]);
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
