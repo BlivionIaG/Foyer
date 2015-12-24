@@ -17,6 +17,7 @@ $app->group('/command', function() use ($app) {
    * @apiSuccess {String} periode_fin Heure de fin de la commande.
    * @apiSuccess {Array} product+quantity Produit de la commande avec la quantité.
    * @apiSuccess {Number} total Total de la commande.
+   *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
    *
@@ -43,6 +44,32 @@ $app->group('/command', function() use ($app) {
         }
       }
       $response = $response->withJson($commandes);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
+    return $response;
+  });
+
+  /**
+   * @api {get} /command/stats/ Récupération les statistiques des commandes.
+   * @apiName GetCommandsStats
+   * @apiGroup Command
+   *
+   * @apiSuccess {Date} date Date, année plus mois des commandes.
+   * @apiSuccess {Number} nb_command Nombre de commande sur une journée.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": code error
+   *     }
+   */
+  $app->get('/stats/', function($request, $response) {
+    try {
+      $response = $response->withJson(Capsule::table('COMMAND')->select(Capsule::raw("COUNT(*) as nb_command, DATE_FORMAT(time,'%Y-%m-%d') AS time_new"))->groupBy('time_new')->get());
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }

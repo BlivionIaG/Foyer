@@ -174,7 +174,7 @@ $app->group('/product', function() use ($app) {
 								else $response = $response->withJson(array ("status"  => array("error" => DIR_FILES."impossible d'uploader le fichier")), 400);
 							else $response = $response->withJson(array ("status"  => array("error" => "product/ impossible d'uploader dans ce dossier")), 240);
 						else $response = $response->withJson(array ("status"  => array("error" => "mauvaise extension")), 400);
-				}else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
+				}else $response = $response->withJson(array ("status"  => array("error" => $_FILES)), 400);
 			else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
 		else $response = $response->withJson(array ("status"  => array("error" => "aucun fichier uploader")), 400);
 
