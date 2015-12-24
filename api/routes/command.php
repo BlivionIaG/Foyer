@@ -300,29 +300,29 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $id_commande, $id_state) use ($app){
+  $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $values) use ($app){
     try {
-      $login = Capsule::table('COMMAND')->where('id_commande',$id_commande)->value('login');
+      $login = Capsule::table('COMMAND')->where('id_commande',$values['id_commande'])->value('login');
       //on update la commande
-      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
-         'login' => $login,
-         'state' => $id_state,
-         'id_commande'=> $id_commande
-        ]);
-  
+      Capsule::table('COMMAND')->where('id_commande', $values['id_commande'])->update([
+       'login' => $login,
+       'state' => $values['id_state'],
+       'id_commande'=> $values['id_commande']
+       ]);
+
       //on lui envoie la notification
       if($id_state == 1) $notification = "ok";
       elseif($id_state == 2) $notification = "pas ok";
       else $notification = "ko";
-      
+
       Capsule::table('NOTIFICATION')->insert([
-         'login' => $login,
-         'method' => 0,
-         'id_command' => $id_commande,
-         'notification' => $notification
-      ]);
-      
-      $response = $response->withJson(array ("status"  => array("success" => $login)), 200);
+       'login' => $login,
+       'method' => 0,
+       'id_command' => $values['id_commande'],
+       'notification' => $notification
+       ]);
+
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
