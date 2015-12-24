@@ -11,7 +11,7 @@ angular.module('foyerApp', [
   ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://p4ul.tk/Foyer/api/'
+  'API_URL': 'http://192.168.1.173/Foyer/api/'
 })
 
 //gestion des routes
