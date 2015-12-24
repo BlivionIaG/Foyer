@@ -7,4 +7,7 @@ angular.module('foyerApp.controllers')
   $http.get(CONFIG.API_URL+'command/state/1').success(function(data){
     $scope.commands_validate = data;
   });
+  $http.get(CONFIG.API_URL+'command/stats/').success(function(data){
+    $scope.command_stats = data;
+  });
 }]);
