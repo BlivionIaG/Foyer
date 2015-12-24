@@ -180,11 +180,11 @@ $app->group('/command', function() use ($app) {
       $commande_products = $request->getParsedBody()['product'];
       //on creer la commande
       $id_commande = Capsule::table('COMMAND')->insertGetId([
-         'login' => $request->getParsedBody()['login'],
-         'state' => $request->getParsedBody()['state'],
-         'periode_debut' => $request->getParsedBody()['periode_debut'],
-         'periode_fin' => $request->getParsedBody()['periode_fin']
-        ],'id_commande');
+       'login' => $request->getParsedBody()['login'],
+       'state' => $request->getParsedBody()['state'],
+       'periode_debut' => $request->getParsedBody()['periode_debut'],
+       'periode_fin' => $request->getParsedBody()['periode_fin']
+       ],'id_commande');
 
       //on lui ajoute les produits
       foreach ( $commande_products as $key => $commande_product) {
@@ -192,20 +192,20 @@ $app->group('/command', function() use ($app) {
          'quantity' => $commande_product['quantity'],
          'id_product' => $commande_product['id_product'],
          'id_commande' => $id_commande
-        ]);
+         ]);
       }
-      
+
       //on lui envoie la notification
       if($id_state == 1) $notification = "ok";
       elseif($id_state == 2) $notification = "pas ok";
       else $notification = "ko";
-      
+
       Capsule::table('NOTIFICATION')->insert([
-         'login' => $request->getParsedBody()['login'],
-         'method' => 0,
-         'id_command' => $id_commande,
-         'notification' => $notification
-      ]);
+       'login' => $request->getParsedBody()['login'],
+       'method' => 0,
+       'id_command' => $id_commande,
+       'notification' => $notification
+       ]);
 
       $response = $response->withJson(array ("status"  => array("ok" => "succes")), 200);
     } catch(Illuminate\Database\QueryException $e) {
@@ -244,12 +244,12 @@ $app->group('/command', function() use ($app) {
       $commande_products = $request->getParsedBody()['product'];
       //on update la commande
       Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
-         'login' => $request->getParsedBody()['login'],
-         'state' => $request->getParsedBody()['state'],
-         'periode_debut' => $request->getParsedBody()['periode_debut'],
-         'periode_fin' => $request->getParsedBody()['periode_fin'],
-         'id_commande'=> $id_commande
-        ]);
+       'login' => $request->getParsedBody()['login'],
+       'state' => $request->getParsedBody()['state'],
+       'periode_debut' => $request->getParsedBody()['periode_debut'],
+       'periode_fin' => $request->getParsedBody()['periode_fin'],
+       'id_commande'=> $id_commande
+       ]);
 
       //on lui ajoute les produits
       Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete();
@@ -258,28 +258,28 @@ $app->group('/command', function() use ($app) {
          'quantity' => $commande_product['quantity'],
          'id_product' => $commande_product['id_product'],
          'id_commande' => $id_commande
-        ]);
+         ]);
       }
-      
+
       //on lui envoie la notification
       if($id_state == 1) $notification = "ok";
       elseif($id_state == 2) $notification = "pas ok";
       else $notification = "ko";
-      
+
       Capsule::table('NOTIFICATION')->insert([
-         'login' => $request->getParsedBody()['login'],
-         'method' => 0,
-         'id_command' => $id_commande,
-         'notification' => $notification
-      ]);
-      
+       'login' => $request->getParsedBody()['login'],
+       'method' => 0,
+       'id_command' => $id_commande,
+       'notification' => $notification
+       ]);
+
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
     return $response;
   });
-  
+
   /**
    * @api {put} /command/:id_commande/state/:id_state Modification d'état d'une commande.
    * @apiName PutCommandByIdAndState
@@ -300,29 +300,29 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $id_commande, $id_state) use ($app){
+  $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $values) use ($app){
     try {
-      $login = Capsule::table('COMMAND')->where('id_commande',$id_commande)->value('login');
+      $login = Capsule::table('COMMAND')->where('id_commande',$values['id_commande'])->value('login');
       //on update la commande
-      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
-         'login' => $login,
-         'state' => $id_state,
-         'id_commande'=> $id_commande
-        ]);
-  
+      Capsule::table('COMMAND')->where('id_commande', $values['id_commande'])->update([
+       'login' => $login,
+       'state' => $values['id_state'],
+       'id_commande'=> $values['id_commande']
+       ]);
+
       //on lui envoie la notification
       if($id_state == 1) $notification = "ok";
       elseif($id_state == 2) $notification = "pas ok";
       else $notification = "ko";
-      
+
       Capsule::table('NOTIFICATION')->insert([
-         'login' => $login,
-         'method' => 0,
-         'id_command' => $id_commande,
-         'notification' => $notification
-      ]);
-      
-      $response = $response->withJson(array ("status"  => array("success" => $login)), 200);
+       'login' => $login,
+       'method' => 0,
+       'id_command' => $values['id_commande'],
+       'notification' => $notification
+       ]);
+
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
