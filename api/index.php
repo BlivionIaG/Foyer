@@ -21,6 +21,14 @@ $capsule->bootEloquent();
 
 $app = new Slim\App();
 
+$app->add(new \Slim\Middleware\HttpBasicAuthentication([
+    "path" => "*",
+    "realm" => "Protected",
+    "users" => [
+        API_USER => API_PASSWORD
+    ]
+]));
+
 //ajout des routes
 require 'routes/product.php';
 require 'routes/command.php';
