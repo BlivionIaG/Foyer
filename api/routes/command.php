@@ -287,8 +287,6 @@ $app->group('/command', function() use ($app) {
    *
    * @apiParam {Number} id_commande ID de la commande.
    * @apiParam {Number} id_state ID de l'état de la commande.
-
-   * @apiParam {String} login Login de la commande de l'utilisateur.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
@@ -304,10 +302,10 @@ $app->group('/command', function() use ($app) {
    */
   $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $id_commande, $id_state) use ($app){
     try {
-      $commande_products = $request->getParsedBody()['product'];
+      $login = Capsule::table('COMMAND')->where('id_commande',$id_commande)->value('login');
       //on update la commande
       Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
-         'login' => $request->getParsedBody()['login'],
+         'login' => $login,
          'state' => $id_state,
          'id_commande'=> $id_commande
         ]);
@@ -318,7 +316,7 @@ $app->group('/command', function() use ($app) {
       else $notification = "ko";
       
       Capsule::table('NOTIFICATION')->insert([
-         'login' => $request->getParsedBody()['login'],
+         'login' => $login,
          'method' => 0,
          'id_command' => $id_commande,
          'notification' => $notification
@@ -354,8 +352,9 @@ $app->group('/command', function() use ($app) {
     try {
       Capsule::table('COMMAND')->where('id_commande',$id_commande)->update(['state' => 0]);
       //on lui envoie la notification
+      $login = Capsule::table('COMMAND')->where('id_commande',$id_commande)->value('login');
       Capsule::table('NOTIFICATION')->insert([
-         'login' => $request->getParsedBody()['login'],
+         'login' => $login,
          'method' => 0,
          'id_command' => $id_commande,
          'notification' => 'Votre commande a été supprimé !'
