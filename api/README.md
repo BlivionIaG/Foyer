@@ -24,6 +24,7 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
 <h3>Commandes</h3>
 <ul>
   <li>GET <code>/command/</code> : récupération de toutes les commandes.</li>
+  <li>GET <code>/command/stats/</code> : récupération des stats de toutes les commandes.</li>
   <li>GET <code>/command/id_product/{id_command}</code> : récupération d'une commande en fonction de son ID.</li>
   <li>GET <code>/command/state/{state}</code> : récupération de commandes en fonction de son état.</li>
   <li>POST <code>/command/</code> : ajout d'une nouvelle commande.</li>
