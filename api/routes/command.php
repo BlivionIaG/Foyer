@@ -194,6 +194,15 @@ $app->group('/command', function() use ($app) {
          'id_commande' => $id_commande
         ]);
       }
+      
+      //on lui envoie la notification
+      Capsule::table('NOTIFICATION')->insert([
+         'login' => $request->getParsedBody()['login'],
+         'method' => 2,
+         'id_command' => $id_commande,
+         'notification' => 'Votre commande a été crée'
+      ]);
+
       $response = $response->withJson(array ("status"  => array("ok" => "succes")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
@@ -247,7 +256,57 @@ $app->group('/command', function() use ($app) {
          'id_commande' => $id_commande
         ]);
       }
+      
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
+    return $response;
+  });
+  
+  /**
+   * @api {put} /command/:id_commande/state/:id_state Modification d'état d'une commande.
+   * @apiName PutCommandByIdAndState
+   * @apiGroup Command
+   *
+   * @apiParam {Number} id_commande ID de la commande.
+   * @apiParam {Number} id_state ID de l'état de la commande.
+
+   * @apiParam {String} login Login de la commande de l'utilisateur.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *     {
+   *       "succes": "ok"
+   *     }
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": code error
+   *     }
+   */
+  $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $id_commande, $id_state) use ($app){
+    try {
+      $commande_products = $request->getParsedBody()['product'];
+      //on update la commande
+      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
+         'login' => $request->getParsedBody()['login'],
+         'state' => $id_state,
+         'id_commande'=> $id_commande
+        ]);
+  
+      //on lui envoie la notification
+      if($id_state == 1) $notification = "ok";
+      elseif($id_state == 2) $notification = "pas ok";
+      else $notification = "ko";
+      
+      Capsule::table('NOTIFICATION')->insert([
+         'login' => $request->getParsedBody()['login'],
+         'method' => 2,
+         'id_command' => $id_commande,
+         'notification' => $notification
+      ]);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
