@@ -29,7 +29,7 @@ $app->group('/command', function() use ($app) {
    */
   $app->get('/', function($request, $response) {
     try {
-      $commandes = Capsule::table('COMMAND')->get();
+      $commandes = Capsule::table('COMMAND')->orderBy('time', 'desc')->get();
       $commande_products = Capsule::table('PRODUCT_COMMAND')->get();
       foreach ($commandes as $key_commandes => $commande) {
         $commandes[$key_commandes]->product = "";
