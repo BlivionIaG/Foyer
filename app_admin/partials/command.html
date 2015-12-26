@@ -61,6 +61,13 @@
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
         </th>
+        <th>
+          <a ng-click="orderByField = '-commande_date'; sortReverse=!sortReverse">Date de commande</a>
+          <span ng-show="orderByField == '-commande_date'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
         <th class="table-actions">
           Actions
         </th>
@@ -92,6 +99,7 @@
       <td>{{ command.total }}€</td>
       <td>{{ command.periode_debut }}</td>
       <td>{{ command.periode_fin }}</td>
+      <td>{{ command.time }}</td>
       <td class="table-actions">
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
