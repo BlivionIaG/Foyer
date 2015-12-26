@@ -11,7 +11,7 @@ angular.module('foyerApp', [
   ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://192.168.1.173/Foyer/api/'
+  'API_URL': 'http://localhost/Foyer/api/'
 })
 
 //gestion des routes
@@ -62,9 +62,9 @@ angular.module('foyerApp', [
     controller  : 'commandFormController'
   })
 
-  .when('/notification', {
-    templateUrl : 'partials/notification.html',
-    controller  : 'notificationController'
+  .when('/user', {
+    templateUrl : 'partials/user.html',
+    controller  : 'userController'
   })
 
   .otherwise({
