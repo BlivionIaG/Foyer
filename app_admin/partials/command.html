@@ -48,15 +48,8 @@
           </span>
         </th>
         <th>
-          <a ng-click="orderByField = '-periode_debut'; sortReverse=!sortReverse">Période Début</a>
-          <span ng-show="orderByField == '-periode_debut'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
-        <th>
-          <a ng-click="orderByField = '-periode_fin'; sortReverse=!sortReverse">Période Fin</a>
-          <span ng-show="orderByField == '-periode_fin'">
+          <a ng-click="orderByField = '-periode'; sortReverse=!sortReverse">Période</a>
+          <span ng-show="orderByField == '-periode'">
             <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
@@ -97,9 +90,8 @@
         </div>
       </td>
       <td>{{ command.total }}€</td>
-      <td>{{ command.periode_debut }}</td>
-      <td>{{ command.periode_fin }}</td>
-      <td>{{ command.time }}</td>
+      <td>{{ command.periode_debut }} - {{ command.periode_fin }}</td>
+      <td>{{ command.date }}</td>
       <td class="table-actions">
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

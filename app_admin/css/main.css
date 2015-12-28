@@ -12,3 +12,5 @@
 .dropdown-menu .btn {
     text-align: left;
 }
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

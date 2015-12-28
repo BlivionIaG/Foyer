@@ -109,4 +109,35 @@ angular.module('foyerApp.controllers')
       $document.scrollTop(0, 250);
     });
   };
+
+  // Paramétrage du datepicker
+  $scope.datepickerOptions = {
+    format: 'yyyy-MM-dd',
+    todayBtn: "linked",
+    forceParse: true,
+    language: 'fr',
+    autoclose: true,
+  };
+
+
+  // Disable weekend selection
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  $scope.toggleMin = function() {
+    $scope.minDate = $scope.minDate ? null : new Date();
+  };
+  $scope.toggleMin();
+  $scope.maxDate = new Date();
+  $scope.maxDate.setDate($scope.maxDate.getDate()+14);
+
+  $scope.open = function($event) {
+    $scope.status.opened = true;
+  };
+
+  $scope.status = {
+    opened: false
+  };
+
 }]);

@@ -29,6 +29,10 @@ angular.module('foyerApp.controllers', [])
   $rootScope.logout = function() {
     loginService.logout();
   };
+/*
+   datepickerPopupConfig.currentText = 'Aujourd\'hui';
+   datepickerPopupConfig.clearText = 'Effacer';
+   datepickerPopupConfig.closeText = 'Fermer';*/
 }])
 
 .controller('ErrorController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {

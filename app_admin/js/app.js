@@ -3,6 +3,7 @@
 angular.module('foyerApp', [
   'ngRoute',
   'ngDialog',
+  'ui.bootstrap',
   'angular.morris-chart',
   'foyerApp.directives',
   'foyerApp.filters',
@@ -11,11 +12,14 @@ angular.module('foyerApp', [
   ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://localhost/Foyer/api/'
+  'API_URL': 'http://192.168.1.173/Foyer/api/'
 })
 
 //gestion des routes
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+
+
+
   $locationProvider.html5Mode({
     //enabled: true,
     //requireBase: false
@@ -71,6 +75,13 @@ angular.module('foyerApp', [
     redirectTo: '/'
   });
 }])
+/*
+.config(['datepickerConfig', 'datepickerPopupConfig', function (datepickerConfig, datepickerPopupConfig) {
+    datepickerPopupConfig.currentText = 'Aujourd\'hui';
+    datepickerPopupConfig.clearText = 'Effacer';
+    datepickerPopupConfig.closeText = 'Fermer';
+}])*/
+
 //ajout de headers des requetes
 .config(['$httpProvider', function($httpProvider) {
   $httpProvider.defaults.transformRequest = function(data){
