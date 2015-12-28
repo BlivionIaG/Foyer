@@ -12,7 +12,8 @@ $app->group('/command', function() use ($app) {
    * @apiSuccess {Number} id_commande ID de la commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
    * @apiSuccess {Number} state Etat de la commande.
-   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Date} time Date de la prise de commande.
+   * @apiSuccess {Date} date Date de la commande.
    * @apiSuccess {String} periode_debut Heure de début de la commande.
    * @apiSuccess {String} periode_fin Heure de fin de la commande.
    * @apiSuccess {Array} product+quantity Produit de la commande avec la quantité.
@@ -29,7 +30,7 @@ $app->group('/command', function() use ($app) {
    */
   $app->get('/', function($request, $response) {
     try {
-      $commandes = Capsule::table('COMMAND')->orderBy('time', 'desc')->get();
+      $commandes = Capsule::table('COMMAND')->orderBy('date', 'desc')->get();
       $commande_products = Capsule::table('PRODUCT_COMMAND')->get();
       foreach ($commandes as $key_commandes => $commande) {
         $commandes[$key_commandes]->product = "";
@@ -86,7 +87,8 @@ $app->group('/command', function() use ($app) {
    * @apiSuccess {Number} id_commande ID du commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
    * @apiSuccess {Number} state Etat de la commande.
-   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Date} time Date de la prise de commande.
+   * @apiSuccess {Date} date Date de la commande.
    * @apiSuccess {String} periode_debut Heure de début de la commande.
    * @apiSuccess {String} periode_fin Heure de fin de la commande.
    * @apiSuccess {Array} product+quantity Produit de la commande avec la quantité.
@@ -130,7 +132,8 @@ $app->group('/command', function() use ($app) {
    * @apiSuccess {Number} id_commande ID du commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
    * @apiSuccess {Number} state Etat de la commande.
-   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Date} time Date de la prise de commande.
+   * @apiSuccess {Date} date Date de la commande.
    * @apiSuccess {String} periode_debut Heure de début de la commande.
    * @apiSuccess {String} periode_fin Heure de fin de la commande.
    *
@@ -161,6 +164,7 @@ $app->group('/command', function() use ($app) {
    * @apiParam {Number} state Etat de la commande.
    * @apiParam {String} periode_debut Heure de début de la commande.
    * @apiParam {String} periode_fin Heure de fin de la commande.
+   * @apiSuccess {Date} date Date de la commande.
    * @apiParam {Array} product Tableau contenant les produits : l'id du produit et la quantité.
    *
    * @apiSuccessExample Success-Response:
@@ -183,7 +187,8 @@ $app->group('/command', function() use ($app) {
        'login' => $request->getParsedBody()['login'],
        'state' => $request->getParsedBody()['state'],
        'periode_debut' => $request->getParsedBody()['periode_debut'],
-       'periode_fin' => $request->getParsedBody()['periode_fin']
+       'periode_fin' => $request->getParsedBody()['periode_fin'],
+       'date' => $request->getParsedBody()['date']
        ],'id_commande');
 
       //on lui ajoute les produits
@@ -200,7 +205,7 @@ $app->group('/command', function() use ($app) {
       elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
       elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
-      
+
       Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
        'method' => 0,
@@ -226,6 +231,7 @@ $app->group('/command', function() use ($app) {
    * @apiParam {Number} state Etat de la commande.
    * @apiParam {String} periode_debut Heure de début de la commande.
    * @apiParam {String} periode_fin Heure de fin de la commande.
+   * @apiSuccess {Date} date Date de la commande.
    * @apiParam {Array} product Tableau contenant les produits : l'id du produit et la quantité.
    *
    * @apiSuccessExample Success-Response:
@@ -249,6 +255,7 @@ $app->group('/command', function() use ($app) {
        'state' => $request->getParsedBody()['state'],
        'periode_debut' => $request->getParsedBody()['periode_debut'],
        'periode_fin' => $request->getParsedBody()['periode_fin'],
+       'date' => $request->getParsedBody()['date'],
        'id_commande'=> $id_commande
        ]);
 
