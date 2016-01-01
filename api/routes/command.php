@@ -181,7 +181,6 @@ $app->group('/command', function() use ($app) {
    */
   $app->post('/',function ($request, $response)  use ($app) {
     try {
-      $commande_products = $request->getParsedBody()['product'];
       //on creer la commande
       $id_commande = Capsule::table('COMMAND')->insertGetId([
        'login' => $request->getParsedBody()['login'],
@@ -192,7 +191,7 @@ $app->group('/command', function() use ($app) {
        ],'id_commande');
 
       //on lui ajoute les produits
-      foreach ( $commande_products as $key => $commande_product) {
+      foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
         Capsule::table('PRODUCT_COMMAND')->insert([
          'quantity' => $commande_product['quantity'],
          'id_product' => $commande_product['id_product'],
@@ -201,9 +200,9 @@ $app->group('/command', function() use ($app) {
       }
 
       //on lui envoie la notification
-      if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
-      elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
-      elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      if($request->getParsedBody()['state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
+      elseif($request->getParsedBody()['state'] == 2) $notification = NOTIF_COMMAND_STATE_2;
+      elseif($request->getParsedBody()['state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
 
       Capsule::table('NOTIFICATION')->insert([
@@ -213,7 +212,7 @@ $app->group('/command', function() use ($app) {
        'notification' => $notification
        ]);
 
-      $response = $response->withJson(array ("status"  => array("ok" => "succes")), 200);
+      $response = $response->withJson(array ("status"  => array("ok" => "success" )), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
@@ -248,7 +247,6 @@ $app->group('/command', function() use ($app) {
    */
   $app->put('/{id_commande}', function ($request, $response, $id_commande) use ($app){
     try {
-      $commande_products = $request->getParsedBody()['product'];
       //on update la commande
       Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
        'login' => $request->getParsedBody()['login'],
@@ -261,7 +259,7 @@ $app->group('/command', function() use ($app) {
 
       //on lui ajoute les produits
       Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete();
-      foreach ( $commande_products as $key => $commande_product) {
+      foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
         Capsule::table('PRODUCT_COMMAND')->insert([
          'quantity' => $commande_product['quantity'],
          'id_product' => $commande_product['id_product'],
@@ -270,9 +268,9 @@ $app->group('/command', function() use ($app) {
       }
 
       //on lui envoie la notification
-      if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
-      elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
-      elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      if($request->getParsedBody()['state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
+      elseif($request->getParsedBody()['state'] == 2) $notification = NOTIF_COMMAND_STATE_2;
+      elseif($request->getParsedBody()['state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
 
       Capsule::table('NOTIFICATION')->insert([
