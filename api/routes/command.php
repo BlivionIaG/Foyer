@@ -191,7 +191,7 @@ $app->group('/command', function() use ($app) {
        ],'id_commande');
 
       //on lui ajoute les produits
-      foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
+      foreach ( $request->getParsedBody()['product']; as $key => $commande_product) {
         Capsule::table('PRODUCT_COMMAND')->insert([
          'quantity' => $commande_product['quantity'],
          'id_product' => $commande_product['id_product'],
@@ -212,7 +212,7 @@ $app->group('/command', function() use ($app) {
        'notification' => $notification
        ]);
 
-      $response = $response->withJson(array ("status"  => array("ok" => "success" )), 200);
+      $response = $response->withJson(array ("status"  => array("ok" => "succes")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
@@ -277,56 +277,6 @@ $app->group('/command', function() use ($app) {
        'login' => $request->getParsedBody()['login'],
        'method' => 0,
        'id_command' => $id_commande,
-       'notification' => $notification
-       ]);
-
-      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-    } catch(Illuminate\Database\QueryException $e) {
-      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-    }
-    return $response;
-  });
-
-  /**
-   * @api {put} /command/:id_commande/state/:id_state Modification d'état d'une commande.
-   * @apiName PutCommandByIdAndState
-   * @apiGroup Command
-   *
-   * @apiParam {Number} id_commande ID de la commande.
-   * @apiParam {Number} id_state ID de l'état de la commande.
-   *
-   * @apiSuccessExample Success-Response:
-   *     HTTP/1.1 200 OK
-   *     {
-   *       "succes": "ok"
-   *     }
-   *
-   * @apiErrorExample Error-Response:
-   *     HTTP/1.1 404 Not Found
-   *     {
-   *       "error": code error
-   *     }
-   */
-  $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $values) use ($app){
-    try {
-      $login = Capsule::table('COMMAND')->where('id_commande',$values['id_commande'])->value('login');
-      //on update la commande
-      Capsule::table('COMMAND')->where('id_commande', $values['id_commande'])->update([
-       'login' => $login,
-       'state' => $values['id_state'],
-       'id_commande'=> $values['id_commande']
-       ]);
-
-      //on lui envoie la notification
-      if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
-      elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
-      elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
-      else $notification = NOTIF_COMMAND_STATE_0;
-
-      Capsule::table('NOTIFICATION')->insert([
-       'login' => $login,
-       'method' => 0,
-       'id_command' => $values['id_commande'],
        'notification' => $notification
        ]);
 
