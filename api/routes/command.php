@@ -192,9 +192,16 @@ $app->group('/command', function() use ($app) {
 
       //on lui ajoute les produits
       foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
+        //on passe le tableau en objet
+        if (!is_object($commande_product)) {
+          $commande_product_old = $commande_product;
+          $commande_product = new stdClass();
+          foreach ($commande_product_old as $key => $value)
+            $commande_product->$key = $value;
+        }
         Capsule::table('PRODUCT_COMMAND')->insert([
-         'quantity' => $commande_product['quantity'],
-         'id_product' => $commande_product['id_product'],
+         'quantity' => $commande_product->quantity,
+         'id_product' => $commande_product->id_product,
          'id_commande' => $id_commande
          ]);
       }
@@ -258,11 +265,17 @@ $app->group('/command', function() use ($app) {
        ]);
 
       //on lui ajoute les produits
-      Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete();
       foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
+        //on passe le tableau en objet
+        if (!is_object($commande_product)) {
+          $commande_product_old = $commande_product;
+          $commande_product = new stdClass();
+          foreach ($commande_product_old as $key => $value)
+            $commande_product->$key = $value;
+        }
         Capsule::table('PRODUCT_COMMAND')->insert([
-         'quantity' => $commande_product['quantity'],
-         'id_product' => $commande_product['id_product'],
+         'quantity' => $commande_product->quantity,
+         'id_product' => $commande_product->id_product,
          'id_commande' => $id_commande
          ]);
       }
