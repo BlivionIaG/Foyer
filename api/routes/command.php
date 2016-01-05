@@ -265,22 +265,22 @@ $app->group('/command', function() use ($app) {
        'date' => $date->format('Y-m-d')
        ]);
 
-      Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete();
       //on lui ajoute les produits
-      foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
-        //on passe le tableau en objet
-        if (!is_object($commande_product)) {
-          $commande_product_old = $commande_product;
-          $commande_product = new stdClass();
-          foreach ($commande_product_old as $key => $value)
-            $commande_product->$key = $value;
+      if(Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete())
+        foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
+          //on passe le tableau en objet
+          if (!is_object($commande_product)) {
+            $commande_product_old = $commande_product;
+            $commande_product = new stdClass();
+            foreach ($commande_product_old as $key => $value)
+              $commande_product->$key = $value;
+          }
+          Capsule::table('PRODUCT_COMMAND')->insert([
+           'quantity' => $commande_product->quantity,
+           'id_product' => $commande_product->id_product,
+           'id_commande' => $id_commande
+          ]);
         }
-        Capsule::table('PRODUCT_COMMAND')->insert([
-         'quantity' => $commande_product->quantity,
-         'id_product' => $commande_product->id_product,
-         'id_commande' => $id_commande
-        ]);
-      }
 
       //on lui envoie la notification
       if($request->getParsedBody()['state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
@@ -288,7 +288,7 @@ $app->group('/command', function() use ($app) {
       elseif($request->getParsedBody()['state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
 
-      Capsule::table('NOTIFICATION')->insert([
+      Capsule::table('NOTIFICATION')->update([
        'login' => $request->getParsedBody()['login'],
        'method' => 0,
        'id_command' => $id_commande,
