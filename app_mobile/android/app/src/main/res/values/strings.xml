@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">Foyer</string>
+
+    <string name="ok">OK</string>
+    <string name="text_produits">Produits</string>
+    <string name="text_commandes">Commandes</string>
+    <string name="text_switch_produits">Produits   </string>
+    <string name="title_item_detail">Item Detail</string>
+
+    <string name="button_cancel">Annuler</string>
+    <string name="button_close">Fermer</string>
+
+    <string name="settings">Paramètres</string>
+    <string name="logout">Déconnexion</string>
+
+    <string name="facebook_url">https://www.facebook.com/Club-Sandwich-Foyer-ISEN-470855583095316/</string>
+
+    <string name="api_url">http://p4ul.tk/Foyer/api/</string>
+    <string name="api_products">product/</string>
+    <string name="api_images">files/product/</string>
+
+    <string name="text_item_detail">Ceci est la decription du produit.</string>
+    <string name="text_item_price">Prix :</string>
+    <string name="text_item_add">ajouté(e) à votre panier.</string>
+    <string name="text_item_not_available">Le produit n\'est pas disponible.</string>
+
+    <string name="devise">€</string>
+
+    <string name="checkout_dialog_title">Confirmation</string>
+    <string name="checkout_warning">Aprés la confirmation de votre commande aucun retour en
+        arrière ne sera possible !!!</string>
+    <string name="checkout_button">Valider</string>
+    <string name="checkout_spinner_text">Date de réception</string>
+
+    <string name="cart_dialog_title">Mon panier</string>
+    <string name="cart_empty">Votre panier est vide...</string>
+    <string name="cart_total">Total :</string>
+    <string name="cart_button_val">Commander</string>
+
+    <string name="settings_title_reglage">Réglages</string>
+    <string name="settings_title_about">Crédits</string>
+    <string name="settings_autolog">Connexion automatique</string>
+    <string name="settings_autolog_detail">Authentification CAS (ISEN) automatique</string>
+    <string name="settings_startup">Notification au démarrage</string>
+    <string name="settings_startup_detail">Le service de notification démarre avec votre appareil</string>
+    <string name="settings_title_data">Données</string>
+    <string name="settings_button_cache">Supprimer le cache</string>
+    <string name="settings_button_data">Supprimer les données</string>
+    <string name="settings_dev_app_title">Développeur mobile</string>
+    <string name="settings_dev_web_title">Développeur web</string>
+    <string name="settings_dev_app_text">Alexandre Nicolas</string>
+    <string name="settings_dev_web_text">Konstantin Sidorenko &amp; Paul Michaud</string>
+    <string name="title_activity_login">Connection</string>
+
+    <!-- Strings related to login -->
+    <string name="cas_title">Service Central d\'Authentification</string>
+    <string name="cas_info_text">Entrez les même identifiants que pour l\'ENT.</string>
+    <string name="cas_id_text">Identifiant:</string>
+    <string name="cas_mdp_text">Mot de passe:</string>
+    <string name="cas_checkbox_text">Se souvenir de moi.</string>
+    <string name="cas_button_text">SE CONNECTER</string>
+    <string name="cas_dialog_title_error">Oops...</string>
+    <string name="cas_dialog_title_loading">Connexion en cours</string>
+    <string name="cas_dialog_bad_login_message">Les informations transmises n\'ont pas permis de vous authentifier.</string>
+    <string name="cas_dialog_net_error_message">L\'application n\'a pas pu accéder à internet, vérifier votre connexion.</string>
+    <string name="cas_dialog_loading_message">Veuillez patienter...</string>
+    <string name="cas_dialog_unknown_error_message">L\'application n\'a pas pu accéder à internet, vérifier votre connexion.</string>
+
+    <string name="ee_dialog_title">Mais ?! Que fais tu là !?</string>
+
+    <string name="parse_lt_m1">name=\"lt\" value=\"</string>
+    <string name="parse_lt_m2">\"</string>
+</resources>

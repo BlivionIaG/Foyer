@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context="com.ddesign.foyer.login.LoginActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/cas_title_margin_bottom"
+            android:layout_marginLeft="@dimen/cas_title_margin_bottom"
+            android:padding="@dimen/card_padding"
+            android:layout_gravity="center"
+            android:background="@drawable/card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAlignment="center"
+                android:padding="@dimen/cas_info_padding"
+                android:text="@string/cas_info_text"
+                android:id="@+id/textView1"
+                android:layout_marginBottom="@dimen/card_padding"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentEnd="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/cas_id_text"
+                android:id="@+id/textView2"
+                android:textColor="@color/darkGray"
+                android:layout_below="@+id/textView1"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText_login"
+                android:layout_below="@+id/textView2"
+                android:layout_marginBottom="@dimen/cas_button_margin"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/cas_mdp_text"
+                android:id="@+id/textView3"
+                android:layout_below="@+id/editText_login"
+                android:textColor="@color/darkGray"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/editText_pswd"
+                android:layout_below="@+id/textView3"
+                android:layout_centerHorizontal="true" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cas_checkbox_text"
+                android:id="@+id/checkBox"
+                android:layout_below="@+id/editText_pswd"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:layout_centerHorizontal="true"
+                android:checked="false" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cas_button_text"
+                android:id="@+id/button_connect"
+                android:layout_below="@+id/checkBox"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>
