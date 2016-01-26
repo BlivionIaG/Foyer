@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `COMMAND` (
   `login` varchar(25) DEFAULT NULL,
   `state` varchar(25) DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` timestamp NOT NULL,
   `periode_debut` varchar(64) NOT NULL,
   `periode_fin` varchar(128) NOT NULL,
   `image` varchar(150) DEFAULT NULL,
