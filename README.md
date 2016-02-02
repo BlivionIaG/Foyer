@@ -1,6 +1,7 @@
 # Application Foyer
 
 [![Join the chat at https://gitter.im/Digital-Design/Foyer](https://badges.gitter.im/Digital-Design/Foyer.svg)](https://gitter.im/Digital-Design/Foyer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/5fd76282e8254e2393e56ef085042d9a)](https://www.codacy.com/app/konstantin-sidorenko/Foyer)
 
 ![alt text][logo]
 
