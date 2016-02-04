@@ -239,9 +239,9 @@ $app->group('/command', function() use ($app) {
        'periode_fin' => $request->getParsedBody()['periode_fin'],
        'date' => $date->format('Y-m-d')
        ],'id_commande');
-
       //on lui ajoute les produits
-      foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
+      if(!is_object($request->getParsedBody()['product'])) $request->getParsedBody()['product'] = json_decode($request->getParsedBody()['product']);
+      foreach(json_decode($request->getParsedBody()['product']) as $key => $commande_product) {
         //on passe le tableau en objet
         if (!is_object($commande_product)) {
           $commande_product_old = $commande_product;
@@ -250,7 +250,7 @@ $app->group('/command', function() use ($app) {
             $commande_product->$key = $value;
         }
         Capsule::table('PRODUCT_COMMAND')->insert([
-         'quantity' => $commande_product->quantity,
+         'quantity' =>  $commande_product->quantity,
          'id_product' => $commande_product->id_product,
          'id_commande' => $id_commande
          ]);
@@ -271,7 +271,7 @@ $app->group('/command', function() use ($app) {
 
       $response = $response->withJson(array ("status"  => array("ok" => "success")), 200);
     } catch(Illuminate\Database\QueryException $e) {
-      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+      $response = $response->withJson(array ("status"  => array("error" => $e )), 400);
     }
     return $response;
   });
