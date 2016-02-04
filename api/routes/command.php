@@ -123,6 +123,55 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
+   * @api {get} /command/login/:login Récupération d'un commande par son login.
+   * @apiName GetCommandsByLogin
+   * @apiGroup Command
+   *
+   * @apiParam {String} user.
+   *
+   * @apiSuccess {Number} id_commande ID du commande.
+   * @apiSuccess {String} login Login de la commande de l'utilisateur.
+   * @apiSuccess {Number} state Etat de la commande.
+   * @apiSuccess {Date} time Date de la prise de commande.
+   * @apiSuccess {Date} date Date de la commande.
+   * @apiSuccess {String} periode_debut Heure de début de la commande.
+   * @apiSuccess {String} periode_fin Heure de fin de la commande.
+   * @apiSuccess {Array} product+quantity Produit de la commande avec la quantité.
+   * @apiSuccess {Number} total Total de la commande.
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 404 Not Found
+   *     {
+   *       "error": code error
+   *     }
+   */
+  $app->get('/login/{login}', function($request, $response, $login){
+    try {
+      $commandes = Capsule::table('COMMAND')->where('login', $login)->orderBy('date', 'desc')->get();
+      $commande_products = Capsule::table('PRODUCT_COMMAND')->get();
+      foreach ($commandes as $key_commandes => $commande) {
+        $commandes[$key_commandes]->product = "";
+        $commandes[$key_commandes]->total = 0;
+        foreach ($commande_products as $key_commande_products => $commande_product) {
+          if($commande_product->id_commande == $commande->id_commande){
+            $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
+            $product->quantity = $commande_product->quantity;
+            $commandes[$key_commandes]->total += $product->price;
+            $commandes[$key_commandes]->product[] = $product;
+          }
+        }
+      }
+      $response = $response->withJson($commandes);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
+    return $response;
+  });
+  
+  /**
    * @api {get} /command/state/:state Récupération des commandes en fonction de son état.
    * @apiName GetCommandsByState
    * @apiGroup Command
@@ -164,7 +213,7 @@ $app->group('/command', function() use ($app) {
    * @apiParam {Number} state Etat de la commande.
    * @apiParam {String} periode_debut Heure de début de la commande.
    * @apiParam {String} periode_fin Heure de fin de la commande.
-   * @apiSuccess {Date} date Date de la commande.
+   * @apiParam {Date} date Date de la commande.
    * @apiParam {Array} product Tableau contenant les produits : l'id du produit et la quantité en object.
    *
    * @apiSuccessExample Success-Response:
@@ -238,7 +287,7 @@ $app->group('/command', function() use ($app) {
    * @apiParam {Number} state Etat de la commande.
    * @apiParam {String} periode_debut Heure de début de la commande.
    * @apiParam {String} periode_fin Heure de fin de la commande.
-   * @apiSuccess {Date} date Date de la commande.
+   * @apiParam {Date} date Date de la commande.
    * @apiParam {Array} product Tableau contenant les produits : id_product et quantity, en objet ou dans un tableau.
    *
    * @apiSuccessExample Success-Response:
