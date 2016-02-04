@@ -127,7 +127,7 @@ $app->group('/command', function() use ($app) {
    * @apiName GetCommandsByLogin
    * @apiGroup Command
    *
-   * @apiParam {String} user.
+   * @apiParam {String} user Login du user.
    *
    * @apiSuccess {Number} id_commande ID du commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
@@ -170,7 +170,7 @@ $app->group('/command', function() use ($app) {
     }
     return $response;
   });
-  
+
   /**
    * @api {get} /command/state/:state Récupération des commandes en fonction de son état.
    * @apiName GetCommandsByState
