@@ -239,9 +239,11 @@ $app->group('/command', function() use ($app) {
        'periode_fin' => $request->getParsedBody()['periode_fin'],
        'date' => $date->format('Y-m-d')
        ],'id_commande');
+       
+      //si on recoit un string plutot qu'un objet
+      if(is_string($request->getParsedBody()['product'])) $request->getParsedBody()['product'] = json_decode($request->getParsedBody()['product']);
       //on lui ajoute les produits
-      if(!is_object($request->getParsedBody()['product'])) $request->getParsedBody()['product'] = json_decode($request->getParsedBody()['product']);
-      foreach(json_decode($request->getParsedBody()['product']) as $key => $commande_product) {
+      foreach($request->getParsedBody()['product'] as $key => $commande_product) {
         //on passe le tableau en objet
         if (!is_object($commande_product)) {
           $commande_product_old = $commande_product;
@@ -314,6 +316,8 @@ $app->group('/command', function() use ($app) {
        'date' => $date->format('Y-m-d')
        ]);
 
+      //si on recoit un string plutot qu'un objet
+      if(is_string($request->getParsedBody()['product'])) $request->getParsedBody()['product'] = json_decode($request->getParsedBody()['product']);
       //on lui ajoute les produits
       if(Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete())
         foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
