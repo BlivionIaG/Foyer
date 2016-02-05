@@ -22,6 +22,7 @@ angular.module('foyerApp.controllers')
   //suppression d'une commande
   $scope.delete = function(item, event) {
     $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/0').success(function(data) {
+      item.state = 0;
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
@@ -31,6 +32,7 @@ angular.module('foyerApp.controllers')
   //confirmation d'une commande
   $scope.confirm = function(item, event) {
     $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/2').success(function(data) {
+      item.state = 2;
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
@@ -40,6 +42,7 @@ angular.module('foyerApp.controllers')
   //finalisation d'une commande
   $scope.final = function(item, event) {
     $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/3').success(function(data) {
+      item.state = 3;
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
