@@ -381,15 +381,13 @@ $app->group('/command', function() use ($app) {
       $login = Capsule::table('COMMAND')->where('id_commande',$values['id_commande'])->value('login');
       //on update la commande
       Capsule::table('COMMAND')->where('id_commande', $values['id_commande'])->update([
-       'login' => $login,
-       'state' => $values['id_state'],
-       'id_commande'=> $values['id_commande']
+       'state' => $values['id_state']
        ]);
 
       //on lui envoie la notification
-      if($id_state == 1) $notification = NOTIF_COMMAND_STATE_1;
-      elseif($id_state == 2) $notification = NOTIF_COMMAND_STATE_2;
-      elseif($id_state == 3) $notification = NOTIF_COMMAND_STATE_3;
+      if($values['id_state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
+      elseif($values['id_state'] == 2) $notification = NOTIF_COMMAND_STATE_2;
+      elseif($values['id_state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
 
       Capsule::table('NOTIFICATION')->insert([
