@@ -239,11 +239,12 @@ $app->group('/command', function() use ($app) {
        'periode_fin' => $request->getParsedBody()['periode_fin'],
        'date' => $date->format('Y-m-d')
        ],'id_commande');
-       
+
       //si on recoit un string plutot qu'un objet
-      if(is_string($request->getParsedBody()['product'])) $request->getParsedBody()['product'] = json_decode($request->getParsedBody()['product']);
+      if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
+      else $products = $request->getParsedBody()['product'];
       //on lui ajoute les produits
-      foreach($request->getParsedBody()['product'] as $key => $commande_product) {
+      foreach($products as $key => $commande_product) {
         //on passe le tableau en objet
         if (!is_object($commande_product)) {
           $commande_product_old = $commande_product;

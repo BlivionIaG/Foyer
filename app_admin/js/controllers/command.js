@@ -21,8 +21,7 @@ angular.module('foyerApp.controllers')
 
   //suppression d'une commande
   $scope.delete = function(item, event) {
-    item.state = 0;
-    $http.delete(CONFIG.API_URL+'command/'+item.id_commande).success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/0').success(function(data) {
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
@@ -31,9 +30,7 @@ angular.module('foyerApp.controllers')
 
   //confirmation d'une commande
   $scope.confirm = function(item, event) {
-    item.state = 2;
-    delete item.$$hashKey;
-    $http.put(CONFIG.API_URL+'command/'+item.id_commande,item).success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/2').success(function(data) {
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
@@ -42,9 +39,7 @@ angular.module('foyerApp.controllers')
 
   //finalisation d'une commande
   $scope.final = function(item, event) {
-    item.state = 3;
-    delete item.$$hashKey;
-    $http.put(CONFIG.API_URL+'command/'+item.id_commande,item).success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/3').success(function(data) {
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
