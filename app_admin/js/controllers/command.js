@@ -54,7 +54,7 @@ angular.module('foyerApp.controllers')
 .controller('commandFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $window,$routeParams, $document, $location, CONFIG) {
   $scope.command = {};
   $scope.action = 'add';
-
+  $scope.command.state = 1;
   //recuperation des users
   $http.get(CONFIG.API_URL+'user/').success(function(data){
     $scope.users = data;
