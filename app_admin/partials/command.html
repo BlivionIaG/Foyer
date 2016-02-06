@@ -26,7 +26,7 @@
 <div>
   <table class="table table-bordered table-condensed">
     <thead>
-      <tr ng-hide="(commands | filter:search).length == 0 || (commands | filter:state)">
+      <tr ng-hide="(commands | filter:search).length == 0">
         <th>
           <a ng-click="orderByField = '-id_commande'; sortReverse=!sortReverse">Id</a>
           <span ng-show="orderByField == '-id_commande'">
@@ -79,7 +79,8 @@
       'danger':command.state == 1,
       'warning':command.state == 2,
       'info':command.state == 0}"
-      ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse">
+      ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse"
+      ng-hide="command.state != state">
       <td>{{ command.id_commande }}</td>
       <td>{{ command.login }}</td>
       <td>
