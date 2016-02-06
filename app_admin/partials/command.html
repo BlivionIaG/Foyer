@@ -21,6 +21,7 @@
   <input type="radio" ng-model="state" ng-value="1"/>En cours de validation
   <input type="radio" ng-model="state" ng-value="2"/>Validé
   <input type="radio" ng-model="state" ng-value="3"/>Servie
+  <input type="radio" ng-model="state" ng-value="-1"/>Toutes
 </div>
 
 <div>
@@ -80,7 +81,7 @@
       'warning':command.state == 2,
       'info':command.state == 0}"
       ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse"
-      ng-hide="command.state != state">
+      ng-hide="command.state != state && command.state != -1">
       <td>{{ command.id_commande }}</td>
       <td>{{ command.login }}</td>
       <td>
