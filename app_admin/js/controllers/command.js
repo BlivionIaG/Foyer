@@ -77,16 +77,12 @@ angular.module('foyerApp.controllers')
   $scope.submitForm = function(item, event) {
     //edit
     $scope.command.date = $scope.command.date.getFullYear() + "-" +  ($scope.command.date.getMonth() + 1) + "-" + $scope.command.date.getDate() ;
-    console.log($scope.command);
-    if($scope.action == 'edit'){
+    if($scope.action === 'edit'){
       $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
         $location.path('command');
-                console.log(data);
-
       }).error(function(data) {
         $scope.alert = data;
         $document.scrollTop(0, 250);
-        console.log(data);
       });
     }
     //ajout
