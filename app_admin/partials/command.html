@@ -99,7 +99,7 @@
           </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu">
               <li>
-                <a href="#command/edit/{{ command.id_commande }}" class="btn">
+                <a href="#command/edit/{{ command.id_commande }}" class="btn" ng-disabled="command.state == 0">
                   Editer
                 </a>
               </li>
