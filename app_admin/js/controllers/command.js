@@ -4,6 +4,8 @@ angular.module('foyerApp.controllers')
 
 //controller de commande
 .controller('commandController',['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
+  $scope.state = -1;
+  
   //recuperation des commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
