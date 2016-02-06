@@ -8,13 +8,6 @@
 
 <p><a href="#command/add" class="btn btn-default">Ajouter une Commande</a></p>
 
-<div class="alert alert-info" role="alert" ng-hide="loaded">
-  <p class="loading">Chargement en cours, merci de patienter...</p>
-</div>
-<div class="alert alert-info" role="alert" ng-show="(commands | filter:search).length == 0">
-  <p>Aucun résultat<span ng-show="search">, veuillez élargir la recherche</span>.</p>
-</div>
-
 <div class="form-group">
   <label>Etat des commandes : </label>
   <input type="radio" ng-model="state" ng-value="1"/>En cours de validation
@@ -22,6 +15,13 @@
   <input type="radio" ng-model="state" ng-value="3"/>Servie
   <input type="radio" ng-model="state" ng-value="0"/>Supprimé
   <input type="radio" ng-model="state" ng-value="-1"/>Toutes
+</div>
+
+<div class="alert alert-info" role="alert" ng-hide="loaded">
+  <p class="loading">Chargement en cours, merci de patienter...</p>
+</div>
+<div class="alert alert-info" role="alert" ng-show="(commands | filter:search).length == 0">
+  <p>Aucun résultat<span ng-show="search">, veuillez élargir la recherche</span>.</p>
 </div>
 
 <div>
