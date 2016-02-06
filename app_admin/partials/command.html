@@ -15,10 +15,18 @@
   <p>Aucun résultat<span ng-show="search">, veuillez élargir la recherche</span>.</p>
 </div>
 
+<div class="form-group">
+  <label>Etat des commandes</label>
+  <input type="radio" ng-model="state" ng-value="0"/>Supprimé
+  <input type="radio" ng-model="state" ng-value="1"/>En cours de validation
+  <input type="radio" ng-model="state" ng-value="2"/>Validé
+  <input type="radio" ng-model="state" ng-value="3"/>Servie
+</div>
+
 <div>
   <table class="table table-bordered table-condensed">
     <thead>
-      <tr ng-hide="(commands | filter:search).length == 0">
+      <tr ng-hide="(commands | filter:search).length == 0 || (commands | filter:state)">
         <th>
           <a ng-click="orderByField = '-id_commande'; sortReverse=!sortReverse">Id</a>
           <span ng-show="orderByField == '-id_commande'">
