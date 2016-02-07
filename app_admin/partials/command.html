@@ -10,10 +10,10 @@
 
 <div class="form-group">
   <label>Etat des commandes : </label>
-  <input type="checkbox" ng-model="state" ng-value="1"/>En cours de validation
-  <input type="checkbox" ng-model="state" ng-value="2"/>Validée
-  <input type="checkbox" ng-model="state" ng-value="3"/>Servie
-  <input type="checkbox" ng-model="state" ng-value="0"/>Supprimée
+  <input type="checkbox" ng-model="state[]" ng-value="1"/>En cours de validation
+  <input type="checkbox" ng-model="state[]" ng-value="2"/>Validée
+  <input type="checkbox" ng-model="state[]" ng-value="3"/>Servie
+  <input type="checkbox" ng-model="state[]" ng-value="0"/>Supprimée
 </div>
 
 <div class="alert alert-info" role="alert" ng-hide="loaded">
