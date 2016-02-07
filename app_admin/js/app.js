@@ -5,6 +5,7 @@ angular.module('foyerApp', [
   'ngDialog',
   'ui.bootstrap',
   'angular.morris-chart',
+  'checklist-model',
   'foyerApp.directives',
   'foyerApp.filters',
   'foyerApp.services',

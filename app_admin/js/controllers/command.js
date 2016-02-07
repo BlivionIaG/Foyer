@@ -4,9 +4,16 @@ angular.module('foyerApp.controllers')
 
 //controller de commande
 .controller('commandController',['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
-  $scope.state = -1;
-  
-  //recuperation des commandes
+ //liste des etats des commandes 
+ $scope.roles = {
+    0: 'Supprimée',
+    1: 'En cours de validation',
+    2: 'Validée',
+    3: 'Servie',
+  };
+  $scope.states = ['1','2','3'];
+
+  //recuperation des, commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
     $scope.loaded = true;
