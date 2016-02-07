@@ -10,11 +10,10 @@
 
 <div class="form-group">
   <label>Etat des commandes : </label>
-  <input type="radio" ng-model="state" ng-value="1"/>En cours de validation
-  <input type="radio" ng-model="state" ng-value="2"/>Validée
-  <input type="radio" ng-model="state" ng-value="3"/>Servie
-  <input type="radio" ng-model="state" ng-value="0"/>Supprimée
-  <input type="radio" ng-model="state" ng-value="-1"/>Toutes
+  <input type="checkbox" ng-model="state" ng-value="1"/>En cours de validation
+  <input type="checkbox" ng-model="state" ng-value="2"/>Validée
+  <input type="checkbox" ng-model="state" ng-value="3"/>Servie
+  <input type="checkbox" ng-model="state" ng-value="0"/>Supprimée
 </div>
 
 <div class="alert alert-info" role="alert" ng-hide="loaded">
@@ -81,7 +80,7 @@
       'warning':command.state == 2,
       'info':command.state == 0}"
       ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse"
-      ng-hide="command.state != state && state != -1">
+      ng-hide="state.indexOf(command.state)">
       <td>{{ command.id_commande }}</td>
       <td>{{ command.login }}</td>
       <td>
