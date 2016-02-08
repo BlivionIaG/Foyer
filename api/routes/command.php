@@ -39,7 +39,7 @@ $app->group('/command', function() use ($app) {
           if($commande_product->id_commande == $commande->id_commande){
             $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
             $product->quantity = $commande_product->quantity;
-            $commandes[$key_commandes]->total += $product->price;
+            $commandes[$key_commandes]->total += $product->price * $commande_product->quantity;
             $commandes[$key_commandes]->product[] = $product;
           }
         }
@@ -113,7 +113,7 @@ $app->group('/command', function() use ($app) {
         $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
         $product->quantity = $commande_product->quantity;
         $commande->product[] = $product;
-        $commande->total += $product->price;
+        $commande->total += $product->price * $commande_product->quantity;
       }
       $response = $response->withJson($commande);
     } catch(Illuminate\Database\QueryException $e) {
@@ -159,7 +159,7 @@ $app->group('/command', function() use ($app) {
           if($commande_product->id_commande == $commande->id_commande){
             $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
             $product->quantity = $commande_product->quantity;
-            $commandes[$key_commandes]->total += $product->price;
+            $commandes[$key_commandes]->total += $product->price * $commande_product->quantity;
             $commandes[$key_commandes]->product[] = $product;
           }
         }
