@@ -1,0 +1,32 @@
+
+<h1>Editez vos paramètres</h1>
+<hr />
+
+<div class="alert alert-warning alert-dismissible" role="alert" ng-show="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Warning!</strong>{{ alert }}
+</div>
+
+<form role="form" class="form-horizontal" ng-submit="submitForm()">
+  <div class="form-group">
+    <label>Modifier la bannière sur mobile</label>
+    <input id="banniereImage" file-model="banniereImage" type="file" class="file-loading">
+  </div>
+  <div class="pull-right">
+    <a href="#" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
+    <input type="submit" value="Valider" class="btn btn-primary"/>
+  </div>
+</form>
+
+<script>
+  $("#banniereImage").fileinput({
+    initialPreview: [
+    '<img src="{{ api_url }}files/mobile/{{ banniere.url }}" height="200" width="400">'
+    ],
+    language: "fr",
+    allowedFileTypes: ["image"],
+    showRemove: false,
+    showUpload: false,
+    overwriteInitial: true
+  });
+</script>

@@ -13,7 +13,7 @@ angular.module('foyerApp', [
   ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://foyer.p4ul.tk/api/'
+  'API_URL': 'http://localhost/Foyer/api/'
 })
 
 //gestion des routes
@@ -65,6 +65,11 @@ angular.module('foyerApp', [
   .when('/command/add', {
     templateUrl : 'partials/command-form.html',
     controller  : 'commandFormController'
+  })
+
+  .when('/parametre', {
+    templateUrl : 'partials/parametre.html',
+    controller  : 'parametreController'
   })
 
   .when('/user', {

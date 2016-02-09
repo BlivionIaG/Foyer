@@ -13,7 +13,7 @@ angular.module('foyerApp.controllers')
   };
   $scope.states = ['1','2','3'];
 
-  //recuperation des, commandes
+  //recuperation des commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
     $scope.loaded = true;
