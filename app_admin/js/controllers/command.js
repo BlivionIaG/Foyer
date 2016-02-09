@@ -128,33 +128,33 @@ angular.module('foyerApp.controllers')
   };
 
   //+ et - de la liste product
-  $scope.addProductList = function(item) {
-    if(angular.isArray(item)) item = item[0];
+  $scope.addProductList = function(items) {
+    angular.forEach(items, function(item, key) {
+      var exist = true;
+      //si vide on init array
+      if(!$scope.command.product)
+        $scope.command.product = new Array();
+      else
+        //on regarde si il existe pas deja pour ajouter quantité
+        angular.forEach($scope.command.product, function(value, key) {
+          if(value.id_product === item.id_product){
+            $scope.command.product[key].quantity ++;
+            exist = false;
+          }
+        });
 
-    var exist = true;
-    //si vide on init array
-    if(!$scope.command.product)
-      $scope.command.product = new Array();
-    else
-      //on regarde si il existe pas deja pour ajouter quantité
-      angular.forEach($scope.command.product, function(value, key) {
-        if(value.id_product === item.id_product){
-          $scope.command.product[key].quantity ++;
-          exist = false;
-        }
-      });
-
-    //sinon on l'ajoute
-    if(exist){
-      item.quantity = 1;
-      $scope.command.product.push(item);
-    }
+      //sinon on l'ajoute
+      if(exist){
+        item.quantity = 1;
+        $scope.command.product.push(item);
+      }
+    });
     getTotal()
   };
 
-  $scope.deleteProductList = function(item) {
-    if(angular.isArray(item)) item = item[0];
-    //on parcours le tableau pour l'enlever
+  $scope.deleteProductList = function(items) {
+    angular.forEach(items, function(item, key) {
+      //on parcours le tableau pour l'enlever
       angular.forEach($scope.command.product, function(value, key) {
         if(value.id_product === item.id_product){
           //si c'est pas le dernier quantité -1
@@ -165,7 +165,8 @@ angular.module('foyerApp.controllers')
             delete $scope.command.product[key];
         }
       });
-      getTotal()
+    });
+    getTotal()
   };
 
   function getTotal(){

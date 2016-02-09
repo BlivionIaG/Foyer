@@ -32,7 +32,7 @@
       <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
     </button>
     <br/><br/>
-    <select size="10" class="form-control ng-pristine ng-valid" ng-model="productsList" ng-options="(product.name+' - '+product.price+'€') group by product.first_letter for product in products track by product.id_product"></select>
+    <select size="10" class="form-control ng-pristine ng-valid" ng-model="productsList" ng-multiple="true" multiple="true" ng-options="(product.name+' - '+product.price+'€') group by product.first_letter for product in products track by product.id_product"></select>
   </div>
 
   <div class="form-group">
