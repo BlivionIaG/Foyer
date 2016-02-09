@@ -25,6 +25,7 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
 <h3>Commandes</h3>
 <ul>
   <li>GET <code>/command/</code> : récupération de toutes les commandes.</li>
+  <li>GET <code>/command/user/:user</code> : récupération de toutes les commandes d'un user.</li>
   <li>GET <code>/command/stats/</code> : récupération des stats de toutes les commandes.</li>
   <li>GET <code>/command/id_product/{id_command}</code> : récupération d'une commande en fonction de son ID.</li>
   <li>GET <code>/command/state/{state}</code> : récupération de commandes en fonction de son état.</li>
@@ -59,6 +60,8 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
   <li>GET <code>/login/</code> : check la connexion pour l'app admin.</li>
   <li>POST <code>/login/</code> : connexion pour l'app admin.</li>
   <li>GET <code>/logout/</code> : deconnexion pour l'app admin.</li>
+  <li>GET <code>/banniere/</code> : récupération du nom du fichier de la bannière.</li>
+  <li>POST <code>/banniere/</code> : upload de la bannière.</li>
 </ul>
 
 <h2>Doc</h2>
