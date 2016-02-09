@@ -92,8 +92,8 @@ $app->post('/login/',function ($request, $response)  use ($app) {
 * @api {get} /banniere/ Récupération de l'url de la bannière.
 * @apiName GetBanniere
 * @apiGroup Others
-* 
-* @apiSuccess {String} etat Url de la bannière dans /files/mobile/.
+*
+* @apiSuccess {String} url Url de la bannière dans /files/mobile/.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
@@ -110,6 +110,8 @@ $app->get('/banniere/', function($request, $response) {
 * @api {post} /banniere/ Modifier la bannière mobile.
 * @apiName PostBanniere
 * @apiGroup Others
+*
+* @apiParam {File} file Image de la bannière.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
