@@ -118,7 +118,7 @@ angular.module('foyerApp.controllers')
     });
   };
 
-  // Paramétrage du datepicker
+  //Paramétrage du datepicker
   $scope.datepickerOptions = {
     format: 'yyyy-MM-dd',
     todayBtn: "linked",
@@ -127,6 +127,51 @@ angular.module('foyerApp.controllers')
     autoclose: true,
   };
 
+  //+ et - de la liste product
+  $scope.addProductList = function(item) {
+    if(angular.isArray(item)) item = item[0];
+
+    var exist = true;
+    //si vide on init array
+    if(!$scope.command.product)
+      $scope.command.product = new Array();
+    else
+      //on regarde si il existe pas deja pour ajouter quantité
+      angular.forEach($scope.command.product, function(value, key) {
+        if(value.id_product === item.id_product){
+          $scope.command.product[key].quantity ++;
+          exist = false;
+        }
+      });
+
+    //sinon on l'ajoute
+    if(exist){
+      item.quantity = 1;
+      $scope.command.product.push(item);
+    }
+    getTotal()
+  };
+
+  $scope.deleteProductList = function(item) {
+    if(angular.isArray(item)) item = item[0];
+    //on parcours le tableau pour l'enlever
+      angular.forEach($scope.command.product, function(value, key) {
+        if(value.id_product === item.id_product){
+          //si c'est pas le dernier quantité -1
+          if(value.quantity > 1)
+            $scope.command.product[key].quantity --;
+          //sinon on le supprimer
+          else
+            delete $scope.command.product[key];
+        }
+      });
+      getTotal()
+  };
+
+  function getTotal(){
+    $scope.command.total = 0;
+    angular.forEach($scope.command.product, function(value, key){ $scope.command.total += value.quantity * value.price });
+  }
 
   // Disable weekend selection
   $scope.disabled = function(date, mode) {

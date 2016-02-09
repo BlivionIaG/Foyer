@@ -21,10 +21,68 @@
     <label>Login</label>
     <select class="form-control ng-pristine ng-valid" ng-model="command.login" ng-options="user.login as user.login for user in users" ng-selected="command.login" required></select>
   </div>
+
   <div class="form-group">
     <label>Commande</label>
-    <select size="10" class="form-control ng-pristine ng-valid" multiple="true" ng-multiple="true" ng-model="command.product" ng-options="(product.name+' - '+product.price+'€') group by product.first_letter for product in products track by product.id_product"></select>
+    <br/>
+    <button type="button" class="btn btn-default" aria-label="Ajouter un produit" ng-click="addProductList(productsList)">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="btn btn-default" aria-label="Supprimer un produit" ng-click="deleteProductList(productsList)">
+      <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+    </button>
+    <br/><br/>
+    <select size="10" class="form-control ng-pristine ng-valid" multiple="false" ng-multiple="false" ng-model="productsList" ng-options="(product.name+' - '+product.price+'€') group by product.first_letter for product in products track by product.id_product"></select>
   </div>
+
+  <div class="form-group">
+    <label>Liste de la commande</label>
+    <table class="table table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th>
+            Nom
+          </th>
+          <th>
+            Prix Unitaire
+          </th>
+          <th>
+            Quantité
+          </th>
+          <th>
+            Prix
+          </th>
+          <th class="table-actions">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="product in command.product | filter:search | orderBy:orderByField:sortReverse">
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }} €</td>
+        <td>{{ product.quantity }}</td>
+        <td>{{ product.price * product.quantity }} €</td>
+        <td class="table-actions">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default btn-sm" ng-click="deleteProductList(product)">
+              <span class="glyphicon glyphicon-minus"></span> Supprimer
+            </button>
+            <button type="button" class="btn btn-default btn-sm" ng-click="addProductList(product)">
+              <span class="glyphicon glyphicon-plus"></span> Ajouter
+            </button>
+          </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="form-group">
+    <label>Total de la commande en €</label>
+    <input type="text" class="form-control" ng-model="command.total" disabled="disabled">
+  </div>
+
   <div class="form-group">
     <label>Période de début</label>
     <input name="periode_debut" type="text" class="form-control" placeholder="Période Début" ng-model="command.periode_debut" ng-pattern="/^([0-9]|0[0-9]|1[0-9]|2[0-3])h[0-5][0-9]$/" required>
