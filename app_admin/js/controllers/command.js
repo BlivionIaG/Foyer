@@ -129,6 +129,8 @@ angular.module('foyerApp.controllers')
 
   //+ et - de la liste product
   $scope.addProductList = function(items) {
+    //fix pour les boutons simples
+    if(!angular.isArray(items)) items = [items];
     angular.forEach(items, function(item, key) {
       var exist = true;
       //si vide on init array
@@ -153,6 +155,8 @@ angular.module('foyerApp.controllers')
   };
 
   $scope.deleteProductList = function(items) {
+    //fix pour les boutons simples
+    if(!angular.isArray(items)) items = [items];
     angular.forEach(items, function(item, key) {
       //on parcours le tableau pour l'enlever
       angular.forEach($scope.command.product, function(value, key) {
