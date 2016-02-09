@@ -75,6 +75,13 @@
             "type": "Date",
             "optional": false,
             "field": "time",
+            "description": "<p>Date de la prise de commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "date",
             "description": "<p>Date de la commande.</p>"
           },
           {
@@ -176,6 +183,121 @@
             "type": "Date",
             "optional": false,
             "field": "time",
+            "description": "<p>Date de la prise de commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "date",
+            "description": "<p>Date de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "periode_debut",
+            "description": "<p>Heure de début de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "periode_fin",
+            "description": "<p>Heure de fin de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "product",
+            "description": "<p>+quantity Produit de la commande avec la quantité.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "total",
+            "description": "<p>Total de la commande.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/command.php",
+    "groupTitle": "Command"
+  },
+  {
+    "type": "get",
+    "url": "/command/login/:login",
+    "title": "Récupération d'un commande par son login.",
+    "name": "GetCommandsByLogin",
+    "group": "Command",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>Login du user.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "id_commande",
+            "description": "<p>ID du commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "login",
+            "description": "<p>Login de la commande de l'utilisateur.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "state",
+            "description": "<p>Etat de la commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "time",
+            "description": "<p>Date de la prise de commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "date",
             "description": "<p>Date de la commande.</p>"
           },
           {
@@ -277,6 +399,13 @@
             "type": "Date",
             "optional": false,
             "field": "time",
+            "description": "<p>Date de la prise de commande.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "date",
             "description": "<p>Date de la commande.</p>"
           },
           {
@@ -401,10 +530,17 @@
           },
           {
             "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "date",
+            "description": "<p>Date de la commande.</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "Array",
             "optional": false,
             "field": "product",
-            "description": "<p>Tableau contenant les produits : l'id du produit et la quantité.</p>"
+            "description": "<p>Tableau contenant les produits : l'id du produit et la quantité en object.</p>"
           }
         ]
       }
@@ -477,10 +613,65 @@
           },
           {
             "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "date",
+            "description": "<p>Date de la commande.</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "Array",
             "optional": false,
             "field": "product",
-            "description": "<p>Tableau contenant les produits : l'id du produit et la quantité.</p>"
+            "description": "<p>Tableau contenant les produits : id_product et quantity, en objet ou dans un tableau.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"succes\": \"ok\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/command.php",
+    "groupTitle": "Command"
+  },
+  {
+    "type": "put",
+    "url": "/command/:id_commande/state/:id_state",
+    "title": "Modification d'état d'une commande.",
+    "name": "PutCommandByIdAndState",
+    "group": "Command",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id_commande",
+            "description": "<p>ID de la commande.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id_state",
+            "description": "<p>ID de l'état de la commande.</p>"
           }
         ]
       }
@@ -987,6 +1178,36 @@
   },
   {
     "type": "get",
+    "url": "/banniere/",
+    "title": "Récupération de l'url de la bannière.",
+    "name": "GetBanniere",
+    "group": "Others",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "url",
+            "description": "<p>Url de la bannière dans /files/mobile/.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/other.php",
+    "groupTitle": "Others"
+  },
+  {
+    "type": "get",
     "url": "/login/",
     "title": "Check la connexion à l'interface admin.",
     "name": "GetCheckConnexion",
@@ -1081,6 +1302,47 @@
         {
           "title": "Success-Response:",
           "content": "HTTP/1.1 200 OK",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "routes/other.php",
+    "groupTitle": "Others"
+  },
+  {
+    "type": "post",
+    "url": "/banniere/",
+    "title": "Modifier la bannière mobile.",
+    "name": "PostBanniere",
+    "group": "Others",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>Image de la bannière.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"succes\": \"fichier upload\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"error\": code error\n}",
           "type": "json"
         }
       ]
