@@ -64,6 +64,7 @@ angular.module('foyerApp.controllers')
   $scope.command = {};
   $scope.action = 'add';
   $scope.command.state = 1;
+  $scope.command.total = 0;
   //recuperation des users
   $http.get(CONFIG.API_URL+'user/').success(function(data){
     $scope.users = data;

@@ -23,7 +23,7 @@
   </div>
 
   <div class="form-group">
-    <label>Commande</label>
+    <label>Produits</label>
     <br/>
     <button type="button" class="btn btn-default" aria-label="Ajouter un produit" ng-click="addProductList(productsList)">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -79,8 +79,8 @@
   </div>
 
   <div class="form-group">
-    <label>Total de la commande en €</label>
-    <input type="text" class="form-control" ng-model="command.total" disabled="disabled">
+    <label>Total de la commande</label>
+    <input type="text" class="form-control" ng-value="command.total +' €'" disabled="disabled">
   </div>
 
   <div class="form-group">
