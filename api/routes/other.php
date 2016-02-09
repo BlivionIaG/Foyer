@@ -89,7 +89,7 @@ $app->post('/login/',function ($request, $response)  use ($app) {
 });
 
 /**
-* @api {get} /banniere/ Récupération de l'rul de la bannière.
+* @api {get} /banniere/ Récupération de l'url de la bannière.
 * @apiName GetBanniere
 * @apiGroup Others
 * 
@@ -101,7 +101,7 @@ $app->post('/login/',function ($request, $response)  use ($app) {
 */
 $app->get('/banniere/', function($request, $response) {
   if($filename = glob(DIR_FILES.'/mobile/banniere_mobile.*', GLOB_NOESCAPE  ))
-    return $response->withJson(array ("url"  =>  basename($filename[0])), 200);
+    return $response->withJson(array ("url"  => basename($filename[0])), 200);
   else
     return $response->withJson(array ("url"  =>  "Not Found"), 400);
 });
