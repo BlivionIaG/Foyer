@@ -1,5 +1,7 @@
 package com.ddesign.foyer.HTTP.in;
 
+import android.os.AsyncTask;
+
 import com.ddesign.foyer.dummy.ProduitItem;
 import com.ddesign.foyer.dummy.Content;
 
@@ -7,6 +9,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,23 +20,44 @@ import java.util.Map;
 /**
  * Created by Alexandre on 22/10/2015.
  */
-public class ProduitsListDownloader extends Downloader{
+public class ProduitsListDownloader extends AsyncTask<String, Void, String> {
 
+    private String url;
+    private String content;
+    private DownloadListener listener;
     private ImageDownloader imageDownloader;
     private String url_image;
     private JSONParser parser;
 
-    public ProduitsListDownloader(String url, String url_image, DownloadListener refreshView){
-        super(url);
+    public ProduitsListDownloader(String url, String url_image, DownloadListener listener){
+        this.url = url;
         this.url_image = url_image;
-        this.refreshView = refreshView;
+        this.listener = listener;
         this.parser = new JSONParser();
     }
 
     @Override
-    public void update(){
+    protected String doInBackground(String[] params) {
+        try {
+            Connection connection =  Jsoup.connect(url).ignoreContentType(true);
+            this.content = connection.get().body().ownText().toString();
 
-        System.out.println("content : " + content);
+        } catch (java.io.IOException e){
+            System.out.println(e.getMessage().toString());
+            return "Download error : " + e.toString();
+        }
+        return "Download was fine";
+    }
+
+    @Override
+    protected void onPostExecute(String message) {
+        Map <Integer, String> imagePaths = parseImagePaths();
+        if(url_image.length()>0)
+            this.imageDownloader = new ImageDownloader(url_image,imagePaths,this);
+        imageDownloader.execute();
+    }
+
+    public Map<Integer, String> parseImagePaths(){
 
         try{
             JSONArray jsonArray = (JSONArray) parser.parse(content);
@@ -42,17 +67,16 @@ public class ProduitsListDownloader extends Downloader{
                     JSONObject jsonObject = (JSONObject) object;
                     imagePaths.put(Integer.parseInt((String) jsonObject.get("id_product")),(String) jsonObject.get("image"));
                 }
-                if(url_image.length()>0)
-                    this.imageDownloader = new ImageDownloader(url_image,imagePaths,this);
-                imageDownloader.execute();
+                return imagePaths;
             }
         }
         catch(ParseException pe){
             System.out.println(pe);
         }
+        return null;
     }
 
-    public void update2(){
+    public void buildProducts(){
         System.out.println("update 2");
 
         try{
@@ -73,10 +97,10 @@ public class ProduitsListDownloader extends Downloader{
                             price, details, name,
                             imageDownloader.drawables.get(Integer.parseInt(id_product)),
                             date, available);
-                    Content.PRODUIT_ITEMS.add(product);
+                    Content.PRODUCT_ITEMS.add(product);
                     id++;
                 }
-                refreshView.updateView();
+                listener.onDownload();
             }
         }
         catch(ParseException pe){

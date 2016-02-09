@@ -42,6 +42,6 @@ public final class ImageDownloader extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String message) {
-        plDownload.update2();
+        plDownload.buildProducts();
     }
 }

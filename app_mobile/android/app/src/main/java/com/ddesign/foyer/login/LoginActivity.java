@@ -37,6 +37,8 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Bundle bundle = getIntent().getExtras();
+
         button_connect = (Button) findViewById(R.id.button_connect);
         editText_login = (EditText) findViewById(R.id.editText_login);
         editText_pswd = (EditText) findViewById(R.id.editText_pswd);
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements AuthListener {
             editText_login.setText(save.getUsername());
             editText_pswd.setText(save.getPassword());
             checkBox.setChecked(save.isRemember());
-            if(save.getLogin_auto() == true)
+            if(save.getLogin_auto() == true && bundle !=null && bundle.getString("login") == null)
                 validateLogin(save.getUsername(),save.getPassword());
         }
 

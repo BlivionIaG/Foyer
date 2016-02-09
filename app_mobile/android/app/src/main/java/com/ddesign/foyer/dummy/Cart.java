@@ -10,24 +10,22 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.ddesign.foyer.HTTP.out.Requester;
+import com.ddesign.foyer.HTTP.in.CommandListDownloader;
+import com.ddesign.foyer.HTTP.in.DownloadListener;
+import com.ddesign.foyer.HTTP.out.Request;
+import com.ddesign.foyer.HTTP.out.RequestListener;
+import com.ddesign.foyer.JSON.Save;
 import com.ddesign.foyer.R;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.jsoup.Jsoup;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,12 +39,22 @@ import java.util.Vector;
 /**
  * Created by Alexandre on 26/10/2015.
  */
-public class Cart {
+
+public class Cart{
 
     public static HashMap<ProduitItem,Integer> produits = new HashMap<ProduitItem,Integer>();
+    private static Dialog checkoutDialog = null;
+    private static Dialog resultDialog = null;
+    private static Dialog cartDialog = null;
+    private static JSONObject message = null;
+    private static boolean SUCCESS = false;
+    private static Cart cart = null;
 
     public void Cart(){
+        cart = this;
+    }
 
+    public static void setCommandListDownloader(){
     }
 
     public static void addItem(ProduitItem item){
@@ -67,12 +75,12 @@ public class Cart {
     }
 
     public static void initCartFab(final Activity context){
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.cart_dialog);
-        final LinearLayout itemList = (LinearLayout) dialog.findViewById(R.id.item_list);
-        final Button button_val = (Button) dialog.findViewById(R.id.button_val);
-        Button button_clo = (Button) dialog.findViewById(R.id.button_close);
+        cartDialog = new Dialog(context);
+        cartDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        cartDialog.setContentView(R.layout.cart_dialog);
+        final LinearLayout itemList = (LinearLayout) cartDialog.findViewById(R.id.item_list);
+        final Button button_val = (Button) cartDialog.findViewById(R.id.button_val);
+        Button button_clo = (Button) cartDialog.findViewById(R.id.button_close);
 
         button_val.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +91,7 @@ public class Cart {
         button_clo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                cartDialog.dismiss();
             }
         });
 
@@ -96,17 +104,17 @@ public class Cart {
             public void onClick(View view) {
                 itemList.removeAllViewsInLayout();
 
-                Vector<View> items = Cart.resumeDialog(context, dialog);
-                for(View item : items) {
+                Vector<View> items = Cart.resumeDialog(context, cartDialog);
+                for (View item : items) {
                     itemList.addView(item);
                 }
-                if(items.isEmpty()) {
+                if (items.isEmpty()) {
                     button_val.setVisibility(View.GONE);
                     itemList.addView(text_empty_cart);
-                }else {
+                } else {
                     button_val.setVisibility(View.VISIBLE);
                 }
-                dialog.show();
+                cartDialog.show();
 
             }
         });
@@ -185,12 +193,12 @@ public class Cart {
     }
 
     private static void checkout(final Context context){
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.checkout_dialog);
-        Button buttonVal = (Button) dialog.findViewById(R.id.button_checkout);
-        Button buttonCan = (Button) dialog.findViewById(R.id.button_cancel);
-        final Spinner spinner = (Spinner) dialog.findViewById(R.id.date_spinner);
+        checkoutDialog = new Dialog(context);
+        checkoutDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        checkoutDialog.setContentView(R.layout.checkout_dialog);
+        Button buttonVal = (Button) checkoutDialog.findViewById(R.id.button_checkout);
+        Button buttonCan = (Button) checkoutDialog.findViewById(R.id.button_cancel);
+        final Spinner spinner = (Spinner) checkoutDialog.findViewById(R.id.date_spinner);
 
         DateFormat hourFormat = new SimpleDateFormat("HH");
         DateFormat minuteFormat = new SimpleDateFormat("mm");
@@ -224,6 +232,24 @@ public class Cart {
             @Override
             public void onClick(View v) {
                 String selection = (String) spinner.getSelectedItem();
+                resultDialog = new Dialog(context);
+                resultDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                resultDialog.setContentView(R.layout.result_dialog);
+                ProgressBar progressBar = (ProgressBar) resultDialog.findViewById(R.id.progress_bar);
+                progressBar.setEnabled(true);
+                Button buttonVal = (Button) resultDialog.findViewById(R.id.result_dialog_button);
+                buttonVal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(cartDialog != null)
+                            cartDialog.dismiss();
+                        if(checkoutDialog != null)
+                            checkoutDialog.dismiss();
+                        if(resultDialog != null)
+                            resultDialog.dismiss();
+                    }
+                });
+                resultDialog.show();
                 command(period_start, selection, context);
             }
         });
@@ -231,11 +257,11 @@ public class Cart {
         buttonCan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                checkoutDialog.dismiss();
             }
         });
 
-        dialog.show();
+        checkoutDialog.show();
     }
 
     private static String formatDate(int hour,int minute){
@@ -248,16 +274,19 @@ public class Cart {
         return start+hour+inter+minute;
     }
 
-    private static void command(String period_start, String period_end, Context context){
 
+    private static void command(String period_start, String period_end, final Context context){
 
         try {
-            JSONObject message = new JSONObject();
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = new Date();
+
+            message = new JSONObject();
             message.put("state",""+1);
             message.put("login", "anicol17");
             message.put("periode_debut", period_start);
             message.put("periode_fin", period_end);
-            message.put("date", "01-01-0222");
+            message.put("date", dateFormat.format(date));
             JSONArray products = new JSONArray();
             for(Map.Entry<ProduitItem,Integer> entry : produits.entrySet()) {
                 ProduitItem item = entry.getKey();
@@ -269,23 +298,41 @@ public class Cart {
             }
             message.put("product", products);
 
-            JsonParser jsonParser = new JsonParser();
-            System.out.println(message.toString());
-            System.out.println(jsonParser.parse(message.toString()).getAsJsonObject().toString());
-            Ion.with(context)
-                    .load("http://p4ul.tk/Foyer/api/command/")
-                    .setJsonObjectBody(jsonParser.parse(message.toString()).getAsJsonObject())
-                    .asJsonObject()
-                    .setCallback(new FutureCallback<JsonObject>() {
-                        @Override
-                        public void onCompleted(Exception e, JsonObject result) {
-                           System.out.println(result.toString());
-                        }
-                    });
-            ((Requester) new Requester("http://p4ul.tk/Foyer/api/command/",message)).execute();
+            Request request = new Request("http://foyer.p4ul.tk/api/command/",message,context);
+            request.addRequestListener(new RequestListener() {
+                @Override
+                public void onRequest(boolean success) {
+                    if(resultDialog != null){
+                        SUCCESS = success;
+                        Save save = new Save(context);
+                        save.read();
+                        CommandListDownloader clDownloader = new CommandListDownloader(context.getString(R.string.api_url)
+                                +context.getString(R.string.api_commands),
+                                save.getUsername(), CommandListDownloader.CREATOR_CART);
+                        clDownloader.execute();
+                        // actualisation des commandes
+                    }
+                }
+            });
+            request.execute();
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void onDownload() {
+        if(resultDialog != null) {
+            ProgressBar progressBar = (ProgressBar) resultDialog.findViewById(R.id.progress_bar);
+            progressBar.setVisibility(View.GONE);
+            TextView resultMessage = null;
+            if (SUCCESS) {
+                resultMessage = (TextView) resultDialog.findViewById(R.id.result_success_message);
+            } else {
+                resultMessage = (TextView) resultDialog.findViewById(R.id.result_error_message);
+            }
+            if (resultMessage != null)
+                resultMessage.setVisibility(View.VISIBLE);
         }
     }
 }

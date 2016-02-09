@@ -14,15 +14,21 @@ public class Content {
     /**
      * An array of sample (dummy) items.
      */
-    public static List<Item> PRODUIT_ITEMS = new ArrayList<Item>();
+    public static List<Item> PRODUCT_ITEMS = new ArrayList<Item>();
     public static List<Item> COMMAND_ITEMS = new ArrayList<Item>();
+    public static int SELECTED = 0;
 
+    /*
+     * FLAGS
+     */
+    public static int PRODUCT_SELECTED = 0;
+    public static int COMMAND_SELECTED = 1;
 
     public Content(){
     }
 
-    public List<Item> getProduitItems(){
-        return PRODUIT_ITEMS;
+    public List<Item> getProductItems(){
+        return PRODUCT_ITEMS;
     }
 
     public List<Item> getCommandItems(){
@@ -34,7 +40,7 @@ public class Content {
     }
 
     private void addItem(ProduitItem item) {
-        PRODUIT_ITEMS.add(item);
+        PRODUCT_ITEMS.add(item);
     }
 
     private void addItem(CommandItem item) {

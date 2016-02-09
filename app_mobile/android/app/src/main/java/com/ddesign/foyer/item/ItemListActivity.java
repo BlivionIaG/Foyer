@@ -2,6 +2,7 @@ package com.ddesign.foyer.item;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,28 +12,22 @@ import com.ddesign.foyer.JSON.Save;
 import com.ddesign.foyer.R;
 import com.ddesign.foyer.SettingsActivity;
 import com.ddesign.foyer.dummy.Cart;
+import com.ddesign.foyer.dummy.Content;
 import com.ddesign.foyer.login.LoginActivity;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.HashMap;
 import java.util.Vector;
 
 /**
  * An activity representing a list of Items. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ItemDetailActivity} representing
+ * lead to a {@link ProductItemDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  * <p/>
  * The activity makes heavy use of fragments. The list of items is a
  * {@link ItemListFragment} and the item details
- * (if present) is a {@link ItemDetailFragment}.
+ * (if present) is a {@link ProductItemDetailFragment}.
  * <p/>
  * This activity also implements the required
  * {@link ItemListFragment.Callbacks} interface
@@ -67,6 +62,7 @@ public class ItemListActivity extends AppCompatActivity
             case R.id.action_logout:
                 Intent i2 = new Intent(this,LoginActivity.class);
                 startActivity(i2);
+                i2.putExtra("logout", true);
                 this.finishActivity(RESULT_OK);
                 this.finish();
                 return true;
@@ -96,7 +92,8 @@ public class ItemListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_app_bar);
 
-        Cart.initCartFab(this);
+        Cart cart = new Cart();
+        cart.initCartFab(this);
 
         save = new Save(this);
         save.read();
@@ -118,7 +115,6 @@ public class ItemListActivity extends AppCompatActivity
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
         }
-
         // TODO: If exposing deep links into your app, handle intents here.
     }
 
@@ -134,8 +130,13 @@ public class ItemListActivity extends AppCompatActivity
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
-            ItemDetailFragment fragment = new ItemDetailFragment();
+            arguments.putString(ProductItemDetailFragment.ARG_ITEM_ID, id);
+
+            Fragment fragment = null;
+            if(Content.SELECTED == Content.PRODUCT_SELECTED)
+                fragment = new ProductItemDetailFragment();
+            else if(Content.SELECTED == Content.COMMAND_SELECTED)
+                fragment = new CommandItemDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
@@ -144,8 +145,15 @@ public class ItemListActivity extends AppCompatActivity
         } else {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
-            Intent detailIntent = new Intent(this, ItemDetailActivity.class);
-            detailIntent.putExtra(ItemDetailFragment.ARG_ITEM_ID, id);
+            Intent detailIntent = null;
+            if(Content.SELECTED == Content.PRODUCT_SELECTED) {
+                detailIntent = new Intent(this, ProductItemDetailActivity.class);
+                detailIntent.putExtra(ProductItemDetailFragment.ARG_ITEM_ID, id);
+            }else if(Content.SELECTED == Content.COMMAND_SELECTED) {
+                detailIntent = new Intent(this, CommandItemDetailActivity.class);
+                detailIntent.putExtra(CommandItemDetailFragment.ARG_ITEM_ID, id);
+            }
+
             startActivity(detailIntent);
         }
     }

@@ -12,13 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.ddesign.foyer.HTTP.in.CommandListDownloader;
 import com.ddesign.foyer.HTTP.in.ProduitsListDownloader;
 import com.ddesign.foyer.HTTP.in.DownloadListener;
+import com.ddesign.foyer.JSON.Save;
 import com.ddesign.foyer.R;
-import com.ddesign.foyer.dummy.CommandItem;
+import com.ddesign.foyer.dummy.Cart;
 import com.ddesign.foyer.dummy.Content;
 import com.ddesign.foyer.dummy.Item;
-import com.ddesign.foyer.dummy.ProduitItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -29,7 +30,7 @@ import java.util.List;
  * A list fragment representing a list of Items. This fragment
  * also supports tablet devices by allowing list items to be given an
  * 'activated' state upon selection. This helps indicate which item is
- * currently being viewed in a {@link ItemDetailFragment}.
+ * currently being viewed in a {@link ProductItemDetailFragment}.
  * <p/>
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
@@ -59,6 +60,7 @@ public class ItemListFragment extends ListFragment implements DownloadListener {
      * selections.
      */
     private ProduitsListDownloader plDownloader;
+    private CommandListDownloader clDownloader;
     private List<Item> currentItems;
 
     public interface Callbacks {
@@ -88,44 +90,53 @@ public class ItemListFragment extends ListFragment implements DownloadListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentItems = Content.PRODUIT_ITEMS;
-        if(Content.PRODUIT_ITEMS.size() == 0) {
+        if(Content.SELECTED == Content.PRODUCT_SELECTED)
+            currentItems = Content.PRODUCT_ITEMS;
+        else if(Content.SELECTED == Content.COMMAND_SELECTED)
+            currentItems = Content.COMMAND_ITEMS;
+
+        Save save = new Save(getContext());
+        save.read();
+
+        if(Content.COMMAND_ITEMS.size() == 0){
+            clDownloader = new CommandListDownloader(getString(R.string.api_url)+getString(R.string.api_commands),
+                    save.getUsername(),CommandListDownloader.CREATOR_CASUAL);
+            clDownloader.execute();
+        }
+        if(Content.PRODUCT_ITEMS.size() == 0) {
             plDownloader = new ProduitsListDownloader(
                     getString(R.string.api_url) + getString(R.string.api_products),
                     getString(R.string.api_url) + getString(R.string.api_images),
                     this);
             plDownloader.execute();
         }else {
-            updateView();
+            onDownload();
         }
     }
 
-    public void updateView(){
-        if(currentItems.equals(Content.PRODUIT_ITEMS)){
-            ArrayAdapter<ProduitItem> produits = new ArrayAdapter<ProduitItem>(
+    public void onDownload(){
+        if(currentItems!=null) {
+            ArrayAdapter<Item> items = new ArrayAdapter<Item>(
                     getActivity(),
                     android.R.layout.simple_list_item_activated_1,
                     android.R.id.text1,
-                    (List<ProduitItem>)(List<?>) currentItems);
-            setListAdapter(produits);
-        }else{
-            ArrayAdapter<CommandItem> commands = new ArrayAdapter<CommandItem>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_activated_1,
-                    android.R.id.text1,
-                    (List<CommandItem>)(List<?>) currentItems);
-            setListAdapter(commands);
+                    (List<Item>) (List<?>) currentItems);
+            setListAdapter(items);
         }
     }
 
     public void switchList(){
         System.out.println("switch list");
-        if(currentItems.equals(Content.PRODUIT_ITEMS))
+        if(currentItems.equals(Content.PRODUCT_ITEMS)) {
             currentItems = Content.COMMAND_ITEMS;
-        else
-            currentItems = Content.PRODUIT_ITEMS;
-        updateView();
+            Content.SELECTED = Content.COMMAND_SELECTED;
+        }else {
+            currentItems = Content.PRODUCT_ITEMS;
+            Content.SELECTED = Content.PRODUCT_SELECTED;
+        }
+        onDownload();
     }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -196,7 +207,10 @@ public class ItemListFragment extends ListFragment implements DownloadListener {
             startActivity(browserIntent);
             return;
         }
-        mCallbacks.onItemSelected(Content.PRODUIT_ITEMS.get(position).getId());
+        if(Content.SELECTED == Content.PRODUCT_SELECTED)
+            mCallbacks.onItemSelected(Content.PRODUCT_ITEMS.get(position).getId());
+        else if(Content.SELECTED == Content.COMMAND_SELECTED)
+            mCallbacks.onItemSelected(Content.COMMAND_ITEMS.get(position).getId());
     }
 
     @Override

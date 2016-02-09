@@ -5,6 +5,6 @@ package com.ddesign.foyer.HTTP.in;
  */
 public interface DownloadListener {
 
-    public void updateView();
+    public void onDownload();
 
 }

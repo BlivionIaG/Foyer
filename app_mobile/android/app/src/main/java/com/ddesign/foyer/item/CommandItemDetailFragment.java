@@ -14,17 +14,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ddesign.foyer.R;
+import com.ddesign.foyer.dummy.CommandItem;
 import com.ddesign.foyer.dummy.Content;
 import com.ddesign.foyer.dummy.ProduitItem;
+
+import java.util.Vector;
 
 
 /**
  * A fragment representing a single Item detail screen.
  * This fragment is either contained in a {@link ItemListActivity}
- * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
+ * in two-pane mode (on tablets) or a {@link ProductItemDetailActivity}
  * on handsets.
  */
-public class ItemDetailFragment extends Fragment {
+public class CommandItemDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -34,13 +37,13 @@ public class ItemDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private ProduitItem mItem;
+    private CommandItem mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemDetailFragment() {
+    public CommandItemDetailFragment() {
     }
 
     @Override
@@ -48,7 +51,7 @@ public class ItemDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             System.out.println("id : " + getArguments().getString(ARG_ITEM_ID));
-            mItem = (ProduitItem) Content.PRODUIT_ITEMS.get(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
+            mItem = (CommandItem) Content.COMMAND_ITEMS.get(Integer.parseInt(getArguments().getString(ARG_ITEM_ID)));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
@@ -56,6 +59,11 @@ public class ItemDetailFragment extends Fragment {
                 appBarLayout.setTitle(mItem.getContent());
             }
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume(); // ICI Y'A UN BUG !!
     }
 
     @Override
@@ -67,7 +75,12 @@ public class ItemDetailFragment extends Fragment {
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.item_price)).setText(getString(R.string.text_item_price) +
                     " " + mItem.getPrice() + getString(R.string.devise));
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.getDetails());
+            TextView details = (TextView) rootView.findViewById(R.id.item_detail);
+            String detailsText = "";
+            Vector<ProduitItem> produitItems = ((CommandItem) Content.COMMAND_ITEMS.get(Integer.parseInt(mItem.getId()))).getProduitItems();
+            for(ProduitItem produitItem : produitItems)
+                detailsText += produitItem.getContent() + " " + produitItem.getPrice() + this.getString(R.string.devise) + "\n";
+            details.setText(detailsText);
             ImageButton imageButton = (ImageButton) rootView.findViewById(R.id.imageButton);
             final Dialog dialog = new Dialog(getActivity());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -81,10 +94,10 @@ public class ItemDetailFragment extends Fragment {
                 }
             });
 
-            if(!mItem.isAvailable()) {
+           /* if(!mItem.isAvailable()) {
                 TextView notAvailableText = (TextView) rootView.findViewById(R.id.item_not_available);
                 notAvailableText.setVisibility(View.VISIBLE);
-            }
+            }*/
         }
 
         return rootView;

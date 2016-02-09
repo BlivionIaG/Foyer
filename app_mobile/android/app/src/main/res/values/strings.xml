@@ -13,11 +13,12 @@
     <string name="settings">Paramètres</string>
     <string name="logout">Déconnexion</string>
 
+    <!-- Strings related to URL -->
     <string name="facebook_url">https://www.facebook.com/Club-Sandwich-Foyer-ISEN-470855583095316/</string>
-
-    <string name="api_url">http://p4ul.tk/Foyer/api/</string>
+    <string name="api_url">http://foyer.p4ul.tk/api/</string>
     <string name="api_products">product/</string>
     <string name="api_images">files/product/</string>
+    <string name="api_commands">command/login/</string>
 
     <string name="text_item_detail">Ceci est la decription du produit.</string>
     <string name="text_item_price">Prix :</string>
@@ -25,6 +26,11 @@
     <string name="text_item_not_available">Le produit n\'est pas disponible.</string>
 
     <string name="devise">€</string>
+
+    <!-- Strings related to dialog (notlogin) -->
+    <string name="result_dialog_title">Résultat</string>
+    <string name="result_error">Une erreur est survenue, votre commande a échouée. Si le problème persiste contacter Digital Design.</string>
+    <string name="result_success">Votre commande a été effectuée avec succès. Vous serez notifié lorsque votre commande sera prête.</string>
 
     <string name="checkout_dialog_title">Confirmation</string>
     <string name="checkout_warning">Aprés la confirmation de votre commande aucun retour en
@@ -37,6 +43,7 @@
     <string name="cart_total">Total :</string>
     <string name="cart_button_val">Commander</string>
 
+    <!-- Strings related to settings -->
     <string name="settings_title_reglage">Réglages</string>
     <string name="settings_title_about">Crédits</string>
     <string name="settings_autolog">Connexion automatique</string>

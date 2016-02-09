@@ -21,9 +21,10 @@ import android.widget.ImageView;
 
 import com.ddesign.foyer.R;
 import com.ddesign.foyer.dummy.Cart;
+import com.ddesign.foyer.dummy.CommandItem;
 import com.ddesign.foyer.dummy.Content;
+import com.ddesign.foyer.dummy.Item;
 import com.ddesign.foyer.dummy.ProduitItem;
-import com.ddesign.foyer.dummy.Content;
 
 
 /**
@@ -33,13 +34,13 @@ import com.ddesign.foyer.dummy.Content;
  * in a {@link ItemListActivity}.
  * <p/>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link ItemDetailFragment}.
+ * more than a {@link ProductItemDetailFragment}.
  */
-public class ItemDetailActivity extends AppCompatActivity {
+public class ProductItemDetailActivity extends AppCompatActivity {
 
     // a changer en Item pour regrouper avec CommandeItem
     private ProduitItem item;
-    private ItemDetailFragment fragment;
+    private ProductItemDetailFragment fragment;
 
     public static Drawable convertBitmapToDrawable(Context context, Bitmap bitmap) {
         Drawable d = new BitmapDrawable(context.getResources(), bitmap);
@@ -65,7 +66,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
-        this.item = (ProduitItem) Content.PRODUIT_ITEMS.get(Integer.parseInt(getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID)));
+        this.item = (ProduitItem) Content.PRODUCT_ITEMS.get(Integer.parseInt(getIntent().getStringExtra(ProductItemDetailFragment.ARG_ITEM_ID)));
+
         Drawable drawable = item.getDrawable();
 
         Cart.initCartFab(this);
@@ -119,9 +121,9 @@ public class ItemDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
-            fragment = new ItemDetailFragment();
+            arguments.putString(ProductItemDetailFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(ProductItemDetailFragment.ARG_ITEM_ID));
+            fragment = new ProductItemDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
