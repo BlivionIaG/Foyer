@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `PRODUCT` (
   `id_product` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(75) DEFAULT NULL,
   `price` float DEFAULT NULL,
-  `description` varchar(150) DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
   `available` tinyint(1) DEFAULT '1',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_product`)
