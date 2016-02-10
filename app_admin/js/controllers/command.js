@@ -108,6 +108,7 @@ angular.module('foyerApp.controllers')
   //reinitialisation du form
   $scope.reinitialiser = function(item, event) {
     $scope.command = null;
+    $scope.command.total = 0;
   };
   //supression de la commande
   $scope.delete = function(item, event) {
