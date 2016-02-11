@@ -2,6 +2,13 @@
 <h1>Produit <small>/ <span ng-if="action == 'add'">Ajouter</span><span ng-if="action == 'edit'">Édition de produit &laquo; {{ product.id_product }} &raquo;</span></small></h1>
 <hr />
 
+<span ng-if="action == 'edit'">
+  <div class="alert alert-danger alert-dismissible" role="alert" ng-show="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Attention!</strong> Modifier l'identité de ce produit se répercutera sur les commandes antérieures
+  </div>
+</span>
+
 <div class="alert alert-warning alert-dismissible" role="alert" ng-show="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong>{{ alert }}
