@@ -129,7 +129,7 @@ $app->post('/banniere/',function ($request, $response)  use ($app) {
   if(isset($_FILES['file']))
     if($_FILES['file']['name'])
       if(!$_FILES['file']['error']){
-        $extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
+        $extensions_valides = array( 'jpg' , 'jpeg' , 'png', 'JPG' , 'JPEG' , 'PNG' );
         $extension_upload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) );
         if(in_array($extension_upload,$extensions_valides))
           if(is_dir(DIR_FILES.'mobile/') && is_writable(DIR_FILES.'mobile/')){
