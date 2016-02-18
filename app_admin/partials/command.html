@@ -102,6 +102,15 @@
       <td>{{ command.date | date:'dd-MM-yyyy' }}</td>
       <td class="table-actions">
         <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default btn-sm" ng-click="confirm(command)" ng-confirm-click="Êtes-vous sûr de vouloir valider {{command.id_commande}} ?" ng-show="command.state == 1">
+            <span class="glyphicon glyphicon-ok"></span> Valider
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="final(command)" ng-confirm-click="Êtes-vous sûr de vouloir finaliser {{command.id_commande}} ?" ng-show="command.state == 2">
+            <span class="glyphicon glyphicon-cutlery"></span> Servie
+          </button>
+          <button type="button" class="btn btn-default btn-sm" ng-click="delete(command)" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-show="command.state == 1">
+            <span class="glyphicon glyphicon-remove"></span> Supprimer
+          </button>
           <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <span class="glyphicon glyphicon-cog"></span>
           </button>
