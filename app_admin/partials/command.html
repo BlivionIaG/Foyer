@@ -108,7 +108,7 @@
           <button type="button" class="btn btn-default btn-sm" ng-click="final(command)" ng-confirm-click="Êtes-vous sûr de vouloir finaliser {{command.id_commande}} ?" ng-show="command.state == 2">
             <span class="glyphicon glyphicon-cutlery"></span> Servie
           </button>
-          <button type="button" class="btn btn-default btn-sm" ng-click="delete(command)" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-show="command.state == 1">
+          <button type="button" class="btn btn-default btn-sm" ng-click="delete(command)" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-show="command.state == 1 || command.state == 2">
             <span class="glyphicon glyphicon-remove"></span> Supprimer
           </button>
           <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -132,7 +132,7 @@
                 </a>
               </li>
               <li>
-                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-disabled="command.state == 0 || command.state == 2 || command.state == 3">
+                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-disabled="command.state == 0 || command.state == 3">
                   Supprimer
                 </a>
               </li>
