@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `NOTIFICATION` (
   `notification` varchar(256) DEFAULT NULL,
   `login` varchar(25) DEFAULT NULL,
   `method` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_notification`),
   KEY `FK_NOTIFICATION_login` (`login`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
