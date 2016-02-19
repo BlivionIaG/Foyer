@@ -4,7 +4,7 @@ angular.module('foyerApp.controllers')
 
 //controller de commande
 .controller('commandController',['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
- //liste des etats des commandes 
+ //liste des etats des commandes
  $scope.roles = {
     0: 'Supprimée',
     1: 'En cours de validation',
@@ -80,13 +80,13 @@ angular.module('foyerApp.controllers')
     $http.get(CONFIG.API_URL+'command/id_commande/'+$routeParams.id_commande).success(function(data){
       $scope.command = data;
       $scope.action = 'edit';
+      $scope.command.date = new Date($scope.command.date);
     });
   }
 
   //Post du formulaire
   $scope.submitForm = function(item, event) {
     //edit
-    $scope.command.date = $scope.command.date.getFullYear() + "-" +  ($scope.command.date.getMonth() + 1) + "-" + $scope.command.date.getDate() ;
     if($scope.action === 'edit'){
       $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
         $location.path('command');
@@ -177,7 +177,7 @@ angular.module('foyerApp.controllers')
 
   function getTotal(){
     $scope.command.total = 0;
-    angular.forEach($scope.command.product, function(value, key){ $scope.command.total += value.quantity * value.price });
+    angular.forEach($scope.command.product, function(value, key){ $scope.command.total += value.quantity * value.price; });
   }
 
   // Disable weekend selection
