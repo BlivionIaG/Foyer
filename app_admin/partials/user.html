@@ -15,7 +15,7 @@
 <div class="collapse" id="notification_broadcast">
   <br/>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="(key,notification) in notifications" ng-if="notification.login == NULL" >
+    <li class="list-group-item" ng-repeat="(key,notification) in notifications | unique:'notification'" ng-if="notification.method == 1" >
       {{ notification.notification }}
     </li>
   </ul>
@@ -56,7 +56,7 @@
           <div class="collapse" id="{{ login.login }}">
             <br/>
             <ul class="list-group">
-              <li class="list-group-item" ng-repeat="notification in notifications" ng-if="login.login == notification.login" ng-class="{'list-group-item-danger':notification.method == 0,'list-group-item-success':notification.method == 2}">
+              <li class="list-group-item" ng-repeat="notification in notifications" ng-if="login.login == notification.login" ng-class="{'list-group-item-danger':notification.method == 0,'list-group-item-info':notification.method == 1,'list-group-item-success':notification.method == 2}">
                 <span ng-if="notification.method == 0">Commande n°{{notification.id_command}} : </span>{{ notification.notification }}
               </li>
             </ul>

@@ -118,7 +118,21 @@ $app->group('/notification', function() use ($app) {
    */
   $app->post('/',function ($request, $response)  use ($app) {
     try {
-      Capsule::table('NOTIFICATION')->insert($request->getParsedBody());
+      //Si broadcast
+      if($request->getParsedBody()['method'] == 1){
+        $logins = Capsule::table('USER')->get();
+        foreach ($logins as $key => $login) {
+          Capsule::table('NOTIFICATION')->insert([
+           'notification' => $request->getParsedBody()['notification'],
+           'login' => $login->login,
+           'method' => 1
+          ]);
+        }
+      }
+      //Si normal
+      else{
+        Capsule::table('NOTIFICATION')->insert($request->getParsedBody());
+      }
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
