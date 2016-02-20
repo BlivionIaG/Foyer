@@ -402,6 +402,7 @@
 				881CCFD01C7264EC006E3D96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		881CCFD11C7264EC006E3D96 /* Build configuration list for PBXNativeTarget "AppFoyerISENTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +411,7 @@
 				881CCFD31C7264EC006E3D96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

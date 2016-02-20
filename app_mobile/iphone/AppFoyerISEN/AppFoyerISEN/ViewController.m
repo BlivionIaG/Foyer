@@ -16,12 +16,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    self.isenURL = @"https://web.isen-bretagne.fr/cas/login";
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSURLSessionTask *task = [session dataTaskWithURL: [NSURL URLWithString:self.isenURL] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        // handle response
+        if(error == nil){
+            NSLog(@"response = %@", response);
+            NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+            NSLog(@"Data = %@",text);
+        }
+        else NSLog(@"error : %@", error);
+    }];
+    
+    [task resume];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
