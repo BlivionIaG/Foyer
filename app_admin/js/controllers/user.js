@@ -29,7 +29,7 @@ angular.module('foyerApp.controllers')
 
   }])
 
-.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window', function($scope, $http, CONFIG, ngDialog, $window) {
+.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window','$document', function($scope, $http, CONFIG, ngDialog, $window, $document) {
 
   if($scope.ngDialogData !== undefined){
     $scope.notification = $scope.ngDialogData;
@@ -49,6 +49,9 @@ angular.module('foyerApp.controllers')
       delete $scope.notification.ngDialogId;
       $http.post(CONFIG.API_URL+'notification/', $scope.notification).success(function(data) {
         $window.location.reload();
+      }).error(function(data) {
+        $scope.alert = data;
+        $document.scrollTop(0, 250);
       });
     };
 

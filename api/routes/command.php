@@ -315,26 +315,28 @@ $app->group('/command', function() use ($app) {
        'periode_debut' => $request->getParsedBody()['periode_debut'],
        'periode_fin' => $request->getParsedBody()['periode_fin'],
        'date' => $date->format('Y-m-d')
-       ]);
+      ]);
 
       //si on recoit un string plutot qu'un objet
-      if(is_string($request->getParsedBody()['product'])) $request->getParsedBody()['product'] = json_decode($request->getParsedBody()['product']);
+      if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
+      else $products = $request->getParsedBody()['product'];
+      //On supprime tout les anciens produits
+      Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete();
       //on lui ajoute les produits
-      if(Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete())
-        foreach ( $request->getParsedBody()['product'] as $key => $commande_product) {
-          //on passe le tableau en objet
-          if (!is_object($commande_product)) {
-            $commande_product_old = $commande_product;
-            $commande_product = new stdClass();
-            foreach ($commande_product_old as $key => $value)
-              $commande_product->$key = $value;
+      foreach ( $products as $key => $commande_product) {
+        //on passe le tableau en objet
+        if (!is_object($commande_product)) {
+          $commande_product_old = $commande_product;
+          $commande_product = new stdClass();
+          foreach ($commande_product_old as $key => $value)
+            $commande_product->$key = $value;
           }
-          Capsule::table('PRODUCT_COMMAND')->insert([
-           'quantity' => $commande_product->quantity,
-           'id_product' => $commande_product->id_product,
-           'id_commande' => $id_commande
-          ]);
-        }
+        Capsule::table('PRODUCT_COMMAND')->insert([
+          'quantity' => $commande_product->quantity,
+          'id_product' => $commande_product->id_product,
+         'id_commande' => $request->getParsedBody()['id_commande']
+        ]);
+      }
 
       //on lui envoie la notification
       if($request->getParsedBody()['state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
@@ -342,10 +344,10 @@ $app->group('/command', function() use ($app) {
       elseif($request->getParsedBody()['state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
       else $notification = NOTIF_COMMAND_STATE_0;
 
-      Capsule::table('NOTIFICATION')->update([
+      Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
        'method' => 0,
-       'id_command' => $id_commande,
+       'id_command' => $request->getParsedBody()['id_commande'],
        'notification' => $notification
        ]);
 

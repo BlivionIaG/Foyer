@@ -1,4 +1,4 @@
-<h1>Utilisateurs <small>/ Liste <span ng-show="logins">({{ (logins | filter:search).length }})</span></small></h1>
+<h1>Utilisateur <small>/ Liste <span ng-show="logins">({{ (logins | filter:search).length }})</span></small></h1>
 <hr />
 
 <div class="alert alert-warning alert-dismissible" role="alert" ng-show="alert">
@@ -8,14 +8,14 @@
 
 <p>
   <a class="btn btn-primary" ng-dialog="notification" ng-dialog-controller="notificationPopupController" ng-dialog-class="ngdialog-theme-default" ng-show-close="true" ng-dialog-data=""><i class="fa fa-envelope"></i> Envoyer une notification à tout les utilisateurs</a>
-  <a style="margin-left:20px;" ng-click="delete()" class="btn btn-primary" ng-confirm-click="Êtes-vous sûr de vouloir supprimer les notifications brodacast ?"><i class="fa fa-times"></i> Supprimer le message broadcast</a>
+  <a style="margin-left:20px;" ng-click="delete()" class="btn btn-primary" ng-confirm-click="Êtes-vous sûr de vouloir supprimer les notifications brodacast ?"><i class="fa fa-times"></i> Supprimer les notifications broadcast</a>
 </p>
 
 <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#notification_broadcast" aria-expanded="false">Voir les notifications broadcast</button>
 <div class="collapse" id="notification_broadcast">
   <br/>
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="(key,notification) in notifications" ng-if="notification.login == NULL" >
+    <li class="list-group-item" ng-repeat="(key,notification) in notifications | unique:'notification'" ng-if="notification.method == 1" >
       {{ notification.notification }}
     </li>
   </ul>
@@ -56,7 +56,7 @@
           <div class="collapse" id="{{ login.login }}">
             <br/>
             <ul class="list-group">
-              <li class="list-group-item" ng-repeat="notification in notifications" ng-if="login.login == notification.login" ng-class="{'list-group-item-danger':notification.method == 0,'list-group-item-success':notification.method == 2}">
+              <li class="list-group-item" ng-repeat="notification in notifications" ng-if="login.login == notification.login" ng-class="{'list-group-item-danger':notification.method == 0,'list-group-item-info':notification.method == 1,'list-group-item-success':notification.method == 2}">
                 <span ng-if="notification.method == 0">Commande n°{{notification.id_command}} : </span>{{ notification.notification }}
               </li>
             </ul>

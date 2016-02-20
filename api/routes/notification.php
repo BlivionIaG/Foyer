@@ -13,9 +13,9 @@ $app->group('/notification', function() use ($app) {
    * @apiSuccess {Number} id_commande ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
-   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Date} date Date de création de la notification.
    * @apiSuccess {Number} method Méthode d'envoi de la notification.
-   *
+
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
    *
@@ -43,7 +43,7 @@ $app->group('/notification', function() use ($app) {
    * @apiSuccess {Number} id_commande ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
-   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Date} date Date de création de la notification.
    * @apiSuccess {Number} method Méthode d'envoi de la notification.
    *
    * @apiSuccessExample Success-Response:
@@ -73,7 +73,7 @@ $app->group('/notification', function() use ($app) {
    * @apiSuccess {Number} id_commande ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
-   * @apiSuccess {Date} time Date de la commande.
+   * @apiSuccess {Date} date Date de création de la notification.
    * @apiSuccess {Number} method Méthode d'envoi de la notification.
    *
    * @apiSuccessExample Success-Response:
@@ -118,7 +118,21 @@ $app->group('/notification', function() use ($app) {
    */
   $app->post('/',function ($request, $response)  use ($app) {
     try {
-      Capsule::table('NOTIFICATION')->insert($request->getParsedBody());
+      //Si broadcast
+      if($request->getParsedBody()['method'] == 1){
+        $logins = Capsule::table('USER')->get();
+        foreach ($logins as $key => $login) {
+          Capsule::table('NOTIFICATION')->insert([
+           'notification' => $request->getParsedBody()['notification'],
+           'login' => $login->login,
+           'method' => 1
+          ]);
+        }
+      }
+      //Si normal
+      else{
+        Capsule::table('NOTIFICATION')->insert($request->getParsedBody());
+      }
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
       $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
