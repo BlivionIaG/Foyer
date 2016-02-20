@@ -10,7 +10,10 @@
 
 @interface ViewController : UIViewController /*<NSURLSessionDelegate>*/
 
-@property (nonatomic, strong) NSString *isenURL;
+@property (nonatomic, strong) NSString *jSessionId;
+@property (nonatomic, strong) NSString *lt;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *password;
 
 @end
 
