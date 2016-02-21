@@ -7,7 +7,7 @@ INSERT INTO `CLUB` (`id_club`) VALUES
 (1);
 
 CREATE TABLE IF NOT EXISTS `COMMAND` (
-  `id_commande` int(11) NOT NULL AUTO_INCREMENT,
+  `id_command` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(25) DEFAULT NULL,
   `state` varchar(25) DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `COMMAND` (
   `periode_debut` varchar(64) NOT NULL,
   `periode_fin` varchar(128) NOT NULL,
   `image` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`id_commande`),
+  PRIMARY KEY (`id_command`),
   KEY `FK_COMMAND_login` (`login`),
   KEY `FK_COMMAND_state` (`state`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `NOTIFICATION` (
 CREATE TABLE IF NOT EXISTS `PRODUCT` (
   `id_product` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(75) DEFAULT NULL,
+  `image` varchar(75) DEFAULT NULL,
   `price` float DEFAULT NULL,
   `description` longtext DEFAULT NULL,
   `available` tinyint(1) DEFAULT '1',
@@ -44,9 +45,9 @@ CREATE TABLE IF NOT EXISTS `PRODUCT` (
 CREATE TABLE IF NOT EXISTS `PRODUCT_COMMAND` (
   `quantity` int(11) DEFAULT NULL,
   `id_product` int(11) NOT NULL,
-  `id_commande` int(11) NOT NULL,
-  PRIMARY KEY (`id_product`,`id_commande`),
-  KEY `FK_PRODUCT_COMMAND_id_commande` (`id_commande`)
+  `id_command` int(11) NOT NULL,
+  PRIMARY KEY (`id_product`,`id_command`),
+  KEY `FK_PRODUCT_COMMAND_id_commande` (`id_command`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `STATE` (
@@ -87,7 +88,7 @@ ALTER TABLE `NOTIFICATION`
   ADD CONSTRAINT `FK_NOTIFICATION_login` FOREIGN KEY (`login`) REFERENCES `USER` (`login`);
 
 ALTER TABLE `PRODUCT_COMMAND`
-  ADD CONSTRAINT `FK_PRODUCT_COMMAND_id_commande` FOREIGN KEY (`id_commande`) REFERENCES `COMMAND` (`id_commande`),
+  ADD CONSTRAINT `FK_PRODUCT_COMMAND_id_commande` FOREIGN KEY (`id_command`) REFERENCES `COMMAND` (`id_command`),
   ADD CONSTRAINT `FK_PRODUCT_COMMAND_id_product` FOREIGN KEY (`id_product`) REFERENCES `PRODUCT` (`id_product`);
 
 ALTER TABLE `USER_CLUB`
