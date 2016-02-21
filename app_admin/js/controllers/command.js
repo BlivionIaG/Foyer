@@ -86,24 +86,30 @@ angular.module('foyerApp.controllers')
 
   //Post du formulaire
   $scope.submitForm = function(item, event) {
-    //edit
-    if($scope.action === 'edit'){
-      $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
-        $location.path('command');
-      }).error(function(data) {
-        $scope.alert = data;
-        $document.scrollTop(0, 250);
-      });
-    }
-    //ajout
-    else{
-      $http.post(CONFIG.API_URL+'command/', $scope.command).success(function(data) {
-        $location.path('command');
-      }).error(function(data) {
-        $scope.alert = data;
-        $document.scrollTop(0, 250);
-      });
-    }
+   if($scope.command.product !== undefined){
+      //edit
+      if($scope.action === 'edit'){
+        $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
+          $location.path('command');
+        }).error(function(data) {
+          $scope.alert = data;
+          $document.scrollTop(0, 250);
+        });
+      }
+      //ajout
+      else{
+        $http.post(CONFIG.API_URL+'command/', $scope.command).success(function(data) {
+          $location.path('command');
+        }).error(function(data) {
+          $scope.alert = data;
+          $document.scrollTop(0, 250);
+        });
+      }
+   }
+   else{
+     $scope.alert = "Vous devez ajouter des produits à la commande.";
+     $document.scrollTop(0, 250);
+   }
   };
   //reinitialisation du form
   $scope.reinitialiser = function(item, event) {
