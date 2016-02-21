@@ -30,7 +30,7 @@ angular.module('foyerApp.controllers')
 
   //suppression d'une commande
   $scope.delete = function(item, event) {
-    $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/0').success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function(data) {
       item.state = 0;
     }).error(function(data) {
       $scope.alert = data;
@@ -40,7 +40,7 @@ angular.module('foyerApp.controllers')
 
   //confirmation d'une commande
   $scope.confirm = function(item, event) {
-    $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/2').success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/2').success(function(data) {
       item.state = 2;
     }).error(function(data) {
       $scope.alert = data;
@@ -50,7 +50,7 @@ angular.module('foyerApp.controllers')
 
   //finalisation d'une commande
   $scope.final = function(item, event) {
-    $http.put(CONFIG.API_URL+'command/'+item.id_commande+'/state/3').success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/3').success(function(data) {
       item.state = 3;
     }).error(function(data) {
       $scope.alert = data;
@@ -76,8 +76,8 @@ angular.module('foyerApp.controllers')
   });
 
   //recuperation de la commande
-  if ($routeParams.id_commande) {
-    $http.get(CONFIG.API_URL+'command/id_commande/'+$routeParams.id_commande).success(function(data){
+  if ($routeParams.id_command) {
+    $http.get(CONFIG.API_URL+'command/id_command/'+$routeParams.id_command).success(function(data){
       $scope.command = data;
       $scope.action = 'edit';
       $scope.command.date = new Date($scope.command.date);
@@ -86,10 +86,10 @@ angular.module('foyerApp.controllers')
 
   //Post du formulaire
   $scope.submitForm = function(item, event) {
-   if($scope.command.product !== undefined){
+   if($scope.command.product !== undefined && $scope.command.product.length != 0){
       //edit
       if($scope.action === 'edit'){
-        $http.put(CONFIG.API_URL+'command/'+$scope.command.id_commande, $scope.command).success(function(data) {
+        $http.put(CONFIG.API_URL+'command/'+$scope.command.id_command, $scope.command).success(function(data) {
           $location.path('command');
         }).error(function(data) {
           $scope.alert = data;
@@ -107,7 +107,7 @@ angular.module('foyerApp.controllers')
       }
    }
    else{
-     $scope.alert = "Vous devez ajouter des produits à la commande.";
+     $scope.alert = " Vous devez ajouter des produits à la commande.";
      $document.scrollTop(0, 250);
    }
   };

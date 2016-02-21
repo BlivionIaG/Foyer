@@ -14,12 +14,12 @@
   <span ng-if="action == 'edit'">
     <div class="form-group">
       <label>ID</label>
-      <input type="text" class="form-control" placeholder="ID" ng-model="command.id_commande" ng-disabled="action == 'edit'">
+      <input type="text" class="form-control" placeholder="ID" ng-model="command.id_command" ng-disabled="action == 'edit'">
     </div>
   </span>
   <div class="form-group">
     <label>Login</label>
-    <select class="form-control ng-pristine ng-valid" ng-model="command.login" ng-options="user.login as user.login for user in users" ng-selected="command.login" required></select>
+    <select class="form-control ng-pristine ng-valid" ng-model="command.login" ng-options="user.login as user.login for user in users track by user.login" ng-selected="command.login" required></select>
   </div>
 
   <div class="form-group">

@@ -9,7 +9,7 @@ $app->group('/command', function() use ($app) {
    * @apiName GetCommands
    * @apiGroup Command
    *
-   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {Number} id_command ID de la commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
    * @apiSuccess {Number} state Etat de la commande.
    * @apiSuccess {Date} time Date de la prise de commande.
@@ -78,13 +78,13 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {get} /command/id_commande/:id_commande Récupération d'un commande par son ID.
+   * @api {get} /command/id_command/:id_command Récupération d'un commande par son ID.
    * @apiName GetCommandsByIdCommand
    * @apiGroup Command
    *
    * @apiParam {Number} id Commande unique ID.
    *
-   * @apiSuccess {Number} id_commande ID du commande.
+   * @apiSuccess {Number} id_command ID du commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
    * @apiSuccess {Number} state Etat de la commande.
    * @apiSuccess {Date} time Date de la prise de commande.
@@ -103,10 +103,10 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->get('/id_commande/{id_commande}', function($request, $response, $id_commande){
+  $app->get('/id_command/{id_command}', function($request, $response, $id_command){
     try {
-      $commande = Capsule::table('COMMAND')->where('id_commande', $id_commande)->first();
-      $commande_products = Capsule::table('PRODUCT_COMMAND')->where('id_commande', $id_commande)->get();
+      $commande = Capsule::table('COMMAND')->where('id_command', $id_command)->first();
+      $commande_products = Capsule::table('PRODUCT_COMMAND')->where('id_command', $id_command)->get();
       $commande->product = "";
       $commande->total = 0;
       foreach ($commande_products as $key_commande_products => $commande_product) {
@@ -129,7 +129,7 @@ $app->group('/command', function() use ($app) {
    *
    * @apiParam {String} user Login du user.
    *
-   * @apiSuccess {Number} id_commande ID du commande.
+   * @apiSuccess {Number} id_command ID du commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
    * @apiSuccess {Number} state Etat de la commande.
    * @apiSuccess {Date} time Date de la prise de commande.
@@ -178,7 +178,7 @@ $app->group('/command', function() use ($app) {
    *
    * @apiParam {Number} state Etat de la commande.
    *
-   * @apiSuccess {Number} id_commande ID du commande.
+   * @apiSuccess {Number} id_command ID du commande.
    * @apiSuccess {String} login Login de la commande de l'utilisateur.
    * @apiSuccess {Number} state Etat de la commande.
    * @apiSuccess {Date} time Date de la prise de commande.
@@ -232,13 +232,13 @@ $app->group('/command', function() use ($app) {
     try {
       //on creer la commande
       $date = new DateTime($request->getParsedBody()['date']);
-      $id_commande = Capsule::table('COMMAND')->insertGetId([
+      $id_command = Capsule::table('COMMAND')->insertGetId([
        'login' => $request->getParsedBody()['login'],
        'state' => $request->getParsedBody()['state'],
        'periode_debut' => $request->getParsedBody()['periode_debut'],
        'periode_fin' => $request->getParsedBody()['periode_fin'],
        'date' => $date->format('Y-m-d')
-       ],'id_commande');
+       ],'id_command');
 
       //si on recoit un string plutot qu'un objet
       if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
@@ -255,7 +255,7 @@ $app->group('/command', function() use ($app) {
         Capsule::table('PRODUCT_COMMAND')->insert([
          'quantity' =>  $commande_product->quantity,
          'id_product' => $commande_product->id_product,
-         'id_commande' => $id_commande
+         'id_command' => $id_command
          ]);
       }
 
@@ -268,7 +268,7 @@ $app->group('/command', function() use ($app) {
       Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
        'method' => 0,
-       'id_command' => $id_commande,
+       'id_command' => $id_command,
        'notification' => $notification
        ]);
 
@@ -280,11 +280,11 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {put} /command/:id_commande Modification d'une commande.
+   * @api {put} /command/:id_command Modification d'une commande.
    * @apiName PutCommand
    * @apiGroup Command
    *
-   * @apiParam {Number} id_commande ID de la commande.
+   * @apiParam {Number} id_command ID de la commande.
    *
    * @apiParam {String} login Login de la commande de l'utilisateur.
    * @apiParam {Number} state Etat de la commande.
@@ -305,11 +305,11 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->put('/{id_commande}', function ($request, $response, $id_commande) use ($app){
+  $app->put('/{id_command}', function ($request, $response, $id_command) use ($app){
     try {
       //on update la commande
       $date = new DateTime($request->getParsedBody()['date']);
-      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update([
+      Capsule::table('COMMAND')->where('id_command',$id_command)->update([
        'login' => $request->getParsedBody()['login'],
        'state' => $request->getParsedBody()['state'],
        'periode_debut' => $request->getParsedBody()['periode_debut'],
@@ -321,7 +321,7 @@ $app->group('/command', function() use ($app) {
       if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
       else $products = $request->getParsedBody()['product'];
       //On supprime tout les anciens produits
-      Capsule::table('PRODUCT_COMMAND')->where('id_commande',$id_commande)->delete();
+      Capsule::table('PRODUCT_COMMAND')->where('id_command',$id_command)->delete();
       //on lui ajoute les produits
       foreach ( $products as $key => $commande_product) {
         //on passe le tableau en objet
@@ -334,7 +334,7 @@ $app->group('/command', function() use ($app) {
         Capsule::table('PRODUCT_COMMAND')->insert([
           'quantity' => $commande_product->quantity,
           'id_product' => $commande_product->id_product,
-         'id_commande' => $request->getParsedBody()['id_commande']
+          'id_command' => $request->getParsedBody()['id_command']
         ]);
       }
 
@@ -347,7 +347,7 @@ $app->group('/command', function() use ($app) {
       Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
        'method' => 0,
-       'id_command' => $request->getParsedBody()['id_commande'],
+       'id_command' => $request->getParsedBody()['id_command'],
        'notification' => $notification
        ]);
 
@@ -359,11 +359,11 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {put} /command/:id_commande/state/:id_state Modification d'état d'une commande.
+   * @api {put} /command/:id_command/state/:id_state Modification d'état d'une commande.
    * @apiName PutCommandByIdAndState
    * @apiGroup Command
    *
-   * @apiParam {Number} id_commande ID de la commande.
+   * @apiParam {Number} id_command ID de la commande.
    * @apiParam {Number} id_state ID de l'état de la commande.
    *
    * @apiSuccessExample Success-Response:
@@ -378,11 +378,11 @@ $app->group('/command', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->put('/{id_commande}/state/{id_state}', function ($request, $response, $values) use ($app){
+  $app->put('/{id_command}/state/{id_state}', function ($request, $response, $values) use ($app){
     try {
-      $login = Capsule::table('COMMAND')->where('id_commande',$values['id_commande'])->value('login');
+      $login = Capsule::table('COMMAND')->where('id_command',$values['id_command'])->value('login');
       //on update la commande
-      Capsule::table('COMMAND')->where('id_commande', $values['id_commande'])->update([
+      Capsule::table('COMMAND')->where('id_command', $values['id_command'])->update([
        'state' => $values['id_state']
        ]);
 
@@ -395,7 +395,7 @@ $app->group('/command', function() use ($app) {
       Capsule::table('NOTIFICATION')->insert([
        'login' => $login,
        'method' => 0,
-       'id_command' => $values['id_commande'],
+       'id_command' => $values['id_command'],
        'notification' => $notification
        ]);
 
@@ -407,11 +407,11 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {delete} /command/:id_commande Suppression d'une commande.
+   * @api {delete} /command/:id_command Suppression d'une commande.
    * @apiName DeleteCommand
    * @apiGroup Command
    *
-   * @apiParam {Number} id_commande ID de la commande.
+   * @apiParam {Number} id_command ID de la commande.
    *
    * @apiSuccessExample Success-Response:
    *     HTTP/1.1 200 OK
@@ -427,13 +427,13 @@ $app->group('/command', function() use ($app) {
    */
   $app->delete('/{id_commande}',function ($request, $response, $id_commande) {
     try {
-      Capsule::table('COMMAND')->where('id_commande',$id_commande)->update(['state' => 0]);
+      Capsule::table('COMMAND')->where('id_command',$id_command)->update(['state' => 0]);
       //on lui envoie la notification
-      $login = Capsule::table('COMMAND')->where('id_commande',$id_commande)->value('login');
+      $login = Capsule::table('COMMAND')->where('id_command',$id_command)->value('login');
       Capsule::table('NOTIFICATION')->insert([
          'login' => $login,
          'method' => 0,
-         'id_command' => $id_commande,
+         'id_command' => $id_command,
          'notification' => NOTIF_COMMAND_STATE_0
       ]);
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);

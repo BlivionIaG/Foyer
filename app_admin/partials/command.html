@@ -27,8 +27,8 @@
     <thead>
       <tr ng-hide="(commands | filter:search).length == 0">
         <th>
-          <a ng-click="orderByField = '-id_commande'; sortReverse=!sortReverse">Id</a>
-          <span ng-show="orderByField == '-id_commande'">
+          <a ng-click="orderByField = '-id_command'; sortReverse=!sortReverse">Id</a>
+          <span ng-show="orderByField == '-id_command'">
             <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
             <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
           </span>
@@ -80,11 +80,11 @@
       'info':command.state == 0}"
       ng-repeat="command in commands | filter:search | orderBy:orderByField:sortReverse"
       ng-hide="!(states.indexOf(command.state) + 1)">
-      <td>{{ command.id_commande }}</td>
+      <td>{{ command.id_command }}</td>
       <td>{{ command.login }}</td>
       <td>
-        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#{{ command.id_commande }}" aria-expanded="false">Plus d'informations sur la commande</button>
-        <div class="collapse" id="{{ command.id_commande }}">
+        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#{{ command.id_command }}" aria-expanded="false">Plus d'informations sur la commande</button>
+        <div class="collapse" id="{{ command.id_command }}">
           <br/>
           <ul class="list-group">
             <li class="list-group-item" ng-repeat="product in command.product">
@@ -116,7 +116,7 @@
           </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu">
               <li>
-                <a href="#command/edit/{{ command.id_commande }}" class="btn"> Editer</a>
+                <a href="#command/edit/{{ command.id_command }}" class="btn"> Editer</a>
               </li>
               <li>
                 <a ng-click="confirm(command)" class="btn" ng-disabled="command.state == 0 || command.state == 2 || command.state == 3">
@@ -129,7 +129,7 @@
                 </a>
               </li>
               <li>
-                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_commande}} ?" ng-disabled="command.state == 0 || command.state == 3">
+                <a ng-click="delete(command)" class="btn" ng-confirm-click="Êtes-vous sûr de vouloir supprimer {{command.id_command}} ?" ng-disabled="command.state == 0 || command.state == 3">
                   Supprimer
                 </a>
               </li>

@@ -47,10 +47,10 @@ angular.module('foyerApp.services', [])
       headers: {'Content-Type': undefined}
     })
     .success(function(data){
-      console.log(data);
+//      console.log(data);
     })
     .error(function(data){
-      console.log(data);
+//      console.log(data);
     });
   }
 }]);
