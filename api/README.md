@@ -2,7 +2,7 @@
 
 Api rest du projet foyer.
 
-<a target="_blank" href="http://digital-design.github.io/Foyer/">Lien vers la doc</a>
+<a target="_blank" href="http://foyer.p4ul.tk/api/doc/">Lien vers la doc</a>
 
 <h2>Installation</h2>
 Faire la commande : <code>composer update</code>.

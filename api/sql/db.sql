@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS `COMMAND` (
   `date` date NOT NULL,
   `periode_debut` varchar(64) NOT NULL,
   `periode_fin` varchar(128) NOT NULL,
-  `image` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id_command`),
   KEY `FK_COMMAND_login` (`login`),
   KEY `FK_COMMAND_state` (`state`)
@@ -34,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `NOTIFICATION` (
 CREATE TABLE IF NOT EXISTS `PRODUCT` (
   `id_product` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(75) DEFAULT NULL,
-  `image` varchar(75) DEFAULT NULL,
+  `image` varchar(150) DEFAULT NULL,
   `price` float DEFAULT NULL,
   `description` longtext DEFAULT NULL,
   `available` tinyint(1) DEFAULT '1',
