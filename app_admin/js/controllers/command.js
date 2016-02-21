@@ -11,7 +11,7 @@ angular.module('foyerApp.controllers')
     2: 'Validée',
     3: 'Servie',
   };
-  $scope.states = ['1','3'];
+  $scope.states = ['1','2'];
 
   //recuperation des commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
