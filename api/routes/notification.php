@@ -10,7 +10,7 @@ $app->group('/notification', function() use ($app) {
    * @apiGroup Notification
    *
    * @apiSuccess {Number} id_notification ID de la notification.
-   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {Number} id_command ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
    * @apiSuccess {Date} date Date de création de la notification.
@@ -40,7 +40,7 @@ $app->group('/notification', function() use ($app) {
    * @apiGroup Notification
    *
    * @apiSuccess {Number} id_notification ID de la notification.
-   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {Number} id_command ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
    * @apiSuccess {Date} date Date de création de la notification.
@@ -70,7 +70,7 @@ $app->group('/notification', function() use ($app) {
    * @apiGroup Notification
    *
    * @apiSuccess {Number} id_notification ID de la notification.
-   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {Number} id_command ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
    * @apiSuccess {Date} date Date de création de la notification.
@@ -99,7 +99,7 @@ $app->group('/notification', function() use ($app) {
    * @apiName PostNotification
    * @apiGroup Notification
    *
-   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {Number} id_command ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
    * @apiSuccess {Number} method Méthode d'envoi de la notification.
@@ -147,7 +147,7 @@ $app->group('/notification', function() use ($app) {
    *
    * @apiParam {Number} id_notification ID de la notification.
    *
-   * @apiSuccess {Number} id_commande ID de la commande.
+   * @apiSuccess {Number} id_command ID de la commande.
    * @apiSuccess {String} notification Message de la notification.
    * @apiSuccess {String} login Login de la personne qui va recevoir la notification.
    * @apiSuccess {Number} method Méthode d'envoi de la notification.
