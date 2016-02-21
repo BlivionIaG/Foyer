@@ -57,7 +57,7 @@ angular.module('foyerApp', [
     controller  : 'commandController'
   })
 
-  .when('/command/edit/:id_commande', {
+  .when('/command/edit/:id_command', {
     templateUrl : 'partials/command-form.html',
     controller  : 'commandFormController'
   })

@@ -36,7 +36,7 @@ $app->group('/command', function() use ($app) {
         $commandes[$key_commandes]->product = "";
         $commandes[$key_commandes]->total = 0;
         foreach ($commande_products as $key_commande_products => $commande_product) {
-          if($commande_product->id_commande == $commande->id_commande){
+          if($commande_product->id_command == $commande->id_command){
             $product = Capsule::table('PRODUCT')->where('id_product',$commande_product->id_product)->first();
             $product->quantity = $commande_product->quantity;
             $commandes[$key_commandes]->total += $product->price * $commande_product->quantity;

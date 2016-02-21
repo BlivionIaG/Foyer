@@ -1,5 +1,5 @@
 
-<h1>Commande <small>/ <span ng-if="action == 'add'">Ajouter</span><span ng-if="action == 'edit'">Édition da la Commande &laquo; {{ command.id_commande }} &raquo;</span></small></h1>
+<h1>Commande <small>/ <span ng-if="action == 'add'">Ajouter</span><span ng-if="action == 'edit'">Édition da la Commande &laquo; {{ command.id_command }} &raquo;</span></small></h1>
 <hr />
 
 <div class="alert alert-warning alert-dismissible" role="alert" ng-show="alert">
@@ -19,7 +19,7 @@
   </span>
   <div class="form-group">
     <label>Login</label>
-    <select class="form-control ng-pristine ng-valid" ng-model="command.login" ng-options="user.login as user.login for user in users track by user.login" ng-selected="command.login" required></select>
+    <select class="form-control ng-pristine ng-valid" ng-model="command.login" ng-options="user.login as user.login for user in users" ng-selected="command.login" required></select>
   </div>
 
   <div class="form-group">

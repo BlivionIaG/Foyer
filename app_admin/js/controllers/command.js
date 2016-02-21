@@ -11,7 +11,7 @@ angular.module('foyerApp.controllers')
     2: 'Validée',
     3: 'Servie',
   };
-  $scope.states = ['1','2','3'];
+  $scope.states = ['1','3'];
 
   //recuperation des commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
@@ -118,7 +118,7 @@ angular.module('foyerApp.controllers')
   };
   //supression de la commande
   $scope.delete = function(item, event) {
-    $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_commande).success(function(data) {
+    $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_command).success(function(data) {
       $location.path('command');
     }).error(function(data) {
       $scope.alert = data;
