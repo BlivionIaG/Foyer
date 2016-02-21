@@ -116,7 +116,7 @@
           </button>
             <ul class="dropdown-menu dropdown-menu-right" role="menu">
               <li>
-                  <a class="btn disabled"> Editer</a>
+                <a href="#command/edit/{{ command.id_commande }}" class="btn"> Editer</a>
               </li>
               <li>
                 <a ng-click="confirm(command)" class="btn" ng-disabled="command.state == 0 || command.state == 2 || command.state == 3">
