@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `NOTIFICATION` (
 CREATE TABLE IF NOT EXISTS `PRODUCT` (
   `id_product` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(75) DEFAULT NULL,
+  `image` varchar(75) DEFAULT NULL,
   `price` float DEFAULT NULL,
   `description` longtext DEFAULT NULL,
   `available` tinyint(1) DEFAULT '1',
