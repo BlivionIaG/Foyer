@@ -13,6 +13,14 @@ angular.module('foyerApp.controllers')
   };
   $scope.states = ['1','2'];
 
+  $scope.filterCheckBox = function(item) {
+    for (var i = 0; i < $scope.states.length; i++) {
+      if($scope.states[i] == item.state)
+        return true;
+    }
+    return false;
+  };
+
   //recuperation des commandes
   $http.get(CONFIG.API_URL+'command/').success(function(data){
     $scope.commands = data;
