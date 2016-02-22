@@ -13,13 +13,11 @@ angular.module('foyerApp', [
   ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://foyer.p4ul.tk/api/'
+  'API_URL': 'http://192.168.1.173/Foyer/api/'
 })
 
 //gestion des routes
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-
-
 
   $locationProvider.html5Mode({
     //enabled: true,
@@ -96,6 +94,8 @@ angular.module('foyerApp', [
     }
     return jQuery.param(data);
   };
+
+  //$httpProvider.defaults.headers.common['Authorization'] = 'Basic '+$rootScope.password;
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 }])

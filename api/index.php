@@ -20,15 +20,19 @@ $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 $app = new Slim\App();
-/*
-$app->add(new Slim\Middleware\HttpBasicAuthentication([
-    "path" => "/",
-    "realm" => "Protected",
-    "users" => [
-        API_USER => API_PASSWORD
-    ]
-]));
-*/
+
+//on se connecte à l'api
+$user = NULL;
+if(isset($_SERVER['PHP_AUTH_USER'])){
+  $API_USER = json_decode(API_USER);
+  foreach ($API_USER as $key => $login) {
+    if($login->user == $_SERVER['PHP_AUTH_USER'] && $login->password == $_SERVER['HTTP_AUTHORIZATION']){
+      $user = $login;
+      break;
+    }
+  }
+}
+
 //ajout des routes
 require 'routes/product.php';
 require 'routes/command.php';

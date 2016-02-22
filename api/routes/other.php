@@ -23,9 +23,9 @@ $app->get('/date/', function($request, $response) {
 * @apiName GetCheckConnexion
 * @apiGroup Others
 *
-* @apiSuccess {String} etat Etat de connexion.
 * @apiSuccess {String} login Login de connexion.
-* @apiSuccess {String} uid ID de connexion.
+* @apiSuccess {String} user User de l'api.
+* @apiSuccess {String} password Code Basic Auth.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
@@ -33,8 +33,10 @@ $app->get('/date/', function($request, $response) {
 */
 $app->get('/login/', function($request, $response) {
   session_start();
-  if(isset($_SESSION['uid']))
-    return $response->withJson(array ("status" => "ok", "login" => $_SESSION['login'], "uid" => $_SESSION['uid']), 200);
+  if(isset($_SESSION['uid'])){
+    $API_USER = json_decode(API_USER);
+    return $response->withJson(array ("login" => $_SESSION['login'], "user" => $API_USER[0]->user, "password" => $API_USER[0]->password), 200);
+  }
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
 });

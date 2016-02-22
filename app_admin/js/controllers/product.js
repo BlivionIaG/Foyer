@@ -7,6 +7,7 @@ angular.module('foyerApp.controllers')
   $scope.api_url = CONFIG.API_URL;
   //recuperation des produits
   $http.get(CONFIG.API_URL+'product/').success(function(data){
+    console.log(data);
     $scope.products = data;
     $scope.loaded = true;
   });
