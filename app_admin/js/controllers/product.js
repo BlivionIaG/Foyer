@@ -45,7 +45,7 @@ angular.module('foyerApp.controllers')
 .controller('productFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG','fileUpload', function($scope, $http, $window, $routeParams, $document, $location, CONFIG, fileUpload) {
   $scope.product = {};
   $scope.action = 'add';
-  $scope.api_url = CONFIG.API_URL;
+  $scope.apiUrl = CONFIG.API_URL;
   //recuperation du produit
   if ($routeParams.id_product) {
     $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){

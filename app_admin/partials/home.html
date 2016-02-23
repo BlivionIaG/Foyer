@@ -9,7 +9,7 @@
       </div>
       <div
       line-chart
-      line-data='command_stats'
+      line-data='commandStats'
       line-xkey='time_new'
       line-ykeys='["nb_command"]'
       line-labels='["Commandes"]'
@@ -24,10 +24,10 @@
       </div>
       <table class="table table-condensed table-striped">
         <tbody>
-          <tr ng-repeat="command_validate in commands_validate | limitTo: 10">
-            <td>{{ command_validate.login }}</td>
-            <td>{{ command_validate.periode_debut }}</td>
-            <td>{{ command_validate.periode_fin }}</td>
+          <tr ng-repeat="commandValidate in commandsValidate | limitTo: 10">
+            <td>{{ commandValidate.login }}</td>
+            <td>{{ commandValidate.periode_debut }}</td>
+            <td>{{ commandValidate.periode_fin }}</td>
           </tr>
         </tbody>
       </table>
