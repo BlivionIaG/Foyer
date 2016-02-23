@@ -34,15 +34,11 @@ $app->get('/', function($request, $response) use ($app){
 	return $response->withRedirect('doc/');
 });
 
-//connexion au CAS
 $app->get('/cas/', function($request, $response) use ($app){
-  $file_handle = fopen("https://web.isen-bretagne.fr/cas/login", "r");
-  while (!feof($file_handle)) {
-    $line = fgets($file_handle);
-    if(preg_match('#name="lt" value="([a-zA-Z0-9-_]+)"#',$line))
-      echo $line;
-  }
-  fclose($file_handle);
+  //Récupération du lt
+  preg_match('#name="lt" value="([a-zA-Z0-9-_]+)"#', substr(file_get_contents("https://web.isen-bretagne.fr/cas/login"),3), $matches, PREG_OFFSET_CAPTURE);
+  print_r($matches[1][0]);
+  //
 });
 
 $app->run();
