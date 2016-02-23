@@ -108,7 +108,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {post} /product/ Ajout d'un nouveau produit. Sécurisé Admin.
+	 * @api {post} /product/ Ajout d'un nouveau produit. Sécuriser Admin.
 	 * @apiName PostProduct
 	 * @apiGroup Product
 	 *
@@ -149,7 +149,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {post} /product/img/:id_product Ajouter une image à un produit. Sécurisé Admin.
+	 * @api {post} /product/img/:id_product Ajouter une image à un produit. Sécuriser Admin.
 	 * @apiName PostProductImg
 	 * @apiGroup Product
 	 *
@@ -195,7 +195,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {put} /product/:id_product Modification d'un produit. Sécurisé Admin.
+	 * @api {put} /product/:id_product Modification d'un produit. Sécuriser Admin.
 	 * @apiName PutProduct
 	 * @apiGroup Product
 	 *
@@ -238,7 +238,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {put} /product/:id_product/available/:available Changement d'état d'un produit. Sécurisé Admin.
+	 * @api {put} /product/:id_product/available/:available Changement d'état d'un produit. Sécuriser Admin.
 	 * @apiName PutProductAvailable
 	 * @apiGroup Product
 	 *
@@ -277,7 +277,7 @@ $app->group('/product', function() use ($app) {
 	});
 
 	/**
-	 * @api {delete} /product/:id_product Suppression d'un produit. Sécurisé Admin.
+	 * @api {delete} /product/:id_product Suppression d'un produit. Sécuriser Admin.
 	 * @apiName DeleteProduct
 	 * @apiGroup Product
 	 *

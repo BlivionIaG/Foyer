@@ -205,7 +205,7 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {post} /command/ Ajout d'une commande. Sécurisé Mobile Admin.
+   * @api {post} /command/ Ajout d'une commande. Sécuriser Mobile Admin.
    * @apiName PostCommand
    * @apiGroup Command
    *
@@ -289,7 +289,7 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {put} /command/:id_command Modification d'une commande. Sécurisé Admin.
+   * @api {put} /command/:id_command Modification d'une commande. Sécuriser Admin.
    * @apiName PutCommand
    * @apiGroup Command
    *
@@ -377,7 +377,7 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {put} /command/:id_command/state/:id_state Modification d'état d'une commande. Sécurisé Admin.
+   * @api {put} /command/:id_command/state/:id_state Modification d'état d'une commande. Sécuriser Admin.
    * @apiName PutCommandByIdAndState
    * @apiGroup Command
    *
@@ -434,7 +434,7 @@ $app->group('/command', function() use ($app) {
   });
 
   /**
-   * @api {delete} /command/:id_command Suppression d'une commande. Sécurisé Admin.
+   * @api {delete} /command/:id_command Suppression d'une commande. Sécuriser Admin.
    * @apiName DeleteCommand
    * @apiGroup Command
    *
