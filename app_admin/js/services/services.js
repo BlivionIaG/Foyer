@@ -8,7 +8,7 @@ angular.module('foyerApp.services', [])
       $http.post(CONFIG.API_URL+'login/', user).success(function(data) {
         sessionService.set('uid', data.status.success);
         $location.path('home');
-      }).error(function(data) {
+      }).error(function() {
         $scope.loginMessage = "Erreur d'identification.";
       });
     },
