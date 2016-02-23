@@ -11,8 +11,8 @@ angular.module('foyerApp.controllers')
     $scope.loaded = true;
   });
   //suppression d'un produit
-  $scope.delete = function(item, event) {
-    $http.delete(CONFIG.API_URL+'product/'+item.id_product).success(function(data) {
+  $scope.delete = function(item) {
+    $http.delete(CONFIG.API_URL+'product/'+item.id_product).success(function() {
       item.available = 0;
     }).error(function(data) {
       $scope.alert = data;
@@ -21,8 +21,8 @@ angular.module('foyerApp.controllers')
   };
 
   //plus en stock d'un produit
-  $scope.stock = function(item, event) {
-    $http.put(CONFIG.API_URL+'product/'+item.id_product+'/available/2').success(function(data) {
+  $scope.stock = function(item) {
+    $http.put(CONFIG.API_URL+'product/'+item.id_product+'/available/2').success(function() {
       item.available = 2;
     }).error(function(data) {
       $scope.alert = data;
@@ -31,8 +31,8 @@ angular.module('foyerApp.controllers')
   };
 
   //disponiblité d'un produit
-  $scope.disponible = function(item, event) {
-    $http.put(CONFIG.API_URL+'product/'+item.id_product+'/available/1').success(function(data) {
+  $scope.disponible = function(item) {
+    $http.put(CONFIG.API_URL+'product/'+item.id_product+'/available/1').success(function() {
       item.available = 1;
     }).error(function(data) {
       $scope.alert = data;
@@ -55,10 +55,10 @@ angular.module('foyerApp.controllers')
   }
 
   //Post du formulaire
-  $scope.submitForm = function(item, event) {
+  $scope.submitForm = function() {
     //edit
     if($scope.action == 'edit'){
-      $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function(data) {
+      $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function() {
         fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product);
         $location.path('product');
       }).error(function(data) {
@@ -78,12 +78,12 @@ angular.module('foyerApp.controllers')
     }
   };
   //reinitialisation du form
-  $scope.reinitialiser = function(item, event) {
+  $scope.reinitialiser = function() {
     $scope.product = null;
   };
   //suppression du produit
-  $scope.delete = function(item, event) {
-    $http.delete(CONFIG.API_URL+'product/'+$scope.product.id_product).success(function(data) {
+  $scope.delete = function() {
+    $http.delete(CONFIG.API_URL+'product/'+$scope.product.id_product).success(function() {
       $location.path('product');
     }).error(function(data) {
       $scope.alert = data;

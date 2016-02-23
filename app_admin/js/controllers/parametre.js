@@ -15,5 +15,5 @@ angular.module('foyerApp.controllers')
   $scope.submitForm = function(item, event) {
     fileUpload.uploadFileToUrl($scope.banniereImage, CONFIG.API_URL+'banniere/');
     $window.location.reload();
-  }
+  };
 }]);

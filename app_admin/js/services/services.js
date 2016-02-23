@@ -13,10 +13,10 @@ angular.module('foyerApp.services', [])
       });
     },
     logout: function() {
-      $http.get(CONFIG.API_URL+'logout/').success(function(data) {
+      $http.get(CONFIG.API_URL+'logout/').success(function() {
         sessionService.destroy('uid');
         $location.path('identification');
-        location.reload();
+        $location.reload();
       });
     },
     isLogged: function() {
@@ -35,7 +35,7 @@ angular.module('foyerApp.services', [])
   };
 }])
 
-.factory('sessionService', ['$http','CONFIG', function($http, CONFIG) {
+.factory('sessionService', function() {
   return {
     set: function(key, value) {
       return window.sessionStorage.setItem(key, value);
@@ -47,7 +47,8 @@ angular.module('foyerApp.services', [])
       return window.sessionStorage.removeItem(key);
     }
   };
-}])
+})
+
 .service('fileUpload', ['$http', function ($http) {
   this.uploadFileToUrl = function(file, uploadUrl){
     var fd = new FormData();
