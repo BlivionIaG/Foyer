@@ -70,6 +70,11 @@ angular.module('foyerApp.controllers')
 
 //controller de form commande
 .controller('commandFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $window,$routeParams, $document, $location, CONFIG) {
+  function getTotal(){
+    $scope.command.total = 0;
+    angular.forEach($scope.command.product, function(value){ $scope.command.total += value.quantity * value.price; });
+  }
+
   $scope.command = {};
   $scope.action = 'add';
   $scope.command.state = 1;
@@ -196,11 +201,6 @@ angular.module('foyerApp.controllers')
     });
     getTotal();
   };
-
-  function getTotal(){
-    $scope.command.total = 0;
-    angular.forEach($scope.command.product, function(value){ $scope.command.total += value.quantity * value.price; });
-  }
 
   // Disable weekend selection
   $scope.disabled = function(date, mode) {
