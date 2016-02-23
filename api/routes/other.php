@@ -61,7 +61,7 @@ $app->get('/logout/', function($request, $response) {
 });
 
 /**
-* @api {post} /login/ Connexion à l'interface admin. Sécurisé Admin.
+* @api {post} /login/ Connexion à l'interface admin. Sécuriser Admin.
 * @apiName PostConnexion
 * @apiGroup Others
 *
@@ -109,7 +109,7 @@ $app->get('/banniere/', function($request, $response) {
 });
 
 /**
-* @api {post} /banniere/ Modifier la bannière mobile. Sécurisé Admin.
+* @api {post} /banniere/ Modifier la bannière mobile. Sécuriser Admin.
 * @apiName PostBanniere
 * @apiGroup Others
 *

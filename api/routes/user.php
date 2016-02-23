@@ -55,7 +55,7 @@ $app->group('/user', function() use ($app) {
   });
 
   /**
-   * @api {post} /user/ Ajout d'un nouveau user. Sécurisé Admin.
+   * @api {post} /user/ Ajout d'un nouveau user. Sécuriser Admin.
    * @apiName PostUser
    * @apiGroup User
    *
@@ -93,7 +93,7 @@ $app->group('/user', function() use ($app) {
   });
 
   /**
-   * @api {put} /user/:login Modification d'un user. Sécurisé Admin.
+   * @api {put} /user/:login Modification d'un user. Sécuriser Admin.
    * @apiName PutUser
    * @apiGroup User
    *
@@ -131,7 +131,7 @@ $app->group('/user', function() use ($app) {
   });
 
   /**
-   * @api {delete} /user/:login Suppression d'un user. Sécurisé Mobile Admin.
+   * @api {delete} /user/:login Suppression d'un user. Sécuriser Mobile Admin.
    * @apiName DeleteUser
    * @apiGroup User
    *
