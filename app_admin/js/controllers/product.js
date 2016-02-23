@@ -4,6 +4,7 @@ angular.module('foyerApp.controllers')
 //controlleur de la page product
 .controller('productController', ['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
 
+  $scope.api_url = CONFIG.API_URL;
   //recuperation des produits
   $http.get(CONFIG.API_URL+'product/').success(function(data){
     $scope.products = data;
