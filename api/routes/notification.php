@@ -95,7 +95,7 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {post} /notification/ Ajout d'une notification.
+   * @api {post} /notification/ Ajout d'une notification. Sécurisé Admin.
    * @apiName PostNotification
    * @apiGroup Notification
    *
@@ -117,31 +117,40 @@ $app->group('/notification', function() use ($app) {
    *     }
    */
   $app->post('/',function ($request, $response)  use ($app) {
-    try {
-      //Si broadcast
-      if($request->getParsedBody()['method'] == 1){
-        $logins = Capsule::table('USER')->get();
-        foreach ($logins as $key => $login) {
-          Capsule::table('NOTIFICATION')->insert([
-           'notification' => $request->getParsedBody()['notification'],
-           'login' => $login->login,
-           'method' => 1
-          ]);
+    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
+      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
+      if($user && $user->access == 1){
+        try {
+          //Si broadcast
+          if($request->getParsedBody()['method'] == 1){
+            $logins = Capsule::table('USER')->get();
+            foreach ($logins as $key => $login) {
+              Capsule::table('NOTIFICATION')->insert([
+               'notification' => $request->getParsedBody()['notification'],
+               'login' => $login->login,
+               'method' => 1
+               ]);
+            }
+          }
+          //Si normal
+          else{
+            Capsule::table('NOTIFICATION')->insert($request->getParsedBody());
+          }
+          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+        } catch(Illuminate\Database\QueryException $e) {
+          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
         }
+      }else{
+        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
       }
-      //Si normal
-      else{
-        Capsule::table('NOTIFICATION')->insert($request->getParsedBody());
-      }
-      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-    } catch(Illuminate\Database\QueryException $e) {
-      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
     }
     return $response;
   });
 
   /**
-   * @api {put} /notification/:id_notification Modification d'une notification.
+   * @api {put} /notification/:id_notification Modification d'une notification. Sécurisé Admin.
    * @apiName PutNotification
    * @apiGroup Notification
    *
@@ -165,17 +174,26 @@ $app->group('/notification', function() use ($app) {
    *     }
    */
   $app->put('/{id_notification}', function ($request, $response, $id_notification) use ($app){
-    try {
-      Capsule::table('NOTIFICATION')->where('id_notification',id_notification)->update($request->getParsedBody());
-      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-    } catch(Illuminate\Database\QueryException $e) {
-      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
+      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
+      if($user && ($user->access == 1 || $user->access == 2)){
+        try {
+          Capsule::table('NOTIFICATION')->where('id_notification',id_notification)->update($request->getParsedBody());
+          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+        } catch(Illuminate\Database\QueryException $e) {
+          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+        }
+      }else{
+        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+      }
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
     }
     return $response;
   });
 
   /**
-   * @api {delete} /notification/:id_notification Suppression d'une notification.
+   * @api {delete} /notification/:id_notification Suppression d'une notification. Sécurisé Admin.
    * @apiName DeleteNotification
    * @apiGroup Notification
    *
@@ -194,17 +212,26 @@ $app->group('/notification', function() use ($app) {
    *     }
    */
   $app->delete('/{id_notification}',function ($request, $response, $id_notification) {
-    try {
-      Capsule::table('NOTIFICATION')->where('id_notification',$id_notification)->delete();
-      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-    } catch(Illuminate\Database\QueryException $e) {
-      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
+      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
+      if($user && ($user->access == 1 || $user->access == 2)){
+        try {
+          Capsule::table('NOTIFICATION')->where('id_notification',$id_notification)->delete();
+          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+        } catch(Illuminate\Database\QueryException $e) {
+          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+        }
+      }else{
+        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+      }
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
     }
     return $response;
   });
 
   /**
-   * @api {delete} /notification/method/:id_method Suppression de notifications en fonction de la methode.
+   * @api {delete} /notification/method/:id_method Suppression de notifications en fonction de la methode. Sécurisé Admin.
    * @apiName DeleteNotificationByMethod
    * @apiGroup Notification
    *
@@ -223,17 +250,26 @@ $app->group('/notification', function() use ($app) {
    *     }
    */
   $app->delete('/method/{id_method}',function ($request, $response, $id_method) {
-    try {
-      Capsule::table('NOTIFICATION')->where('method',$id_method)->delete();
-      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-    } catch(Illuminate\Database\QueryException $e) {
-      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
+      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
+      if($user && $user->access == 1){
+        try {
+          Capsule::table('NOTIFICATION')->where('method',$id_method)->delete();
+          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+        } catch(Illuminate\Database\QueryException $e) {
+          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+        }
+      }else{
+        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+      }
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
     }
     return $response;
   });
 
   /**
-   * @api {delete} /notification/login/:login Suppression des notifications d'un utilisateur.
+   * @api {delete} /notification/login/:login Suppression des notifications d'un utilisateur. Sécurisé Mobile Admin.
    * @apiName DeleteNotificationByLogin
    * @apiGroup Notification
    *
@@ -252,11 +288,20 @@ $app->group('/notification', function() use ($app) {
    *     }
    */
   $app->delete('/login/{login}',function ($request, $response, $login) {
-    try {
-      Capsule::table('NOTIFICATION')->where('login',$login)->delete();
-      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-    } catch(Illuminate\Database\QueryException $e) {
-      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
+      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
+      if($user && ($user->access == 1 || $user->access == 2)){
+        try {
+          Capsule::table('NOTIFICATION')->where('login',$login)->delete();
+          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+        } catch(Illuminate\Database\QueryException $e) {
+          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+        }
+      }else{
+        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+      }
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
     }
     return $response;
   });

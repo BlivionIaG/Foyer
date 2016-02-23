@@ -79,12 +79,6 @@ angular.module('foyerApp', [
     redirectTo: '/'
   });
 }])
-/*
-.config(['datepickerConfig', 'datepickerPopupConfig', function (datepickerConfig, datepickerPopupConfig) {
-    datepickerPopupConfig.currentText = 'Aujourd\'hui';
-    datepickerPopupConfig.clearText = 'Effacer';
-    datepickerPopupConfig.closeText = 'Fermer';
-}])*/
 
 //ajout de headers des requetes
 .config(['$httpProvider', function($httpProvider) {
@@ -95,7 +89,7 @@ angular.module('foyerApp', [
     return jQuery.param(data);
   };
 
-  //$httpProvider.defaults.headers.common['Authorization'] = 'Basic '+$rootScope.password;
+  //$httpProvider.defaults.headers.common['Authorization'] = 'Basic cm9vdDpzM2N1cml0Mw==';
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 }])
@@ -105,11 +99,7 @@ angular.module('foyerApp', [
   var routeAllowed = ['/identification']; // Route that not required login
   $rootScope.$on('$routeChangeStart', function() {
     if(routeAllowed.indexOf($location.path()) == -1) {
-      var connected  = loginService.isLogged();
-      if(connected)
-        connected.error( function (){
-          $location.path('identification');
-      });
+      loginService.isLogged();
     }
   });
 });

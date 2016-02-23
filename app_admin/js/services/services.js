@@ -2,7 +2,7 @@
 
 
 angular.module('foyerApp.services', [])
-.factory('loginService', ['$http', '$location', 'sessionService', 'CONFIG', function($http, $location, sessionService, CONFIG) {
+.factory('loginService', ['$http', '$location', 'sessionService', 'CONFIG', '$rootScope', function($http, $location, sessionService, CONFIG, $rootScope) {
   return {
     login: function(user, $scope) {
       $http.post(CONFIG.API_URL+'login/', user).success(function(data) {
@@ -20,11 +20,21 @@ angular.module('foyerApp.services', [])
       });
     },
     isLogged: function() {
-      var $checkSessionServer = $http.get(CONFIG.API_URL+'login/');
-      return $checkSessionServer;
+      $http.get(CONFIG.API_URL+'login/').success(function(data) {
+        $rootScope.isLogged = true;
+        $rootScope.login = data.login;
+        $rootScope.password = data.password;
+        $http.defaults.headers.common['Authorization'] = 'Basic '+data.password;
+      })
+      .error( function (){
+        $rootScope.isLogged = false;
+        $rootScope.login = false;
+        $location.path('identification');
+      });
     }
   };
 }])
+
 .factory('sessionService', ['$http','CONFIG', function($http, CONFIG) {
   return {
     set: function(key, value) {
@@ -52,5 +62,5 @@ angular.module('foyerApp.services', [])
     .error(function(data){
 //      console.log(data);
     });
-  }
+  };
 }]);

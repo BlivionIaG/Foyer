@@ -6,26 +6,6 @@ angular.module('foyerApp.controllers', [])
   $rootScope.$on('$locationChangeStart', function (event, next, current) {
     $scope.search = '';
     $rootScope.login = '';
-
-    var connected  = loginService.isLogged();
-    if(connected){
-      connected.then(function(msg) {
-        if(!msg.data) {
-          $rootScope.isLogged = false;
-          $rootScope.login = false;
-        }
-        else {
-          $rootScope.isLogged = true;
-          $rootScope.login = msg.data.login;
-          $rootScope.user = msg.data.user;
-          $rootScope.password = msg.data.password;
-        }
-      });
-    }
-    else{
-      $rootScope.isLogged = false;
-      $rootScope.login = false;
-    }
   });
   // Logout
   $rootScope.logout = function() {

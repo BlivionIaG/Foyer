@@ -61,7 +61,7 @@ $app->get('/logout/', function($request, $response) {
 });
 
 /**
-* @api {post} /login/ Connexion à l'interface admin.
+* @api {post} /login/ Connexion à l'interface admin. Sécurisé Admin.
 * @apiName PostConnexion
 * @apiGroup Others
 *
@@ -109,7 +109,7 @@ $app->get('/banniere/', function($request, $response) {
 });
 
 /**
-* @api {post} /banniere/ Modifier la bannière mobile.
+* @api {post} /banniere/ Modifier la bannière mobile. Sécurisé Admin.
 * @apiName PostBanniere
 * @apiGroup Others
 *
@@ -128,22 +128,31 @@ $app->get('/banniere/', function($request, $response) {
 *     }
 */
 $app->post('/banniere/',function ($request, $response)  use ($app) {
-  if(isset($_FILES['file']))
-    if($_FILES['file']['name'])
-      if(!$_FILES['file']['error']){
-        $extensions_valides = array( 'jpg' , 'jpeg' , 'png', 'JPG' , 'JPEG' , 'PNG' );
-        $extension_upload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) );
-        if(in_array($extension_upload,$extensions_valides))
-          if(is_dir(DIR_FILES.'mobile/') && is_writable(DIR_FILES.'mobile/')){
-            foreach(glob(DIR_FILES.'/mobile/banniere_mobile.*', GLOB_NOESCAPE) as $file_banniere) unlink(DIR_FILES.'mobile/'.basename($file_banniere));
-            if(move_uploaded_file($_FILES['file']['tmp_name'], DIR_FILES.'mobile/banniere_mobile.'.$extension_upload))
-              $response = $response->withJson(array ("status"  => array("success" => "fichier upload")), 200);
-            else $response = $response->withJson(array ("status"  => array("error" => DIR_FILES."impossible d'uploader le fichier")), 400);
-          }else $response = $response->withJson(array ("status"  => array("error" => "product/ impossible d'uploader dans ce dossier")), 240);
-        else $response = $response->withJson(array ("status"  => array("error" => "mauvaise extension")), 400);
-     }else $response = $response->withJson(array ("status"  => array("error" => $_FILES)), 400);
-    else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
-  else $response = $response->withJson(array ("status"  => array("error" => "aucun fichier uploader")), 400);
+  if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
+    $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
+    if($user && $user->access == 1){
+      if(isset($_FILES['file']))
+        if($_FILES['file']['name'])
+          if(!$_FILES['file']['error']){
+            $extensions_valides = array( 'jpg' , 'jpeg' , 'png', 'JPG' , 'JPEG' , 'PNG' );
+            $extension_upload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) );
+            if(in_array($extension_upload,$extensions_valides))
+              if(is_dir(DIR_FILES.'mobile/') && is_writable(DIR_FILES.'mobile/')){
+                foreach(glob(DIR_FILES.'/mobile/banniere_mobile.*', GLOB_NOESCAPE) as $file_banniere) unlink(DIR_FILES.'mobile/'.basename($file_banniere));
+                if(move_uploaded_file($_FILES['file']['tmp_name'], DIR_FILES.'mobile/banniere_mobile.'.$extension_upload))
+                  $response = $response->withJson(array ("status"  => array("success" => "fichier upload")), 200);
+                else $response = $response->withJson(array ("status"  => array("error" => DIR_FILES."impossible d'uploader le fichier")), 400);
+              }else $response = $response->withJson(array ("status"  => array("error" => "product/ impossible d'uploader dans ce dossier")), 240);
+            else $response = $response->withJson(array ("status"  => array("error" => "mauvaise extension")), 400);
+         }else $response = $response->withJson(array ("status"  => array("error" => $_FILES)), 400);
+        else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
+      else $response = $response->withJson(array ("status"  => array("error" => "aucun fichier uploader")), 400);
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+    }
+  }else{
+    $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+  }
   return $response;
 });
 

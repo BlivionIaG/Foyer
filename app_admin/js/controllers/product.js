@@ -4,17 +4,35 @@ angular.module('foyerApp.controllers')
 //controlleur de la page product
 .controller('productController', ['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
 
-  $scope.api_url = CONFIG.API_URL;
   //recuperation des produits
   $http.get(CONFIG.API_URL+'product/').success(function(data){
-    console.log(data);
     $scope.products = data;
     $scope.loaded = true;
   });
   //suppression d'un produit
   $scope.delete = function(item, event) {
-    $http.delete(CONFIG.API_URL+'product/'+item).success(function(data) {
-      $window.location.reload();
+    $http.delete(CONFIG.API_URL+'product/'+item.id_product).success(function(data) {
+      item.available = 0;
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
+
+  //plus en stock d'un produit
+  $scope.stock = function(item, event) {
+    $http.put(CONFIG.API_URL+'product/'+item.id_product+'/available/2').success(function(data) {
+      item.available = 2;
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
+
+  //disponiblité d'un produit
+  $scope.disponible = function(item, event) {
+    $http.put(CONFIG.API_URL+'product/'+item.id_product+'/available/1').success(function(data) {
+      item.available = 1;
     }).error(function(data) {
       $scope.alert = data;
       $document.scrollTop(0, 250);
@@ -27,7 +45,6 @@ angular.module('foyerApp.controllers')
   $scope.product = {};
   $scope.action = 'add';
   $scope.api_url = CONFIG.API_URL;
-
   //recuperation du produit
   if ($routeParams.id_product) {
     $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){
