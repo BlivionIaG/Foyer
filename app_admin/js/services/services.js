@@ -16,7 +16,7 @@ angular.module('foyerApp.services', [])
       $http.get(CONFIG.API_URL+'logout/').success(function() {
         sessionService.destroy('uid');
         $location.path('identification');
-        $location.reload();
+        window.location.reload();
       });
     },
     isLogged: function() {
@@ -56,12 +56,6 @@ angular.module('foyerApp.services', [])
     $http.post(uploadUrl, fd, {
       transformRequest: angular.identity,
       headers: {'Content-Type': undefined}
-    })
-    .success(function(data){
-//      console.log(data);
-    })
-    .error(function(data){
-//      console.log(data);
     });
   };
 }]);

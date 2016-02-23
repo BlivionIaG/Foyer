@@ -14,20 +14,21 @@ angular.module('foyerApp.controllers')
     $scope.loaded = true;
   });
 
-  $scope.delete = function(item, event){
-      //suppression par login
-      if(item !== undefined)
-        $http.delete(CONFIG.API_URL+'notification/login/'+item).success(function(data) {
-          $window.location.reload();
-        });
-      //suppression du broadcast
-      else
-        $http.delete(CONFIG.API_URL+'notification/method/1').success(function(data) {
-          $window.location.reload();
-        });
-    };
-
-  }])
+  $scope.delete = function(item){
+    //suppression par login
+    if(item !== undefined){
+      $http.delete(CONFIG.API_URL+'notification/login/'+item).success(function() {
+        $window.location.reload();
+      });
+    }
+    //suppression du broadcast
+    else{
+      $http.delete(CONFIG.API_URL+'notification/method/1').success(function() {
+        $window.location.reload();
+      });
+    }
+  };
+}])
 
 .controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window','$document', function($scope, $http, CONFIG, ngDialog, $window, $document) {
 
@@ -40,19 +41,18 @@ angular.module('foyerApp.controllers')
     $scope.notification.method = 1;
   }
 
-    //ngDialog
-    $scope.open = function() {
-      ngDialog.open({ template: 'notification', controller: 'notificationPopupController', scope:$scope });
-    };
+  //ngDialog
+  $scope.open = function() {
+    ngDialog.open({ template: 'notification', controller: 'notificationPopupController', scope:$scope });
+  };
 
-    $scope.submitForm = function(){
-      delete $scope.notification.ngDialogId;
-      $http.post(CONFIG.API_URL+'notification/', $scope.notification).success(function(data) {
-        $window.location.reload();
-      }).error(function(data) {
-        $scope.alert = data;
-        $document.scrollTop(0, 250);
-      });
-    };
-
-  }]);
+  $scope.submitForm = function(){
+    delete $scope.notification.ngDialogId;
+    $http.post(CONFIG.API_URL+'notification/', $scope.notification).success(function() {
+      $window.location.reload();
+    }).error(function(data) {
+      $scope.alert = data;
+      $document.scrollTop(0, 250);
+    });
+  };
+}]);

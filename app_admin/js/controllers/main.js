@@ -2,8 +2,8 @@
 
 angular.module('foyerApp.controllers', [])
 
-.controller('mainController', ['$rootScope', '$scope', '$http', '$location', 'loginService', 'sessionService', function($rootScope, $scope, $http, $location, loginService, sessionService) {
-  $rootScope.$on('$locationChangeStart', function (event, next, current) {
+.controller('mainController', ['$rootScope', '$scope', '$http', '$location', 'loginService', function($rootScope, $scope, $http, $location, loginService) {
+  $rootScope.$on(function () {
     $scope.search = '';
     $rootScope.login = '';
   });
@@ -13,9 +13,9 @@ angular.module('foyerApp.controllers', [])
   };
 }])
 
-.controller('ErrorController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http) {
+.controller('ErrorController', function() {
 
-}])
+})
 
 .controller('identificationController', ['$rootScope', '$scope', '$http', 'loginService', function($rootScope, $scope, $http, loginService) {
   $scope.login = '';

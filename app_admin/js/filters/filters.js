@@ -32,7 +32,7 @@ angular.module('foyerApp.filters', [])
       };
 
       angular.forEach(items, function (item) {
-        var valueToCheck, isDuplicate = false;
+        var isDuplicate = false;
         for (var i = 0; i < newItems.length; i++) {
           if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
             isDuplicate = true;
