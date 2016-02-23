@@ -29,7 +29,7 @@ angular.module('foyerApp.controllers')
   });
 
   //total d'une commande
-  $scope.getTotal = function(item, event) {
+  $scope.getTotal = function(item) {
     var total = 0;
     for(var i = 0; i < $scope.cart.products.length; i++){
         total += item.product.price * item.product.quantity;
@@ -39,7 +39,7 @@ angular.module('foyerApp.controllers')
 
   //suppression d'une commande
   $scope.delete = function(item, event) {
-    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
       item.state = "0";
     }).error(function(data) {
       $scope.alert = data;
@@ -49,7 +49,7 @@ angular.module('foyerApp.controllers')
 
   //confirmation d'une commande
   $scope.confirm = function(item, event) {
-    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/2').success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/2').success(function() {
       item.state = "2";
     }).error(function(data) {
       $scope.alert = data;
@@ -59,7 +59,7 @@ angular.module('foyerApp.controllers')
 
   //finalisation d'une commande
   $scope.final = function(item, event) {
-    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/3').success(function(data) {
+    $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/3').success(function() {
       item.state = "3";
     }).error(function(data) {
       $scope.alert = data;
@@ -121,13 +121,13 @@ angular.module('foyerApp.controllers')
    }
   };
   //reinitialisation du form
-  $scope.reinitialiser = function(item, event) {
+  $scope.reinitialiser = function() {
     $scope.command = null;
     $scope.command.total = 0;
   };
   //supression de la commande
-  $scope.delete = function(item, event) {
-    $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_command).success(function(data) {
+  $scope.delete = function() {
+    $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_command).success(function() {
       $location.path('command');
     }).error(function(data) {
       $scope.alert = data;
@@ -147,8 +147,10 @@ angular.module('foyerApp.controllers')
   //+ et - de la liste product
   $scope.addProductList = function(items) {
     //fix pour les boutons simples
-    if(!angular.isArray(items)) items = [items];
-    angular.forEach(items, function(item, key) {
+    if(!angular.isArray(items)){
+      items = [items];
+    }
+    angular.forEach(items, function(item) {
       var exist = true;
       //si vide on init array
       if(!$scope.command.product){
@@ -169,13 +171,15 @@ angular.module('foyerApp.controllers')
         $scope.command.product.push(item);
       }
     });
-    getTotal()
+    getTotal();
   };
 
   $scope.deleteProductList = function(items) {
     //fix pour les boutons simples
-    if(!angular.isArray(items)) items = [items];
-    angular.forEach(items, function(item, key) {
+    if(!angular.isArray(items)){
+      items = [items];
+    }
+    angular.forEach(items, function(item) {
       //on parcours le tableau pour l'enlever
       angular.forEach($scope.command.product, function(value, key) {
         if(value.id_product === item.id_product){
@@ -190,12 +194,12 @@ angular.module('foyerApp.controllers')
         }
       });
     });
-    getTotal()
+    getTotal();
   };
 
   function getTotal(){
     $scope.command.total = 0;
-    angular.forEach($scope.command.product, function(value, key){ $scope.command.total += value.quantity * value.price; });
+    angular.forEach($scope.command.product, function(value){ $scope.command.total += value.quantity * value.price; });
   }
 
   // Disable weekend selection
@@ -210,7 +214,7 @@ angular.module('foyerApp.controllers')
   $scope.maxDate = new Date();
   $scope.maxDate.setDate($scope.maxDate.getDate()+14);
 
-  $scope.open = function($event) {
+  $scope.open = function() {
     $scope.status.opened = true;
   };
 

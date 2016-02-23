@@ -98,7 +98,7 @@ angular.module('foyerApp', [
 .run(function($rootScope, $location, loginService) {
   var routeAllowed = ['/identification']; // Route that not required login
   $rootScope.$on('$routeChangeStart', function() {
-    if(routeAllowed.indexOf($location.path()) == -1) {
+    if(routeAllowed.indexOf($location.path()) === -1) {
       loginService.isLogged();
     }
   });

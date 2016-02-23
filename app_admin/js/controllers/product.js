@@ -4,7 +4,7 @@ angular.module('foyerApp.controllers')
 //controlleur de la page product
 .controller('productController', ['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
 
-  $scope.api_url = CONFIG.API_URL;
+  $scope.apiUrl = CONFIG.API_URL;
   //recuperation des produits
   $http.get(CONFIG.API_URL+'product/').success(function(data){
     $scope.products = data;
@@ -57,7 +57,7 @@ angular.module('foyerApp.controllers')
   //Post du formulaire
   $scope.submitForm = function() {
     //edit
-    if($scope.action == 'edit'){
+    if($scope.action === 'edit'){
       $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function() {
         fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product);
         $location.path('product');
