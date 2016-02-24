@@ -23,8 +23,8 @@ angular.module('foyerApp.services', [])
       $http.get(CONFIG.API_URL+'login/').success(function(data) {
         $rootScope.isLogged = true;
         $rootScope.login = data.login;
-        $rootScope.password = data.password;
-        $http.defaults.headers.common['Authorization'] = 'Basic '+data.password;
+        $rootScope.key = data.key;
+        $http.defaults.headers.common['Authorization'] = 'Basic '+data.key;
       })
       .error( function (){
         $rootScope.isLogged = false;
