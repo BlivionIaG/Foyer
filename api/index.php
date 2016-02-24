@@ -5,6 +5,8 @@ require 'inc/config.php';
 require 'inc/functions.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use GuzzleHttp\Client as Client;
+use GuzzleHttp\Psr7\Request;
 
 $capsule = new Capsule;
 $capsule->addConnection(array(
@@ -36,6 +38,55 @@ $app->get('/', function($request, $response) use ($app){
 
 $app->get('/cas/', function($request, $response) use ($app){
 
+  //Utilisation de http://guzzle.readthedocs.org/en/latest/
+  $client = new Client();
+
+  //On récupère la page
+  $responseGet = $client->request('GET', 'https://web.isen-bretagne.fr/cas/login?service=https://web.isen-bretagne.fr/uPortal/Login');
+
+  if($responseGet->getStatusCode() == 200){
+    //récupération du champ lt
+    preg_match('/name="lt" value="([a-zA-Z0-9-_]+)"/', $responseGet->getBody(), $lt, PREG_OFFSET_CAPTURE);
+    $lt = $lt[1][0];
+    //récupération du cookie JSESSIONID
+    preg_match('/JSESSIONID=([A-Z0-9]+)/', $responseGet->getHeader('Set-Cookie')[0], $cookie, PREG_OFFSET_CAPTURE);
+    $cookie = $cookie[1][0];
+
+    //Si on à bien récupéré le cookie et le lt
+    if(isset($lt) && isset($cookie) && !empty($lt) && !empty($cookie)){
+      //On envoi le form
+      $responsePost = $client->request('POST', 'https://web.isen-bretagne.fr/cas/login;jsessionid='.$cookie.'?service=https://web.isen-bretagne.fr/uPortal/Login',[
+        'form_params' => [
+          'lt' => $lt,
+          'username' => 'ksidor18',
+          'password' => 's3curit3',
+          '_eventId' => 'submit'
+        ]
+      ]);
+
+      //Bon mot de passe = 302
+      if($responsePost->getStatusCode() == 302){
+        $response = $response->withJson(array ("status"  => array("ok" => "root")), 200);
+      }else{
+        $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 400);
+      }
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => "Lors de la récupération des données")), 400);
+    }
+  }else{
+    $response = $response->withJson(array ("status"  => array("error" => "Lors de la récupération de la page de connexion")), 400);
+  }
+
+  return $response;
+/*
+  echo '<pre>';
+  var_dump($responsePost->getStatusCode());
+  var_dump($responsePost->getBody());
+  var_dump($lt);
+  var_dump($cookie);
+
+
+
   $ch = curl_init('https://web.isen-bretagne.fr/cas/login?service=https://web.isen-bretagne.fr/uPortal/Login');
   //récupération du body
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -49,6 +100,8 @@ $app->get('/cas/', function($request, $response) use ($app){
   //récupération du cookie
   preg_match_all('/^Set-Cookie:\s*([^;]*)/mi', $result, $cookie);
   $cookie = $cookie[1][0];
+  preg_match('/JSESSIONID=([A-Z0-9]+)/', $cookie, $cookie, PREG_OFFSET_CAPTURE);
+  $cookie = $cookie[1][0];
   //récupération du lt
   preg_match('#name="lt" value="([a-zA-Z0-9-_]+)"#', substr($result,3), $lt, PREG_OFFSET_CAPTURE);
   $lt = $lt[1][0];
@@ -57,7 +110,7 @@ $app->get('/cas/', function($request, $response) use ($app){
   $fields = array(
     'lt' => $lt,
     'username' => 'ksidor18',
-    'password' => 's3curit3',
+    'password' => 'S3curit3',
     '_eventId' => 'submit'
   );
 
