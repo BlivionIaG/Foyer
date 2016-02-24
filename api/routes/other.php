@@ -62,7 +62,7 @@ $app->get('/logout/', function($request, $response) {
 });
 
 /**
-* @api {post} /login/ Connexion à l'interface admin. Sécuriser Admin.
+* @api {post} /login/ Connexion à l'interface admin.
 * @apiName PostConnexion
 * @apiGroup Others
 *
@@ -158,14 +158,14 @@ $app->post('/banniere/',function ($request, $response)  use ($app) {
 });
 
 /**
-* @api {post} /cas/ Connexion au cas.
+* @api {post} /cas/ Connexion au CAS (timeout de 15s).
 * @apiName PostConnexionCas
 * @apiGroup Others
 *
 * @apiParam {String} username Login CAS.
 * @apiParam {String} password Mot de passe CAS.
 *
-* @apiSuccess {String} username De la connexion.
+* @apiSuccess {String} username De connexion au CAS.
 * @apiSuccess {String} key Code Basic Auth.
 *
 * @apiSuccessExample Success-Response:
@@ -173,11 +173,9 @@ $app->post('/banniere/',function ($request, $response)  use ($app) {
 *
 */
 $app->post('/cas/', function($request, $response) use ($app){
-
-  //Utilisation de http://guzzle.readthedocs.org/en/latest/
-  $client = new Client();
   try{
-    //On récupère la page avec 6s de timeout
+    $client = new Client();
+    //On récupère la page avec 15s de timeout
     $responseGet = $client->request('GET', 'https://web.isen-bretagne.fr/cas/login?service=https://web.isen-bretagne.fr/uPortal/Login', ['connect_timeout' => 15]);
 
     //récupération du champ lt
@@ -195,13 +193,17 @@ $app->post('/cas/', function($request, $response) use ($app){
         'password' => $request->getParsedBody()['password'],
         '_eventId' => 'submit'
       ],
-      //pas de redirection
+      //pas de redirection pour garder le code 302
       'allow_redirects' => false
     ]);
 
     //Bon mot de passe = 302
     if($responsePost->getStatusCode() == 302){
       $API_USER = json_decode(API_USER);
+      //On regarde si l'user existe déjà sinon on l'ajoute à la db
+      if(!Capsule::table('USER')->where('login', $request->getParsedBody()['username'])->first()){
+        Capsule::table('USER')->insert(['login' => $request->getParsedBody()['username']]);
+      }
       $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => $API_USER[1]->password)), 200);
     }else{
       $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 400);
