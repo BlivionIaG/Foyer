@@ -41,8 +41,8 @@ $app->get('/cas/', function($request, $response) use ($app){
   //Utilisation de http://guzzle.readthedocs.org/en/latest/
   $client = new Client();
 
-  //On récupère la page
-  $responseGet = $client->request('GET', 'https://web.isen-bretagne.fr/cas/login?service=https://web.isen-bretagne.fr/uPortal/Login');
+  //On récupère la page avec 6s de timeout
+  $responseGet = $client->request('GET', 'https://web.isen-bretagne.fr/cas/login?service=https://web.isen-bretagne.fr/uPortal/Login', ['connect_timeout' => 20]);
 
   if($responseGet->getStatusCode() == 200){
     //récupération du champ lt
@@ -62,12 +62,14 @@ $app->get('/cas/', function($request, $response) use ($app){
           'password' => 's3curit3',
           '_eventId' => 'submit'
         ],
+        //sinon code 200 pour redirection
         'allow_redirects' => false
       ]);
 
       //Bon mot de passe = 302
       if($responsePost->getStatusCode() == 302){
-        $response = $response->withJson(array ("status"  => array("ok" => "root")), 200);
+        $API_USER = json_decode(API_USER);
+        $response = $response->withJson(array ("status"  => array("user" => "ksidor18", "key" => $API_USER[1]->password)), 200);
       }else{
         $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 400);
       }

@@ -35,7 +35,7 @@ $app->get('/login/', function($request, $response) {
   session_start();
   if(isset($_SESSION['uid'])){
     $API_USER = json_decode(API_USER);
-    return $response->withJson(array ("login" => $_SESSION['login'], "user" => $API_USER[0]->user, "password" => $API_USER[0]->password), 200);
+    return $response->withJson(array ("login" => $_SESSION['login'], "password" => $API_USER[0]->password), 200);
   }
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
