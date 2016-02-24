@@ -61,7 +61,8 @@ $app->get('/cas/', function($request, $response) use ($app){
           'username' => 'ksidor18',
           'password' => 's3curit3',
           '_eventId' => 'submit'
-        ]
+        ],
+        'allow_redirects' => false
       ]);
 
       //Bon mot de passe = 302
@@ -71,10 +72,10 @@ $app->get('/cas/', function($request, $response) use ($app){
         $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 400);
       }
     }else{
-      $response = $response->withJson(array ("status"  => array("error" => "Lors de la récupération des données")), 400);
+      $response = $response->withJson(array ("status"  => array("error" => "Erreur lors de la récupération de la page de connexion au CAS")), 400);
     }
   }else{
-    $response = $response->withJson(array ("status"  => array("error" => "Lors de la récupération de la page de connexion")), 400);
+    $response = $response->withJson(array ("status"  => array("error" => "Erreur de connexion avec le CAS")), 400);
   }
 
   return $response;
