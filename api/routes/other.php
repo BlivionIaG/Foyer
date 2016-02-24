@@ -165,6 +165,7 @@ $app->post('/banniere/',function ($request, $response)  use ($app) {
 * @apiParam {String} username Login CAS.
 * @apiParam {String} password Mot de passe CAS.
 *
+* @apiSuccess {String} username De la connexion.
 * @apiSuccess {String} key Code Basic Auth.
 *
 * @apiSuccessExample Success-Response:
@@ -201,7 +202,7 @@ $app->post('/cas/', function($request, $response) use ($app){
     //Bon mot de passe = 302
     if($responsePost->getStatusCode() == 302){
       $API_USER = json_decode(API_USER);
-      $response = $response->withJson(array ("status"  => array("user" => "ksidor18", "key" => $API_USER[1]->password)), 200);
+      $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => $API_USER[1]->password)), 200);
     }else{
       $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 400);
     }
