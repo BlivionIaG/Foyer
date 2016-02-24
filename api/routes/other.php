@@ -62,7 +62,7 @@ $app->get('/logout/', function($request, $response) {
 });
 
 /**
-* @api {post} /login/ Connexion à l'interface admin. Sécuriser Admin.
+* @api {post} /login/ Connexion à l'interface admin.
 * @apiName PostConnexion
 * @apiGroup Others
 *
