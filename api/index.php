@@ -5,8 +5,6 @@ require 'inc/config.php';
 require 'inc/functions.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use GuzzleHttp\Client as Client;
-use GuzzleHttp\Psr7\Request;
 
 $capsule = new Capsule;
 $capsule->addConnection(array(

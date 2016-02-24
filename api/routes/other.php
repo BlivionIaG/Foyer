@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use GuzzleHttp\Client as Client;
+use GuzzleHttp\Psr7\Request;
 
 /**
 * @api {get} /date/ Obtention de la date du serveur.
@@ -174,10 +176,10 @@ $app->get('/cas/', function($request, $response) use ($app){
   //Utilisation de http://guzzle.readthedocs.org/en/latest/
   $client = new Client();
 
-  //On récupère la page avec 6s de timeout
-  $responseGet = $client->request('GET', 'https://web.isen-bretagne.fr/cas/login?service=https://web.isen-bretagne.fr/uPortal/Login', ['connect_timeout' => 6]);
+  try{
+    //On récupère la page avec 6s de timeout
+    $responseGet = $client->request('GET', 'https://web.isen-bretagne.fr/cas/login?service=https://web.isen-bretagne.fr/uPortal/Login', ['connect_timeout' => 15]);
 
-  if($responseGet->getStatusCode() == 200){
     //récupération du champ lt
     preg_match('/name="lt" value="([a-zA-Z0-9-_]+)"/', $responseGet->getBody(), $lt, PREG_OFFSET_CAPTURE);
     $lt = $lt[1][0];
@@ -185,31 +187,26 @@ $app->get('/cas/', function($request, $response) use ($app){
     preg_match('/JSESSIONID=([A-Z0-9]+)/', $responseGet->getHeader('Set-Cookie')[0], $cookie, PREG_OFFSET_CAPTURE);
     $cookie = $cookie[1][0];
 
-    //Si on à bien récupéré le cookie et le lt
-    if(isset($lt) && isset($cookie) && !empty($lt) && !empty($cookie)){
-      //On envoi le form
-      $responsePost = $client->request('POST', 'https://web.isen-bretagne.fr/cas/login;jsessionid='.$cookie.'?service=https://web.isen-bretagne.fr/uPortal/Login',[
-        'form_params' => [
-          'lt' => $lt,
-          'username' => 'ksidor18',
-          'password' => 's3curit3',
-          '_eventId' => 'submit'
-        ],
-        //sinon code 200 pour redirection
-        'allow_redirects' => false
-      ]);
+    //On envoi le form
+    $responsePost = $client->request('POST', 'https://web.isen-bretagne.fr/cas/login;jsessionid='.$cookie.'?service=https://web.isen-bretagne.fr/uPortal/Login',[
+      'form_params' => [
+        'lt' => $lt,
+        'username' => 'ksidor18',
+        'password' => 's3curit3',
+        '_eventId' => 'submit'
+      ],
+      //sinon code 200 pour redirection
+      'allow_redirects' => false
+    ]);
 
-      //Bon mot de passe = 302
-      if($responsePost->getStatusCode() == 302){
-        $API_USER = json_decode(API_USER);
-        $response = $response->withJson(array ("status"  => array("user" => "ksidor18", "key" => $API_USER[1]->password)), 200);
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 400);
-      }
+    //Bon mot de passe = 302
+    if($responsePost->getStatusCode() == 302){
+      $API_USER = json_decode(API_USER);
+      $response = $response->withJson(array ("status"  => array("user" => "ksidor18", "key" => $API_USER[1]->password)), 200);
     }else{
-      $response = $response->withJson(array ("status"  => array("error" => "Erreur lors de la récupération de la page de connexion du CAS")), 400);
+      $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 400);
     }
-  }else{
+  }catch(\Exception $e){
     $response = $response->withJson(array ("status"  => array("error" => "Erreur de connexion avec le CAS")), 400);
   }
 
