@@ -5,9 +5,23 @@ Api rest du projet foyer.
 <a target="_blank" href="http://foyer.p4ul.tk/api/doc/">Lien vers la doc</a>
 
 <h2>Installation</h2>
-Faire la commande : <code>composer update</code>.
-Changer les identifiants de la base de donnée dans <code>config/config.php</code>. Vous pouvez changer aussi le dossier des fichiers, ce dossier doit contenir le/les dossier(s) suivant(s) : product.
-Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner les bons droits en utilisant le commande <code>sudo chown -R www-data:www-data mondossier</code>.
+
+### Configurer les permissions
+
+Installer ACL si ce n'est pas déjà fait.
+
+```
+setfacl -R -m u:www-data:rwX www/
+setfacl -dR -m u:www-data:rwx www/
+```
+
+## Configurer l'environnement de production
+
+```
+php composer install --optimize-autoloader
+```
+Changer les identifiants de la base de donnée dans :
+<code>config/config.php</code>
 
 <h2>Routes</h2>
 
@@ -62,6 +76,7 @@ Après avoir choisi un dossier pour les fichiers ne pas oublier de lui donner le
   <li>GET <code>/logout/</code> : deconnexion pour l'app admin.</li>
   <li>GET <code>/banniere/</code> : récupération du nom du fichier de la bannière.</li>
   <li>POST <code>/banniere/</code> : upload de la bannière.</li>
+  <li>POST <code>/cas/</code> : connexion au CAS.</li>
 </ul>
 
 <h2>Doc</h2>
