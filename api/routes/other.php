@@ -24,8 +24,7 @@ $app->get('/date/', function($request, $response) {
 * @apiGroup Others
 *
 * @apiSuccess {String} login Login de connexion.
-* @apiSuccess {String} user User de l'api.
-* @apiSuccess {String} password Code Basic Auth.
+* @apiSuccess {String} key Code Basic Auth.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
