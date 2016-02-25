@@ -28,13 +28,13 @@ $container = new \Slim\Container([
 //modification de l'erreur 404
 $container['notFoundHandler'] = function ($container) {
   return function ($request, $response) use ($container) {
-      return $container['response']->withJson(array ("status"  => array("error" => "not found")), 404);
+    return $container['response']->withJson(array ("status"  => array("error" => "not found")), 404);
   };
 };
 //modification de l'erreur 500
 $container['errorHandler'] = function ($container) {
   return function ($request, $response, $exception) use ($container) {
-      return $container['response']->withJson(array ("status"  => array("error" => $exception)), 500);
+    return $container['response']->withJson(array ("status"  => array("error" => $exception)), 500);
   };
 };
 
@@ -45,6 +45,7 @@ require 'routes/product.php';
 require 'routes/command.php';
 require 'routes/notification.php';
 require 'routes/user.php';
+require 'routes/login.php';
 require 'routes/other.php';
 
 //redirection vers la doc
