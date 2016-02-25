@@ -37,7 +37,8 @@ $app->get('/banniere/', function($request, $response) {
 });
 
 /**
-* @api {post} /banniere/ Modifier la bannière mobile. Sécuriser Admin.
+* @api {post} /banniere/ Modifier la bannière mobile.
+* @apiDescription Sécuriser Admin.
 * @apiName PostBanniere
 * @apiGroup Others
 *
