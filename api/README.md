@@ -22,7 +22,7 @@ composer install
 
 ### Générer la doc
 
-Installer ```npm``` et ```apidoc```, ```npm install apidoc -g```.
+Installer ```npm``` et ```apidoc``` avec la commande ```npm install apidoc -g```.
 
 ```
 apidoc -i routes/ -o doc/
