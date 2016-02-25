@@ -95,7 +95,8 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {post} /notification/ Ajout d'une notification. Sécuriser Admin.
+   * @api {post} /notification/ Ajout d'une notification.
+   * @apiDescription Sécuriser Admin.
    * @apiName PostNotification
    * @apiGroup Notification
    *
@@ -150,7 +151,8 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {put} /notification/:id_notification Modification d'une notification. Sécuriser Admin.
+   * @api {put} /notification/:id_notification Modification d'une notification.
+   * @apiDescription Sécuriser Admin.
    * @apiName PutNotification
    * @apiGroup Notification
    *
@@ -193,7 +195,8 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {delete} /notification/:id_notification Suppression d'une notification. Sécuriser Admin.
+   * @api {delete} /notification/:id_notification Suppression d'une notification.
+   * @apiDescription Sécuriser Admin.
    * @apiName DeleteNotification
    * @apiGroup Notification
    *
@@ -231,7 +234,8 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {delete} /notification/method/:id_method Suppression de notifications en fonction de la methode. Sécuriser Admin.
+   * @api {delete} /notification/method/:id_method Suppression de notifications en fonction de la methode.
+   * @apiDescription Sécuriser Admin.
    * @apiName DeleteNotificationByMethod
    * @apiGroup Notification
    *
@@ -269,7 +273,8 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {delete} /notification/login/:login Suppression des notifications d'un utilisateur. Sécuriser Mobile Admin.
+   * @api {delete} /notification/login/:login Suppression des notifications d'un utilisateur.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName DeleteNotificationByLogin
    * @apiGroup Notification
    *
