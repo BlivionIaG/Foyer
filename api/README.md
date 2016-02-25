@@ -18,9 +18,9 @@ Installer ```composer```.
 ```
 composer install
 ```
-* Changer les identifiants de connexion à la base de donnée dans le fichier ```config/config.php```
+* Changer les identifiants de connexion à la base de donnée dans le fichier ```config/config.php```.
 
-### Générer la doc
+### Génération de la doc
 
 Installer ```npm``` et ```apidoc``` avec la commande ```npm install apidoc -g```.
 
