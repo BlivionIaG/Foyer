@@ -86,16 +86,22 @@ $app->post('/login/',function ($request, $response)  use ($app) {
 * @apiSuccess {String} username De connexion au CAS.
 * @apiSuccess {String} key Code Basic Auth.
 *
-* @apiError {String} Message d'erreur.
+* @apiError {String} error Message d'erreur en fonction du problème.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
 *
 * @apiErrorExample Error-Response:
-*     HTTP/1.1 401 Mauvais identifiants
+*     HTTP/1.1 401 Unauthorized
+*     {
+*       "error": "Mauvais identifiants"
+*     }
 *
 * @apiErrorExample Error-Response:
-*     HTTP/1.1 400 Erreur de connexion avec le CAS
+*     HTTP/1.1 408 Request Time-out
+*     {
+*       "error": "Erreur de connexion avec le CAS"
+*     }
 */
 $app->post('/cas/', function($request, $response) use ($app){
   try{
@@ -134,7 +140,7 @@ $app->post('/cas/', function($request, $response) use ($app){
       $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 401);
     }
   }catch(\Exception $e){
-    $response = $response->withJson(array ("status"  => array("error" => "Erreur de connexion avec le CAS")), 400);
+    $response = $response->withJson(array ("status"  => array("error" => "Erreur de connexion avec le CAS")), 408);
   }
   return $response;
 });
