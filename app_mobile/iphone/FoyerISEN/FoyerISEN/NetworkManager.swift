@@ -38,11 +38,8 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
             return
         }
         
-        /*let request = NSMutableURLRequest(URL: requestUrl!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: 15)
-        request.HTTPMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")*/
         
-        let request = NSMutableURLRequest(URL: requestUrl!)
+        let request = NSMutableURLRequest(URL: requestUrl!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: 20)
         request.HTTPMethod = "POST"
         
         do{
