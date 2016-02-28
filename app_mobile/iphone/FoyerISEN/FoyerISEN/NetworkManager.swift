@@ -8,69 +8,100 @@
 
 import UIKit
 
-
 @objc protocol NetworkManagerDelegate {
-    optional func didReceiveResponse(info: [ String : AnyObject ])
-    optional func didFailToReceiveResponse()
+    optional func didReceiveResponse(tabData: NSArray)
+    optional func didFailToReceiveResponse(strError : String)
 }
 
 class NetworkManager: NSObject , NSURLSessionDelegate {
     
     var session : NSURLSession?
     var delegate : NetworkManagerDelegate?
+    var authBasicKey : NSData?
 
     override init(){
         super.init()
+        self.session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate:self, delegateQueue:NSOperationQueue.mainQueue())
     }
     
     convenience init(initWithDelegate: NetworkManagerDelegate){
         self.init()
         self.delegate = initWithDelegate
-        self.session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate:self, delegateQueue:NSOperationQueue.mainQueue())
     }
     
-    func makeRequest(urlString: String, postParams: Dictionary<String, String>) {
+    /*------------------------------------------*/
+    /* Fonction d'aiguillage pour les requêtes */
+    /*----------------------------------------*/
+    
+    func request(urlString: String, timeoutInterval: Int? = 20, authBasic: Bool? = false, requestType : String, postParams: Dictionary<String, String>? = nil ) {
         
-        let requestUrl = NSURL(string: urlString)
+        let request = NSMutableURLRequest(URL: NSURL(string: urlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: NSTimeInterval(Int(timeoutInterval!)) )
         
-        guard requestUrl != nil else {
-            print("NetworkManager : requestUrl is nil !")
+        //requete GET
+        if (requestType == "GET") {
+            
+            request.HTTPMethod = "GET"
+            
+        //requete POST
+        }else if (requestType == "POST" && postParams != nil) {
+            
+            request.HTTPMethod = "POST"
+            
+            do{
+                request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams!, options:[] )
+                
+            } catch let jsonError as NSError {
+                self.delegate!.didFailToReceiveResponse!(jsonError.localizedDescription)
+            }
+            
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+        //Si les paramètres requestType et/ou postParams ne sont pas bons ...
+        } else {
+            self.delegate!.didFailToReceiveResponse!("Paramètres requestType et/ou postParams ne sont pas bons !")
             return
         }
         
-        
-        let request = NSMutableURLRequest(URL: requestUrl!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: 20)
-        request.HTTPMethod = "POST"
-        
-        do{
-            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options:[] )
-        } catch let jsonError as NSError {
-            // Handle parsing error
-            print("JSONError: \(jsonError.localizedDescription)")
+        //Sécurité Auth Basic
+        if (authBasic!) {
+            request.setValue("Basic \(self.authBasicKey!)", forHTTPHeaderField: "Authorization")
         }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
+        launchRequest(request)
+        
+    }
+    
+    /*-------------------------------------------------------------------------------------------*/
+    /* Fonction pour lancer une requête avec récupération des données (ATTENTION : format JSON) */
+    /*-----------------------------------------------------------------------------------------*/
+    
+    func launchRequest(request: NSMutableURLRequest) {
         
         let dataTask = self.session!.dataTaskWithRequest( request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) in
             
-            if let responseError = error {
-                self.delegate!.didFailToReceiveResponse!()
-                print("Reponse Error: \(responseError )")
+            if (error != nil) {
+                self.delegate!.didFailToReceiveResponse!(error!.localizedDescription)
                 
             } else {
                 do {
-                    let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! [String: AnyObject]
-                    self.delegate!.didReceiveResponse!(jsonData)
-                    print("Response: \(jsonData)")
+                    
+                    if let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                        self.delegate!.didReceiveResponse!(NSArray(array: [jsonData]))
+                    } else if let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray {
+                        self.delegate!.didReceiveResponse!(jsonData)
+                    }
+                    
+                    //let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSArray
+                    //self.delegate!.didReceiveResponse!(jsonData)
+
                 } catch let jsonError as NSError {
-                    // Handle parsing error
-                    self.delegate!.didFailToReceiveResponse!()
-                    print("JSONError: \(jsonError.localizedDescription)")
+                    self.delegate!.didFailToReceiveResponse!(jsonError.localizedDescription)
                 }
             }
         })
         dataTask.resume()
     }
+    
 
 }

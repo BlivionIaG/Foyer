@@ -8,15 +8,20 @@
 
 import UIKit
 
+//var globales
+var networkManager = NetworkManager.init()
+
+
 class ViewController: UIViewController, NetworkManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        let networkManager = NetworkManager(initWithDelegate: self)
-        let postParams : [String : String] = ["username":"rmoric18", "password":"moriceisen"]
-        networkManager.makeRequest("http://foyer.p4ul.tk/api/cas/?username=rmoric18?password=moriceisen", postParams: postParams)
+        networkManager.delegate = self
+        //let postParams : [String : String] = ["username":"rmoric18", "password":"moriceisen"]
+        //networkManager.request("http://foyer.p4ul.tk/api/cas/", requestType: "POST", postParams: postParams)
+        networkManager.request("http://foyer.p4ul.tk/api/product/", requestType: "GET")
         
     }
 
@@ -25,16 +30,24 @@ class ViewController: UIViewController, NetworkManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func didReceiveResponse(info: [ String : AnyObject ]) {
+    func didReceiveResponse(tabData: NSArray) {
+        
+        for item in tabData {
+            let data = item as! NSDictionary
+            print(data.description)
+        }
+        
         // Lire les données retournées par la requête
-        let username = info[ "username" ]
+        /*let username = info[ "username" ]
         print("Name: \(username)")
         let key = info[ "key" ]
-        print("Name: \(key)")
+        print("Name: \(key)")*/
+        
+        //print(tabData.description)
     } 
     
-    func didFailToreceiveResponse() {
-        print( "Il y a eu une erreur !" )
+    func didFailToReceiveResponse(strError : String) {
+        print( "UIViewController : \(strError)")
     }
 
 
