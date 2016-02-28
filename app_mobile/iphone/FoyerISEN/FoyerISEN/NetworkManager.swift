@@ -17,7 +17,7 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
     
     var session : NSURLSession?
     var delegate : NetworkManagerDelegate?
-    var authBasicKey : NSData?
+    var authBasicKey : String?
 
     override init(){
         super.init()

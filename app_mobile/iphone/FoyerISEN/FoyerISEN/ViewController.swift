@@ -19,9 +19,9 @@ class ViewController: UIViewController, NetworkManagerDelegate {
         
         
         networkManager.delegate = self
-        //let postParams : [String : String] = ["username":"rmoric18", "password":"moriceisen"]
-        //networkManager.request("http://foyer.p4ul.tk/api/cas/", requestType: "POST", postParams: postParams)
-        networkManager.request("http://foyer.p4ul.tk/api/product/", requestType: "GET")
+        let postParams : [String : String] = ["username":"rmoric18", "password":"moriceisen"]
+        networkManager.request("http://foyer.p4ul.tk/api/cas/", requestType: "POST", postParams: postParams)
+        //networkManager.request("http://foyer.p4ul.tk/api/product/", requestType: "GET")
         
     }
 
@@ -33,17 +33,26 @@ class ViewController: UIViewController, NetworkManagerDelegate {
     func didReceiveResponse(tabData: NSArray) {
         
         for item in tabData {
+            
+            /*------------------------------------------*/
+            /* Interpretation retour connexion au CAS  */
+            /*----------------------------------------*/
+            
             let data = item as! NSDictionary
-            print(data.description)
+            
+            let tabStatus : NSDictionary = data["status"] as! NSDictionary
+            let keyString : String = tabStatus["key"] as! String
+            
+            networkManager.authBasicKey = keyString
+            
+            print(networkManager.authBasicKey!)
+            
+            /*--------------------------------*/
+            /* Interpretation liste produit  */
+            /*------------------------------*/
+            
         }
         
-        // Lire les données retournées par la requête
-        /*let username = info[ "username" ]
-        print("Name: \(username)")
-        let key = info[ "key" ]
-        print("Name: \(key)")*/
-        
-        //print(tabData.description)
     } 
     
     func didFailToReceiveResponse(strError : String) {
