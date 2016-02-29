@@ -24,7 +24,7 @@ angular.module('foyerApp.services', [])
         $rootScope.isLogged = true;
         $rootScope.login = data.login;
         $rootScope.key = data.key;
-        $http.defaults.headers.common['Authorization'] = 'Basic '+data.key;
+        $http.defaults.headers.common['Authorization'] = data.key;
       })
       .error( function (){
         $rootScope.isLogged = false;
