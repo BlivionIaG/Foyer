@@ -2,7 +2,7 @@
 
 angular.module('foyerApp.controllers')
 //controlleur de la page product
-.controller('productController', ['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
+.controller('productController', ['$scope', '$http','$document', 'CONFIG', function($scope, $http, $document, CONFIG) {
 
   $scope.apiUrl = CONFIG.API_URL;
   //recuperation des produits
@@ -42,7 +42,7 @@ angular.module('foyerApp.controllers')
 }])
 
 //controlleur du form de produit
-.controller('productFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG','fileUpload', function($scope, $http, $window, $routeParams, $document, $location, CONFIG, fileUpload) {
+.controller('productFormController', ['$scope', '$http', '$routeParams', '$document', '$location','CONFIG','fileUpload', function($scope, $http, $routeParams, $document, $location, CONFIG, fileUpload) {
   $scope.product = {};
   $scope.action = 'add';
   $scope.apiUrl = CONFIG.API_URL;
