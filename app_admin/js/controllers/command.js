@@ -38,7 +38,7 @@ angular.module('foyerApp.controllers')
   };
 
   //suppression d'une commande
-  $scope.delete = function(item, event) {
+  $scope.delete = function(item) {
     $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
       item.state = "0";
     }).error(function(data) {
@@ -48,7 +48,7 @@ angular.module('foyerApp.controllers')
   };
 
   //confirmation d'une commande
-  $scope.confirm = function(item, event) {
+  $scope.confirm = function(item) {
     $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/2').success(function() {
       item.state = "2";
     }).error(function(data) {
@@ -58,7 +58,7 @@ angular.module('foyerApp.controllers')
   };
 
   //finalisation d'une commande
-  $scope.final = function(item, event) {
+  $scope.final = function(item) {
     $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/3').success(function() {
       item.state = "3";
     }).error(function(data) {
@@ -99,7 +99,7 @@ angular.module('foyerApp.controllers')
   }
 
   //Post du formulaire
-  $scope.submitForm = function(item, event) {
+  $scope.submitForm = function(item) {
    if($scope.command.product !== undefined && $scope.command.product.length !== 0){
       //edit
       if($scope.action === 'edit'){
