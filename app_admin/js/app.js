@@ -19,10 +19,10 @@ angular.module('foyerApp', [
 //gestion des routes
 .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
-  /*$locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
-  });*/
+  $locationProvider.html5Mode({
+    //enabled: true,
+    //requireBase: false
+  });
   $routeProvider
   .when('/', {
     templateUrl : 'partials/home.html',
