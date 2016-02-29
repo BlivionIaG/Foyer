@@ -7,8 +7,8 @@
 Installer ```ACL``` si ce n'est pas déjà fait.
 
 ```
-setfacl -R -m u:www-data:rwX www/
-setfacl -dR -m u:www-data:rwx www/
+setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX www/
+setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx www/
 ```
 
 ### Configurer l'environnement de production
