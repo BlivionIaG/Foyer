@@ -3,7 +3,7 @@
 angular.module('foyerApp.controllers')
 
 //controller de commande
-.controller('commandController',['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
+.controller('commandController',['$scope', '$http','$document', 'CONFIG', function($scope, $http, $document, CONFIG) {
  //liste des etats des commandes
  $scope.roles = {
     0: 'Supprimée',
@@ -69,7 +69,7 @@ angular.module('foyerApp.controllers')
 }])
 
 //controller de form commande
-.controller('commandFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $window,$routeParams, $document, $location, CONFIG) {
+.controller('commandFormController', ['$scope', '$http', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $routeParams, $document, $location, CONFIG) {
   function getTotal(){
     $scope.command.total = 0;
     angular.forEach($scope.command.product, function(value){ $scope.command.total += value.quantity * value.price; });
@@ -128,11 +128,12 @@ angular.module('foyerApp.controllers')
   //reinitialisation du form
   $scope.reinitialiser = function() {
     $scope.command = null;
+    $scope.command.state = 1;
     $scope.command.total = 0;
   };
   //supression de la commande
   $scope.delete = function() {
-    $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_command).success(function() {
+    $http.put(CONFIG.API_URL+'command/'+$routeParams.id_command+'/state/0').success(function() {
       $location.path('command');
     }).error(function(data) {
       $scope.alert = data;
@@ -156,7 +157,7 @@ angular.module('foyerApp.controllers')
       items = [items];
     }
     angular.forEach(items, function(item) {
-      var exist = true;
+      var exist = false;
       //si vide on init array
       if(!$scope.command.product){
         $scope.command.product = new Array();
@@ -166,12 +167,12 @@ angular.module('foyerApp.controllers')
         angular.forEach($scope.command.product, function(value, key) {
           if(value.id_product === item.id_product){
             $scope.command.product[key].quantity ++;
-            exist = false;
+            exist = true;
           }
         });
       }
       //sinon on l'ajoute
-      if(exist){
+      if(!exist){
         item.quantity = 1;
         $scope.command.product.push(item);
       }
