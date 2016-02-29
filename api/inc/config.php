@@ -14,11 +14,11 @@ define('DIR_FILES','./files/');
 //log de l'api
 define('API_USER','[{
   "user": "root",
-  "password": "cm9vdDpzM2N1cml0Mw==",
+  "password": "Basic cm9vdDpzM2N1cml0Mw==",
   "access": 1
 }, {
   "user": "mobile",
-  "password": "bW9iaWxlOnMzY3VyaXQz",
+  "password": "Basic bW9iaWxlOnMzY3VyaXQz",
   "access": 2
 }]');
 //message de notifs
