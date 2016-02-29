@@ -99,7 +99,7 @@ angular.module('foyerApp.controllers')
   }
 
   //Post du formulaire
-  $scope.submitForm = function(item) {
+  $scope.submitForm = function() {
    if($scope.command.product !== undefined && $scope.command.product.length !== 0){
       //edit
       if($scope.action === 'edit'){
