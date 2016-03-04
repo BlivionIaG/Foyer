@@ -214,7 +214,7 @@ $app->group('/notification', function() use ($app) {
    *       "error": code error
    *     }
    */
-  $app->delete('/{id_notification}',function ($request, $response, $id_notification) {
+  $app->delete('id_notification/{id_notification}',function ($request, $response, $id_notification) {
     if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
       $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
       if($user && ($user->access == 1 || $user->access == 2)){
