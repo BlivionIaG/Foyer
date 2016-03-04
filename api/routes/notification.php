@@ -195,8 +195,8 @@ $app->group('/notification', function() use ($app) {
   });
 
   /**
-   * @api {delete} /notification/:id_notification Suppression d'une notification.
-   * @apiDescription Sécuriser Admin.
+   * @api {delete} /notification/id_notification/:id_notification Suppression d'une notification.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName DeleteNotification
    * @apiGroup Notification
    *
