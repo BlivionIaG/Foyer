@@ -85,12 +85,11 @@
 		889BE4C41C7F897900983D22 /* FoyerISEN */ = {
 			isa = PBXGroup;
 			children = (
+				88E45AE21C8B046D0081AF88 /* API */,
+				88E45AE41C8B048A0081AF88 /* Model */,
+				88E45AE71C8B05010081AF88 /* View */,
+				88E45AE51C8B04DB0081AF88 /* Controller */,
 				889BE4C51C7F897900983D22 /* AppDelegate.swift */,
-				889BE4C71C7F897900983D22 /* ViewController.swift */,
-				889BE4E51C7F89AB00983D22 /* NetworkManager.swift */,
-				8825C9371C8227230042AEFC /* Product.swift */,
-				8825C9391C8230E80042AEFC /* Command.swift */,
-				8825C93B1C82382F0042AEFC /* Notification.swift */,
 				889BE4C91C7F897900983D22 /* Main.storyboard */,
 				889BE4CC1C7F897900983D22 /* Assets.xcassets */,
 				889BE4CE1C7F897900983D22 /* LaunchScreen.storyboard */,
@@ -106,6 +105,39 @@
 				889BE4DC1C7F897A00983D22 /* Info.plist */,
 			);
 			path = FoyerISENTests;
+			sourceTree = "<group>";
+		};
+		88E45AE21C8B046D0081AF88 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				889BE4E51C7F89AB00983D22 /* NetworkManager.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		88E45AE41C8B048A0081AF88 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8825C9371C8227230042AEFC /* Product.swift */,
+				8825C9391C8230E80042AEFC /* Command.swift */,
+				8825C93B1C82382F0042AEFC /* Notification.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		88E45AE51C8B04DB0081AF88 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				889BE4C71C7F897900983D22 /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		88E45AE71C8B05010081AF88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

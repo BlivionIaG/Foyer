@@ -8,20 +8,27 @@
 
 import UIKit
 
-//var globales
-var networkManager = NetworkManager.init()
 
+class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDelegate {
+    
+    var networkManager = NetworkManager.sharedInstance
 
-class ViewController: UIViewController, NetworkManagerDelegate {
-
+    @IBOutlet weak var userTextField: UITextField!
+    @IBOutlet weak var passwdTextField: UITextField!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    @IBOutlet weak var connectionButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
         
-        networkManager.delegate = self
-        let postParams : [String : String] = ["username":"rmoric18", "password":"moriceisen"]
-        networkManager.request("http://foyer.p4ul.tk/api/cas/", requestType: "POST", postParams: postParams)
-        //networkManager.request("http://foyer.p4ul.tk/api/product/", requestType: "GET")
+        userTextField.delegate = self
+        passwdTextField.delegate = self
+        indicator.hidden = true
         
     }
 
@@ -30,35 +37,88 @@ class ViewController: UIViewController, NetworkManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func didReceiveResponse(tabData: NSArray) {
+    // Bouton de connexion appuyé :
+    //-----------------------------
+    @IBAction func connexionTouched(sender: AnyObject) {
+        
+        connectionButton.hidden = true
+        indicator.hidden = false
+        indicator.startAnimating()
+        
+        let postParams : [String : String] = [
+            "username": userTextField.text!
+            , "password": passwdTextField.text!
+        ]
+        networkManager.request(delegate : self, urlString: "http://foyer.p4ul.tk/api/cas/", requestType: "POST", postParams: postParams)
+    }
+    
+    
+    //Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    //----------------------------
+    //MARK: NetworkManagerDelegate
+    //----------------------------
+    
+    
+    // Réponse serveur :
+    //------------------
+    func didReceiveResponse(response : String, tabData: NSArray) {
+        
+        print("reponse : \(response)")
+        print(" data : \(tabData.description)")
         
         for item in tabData {
-            
-            /*------------------------------------------*/
-            /* Interpretation retour connexion au CAS  */
-            /*----------------------------------------*/
-            
-            let data = item as! NSDictionary
-            
-            let tabStatus : NSDictionary = data["status"] as! NSDictionary
-            let keyString : String = tabStatus["key"] as! String
-            
-            networkManager.authBasicKey = keyString
-            
-            print(networkManager.authBasicKey!)
-            
-            /*--------------------------------*/
-            /* Interpretation liste produit  */
-            /*------------------------------*/
+
+            // Interpretation retour connexion au CAS
+            if let data = item as? NSDictionary {
+                
+                if let tabStatus : NSDictionary = data["status"] as? NSDictionary {
+                    
+                    if let errorString : String = tabStatus["error"] as? String {
+                        label.text = errorString
+                        
+                    } else {
+                        
+                        if ( tabStatus["key"] == nil || tabStatus["username"] == nil){
+                            label.text = "Problème de connexion : contacter le support !"
+                            print("Pas d'erreur d'ID mais soit l'object JSON Key ou Username est nul !")
+                        } else{
+                            networkManager.authBasicKey = tabStatus["key"] as? String
+                            networkManager.username = tabStatus["username"] as? String
+                            label.text = "Connexion établie"
+                        }
+                    }
+                    
+                }
+            }
             
         }
+        //Une fois que la réponse est finie d'être traitée
+        indicator.stopAnimating()
+        indicator.hidden = true
+        connectionButton.hidden = false
         
-    } 
+    }
     
+    // Probème de connexion :
+    //-----------------------
     func didFailToReceiveResponse(strError : String) {
+        label.text = "Problème de connexion : contacter le support !"
         print( "UIViewController : \(strError)")
     }
-
-
+    
+    //-------------------------
+    //MARK: UITextFieldDelegate
+    //-------------------------
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    
 }
 

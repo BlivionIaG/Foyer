@@ -16,10 +16,10 @@ class Command: NSObject {
     var date : NSDate
     var periode_debut : String
     var periode_fin : String
-    var product : [Product]
+    var product : NSArray
     var total : Int
     
-    init(id_command: Int, login: String, time: NSDate, date: NSDate, periode_debut: String, periode_fin: String, product: [Product], total: Int){
+    init(id_command: Int, login: String, time: NSDate, date: NSDate, periode_debut: String, periode_fin: String, product: NSArray, total: Int){
         self.id_command = id_command
         self.login = login
         self.time = time
