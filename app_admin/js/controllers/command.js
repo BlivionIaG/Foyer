@@ -3,7 +3,7 @@
 angular.module('foyerApp.controllers')
 
 //controller de commande
-.controller('commandController',['$scope', '$http', '$window','$document', 'CONFIG', function($scope, $http, $window, $document, CONFIG) {
+.controller('commandController',['$scope', '$http','$document', 'CONFIG', function($scope, $http, $document, CONFIG) {
  //liste des etats des commandes
  $scope.roles = {
     0: 'Supprimée',
@@ -38,7 +38,7 @@ angular.module('foyerApp.controllers')
   };
 
   //suppression d'une commande
-  $scope.delete = function(item, event) {
+  $scope.delete = function(item) {
     $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
       item.state = "0";
     }).error(function(data) {
@@ -48,7 +48,7 @@ angular.module('foyerApp.controllers')
   };
 
   //confirmation d'une commande
-  $scope.confirm = function(item, event) {
+  $scope.confirm = function(item) {
     $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/2').success(function() {
       item.state = "2";
     }).error(function(data) {
@@ -58,7 +58,7 @@ angular.module('foyerApp.controllers')
   };
 
   //finalisation d'une commande
-  $scope.final = function(item, event) {
+  $scope.final = function(item) {
     $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/3').success(function() {
       item.state = "3";
     }).error(function(data) {
@@ -69,7 +69,7 @@ angular.module('foyerApp.controllers')
 }])
 
 //controller de form commande
-.controller('commandFormController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $window,$routeParams, $document, $location, CONFIG) {
+.controller('commandFormController', ['$scope', '$http', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $routeParams, $document, $location, CONFIG) {
   function getTotal(){
     $scope.command.total = 0;
     angular.forEach($scope.command.product, function(value){ $scope.command.total += value.quantity * value.price; });
@@ -99,7 +99,7 @@ angular.module('foyerApp.controllers')
   }
 
   //Post du formulaire
-  $scope.submitForm = function(item, event) {
+  $scope.submitForm = function() {
    if($scope.command.product !== undefined && $scope.command.product.length !== 0){
       //edit
       if($scope.action === 'edit'){
@@ -128,11 +128,12 @@ angular.module('foyerApp.controllers')
   //reinitialisation du form
   $scope.reinitialiser = function() {
     $scope.command = null;
+    $scope.command.state = 1;
     $scope.command.total = 0;
   };
   //supression de la commande
   $scope.delete = function() {
-    $http.delete(CONFIG.API_URL+'command/'+$scope.command.id_command).success(function() {
+    $http.put(CONFIG.API_URL+'command/'+$routeParams.id_command+'/state/0').success(function() {
       $location.path('command');
     }).error(function(data) {
       $scope.alert = data;
@@ -156,7 +157,7 @@ angular.module('foyerApp.controllers')
       items = [items];
     }
     angular.forEach(items, function(item) {
-      var exist = true;
+      var exist = false;
       //si vide on init array
       if(!$scope.command.product){
         $scope.command.product = new Array();
@@ -166,12 +167,12 @@ angular.module('foyerApp.controllers')
         angular.forEach($scope.command.product, function(value, key) {
           if(value.id_product === item.id_product){
             $scope.command.product[key].quantity ++;
-            exist = false;
+            exist = true;
           }
         });
       }
       //sinon on l'ajoute
-      if(exist){
+      if(!exist){
         item.quantity = 1;
         $scope.command.product.push(item);
       }

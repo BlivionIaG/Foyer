@@ -3,7 +3,7 @@
 angular.module('foyerApp.controllers')
 
 //controller des parametres
-.controller('parametreController', ['$scope', '$http', '$window', '$routeParams', '$document', '$location','CONFIG','fileUpload', function($scope, $http, $window, $routeParams, $document, $location, CONFIG, fileUpload) {
+.controller('parametreController', ['$scope', '$http', '$window', '$document','CONFIG','fileUpload', function($scope, $http, $window, $document, CONFIG, fileUpload) {
   $scope.apiUrl = CONFIG.API_URL;
 
   //recuperation de la banière

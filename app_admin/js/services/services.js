@@ -15,16 +15,16 @@ angular.module('foyerApp.services', [])
     logout: function() {
       $http.get(CONFIG.API_URL+'logout/').success(function() {
         sessionService.destroy('uid');
-        $location.path('identification');
+        //$location.path('identification');
         window.location.reload();
       });
     },
     isLogged: function() {
       $http.get(CONFIG.API_URL+'login/').success(function(data) {
-        $rootScope.isLogged = true;
         $rootScope.login = data.login;
         $rootScope.key = data.key;
-        $http.defaults.headers.common['Authorization'] = 'Basic '+data.key;
+        $http.defaults.headers.common['Authorization'] = data.key;
+        $rootScope.isLogged = true;
       })
       .error( function (){
         $rootScope.isLogged = false;

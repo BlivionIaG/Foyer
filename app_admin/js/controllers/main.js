@@ -2,9 +2,8 @@
 
 angular.module('foyerApp.controllers', [])
 
-.controller('mainController', ['$rootScope', '$scope', '$http', '$location', 'loginService', function($rootScope, $scope, $http, $location, loginService) {
+.controller('mainController', ['$rootScope', '$scope', '$http', 'loginService', function($rootScope, $scope, $http, loginService) {
   $rootScope.$on(function () {
-    $scope.search = '';
     $rootScope.login = '';
   });
   // Logout
@@ -13,9 +12,7 @@ angular.module('foyerApp.controllers', [])
   };
 }])
 
-.controller('ErrorController', function() {
-
-})
+.controller('ErrorController', function() {})
 
 .controller('identificationController', ['$rootScope', '$scope', '$http', 'loginService', function($rootScope, $scope, $http, loginService) {
   $scope.login = '';

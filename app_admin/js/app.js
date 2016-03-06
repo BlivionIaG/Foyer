@@ -13,7 +13,7 @@ angular.module('foyerApp', [
   ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://192.168.1.173/Foyer/api/'
+  'API_URL': 'http://foyer.p4ul.tk/api/'
 })
 
 //gestion des routes
@@ -24,57 +24,46 @@ angular.module('foyerApp', [
     //requireBase: false
   });
   $routeProvider
-
   .when('/', {
     templateUrl : 'partials/home.html',
     controller  : 'homeController'
   })
-
   .when('/identification', {
     templateUrl : 'partials/identification.html',
     controller  : 'identificationController'
   })
-
   .when('/product', {
     templateUrl : 'partials/product.html',
     controller  : 'productController'
   })
-
   .when('/product/edit/:id_product', {
     templateUrl : 'partials/product-form.html',
     controller  : 'productFormController'
   })
-
   .when('/product/add', {
     templateUrl : 'partials/product-form.html',
     controller  : 'productFormController'
   })
-
   .when('/command', {
     templateUrl : 'partials/command.html',
     controller  : 'commandController'
   })
-
   .when('/command/edit/:id_command', {
     templateUrl : 'partials/command-form.html',
     controller  : 'commandFormController'
   })
-
   .when('/command/add', {
     templateUrl : 'partials/command-form.html',
     controller  : 'commandFormController'
   })
-
   .when('/parametre', {
     templateUrl : 'partials/parametre.html',
     controller  : 'parametreController'
   })
-
   .when('/user', {
     templateUrl : 'partials/user.html',
     controller  : 'userController'
   })
-
   .otherwise({
     redirectTo: '/'
   });
@@ -88,8 +77,6 @@ angular.module('foyerApp', [
     }
     return jQuery.param(data);
   };
-
-  //$httpProvider.defaults.headers.common['Authorization'] = 'Basic cm9vdDpzM2N1cml0Mw==';
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 }])
