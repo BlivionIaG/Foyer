@@ -88,8 +88,8 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
                     
                     if let errorString : String = tabStatus["error"] as? String {
 
-                        alertController.title = "errorString  : "
-                        alertController.message = errorString
+                        alertController.title = errorString
+                        alertController.message = ""
                         
                     } else {
                         
