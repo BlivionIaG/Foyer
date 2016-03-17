@@ -9,16 +9,26 @@
 		"tuupola/slim-basic-auth": "*",
 		"codeguy/upload": "*",
 		"incenteev/composer-parameter-handler": "~2.0"
-	},
-	"archive": {
-		"exclude": ["vendor", ".DS_Store", "*.log"]
-	},
-	"autoload": {
-		"psr-0": {
+		},
+		"archive": {
+			"exclude": ["vendor", ".DS_Store", "*.log"]
+		},
+		"autoload": {
+			"psr-0": {
 			"API": "lib/"
 		}
 	},
-	"incenteev-parameters": {
-		"file": "config/config.yml"
+	"scripts": {
+		"post-install-cmd": [
+			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+		],
+		"post-update-cmd": [
+			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+		]
+	},
+	"extra": {
+		"incenteev-parameters": {
+			"file": "config/config.yml"
+		}
 	}
 }
