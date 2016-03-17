@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Symfony\Component\Yaml\Parser;
 
 /**
 * @api {get} /date/ Obtention de la date du serveur.
@@ -15,30 +16,36 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 */
 $app->get('/date/', function($request, $response) {
   date_default_timezone_set('Europe/Paris');
-  return $response->withJson(array ("date"  => date("d m Y H:i")), 400);
+  return $response->withJson(array ("date"  => date("d m Y H:i")), 200);
 });
 
 /**
 * @api {get} /banniere/ Récupération de l'url de la bannière.
+* @apiDescription Sécuriser Mobile Admin.
 * @apiName GetBanniere
 * @apiGroup Others
 *
-* @apiSuccess {String} url Url de la bannière dans /files/mobile/.
+* @apiSuccess {String} url Lien de la bannière sur le serveur.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
 *
 */
 $app->get('/banniere/', function($request, $response) {
-  if($filename = glob(DIR_FILES.'/mobile/banniere_mobile.*', GLOB_NOESCAPE  ))
-    return $response->withJson(array ("url"  => basename($filename[0])), 200);
-  else
-    return $response->withJson(array ("url"  =>  "Not Found"), 400);
+  $yaml = new Parser();
+  $config = $yaml->parse(file_get_contents('config/config.yml'));
+
+  if($filename = glob($config['parameters']['dir_files'].'mobile/banniere_mobile.*')) {
+    return $response->withJson(array ("url"  => $filename[0]), 200);
+  }
+  else {
+    return $response->withJson(array ("url"  => "not image"), 400);
+  }
 });
 
 /**
 * @api {post} /banniere/ Modifier la bannière mobile.
-* @apiDescription Sécuriser Admin.
+* @apiDescription Sécuriser Mobile Admin.
 * @apiName PostBanniere
 * @apiGroup Others
 *
@@ -57,30 +64,32 @@ $app->get('/banniere/', function($request, $response) {
 *     }
 */
 $app->post('/banniere/',function ($request, $response)  use ($app) {
-  if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-    $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-    if($user && $user->access == 1){
-      if(isset($_FILES['file']))
-        if($_FILES['file']['name'])
-          if(!$_FILES['file']['error']){
-            $extensions_valides = array( 'jpg' , 'jpeg' , 'png', 'JPG' , 'JPEG' , 'PNG' );
-            $extension_upload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) );
-            if(in_array($extension_upload,$extensions_valides))
-              if(is_dir(DIR_FILES.'mobile/') && is_writable(DIR_FILES.'mobile/')){
-                foreach(glob(DIR_FILES.'/mobile/banniere_mobile.*', GLOB_NOESCAPE) as $file_banniere) unlink(DIR_FILES.'mobile/'.basename($file_banniere));
-                if(move_uploaded_file($_FILES['file']['tmp_name'], DIR_FILES.'mobile/banniere_mobile.'.$extension_upload))
-                  $response = $response->withJson(array ("status"  => array("success" => "fichier upload")), 200);
-                else $response = $response->withJson(array ("status"  => array("error" => DIR_FILES."impossible d'uploader le fichier")), 400);
-              }else $response = $response->withJson(array ("status"  => array("error" => "product/ impossible d'uploader dans ce dossier")), 240);
-            else $response = $response->withJson(array ("status"  => array("error" => "mauvaise extension")), 400);
-         }else $response = $response->withJson(array ("status"  => array("error" => $_FILES)), 400);
-        else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
-      else $response = $response->withJson(array ("status"  => array("error" => "aucun fichier uploader")), 400);
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+  try {
+    $yaml = new Parser();
+    $config = $yaml->parse(file_get_contents('config/config.yml'));
+
+    $storage = new \Upload\Storage\FileSystem($config['parameters']["dir_files"].'mobile');
+    $file = new \Upload\File('file', $storage);
+
+    //on passe son id en nom
+    $file->setName('banniere_mobile');
+
+    $file->addValidations(array(
+      new \Upload\Validation\Mimetype(array('image/png', 'image/jpeg', 'image/pjpeg')),
+      new \Upload\Validation\Size('5M')
+    ));
+
+    //check la validité du fichier pour supprimer le/les ancienne(s) image(s)
+    if($file->validate()){
+      foreach (glob($config['parameters']["dir_files"].'product/'.$id_product["id_product"].'.*') as $oldFile) {
+        unlink($oldFile);
+      }
     }
-  }else{
-    $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+    //on upload le fichier
+    $file->upload();
+    $response = $response->withJson(array ("status"  => array("succes" => "fichier upload")), 200);
+  } catch (\Exception $e) {
+    $response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
   }
   return $response;
 });

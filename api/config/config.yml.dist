@@ -1,0 +1,30 @@
+parameters:
+
+  #identifiants db
+  driver:  mysql
+  host:  localhost
+  username:  foyer
+  password:  foyer
+  database: foyer
+  charset:  utf8
+  collation:  utf8_unicode_ci
+  prefix: ~
+
+  #ce dossier doit après contenir un dossier product et mobile
+  dir_files: files/
+
+  #login de l'api
+  api_users:
+    root: s3curit3
+    mobile: s3curit3
+
+  #hosts pouvants se connecter à la db sans connexion
+  hosts_allows: [localhost]
+
+  #message des nofitications
+  notification:
+    command:
+      state_0: Supprimée
+      state_1: En cours de validation
+      state_2: Validée
+      state_3: Payée

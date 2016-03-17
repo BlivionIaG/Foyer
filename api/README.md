@@ -2,38 +2,29 @@
 
 ## Installation
 
-### Configurer les permissions
-
-Installer ```ACL``` si ce n'est pas déjà fait.
-
-```
-setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX www/
-setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx www/
-```
-
-### Configurer l'environnement de production
-
-Installer ```composer```.
+Installer <a href="https://getcomposer.org/download/" target="_blank">```composer```</a> puis lancer la commande suivante pour installer l'api.
 
 ```
 composer install
 ```
-* Changer les identifiants de connexion à la base de donnée dans le fichier ```config/config.php```.
+* Suivez l'installation. Après l'installation vos paramètres générés sont éditables dans le fichier suivant ```config/config.yml```.
 
-### Génération de la doc
+## Génération de la doc
 
-Installer ```npm``` et ```apidoc``` avec la commande ```npm install apidoc -g```.
+Installer ```npm``` avec les commandes suivantes ```sudo apt-get install npm``` et ```sudo npm install npm -g```.
+Puis installer ```apidoc``` avec la commande ```npm install apidoc -g```.
 
 ```
 apidoc -i routes/ -o doc/
 ```
-Vous pourrez ensuite y accéder par l'url de votre api.
+Vous pourrez ensuite y accéder via l'url de votre api.
 
 ## Routes
 
-<a target="_blank" href="http://foyer.p4ul.tk/api/doc/">Lien vers la doc</a>
+<a href="http://foyer.p4ul.tk/api/doc/" target="_blank">Lien vers la doc</a>
 
 ## Bugs
 
 * Si vous avez des erreurs 404 sur vos requètes HTTP cela vient sûrement d'un **problème de rewriting**. Voir votre configuration apache.
 * Ne pas oublier les **droits ```www-data```** pour faire fonctionner l'upload de fichier.
+* Ne pas oublier le **header Authorization** pour requêter à l'api.

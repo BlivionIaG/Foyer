@@ -74,20 +74,11 @@ $app->group('/user', function() use ($app) {
    *     }
    */
   $app->post('/',function ($request, $response)  use ($app) {
-    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-      if($user && $user->access == 1){
-        try {
-          Capsule::table('USER')->insert($request->getParsedBody());
-          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-        } catch(Illuminate\Database\QueryException $e) {
-          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-        }
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-      }
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+    try {
+      Capsule::table('USER')->insert($request->getParsedBody());
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
     return $response;
   });
@@ -112,20 +103,11 @@ $app->group('/user', function() use ($app) {
    *     }
    */
   $app->put('/{login}', function ($request, $response, $login) use ($app){
-    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-      if($user && $user->access == 1){
-        try {
-          Capsule::table('USER')->where('login',$login)->update($request->getParsedBody());
-          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-        } catch(Illuminate\Database\QueryException $e) {
-          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-        }
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-      }
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+    try {
+      Capsule::table('USER')->where('login',$login)->update($request->getParsedBody());
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
     return $response;
   });
@@ -150,20 +132,11 @@ $app->group('/user', function() use ($app) {
    *     }
    */
   $app->delete('/{login}',function ($request, $response, $login) {
-    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-      if($user && ($user->access == 1 || $user->access == 2)){
-        try {
-          Capsule::table('COMMAND')->where('login',$login)->delete();
-          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-        } catch(Illuminate\Database\QueryException $e) {
-          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-        }
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-      }
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+    try {
+      Capsule::table('COMMAND')->where('login',$login)->delete();
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
     return $response;
   });

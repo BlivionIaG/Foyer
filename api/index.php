@@ -1,30 +1,23 @@
 <?php
 
 require 'vendor/autoload.php';
-require 'inc/config.php';
-require 'inc/functions.php';
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Symfony\Component\Yaml\Parser;
+
+$yaml = new Parser();
+$config = $yaml->parse(file_get_contents('config/config.yml'));
 
 $capsule = new Capsule;
-$capsule->addConnection(array(
-	'driver'    => DB_SGBD,
-	'host'      => DB_HOST,
-	'database'  => DB_BASE,
-	'username'  => DB_USER,
-	'password'  => DB_PASSWORD,
-	'charset'   => DB_CHARSET,
-	'collation' => DB_COLLATION,
-	'prefix'    => DB_PREFIX
-));
+$capsule->addConnection($config['parameters']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 $container = new \Slim\Container([
   'settings' => [
-    'displayErrorDetails' => true,
-  ],
-]);
+  'displayErrorDetails' => true
+  ]
+  ]);
 //modification de l'erreur 404
 $container['notFoundHandler'] = function ($container) {
   return function ($request, $response) use ($container) {
@@ -34,11 +27,24 @@ $container['notFoundHandler'] = function ($container) {
 //modification de l'erreur 500
 $container['errorHandler'] = function ($container) {
   return function ($request, $response, $exception) use ($container) {
-    return $container['response']->withJson(array ("status"  => array("error" => $exception)), 500);
+    return $container['response']->withJson(array ("status"  => array("error" =>
+      ['code' => $exception->getCode(),
+      'message' => $exception->getMessage(),
+      'file' => $exception->getFile(),
+      'line' => $exception->getLine(),
+      'trace' => explode("\n", $exception->getTraceAsString())]
+      )), 500);
   };
 };
 
 $app = new Slim\App($container);
+
+$app->add(new \Slim\Middleware\HttpBasicAuthentication([
+  'path' => ['/command/', '/product/', '/user/', '/banniere/'],
+  'secure' => false,
+  'relaxed' => $config['parameters']['hosts_allows'],
+  'users' => $config['parameters']['api_users']
+]));
 
 //ajout des routes
 require 'routes/product.php';
