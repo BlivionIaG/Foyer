@@ -3,4 +3,4 @@ doc/*
 #FICHIER DE L'API IMG ETC
 files/*
 #FICHIER DE CONF
-config/config.php
+vendor

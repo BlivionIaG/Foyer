@@ -1,10 +1,14 @@
 {
 	"require": {
-		"slim/slim": "^3.0@RC",
+		"slim/slim": "3.*",
 		"slim/extras": "*",
 		"slim/middleware": "*",
 		"illuminate/database": "*",
-		"guzzlehttp/guzzle": "*"
+		"guzzlehttp/guzzle": "*",
+		"symfony/yaml": "*",
+		"tuupola/slim-basic-auth": "*",
+		"codeguy/upload": "*",
+		"incenteev/composer-parameter-handler": "~2.0"
 	},
 	"archive": {
 		"exclude": ["vendor", ".DS_Store", "*.log"]
@@ -13,5 +17,8 @@
 		"psr-0": {
 			"API": "lib/"
 		}
+	},
+	"incenteev-parameters": {
+		"file": "config/config.yml"
 	}
 }

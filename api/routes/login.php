@@ -3,6 +3,7 @@
 use Illuminate\Database\Capsule\Manager as Capsule;
 use GuzzleHttp\Client as Client;
 use GuzzleHttp\Psr7\Request;
+use Symfony\Component\Yaml\Parser;
 
 /**
 * @api {get} /login/ Check la connexion à l'interface admin.
@@ -19,8 +20,9 @@ use GuzzleHttp\Psr7\Request;
 $app->get('/login/', function($request, $response) {
   session_start();
   if(isset($_SESSION['uid'])){
-    $API_USER = json_decode(API_USER);
-    return $response->withJson(array ("login" => $_SESSION['login'], "key" => $API_USER[0]->password), 200);
+    $yaml = new Parser();
+    $config = $yaml->parse(file_get_contents('config/config.yml'));
+    return $response->withJson(array ("key" => base64_encode('root:'.$config['api_user']['root'])), 200);
   }
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
@@ -61,14 +63,13 @@ $app->get('/logout/', function($request, $response) {
 */
 $app->post('/login/',function ($request, $response)  use ($app) {
   try {
-    if(Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
+    if(!empty($request->getParsedBody()) && Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
       session_start();
       $_SESSION['uid'] = uniqid();
-      $_SESSION['login'] = $request->getParsedBody()['login'];
       $response = $response->withJson(array ("status"  => array("succes" => uniqid())), 200);
     }
     else
-      $response = $response->withJson(array ("status"  => array("error" => "false")), 400);
+      $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 401);
   } catch(Illuminate\Database\QueryException $e) {
     $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
   }
@@ -130,12 +131,14 @@ $app->post('/cas/', function($request, $response) use ($app){
 
     //Bon mot de passe = 302
     if($responsePost->getStatusCode() == 302){
-      $API_USER = json_decode(API_USER);
       //On regarde si l'user existe déjà sinon on l'ajoute à la db
       if(!Capsule::table('USER')->where('login', $request->getParsedBody()['username'])->first()){
         Capsule::table('USER')->insert(['login' => $request->getParsedBody()['username']]);
       }
-      $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => $API_USER[1]->password)), 200);
+      //récupération des identifiants à l'api
+      $yaml = new Parser();
+      $config = $yaml->parse(file_get_contents('config/config.yml'));
+      $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => base64_encode('mobile:'.$config['api_user']['mobile']))), 200);
     }else{
       $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 401);
     }

@@ -230,61 +230,54 @@ $app->group('/command', function() use ($app) {
    *     }
    */
   $app->post('/',function ($request, $response)  use ($app) {
-    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-      if($user && ($user->access == 1 || $user->access == 2)){
-        try {
-          //on creer la commande
-          $date = new DateTime($request->getParsedBody()['date']);
-          $id_command = Capsule::table('COMMAND')->insertGetId([
-           'login' => $request->getParsedBody()['login'],
-           'state' => $request->getParsedBody()['state'],
-           'periode_debut' => $request->getParsedBody()['periode_debut'],
-           'periode_fin' => $request->getParsedBody()['periode_fin'],
-           'date' => $date->format('Y-m-d')
-           ],'id_command');
+    try {
+      //on creer la commande
+      $date = new DateTime($request->getParsedBody()['date']);
+      $id_command = Capsule::table('COMMAND')->insertGetId([
+       'login' => $request->getParsedBody()['login'],
+       'state' => $request->getParsedBody()['state'],
+       'periode_debut' => $request->getParsedBody()['periode_debut'],
+       'periode_fin' => $request->getParsedBody()['periode_fin'],
+       'date' => $date->format('Y-m-d')
+       ],'id_command');
 
-          //si on recoit un string plutot qu'un objet
-          if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
-          else $products = $request->getParsedBody()['product'];
-          //on lui ajoute les produits
-          foreach($products as $key => $commande_product) {
-            //on passe le tableau en objet
-            if (!is_object($commande_product)) {
-              $commande_product_old = $commande_product;
-              $commande_product = new stdClass();
-              foreach ($commande_product_old as $key => $value)
-                $commande_product->$key = $value;
-            }
-            Capsule::table('PRODUCT_COMMAND')->insert([
-             'quantity' =>  $commande_product->quantity,
-             'id_product' => $commande_product->id_product,
-             'id_command' => $id_command
-             ]);
-          }
-
-          //on lui envoie la notification
-          if($request->getParsedBody()['state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
-          elseif($request->getParsedBody()['state'] == 2) $notification = NOTIF_COMMAND_STATE_2;
-          elseif($request->getParsedBody()['state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
-          else $notification = NOTIF_COMMAND_STATE_0;
-
-          Capsule::table('NOTIFICATION')->insert([
-           'login' => $request->getParsedBody()['login'],
-           'method' => 0,
-           'id_command' => $id_command,
-           'notification' => $notification
-           ]);
-
-          $response = $response->withJson(array ("status"  => array("ok" => "success")), 200);
-        } catch(Illuminate\Database\QueryException $e) {
-          $response = $response->withJson(array ("status"  => array("error" => $e )), 400);
+      //si on recoit un string plutot qu'un objet
+      if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
+      else $products = $request->getParsedBody()['product'];
+      //on lui ajoute les produits
+      foreach($products as $key => $commande_product) {
+        //on passe le tableau en objet
+        if (!is_object($commande_product)) {
+          $commande_product_old = $commande_product;
+          $commande_product = new stdClass();
+          foreach ($commande_product_old as $key => $value)
+            $commande_product->$key = $value;
         }
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+        Capsule::table('PRODUCT_COMMAND')->insert([
+         'quantity' =>  $commande_product->quantity,
+         'id_product' => $commande_product->id_product,
+         'id_command' => $id_command
+         ]);
       }
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+      //On récupère les messages des notifications
+      $yaml = new Parser();
+      $config = $yaml->parse(file_get_contents('config/config.yml'));
+      //on lui envoie la notification
+      if($request->getParsedBody()['state'] == 1) $notification = $config['notification']['command']['state_1'];
+      elseif($request->getParsedBody()['state'] == 2) $notification = $config['notification']['command']['state_2'];
+      elseif($request->getParsedBody()['state'] == 3) $notification = $config['notification']['command']['state_3'];
+      else $notification = $config['notification']['command']['state_0'];
+
+      Capsule::table('NOTIFICATION')->insert([
+       'login' => $request->getParsedBody()['login'],
+       'method' => 0,
+       'id_command' => $id_command,
+       'notification' => $notification
+       ]);
+
+      $response = $response->withJson(array ("status"  => array("ok" => "success")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e )), 400);
     }
     return $response;
   });
@@ -317,63 +310,57 @@ $app->group('/command', function() use ($app) {
    *     }
    */
   $app->put('/{id_command}', function ($request, $response, $id_command) use ($app){
-    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-      if($user && $user->access == 1){
-        try {
+    try {
           //on update la commande
-          $date = new DateTime($request->getParsedBody()['date']);
-          Capsule::table('COMMAND')->where('id_command',$id_command)->update([
-           'login' => $request->getParsedBody()['login'],
-           'state' => $request->getParsedBody()['state'],
-           'periode_debut' => $request->getParsedBody()['periode_debut'],
-           'periode_fin' => $request->getParsedBody()['periode_fin'],
-           'date' => $date->format('Y-m-d')
-           ]);
+      $date = new DateTime($request->getParsedBody()['date']);
+      Capsule::table('COMMAND')->where('id_command',$id_command)->update([
+       'login' => $request->getParsedBody()['login'],
+       'state' => $request->getParsedBody()['state'],
+       'periode_debut' => $request->getParsedBody()['periode_debut'],
+       'periode_fin' => $request->getParsedBody()['periode_fin'],
+       'date' => $date->format('Y-m-d')
+       ]);
 
-          //si on recoit un string plutot qu'un objet
-          if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
-          else $products = $request->getParsedBody()['product'];
-          //On supprime tout les anciens produits
-          Capsule::table('PRODUCT_COMMAND')->where('id_command',$id_command)->delete();
-          //on lui ajoute les produits
-          foreach ( $products as $key => $commande_product) {
-            //on passe le tableau en objet
-            if (!is_object($commande_product)) {
-              $commande_product_old = $commande_product;
-              $commande_product = new stdClass();
-              foreach ($commande_product_old as $key => $value)
-                $commande_product->$key = $value;
-            }
-            Capsule::table('PRODUCT_COMMAND')->insert([
-              'quantity' => $commande_product->quantity,
-              'id_product' => $commande_product->id_product,
-              'id_command' => $request->getParsedBody()['id_command']
-              ]);
-          }
-
-          //on lui envoie la notification
-          if($request->getParsedBody()['state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
-          elseif($request->getParsedBody()['state'] == 2) $notification = NOTIF_COMMAND_STATE_2;
-          elseif($request->getParsedBody()['state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
-          else $notification = NOTIF_COMMAND_STATE_0;
-
-          Capsule::table('NOTIFICATION')->insert([
-           'login' => $request->getParsedBody()['login'],
-           'method' => 0,
-           'id_command' => $request->getParsedBody()['id_command'],
-           'notification' => $notification
-           ]);
-
-          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-        } catch(Illuminate\Database\QueryException $e) {
-          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+      //si on recoit un string plutot qu'un objet
+      if(is_string($request->getParsedBody()['product'])) $products = json_decode($request->getParsedBody()['product']);
+      else $products = $request->getParsedBody()['product'];
+      //On supprime tout les anciens produits
+      Capsule::table('PRODUCT_COMMAND')->where('id_command',$id_command)->delete();
+      //on lui ajoute les produits
+      foreach ( $products as $key => $commande_product) {
+        //on passe le tableau en objet
+        if (!is_object($commande_product)) {
+          $commande_product_old = $commande_product;
+          $commande_product = new stdClass();
+          foreach ($commande_product_old as $key => $value)
+            $commande_product->$key = $value;
         }
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+        Capsule::table('PRODUCT_COMMAND')->insert([
+          'quantity' => $commande_product->quantity,
+          'id_product' => $commande_product->id_product,
+          'id_command' => $request->getParsedBody()['id_command']
+          ]);
       }
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+
+      //On récupère les messages des notifications
+      $yaml = new Parser();
+      $config = $yaml->parse(file_get_contents('config/config.yml'));
+      //on lui envoie la notification
+      if($request->getParsedBody()['state'] == 1) $notification = $config['notification']['command']['state_1'];
+      elseif($request->getParsedBody()['state'] == 2) $notification = $config['notification']['command']['state_2'];
+      elseif($request->getParsedBody()['state'] == 3) $notification = $config['notification']['command']['state_3'];
+      else $notification = $config['notification']['command']['state_0'];
+
+      Capsule::table('NOTIFICATION')->insert([
+       'login' => $request->getParsedBody()['login'],
+       'method' => 0,
+       'id_command' => $request->getParsedBody()['id_command'],
+       'notification' => $notification
+       ]);
+
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
     return $response;
   });
@@ -400,38 +387,32 @@ $app->group('/command', function() use ($app) {
    *     }
    */
   $app->put('/{id_command}/state/{id_state}', function ($request, $response, $values) use ($app){
-    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-      if($user && $user->access == 1){
-        try {
-          $login = Capsule::table('COMMAND')->where('id_command',$values['id_command'])->value('login');
+    try {
+      $login = Capsule::table('COMMAND')->where('id_command',$values['id_command'])->value('login');
       //on update la commande
-          Capsule::table('COMMAND')->where('id_command', $values['id_command'])->update([
-           'state' => $values['id_state']
-           ]);
+      Capsule::table('COMMAND')->where('id_command', $values['id_command'])->update([
+       'state' => $values['id_state']
+       ]);
 
+      //On récupère les messages des notifications
+      $yaml = new Parser();
+      $config = $yaml->parse(file_get_contents('config/config.yml'));
       //on lui envoie la notification
-          if($values['id_state'] == 1) $notification = NOTIF_COMMAND_STATE_1;
-          elseif($values['id_state'] == 2) $notification = NOTIF_COMMAND_STATE_2;
-          elseif($values['id_state'] == 3) $notification = NOTIF_COMMAND_STATE_3;
-          else $notification = NOTIF_COMMAND_STATE_0;
+      if($values['id_state'] == 1) $notification = $config['notification']['command']['state_1'];
+      elseif($values['id_state'] == 2) $notification = $config['notification']['command']['state_2'];
+      elseif($values['id_state'] == 3) $notification = $config['notification']['command']['state_3'];
+      else $notification = $config['notification']['command']['state_0'];
 
-          Capsule::table('NOTIFICATION')->insert([
-           'login' => $login,
-           'method' => 0,
-           'id_command' => $values['id_command'],
-           'notification' => $notification
-           ]);
+      Capsule::table('NOTIFICATION')->insert([
+       'login' => $login,
+       'method' => 0,
+       'id_command' => $values['id_command'],
+       'notification' => $notification
+       ]);
 
-          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-        } catch(Illuminate\Database\QueryException $e) {
-          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-        }
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-      }
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
     return $response;
   });
@@ -457,28 +438,24 @@ $app->group('/command', function() use ($app) {
    *     }
    */
   $app->delete('/{id_commande}',function ($request, $response, $id_commande) {
-    if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-      $user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-      if($user && $user->access == 1){
-        try {
-          Capsule::table('COMMAND')->where('id_command',$id_command)->update(['state' => 0]);
-          //on lui envoie la notification
-          $login = Capsule::table('COMMAND')->where('id_command',$id_command)->value('login');
-          Capsule::table('NOTIFICATION')->insert([
-           'login' => $login,
-           'method' => 0,
-           'id_command' => $id_command,
-           'notification' => NOTIF_COMMAND_STATE_0
-           ]);
-          $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-        } catch(Illuminate\Database\QueryException $e) {
-          $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-        }
-      }else{
-        $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-      }
-    }else{
-      $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+    try {
+      Capsule::table('COMMAND')->where('id_command',$id_command)->update(['state' => 0]);
+      //on lui envoie la notification
+      $login = Capsule::table('COMMAND')->where('id_command',$id_command)->value('login');
+      
+      //On récupère les messages des notifications
+      $yaml = new Parser();
+      $config = $yaml->parse(file_get_contents('config/config.yml'));
+
+      Capsule::table('NOTIFICATION')->insert([
+       'login' => $login,
+       'method' => 0,
+       'id_command' => $id_command,
+       'notification' => $config['notification']['command']['state_0']
+       ]);
+      $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+    } catch(Illuminate\Database\QueryException $e) {
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
     }
     return $response;
   });

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Symfony\Component\Yaml\Parser;
 
 $app->group('/product', function() use ($app) {
 
@@ -130,20 +131,11 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->post('/',function ($request, $response)  use ($app) {
-		if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-			$user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-			if($user && $user->access == 1){
-				try {
-					$id_product = Capsule::table('PRODUCT')->insertGetId($request->getParsedBody());
-					$response = $response->withJson(array ("status"  => array("success" => $id_product)), 200);
-				} catch(Illuminate\Database\QueryException $e) {
-					$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-				}
-			}else{
-				$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-			}
-		}else{
-			$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+		try {
+			$id_product = Capsule::table('PRODUCT')->insertGetId($request->getParsedBody());
+			$response = $response->withJson(array ("status"  => array("success" => $id_product)), 200);
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
 		return $response;
 	});
@@ -170,28 +162,37 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->post('/img/{id_product}',function ($request, $response, $id_product)  use ($app) {
-		if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-			$user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-			if($user && $user->access == 1){
-				if(isset($_FILES['file']))
-					if($_FILES['file']['name'])
-						if(!$_FILES['file']['error']){
-							$extensions_valides = array( 'jpg' , 'jpeg' , 'png', 'JPG' , 'JPEG' , 'PNG' );
-							$extension_upload = strtolower( substr( strrchr($_FILES['file']['name'], '.') ,1) );
-								if(in_array($extension_upload,$extensions_valides))
-									if (is_dir(DIR_FILES.'product/') && is_writable(DIR_FILES.'product/'))
-										if(move_uploaded_file($_FILES['file']['tmp_name'], DIR_FILES.'product/'.$id_product["id_product"].'.'.$extension_upload)){
-											$response = $response->withJson(array ("status"  => array("succes" => "fichier uploade")), 200);
-											Capsule::table('PRODUCT')->where('id_product',$id_product)->update(['image' => $id_product["id_product"].'.'.$extension_upload]);
-										}
-										else $response = $response->withJson(array ("status"  => array("error" => DIR_FILES."impossible d'uploader le fichier")), 400);
-									else $response = $response->withJson(array ("status"  => array("error" => "product/ impossible d'uploader dans ce dossier")), 240);
-								else $response = $response->withJson(array ("status"  => array("error" => "mauvaise extension")), 400);
-						}else $response = $response->withJson(array ("status"  => array("error" => $_FILES)), 400);
-					else $response = $response->withJson(array ("status"  => array("error" => "erreur avec le fichier")), 400);
-				else $response = $response->withJson(array ("status"  => array("error" => "aucun fichier uploader")), 400);
-			}else{ $response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);}
-		}else{$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);}
+
+		try{
+			$yaml = new Parser();
+			$config = $yaml->parse(file_get_contents('config/config.yml'));
+
+			$storage = new \Upload\Storage\FileSystem($config["dir_files"].'product');
+			$file = new \Upload\File('file', $storage);
+
+			//on passe son id en nom
+			$file->setName($id_product["id_product"]);
+
+			//fichier valide
+			$file->addValidations(array(
+				new \Upload\Validation\Mimetype(array('image/png', 'image/jpeg', 'image/pjpeg')),
+				new \Upload\Validation\Size('5M')
+			));
+
+			//check la validité du fichier pour supprimer le/les anciennes images
+			if($file->validate()){
+				foreach (glob($config["dir_files"].'product/'.$id_product["id_product"].'.*') as $oldFile) {
+					unlink($oldFile);
+				}
+			}
+			//on upload le fichier
+			$file->upload();
+			//on ajoute son nom en base
+			Capsule::table('PRODUCT')->where('id_product',$id_product["id_product"])->update(['image' => $file->getNameWithExtension()]);
+			$response = $response->withJson(array ("status"  => array("succes" => "fichier upload")), 200);
+		}catch (\Exception $e){
+			$response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
+		}
 		return $response;
 	});
 
@@ -221,20 +222,11 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->put('/{id_product}', function ($request, $response, $id_product) use ($app){
-		if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-			$user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-			if($user && $user->access == 1){
-				try {
-					Capsule::table('PRODUCT')->where('id_product',$id_product)->update($request->getParsedBody());
-					$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-				} catch(Illuminate\Database\QueryException $e) {
-					$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-				}
-			}else{
-				$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-			}
-		}else{
-			$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+		try {
+			Capsule::table('PRODUCT')->where('id_product',$id_product)->update($request->getParsedBody());
+			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
 		return $response;
 	});
@@ -261,20 +253,11 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->put('/{id_product}/available/{available}',function ($request, $response, $value) {
-		if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-			$user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-			if($user && $user->access == 1){
-				try {
-					Capsule::table('PRODUCT')->where('id_product',$value['id_product'])->update(['available' => $value['available']]);
-					$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-				} catch(Illuminate\Database\QueryException $e) {
-					$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-				}
-			}else{
-				$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-			}
-		}else{
-			$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+		try {
+			Capsule::table('PRODUCT')->where('id_product',$value['id_product'])->update(['available' => $value['available']]);
+			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
 		return $response;
 	});
@@ -300,20 +283,11 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->delete('/{id_product}',function ($request, $response, $id_product) {
-		if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['HTTP_AUTHORIZATION'])){
-			$user = checkAuth($_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION']);
-			if($user && $user->access == 1){
-				try {
-					Capsule::table('PRODUCT')->where('id_product',$id_product)->update(['available' => 0]);
-					$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
-				} catch(Illuminate\Database\QueryException $e) {
-					$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
-				}
-			}else{
-				$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
-			}
-		}else{
-			$response = $response->withJson(array ("status"  => array("error" => "connexion")), 400);
+		try {
+			Capsule::table('PRODUCT')->where('id_product',$id_product)->update(['available' => 0]);
+			$response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
+		} catch(Illuminate\Database\QueryException $e) {
+			$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
 		}
 		return $response;
 	});
