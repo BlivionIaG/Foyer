@@ -26,4 +26,4 @@ Vous pourrez ensuite y accéder par l'url de votre api.
 
 * Si vous avez des erreurs 404 sur vos requètes HTTP cela vient sûrement d'un **problème de rewriting**. Voir votre configuration apache.
 * Ne pas oublier les **droits ```www-data```** pour faire fonctionner l'upload de fichier.
-* Ne pas oublier le **header Authorization** pour vous connecter à l'api.
+* Ne pas oublier le **header Authorization** pour requêter à l'api.
