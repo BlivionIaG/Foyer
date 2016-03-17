@@ -18,7 +18,7 @@ Installer ```composer```.
 ```
 composer install
 ```
-* Changer les identifiants de connexion à la base de donnée dans le fichier ```config/config.php```.
+* Vos paramètres sont disponibles dans le fichier suivant ```config/config.yml```.
 
 ### Génération de la doc
 

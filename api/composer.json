@@ -22,11 +22,13 @@
 	"scripts": {
 		"post-install-cmd": [
 			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-			"Fbourigault\\ComposerMkdir\\ScriptHandler::mkdirs"
+			"Fbourigault\\ComposerMkdir\\ScriptHandler::mkdirs",
+			"sudo chown -R www-data:www-data ./"
 		],
 		"post-update-cmd": [
 			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-			"Fbourigault\\ComposerMkdir\\ScriptHandler::mkdirs"
+			"Fbourigault\\ComposerMkdir\\ScriptHandler::mkdirs",
+			"sudo chown -R www-data:www-data ./"
 		]
 	},
 	"extra": {
