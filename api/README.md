@@ -17,7 +17,7 @@ Puis installer ```apidoc``` avec la commande ```npm install apidoc -g```.
 ```
 apidoc -i routes/ -o doc/
 ```
-Vous pourrez ensuite y accéder par l'url de votre api.
+Vous pourrez ensuite y accéder via l'url de votre api.
 
 ## Routes
 
