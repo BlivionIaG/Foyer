@@ -34,10 +34,10 @@ $app->get('/banniere/', function($request, $response) {
   $yaml = new Parser();
   $config = $yaml->parse(file_get_contents('config/config.yml'));
 
-  if($filename = glob($config['dir_files'].'mobile/banniere_mobile.*')){
+  if($filename = glob($config['parameters']['dir_files'].'mobile/banniere_mobile.*')) {
     return $response->withJson(array ("url"  => $filename[0]), 200);
   }
-  else{
+  else {
     return $response->withJson(array ("url"  => "not image"), 400);
   }
 });
@@ -63,11 +63,11 @@ $app->get('/banniere/', function($request, $response) {
 *     }
 */
 $app->post('/banniere/',function ($request, $response)  use ($app) {
-  try{
+  try {
     $yaml = new Parser();
     $config = $yaml->parse(file_get_contents('config/config.yml'));
 
-    $storage = new \Upload\Storage\FileSystem($config["dir_files"].'mobile');
+    $storage = new \Upload\Storage\FileSystem($config['parameters']["dir_files"].'mobile');
     $file = new \Upload\File('file', $storage);
 
     //on passe son id en nom
@@ -78,16 +78,16 @@ $app->post('/banniere/',function ($request, $response)  use ($app) {
       new \Upload\Validation\Size('5M')
     ));
 
-    //check la validité du fichier pour supprimer le/les anciennes images
+    //check la validité du fichier pour supprimer le/les ancienne(s) image(s)
     if($file->validate()){
-      foreach (glob($config["dir_files"].'product/'.$id_product["id_product"].'.*') as $oldFile) {
+      foreach (glob($config['parameters']["dir_files"].'product/'.$id_product["id_product"].'.*') as $oldFile) {
         unlink($oldFile);
       }
     }
     //on upload le fichier
     $file->upload();
     $response = $response->withJson(array ("status"  => array("succes" => "fichier upload")), 200);
-  }catch (\Exception $e){
+  } catch (\Exception $e) {
     $response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
   }
   return $response;

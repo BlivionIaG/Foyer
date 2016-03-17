@@ -162,12 +162,11 @@ $app->group('/product', function() use ($app) {
 	 *     }
 	 */
 	$app->post('/img/{id_product}',function ($request, $response, $id_product)  use ($app) {
-
-		try{
+		try {
 			$yaml = new Parser();
 			$config = $yaml->parse(file_get_contents('config/config.yml'));
 
-			$storage = new \Upload\Storage\FileSystem($config["dir_files"].'product');
+			$storage = new \Upload\Storage\FileSystem($config['parameters']["dir_files"].'product');
 			$file = new \Upload\File('file', $storage);
 
 			//on passe son id en nom
@@ -179,9 +178,9 @@ $app->group('/product', function() use ($app) {
 				new \Upload\Validation\Size('5M')
 			));
 
-			//check la validité du fichier pour supprimer le/les anciennes images
-			if($file->validate()){
-				foreach (glob($config["dir_files"].'product/'.$id_product["id_product"].'.*') as $oldFile) {
+			//check la validité du fichier pour supprimer le/les ancienne(s) image(s)
+			if($file->validate()) {
+				foreach (glob($config['parameters']["dir_files"].'product/'.$id_product["id_product"].'.*') as $oldFile) {
 					unlink($oldFile);
 				}
 			}
@@ -190,7 +189,7 @@ $app->group('/product', function() use ($app) {
 			//on ajoute son nom en base
 			Capsule::table('PRODUCT')->where('id_product',$id_product["id_product"])->update(['image' => $file->getNameWithExtension()]);
 			$response = $response->withJson(array ("status"  => array("succes" => "fichier upload")), 200);
-		}catch (\Exception $e){
+		} catch (\Exception $e) {
 			$response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
 		}
 		return $response;

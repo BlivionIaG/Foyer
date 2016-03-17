@@ -9,15 +9,15 @@ $yaml = new Parser();
 $config = $yaml->parse(file_get_contents('config/config.yml'));
 
 $capsule = new Capsule;
-$capsule->addConnection($config['database']);
+$capsule->addConnection($config['parameters']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
 $container = new \Slim\Container([
   'settings' => [
-    'displayErrorDetails' => true
+  'displayErrorDetails' => true
   ]
-]);
+  ]);
 //modification de l'erreur 404
 $container['notFoundHandler'] = function ($container) {
   return function ($request, $response) use ($container) {
@@ -33,17 +33,17 @@ $container['errorHandler'] = function ($container) {
       'file' => $exception->getFile(),
       'line' => $exception->getLine(),
       'trace' => explode("\n", $exception->getTraceAsString())]
-    )), 500);
+      )), 500);
   };
 };
 
 $app = new Slim\App($container);
 
 $app->add(new \Slim\Middleware\HttpBasicAuthentication([
-    'path' => ['/command/', '/product/', '/user/', '/banniere/'],
-    'secure' => false,
-    'relaxed' => $config['hotsts_allows'],
-    'users' => $config['api_user']
+  'path' => ['/command/', '/product/', '/user/', '/banniere/'],
+  'secure' => false,
+  'relaxed' => $config['parameters']['hosts_allows'],
+  'users' => $config['parameters']['api_users']
 ]));
 
 //ajout des routes

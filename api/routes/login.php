@@ -22,7 +22,7 @@ $app->get('/login/', function($request, $response) {
   if(isset($_SESSION['uid'])){
     $yaml = new Parser();
     $config = $yaml->parse(file_get_contents('config/config.yml'));
-    return $response->withJson(array ("key" => base64_encode('root:'.$config['api_user']['root'])), 200);
+    return $response->withJson(array ("key" => base64_encode('root:'.$config['parameters']['api_users']['root'])), 200);
   }
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
@@ -138,7 +138,7 @@ $app->post('/cas/', function($request, $response) use ($app){
       //récupération des identifiants à l'api
       $yaml = new Parser();
       $config = $yaml->parse(file_get_contents('config/config.yml'));
-      $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => base64_encode('mobile:'.$config['api_user']['mobile']))), 200);
+      $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => base64_encode('mobile:'.$config['parameters']['api_users']['mobile']))), 200);
     }else{
       $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 401);
     }

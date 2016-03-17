@@ -2,5 +2,9 @@
 doc/*
 #FICHIER DE L'API IMG ETC
 files/*
-#FICHIER DE CONF
+#FICHIER DE COMPOSER
 vendor
+composer
+composer.phar
+#FICHIER DE CONFIG
+config/config.yml

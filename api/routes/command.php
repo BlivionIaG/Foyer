@@ -263,10 +263,10 @@ $app->group('/command', function() use ($app) {
       $yaml = new Parser();
       $config = $yaml->parse(file_get_contents('config/config.yml'));
       //on lui envoie la notification
-      if($request->getParsedBody()['state'] == 1) $notification = $config['notification']['command']['state_1'];
-      elseif($request->getParsedBody()['state'] == 2) $notification = $config['notification']['command']['state_2'];
-      elseif($request->getParsedBody()['state'] == 3) $notification = $config['notification']['command']['state_3'];
-      else $notification = $config['notification']['command']['state_0'];
+      if($request->getParsedBody()['state'] == 1) $notification = $config['parameters']['notification']['command']['state_1'];
+      elseif($request->getParsedBody()['state'] == 2) $notification = $config['parameters']['notification']['command']['state_2'];
+      elseif($request->getParsedBody()['state'] == 3) $notification = $config['parameters']['notification']['command']['state_3'];
+      else $notification = $config['parameters']['notification']['command']['state_0'];
 
       Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
@@ -346,10 +346,10 @@ $app->group('/command', function() use ($app) {
       $yaml = new Parser();
       $config = $yaml->parse(file_get_contents('config/config.yml'));
       //on lui envoie la notification
-      if($request->getParsedBody()['state'] == 1) $notification = $config['notification']['command']['state_1'];
-      elseif($request->getParsedBody()['state'] == 2) $notification = $config['notification']['command']['state_2'];
-      elseif($request->getParsedBody()['state'] == 3) $notification = $config['notification']['command']['state_3'];
-      else $notification = $config['notification']['command']['state_0'];
+      if($request->getParsedBody()['state'] == 1) $notification = $config['parameters']['notification']['command']['state_1'];
+      elseif($request->getParsedBody()['state'] == 2) $notification = $config['parameters']['notification']['command']['state_2'];
+      elseif($request->getParsedBody()['state'] == 3) $notification = $config['parameters']['notification']['command']['state_3'];
+      else $notification = $config['parameters']['notification']['command']['state_0'];
 
       Capsule::table('NOTIFICATION')->insert([
        'login' => $request->getParsedBody()['login'],
@@ -398,10 +398,10 @@ $app->group('/command', function() use ($app) {
       $yaml = new Parser();
       $config = $yaml->parse(file_get_contents('config/config.yml'));
       //on lui envoie la notification
-      if($values['id_state'] == 1) $notification = $config['notification']['command']['state_1'];
-      elseif($values['id_state'] == 2) $notification = $config['notification']['command']['state_2'];
-      elseif($values['id_state'] == 3) $notification = $config['notification']['command']['state_3'];
-      else $notification = $config['notification']['command']['state_0'];
+      if($values['id_state'] == 1) $notification = $config['parameters']['notification']['command']['state_1'];
+      elseif($values['id_state'] == 2) $notification = $config['parameters']['notification']['command']['state_2'];
+      elseif($values['id_state'] == 3) $notification = $config['parameters']['notification']['command']['state_3'];
+      else $notification = $config['parameters']['notification']['command']['state_0'];
 
       Capsule::table('NOTIFICATION')->insert([
        'login' => $login,
@@ -451,7 +451,7 @@ $app->group('/command', function() use ($app) {
        'login' => $login,
        'method' => 0,
        'id_command' => $id_command,
-       'notification' => $config['notification']['command']['state_0']
+       'notification' => $config['parameters']['notification']['command']['state_0']
        ]);
       $response = $response->withJson(array ("status"  => array("success" => "ok")), 200);
     } catch(Illuminate\Database\QueryException $e) {
