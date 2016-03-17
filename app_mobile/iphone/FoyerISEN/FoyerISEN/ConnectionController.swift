@@ -60,7 +60,7 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
             "username": userTextField.text!
             , "password": passwdTextField.text!
         ]
-        networkManager.request(delegate : self, urlString: "http://foyer.p4ul.tk/api/cas/", requestType: "POST", postParams: postParams)
+        networkManager.request(delegate : self, urlString: "cas/", requestType: "POST", postParams: postParams)
     }
     
     //Calls this function when the tap is recognized.
@@ -75,7 +75,7 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
     
     // Réponse serveur :
     //------------------
-    func didReceiveResponse(response : String, tabData: NSArray) {
+    func didReceiveData(response : String, tabData: NSArray) {
         
         print("reponse : \(response)")
         print(" data : \(tabData.description)")

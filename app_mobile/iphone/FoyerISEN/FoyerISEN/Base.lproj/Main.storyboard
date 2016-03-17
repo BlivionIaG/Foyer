@@ -193,15 +193,23 @@
                                     <constraint firstAttribute="trailing" secondItem="1uv-af-xKg" secondAttribute="trailing" constant="10" id="vKI-Kd-JVf"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="teq-8g-ggS" userLabel="ImageTest">
+                                <rect key="frame" x="0.0" y="89" width="600" height="244"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94499540328979492" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="teq-8g-ggS" firstAttribute="top" secondItem="Cr6-qj-gOa" secondAttribute="bottom" id="1ck-m5-Jrd"/>
+                            <constraint firstItem="M5m-8T-QiO" firstAttribute="top" secondItem="teq-8g-ggS" secondAttribute="bottom" multiplier="1.8" id="3vN-HE-f3k"/>
+                            <constraint firstAttribute="trailing" secondItem="teq-8g-ggS" secondAttribute="trailing" id="YMk-WB-mSd"/>
                             <constraint firstAttribute="trailing" secondItem="Cr6-qj-gOa" secondAttribute="trailing" id="euS-R3-VE7"/>
                             <constraint firstItem="Cr6-qj-gOa" firstAttribute="top" secondItem="bd0-Yj-Drk" secondAttribute="bottom" id="gZF-Zt-Y93"/>
+                            <constraint firstItem="teq-8g-ggS" firstAttribute="leading" secondItem="aAU-co-vTI" secondAttribute="leading" id="nj6-rW-e8P"/>
                             <constraint firstItem="Cr6-qj-gOa" firstAttribute="leading" secondItem="aAU-co-vTI" secondAttribute="leading" id="wv7-RY-QuB"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="imageTestView" destination="teq-8g-ggS" id="T9c-xV-SPC"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="Logout" id="id1-0t-G1K"/>
                     </connections>
                 </viewController>
