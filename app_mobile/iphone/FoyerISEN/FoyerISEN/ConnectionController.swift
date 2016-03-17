@@ -1,28 +1,28 @@
 //
-//  ViewController.swift
+//  ConnectionController.swift
 //  FoyerISEN
 //
-//  Created by Renald Morice on 25/02/2016.
+//  Created by Renald Morice on 13/03/2016.
 //  Copyright © 2016 Digital Design. All rights reserved.
 //
 
 import UIKit
 
-
-class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDelegate {
+class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManagerDelegate {
     
     //ALERT
     var alertController = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
     
     //Network
     var networkManager = NetworkManager.sharedInstance
-
+    
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwdTextField: UITextField!
     //@IBOutlet weak var label: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var connectionButton: UIButton!
     @IBOutlet weak var fieldView: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +40,9 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
         
         fieldView.layer.cornerRadius = 5
         connectionButton.layer.cornerRadius = 2
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -51,7 +52,7 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
     //-----------------------------
     @IBAction func connectionButtonTouched(sender: AnyObject) {
         
-        connectionButton.hidden = true
+        connectionButton.enabled = false
         indicator.hidden = false
         indicator.startAnimating()
         
@@ -80,16 +81,18 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
         print(" data : \(tabData.description)")
         
         for item in tabData {
-
+            
             // Interpretation retour connexion au CAS
             if let data = item as? NSDictionary {
                 
                 if let tabStatus : NSDictionary = data["status"] as? NSDictionary {
                     
                     if let errorString : String = tabStatus["error"] as? String {
-
+                        
                         alertController.title = errorString
                         alertController.message = ""
+                        //Affichage de l'alerte
+                        presentViewController(alertController, animated: true, completion: nil)
                         
                     } else {
                         
@@ -97,13 +100,16 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
                             
                             alertController.title = ""
                             alertController.message = "Pas d'erreur d'ID mais soit l'object JSON Key ou Username est nul !"
+                            //Affichage de l'alerte
+                            presentViewController(alertController, animated: true, completion: nil)
+
                             
                         } else{
                             networkManager.authBasicKey = tabStatus["key"] as? String
                             networkManager.username = tabStatus["username"] as? String
                             
-                            alertController.title = "Connexion établie"
-                            alertController.message = ""
+                            //Switch à la page d'accueil
+                            self.performSegueWithIdentifier("ConnectionSuccessful", sender: nil)
                         }
                     }
                     
@@ -115,10 +121,7 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
         //Une fois que la réponse est finie d'être traitée
         indicator.stopAnimating()
         indicator.hidden = true
-        connectionButton.hidden = false
-        
-        //Affichage de l'alerte
-        presentViewController(alertController, animated: true, completion: nil)
+        connectionButton.enabled = true
         
     }
     
@@ -130,6 +133,8 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
         alertController.message = strError
         //Affichage de l'alerte
         presentViewController(alertController, animated: true, completion: nil)
+        
+        connectionButton.enabled = true
     }
     
     //-------------------------
@@ -143,4 +148,5 @@ class ViewController: UIViewController, UITextFieldDelegate,  NetworkManagerDele
     
     
 }
+
 
