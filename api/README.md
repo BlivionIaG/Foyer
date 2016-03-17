@@ -2,7 +2,7 @@
 
 ## Installation
 
-Installer ```composer``` puis lancer la commande suivante pour installer l'api.
+Installer <a target="_blank" href="https://getcomposer.org/download/">```composer```</a> puis lancer la commande suivante pour installer l'api.
 
 ```
 composer install
@@ -11,7 +11,8 @@ composer install
 
 ## Génération de la doc
 
-Installer ```npm``` et ```apidoc``` avec la commande ```npm install apidoc -g```.
+Installer ```npm``` avec les commandes suivantes ```sudo apt-get install npm``` et ```sudo npm install npm -g```.
+Puis installer ```apidoc``` avec la commande ```npm install apidoc -g```.
 
 ```
 apidoc -i routes/ -o doc/
