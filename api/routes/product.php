@@ -7,6 +7,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {get} /product/ Récupération des produits.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName GetProducts
 	 * @apiGroup Product
 	 *
@@ -42,6 +43,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {get} /product/:id_product Récupération d'un produit en fonction de son ID.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName GetProductByIdProduct
 	 * @apiGroup Product
 	 *
@@ -76,6 +78,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {get} /product/:id_product Récupération des produits en fonction de son état.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName GetProductByAvailable
 	 * @apiGroup Product
 	 *
@@ -109,7 +112,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {post} /product/ Ajout d'un nouveau produit.
-	 * @apiDescription Sécuriser Admin.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName PostProduct
 	 * @apiGroup Product
 	 *
@@ -142,7 +145,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {post} /product/img/:id_product Ajouter une image à un produit.
-	 * @apiDescription Sécuriser Admin.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName PostProductImg
 	 * @apiGroup Product
 	 *
@@ -197,7 +200,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {put} /product/:id_product Modification d'un produit.
-	 * @apiDescription Sécuriser Admin.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName PutProduct
 	 * @apiGroup Product
 	 *
@@ -232,7 +235,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {put} /product/:id_product/available/:available Changement d'état d'un produit.
-	 * @apiDescription Sécuriser Admin.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName PutProductAvailable
 	 * @apiGroup Product
 	 *
@@ -263,7 +266,7 @@ $app->group('/product', function() use ($app) {
 
 	/**
 	 * @api {delete} /product/:id_product Suppression d'un produit.
-	 * @apiDescription Sécuriser Admin.
+	 * @apiDescription Sécuriser Mobile Admin.
 	 * @apiName DeleteProduct
 	 * @apiGroup Product
 	 *

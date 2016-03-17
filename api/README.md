@@ -2,25 +2,14 @@
 
 ## Installation
 
-### Configurer les permissions
-
-Installer ```ACL``` si ce n'est pas déjà fait.
-
-```
-setfacl -R -m u:www-data:rwX -m u:`whoami`:rwX www/
-setfacl -dR -m u:www-data:rwx -m u:`whoami`:rwx www/
-```
-
-### Configurer l'environnement de production
-
-Installer ```composer```.
+Installer ```composer``` puis lancer la commande suivante pour installer l'api.
 
 ```
 composer install
 ```
-* Vos paramètres sont disponibles dans le fichier suivant ```config/config.yml```.
+* Suivez l'installation. Après l'installation vos paramètres générés sont éditables dans le fichier suivant ```config/config.yml```.
 
-### Génération de la doc
+## Génération de la doc
 
 Installer ```npm``` et ```apidoc``` avec la commande ```npm install apidoc -g```.
 
@@ -37,3 +26,4 @@ Vous pourrez ensuite y accéder par l'url de votre api.
 
 * Si vous avez des erreurs 404 sur vos requètes HTTP cela vient sûrement d'un **problème de rewriting**. Voir votre configuration apache.
 * Ne pas oublier les **droits ```www-data```** pour faire fonctionner l'upload de fichier.
+* Ne pas oublier le **header Authorization** pour vous connecter à l'api.

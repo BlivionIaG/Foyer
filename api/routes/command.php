@@ -6,6 +6,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {get} /command/ Récupération des commandes.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetCommands
    * @apiGroup Command
    *
@@ -53,6 +54,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {get} /command/stats/ Récupération les statistiques des commandes.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetCommandsStats
    * @apiGroup Command
    *
@@ -79,6 +81,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {get} /command/id_command/:id_command Récupération d'un commande par son ID.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetCommandsByIdCommand
    * @apiGroup Command
    *
@@ -124,6 +127,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {get} /command/login/:login Récupération d'un commande par son login.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetCommandsByLogin
    * @apiGroup Command
    *
@@ -173,6 +177,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {get} /command/state/:state Récupération des commandes en fonction de son état.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetCommandsByState
    * @apiGroup Command
    *
@@ -284,7 +289,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {put} /command/:id_command Modification d'une commande.
-   * @apiDescription Sécuriser Admin.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName PutCommand
    * @apiGroup Command
    *
@@ -367,7 +372,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {put} /command/:id_command/state/:id_state Modification d'état d'une commande.
-   * @apiDescription Sécuriser Admin.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName PutCommandByIdAndState
    * @apiGroup Command
    *
@@ -419,7 +424,7 @@ $app->group('/command', function() use ($app) {
 
   /**
    * @api {delete} /command/:id_command Suppression d'une commande.
-   * @apiDescription Sécuriser Admin.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName DeleteCommand
    * @apiGroup Command
    *

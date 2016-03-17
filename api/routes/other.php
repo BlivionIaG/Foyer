@@ -21,6 +21,7 @@ $app->get('/date/', function($request, $response) {
 
 /**
 * @api {get} /banniere/ Récupération de l'url de la bannière.
+* @apiDescription Sécuriser Mobile Admin.
 * @apiName GetBanniere
 * @apiGroup Others
 *
@@ -44,7 +45,7 @@ $app->get('/banniere/', function($request, $response) {
 
 /**
 * @api {post} /banniere/ Modifier la bannière mobile.
-* @apiDescription Sécuriser Admin.
+* @apiDescription Sécuriser Mobile Admin.
 * @apiName PostBanniere
 * @apiGroup Others
 *

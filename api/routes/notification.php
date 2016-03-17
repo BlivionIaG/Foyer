@@ -6,6 +6,7 @@ $app->group('/notification', function() use ($app) {
 
   /**
    * @api {get} /notification/ Récupération des notifications.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetNotifications
    * @apiGroup Notification
    *
@@ -36,6 +37,7 @@ $app->group('/notification', function() use ($app) {
 
   /**
    * @api {get} /notification/id_notification/:id_notification Récupération d'un notification par son ID.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetNotificationById
    * @apiGroup Notification
    *
@@ -66,6 +68,7 @@ $app->group('/notification', function() use ($app) {
 
   /**
    * @api {get} /notification/login/:login Récupération des notifications par login (broadcast compris).
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName GetNotificationByLogin
    * @apiGroup Notification
    *
@@ -96,7 +99,7 @@ $app->group('/notification', function() use ($app) {
 
   /**
    * @api {post} /notification/ Ajout d'une notification.
-   * @apiDescription Sécuriser Admin.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName PostNotification
    * @apiGroup Notification
    *
@@ -144,7 +147,7 @@ $app->group('/notification', function() use ($app) {
 
   /**
    * @api {put} /notification/:id_notification Modification d'une notification.
-   * @apiDescription Sécuriser Admin.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName PutNotification
    * @apiGroup Notification
    *
@@ -209,7 +212,7 @@ $app->group('/notification', function() use ($app) {
 
   /**
    * @api {delete} /notification/method/:id_method Suppression de notifications en fonction de la methode.
-   * @apiDescription Sécuriser Admin.
+   * @apiDescription Sécuriser Mobile Admin.
    * @apiName DeleteNotificationByMethod
    * @apiGroup Notification
    *
