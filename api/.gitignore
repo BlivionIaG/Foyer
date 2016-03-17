@@ -3,7 +3,7 @@ doc/*
 #FICHIER DE L'API IMG ETC
 files/*
 #FICHIER DE COMPOSER
-vendor
+vendor/*
 composer
 composer.phar
 #FICHIER DE CONFIG
