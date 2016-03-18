@@ -2,7 +2,7 @@
 
 ## Installation
 
-Installer <a target="_blank" href="https://getcomposer.org/download/">```composer```</a> puis lancer la commande suivante pour installer l'api.
+Installer <a href="https://getcomposer.org/download/" target="_blank">```composer```</a> puis lancer la commande suivante pour installer l'api.
 
 ```
 composer install
@@ -17,11 +17,11 @@ Puis installer ```apidoc``` avec la commande ```npm install apidoc -g```.
 ```
 apidoc -i routes/ -o doc/
 ```
-Vous pourrez ensuite y accéder par l'url de votre api.
+Vous pourrez ensuite y accéder via l'url de votre api.
 
 ## Routes
 
-<a target="_blank" href="http://foyer.p4ul.tk/api/doc/">Lien vers la doc</a>
+<a href="http://foyer.p4ul.tk/api/doc/" target="_blank">Lien vers la doc</a>
 
 ## Bugs
 

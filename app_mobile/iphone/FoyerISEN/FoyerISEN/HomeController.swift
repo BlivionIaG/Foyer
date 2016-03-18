@@ -8,13 +8,19 @@
 
 import UIKit
 
-class HomeController: UIViewController {
+class HomeController: UIViewController, NetworkManagerDelegate {
     
     //Network
     var networkManager = NetworkManager.sharedInstance
 
+    
+    @IBOutlet weak var imageTestView: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        networkManager.downloadImage(delegate: self, urlString: "files/mobile/banniere_mobile.jpg")
 
     }
 
@@ -30,4 +36,10 @@ class HomeController: UIViewController {
         self.performSegueWithIdentifier("Logout", sender: nil)
     }
 
+    func didReceiveImage(image: UIImage) {
+        dispatch_async(dispatch_get_main_queue()) {
+           self.imageTestView.image = image
+        }
+    }
+    
 }

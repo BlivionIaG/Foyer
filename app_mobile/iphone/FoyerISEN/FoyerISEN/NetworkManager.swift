@@ -9,8 +9,9 @@
 import UIKit
 
 @objc protocol NetworkManagerDelegate {
-    optional func didReceiveResponse(response : String, tabData: NSArray)
+    optional func didReceiveData(response : String, tabData: NSArray)
     optional func didFailToReceiveResponse(strError : String)
+    optional func didReceiveImage(image: UIImage)
 }
 
 class NetworkManager: NSObject , NSURLSessionDelegate {
@@ -18,6 +19,8 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
     var session : NSURLSession?
     var username : String?
     var authBasicKey : String?
+    
+    let basedUrl = "http://foyer.p4ul.tk/api/"
     
     //class variable : SINGLETON
     class var sharedInstance: NetworkManager {
@@ -38,7 +41,7 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
     
     func request(delegate delegate : NetworkManagerDelegate, urlString: String, timeoutInterval: Int? = 20, authBasic: Bool? = false, requestType : String, postParams: [String : String]? = nil ) {
         
-        let request = NSMutableURLRequest(URL: NSURL(string: urlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: NSTimeInterval(Int(timeoutInterval!)) )
+        let request = NSMutableURLRequest(URL: NSURL(string: basedUrl + urlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: NSTimeInterval(Int(timeoutInterval!)) )
         
         //requete GET
         if (requestType == "GET") {
@@ -113,9 +116,9 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
                 do {
                     
                     if let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
-                        delegate.didReceiveResponse!(response!.description, tabData: NSArray(array: [jsonData]))
+                        delegate.didReceiveData!(response!.description, tabData: NSArray(array: [jsonData]))
                     } else if let jsonData = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSArray {
-                        delegate.didReceiveResponse!(response!.description, tabData:jsonData)
+                        delegate.didReceiveData!(response!.description, tabData:jsonData)
                     }
 
                 } catch let jsonError as NSError {
@@ -126,5 +129,23 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
         dataTask.resume()
     }
     
+    func downloadImage(delegate delegate: NetworkManagerDelegate, urlString: String) {
+        
+        let urlRequest = NSURLRequest(URL: NSURL(string: basedUrl + urlString)!)
+        
+        let downloadTask = self.session!.downloadTaskWithRequest(urlRequest, completionHandler: { (url: NSURL?, response: NSURLResponse?, error: NSError?) in
+            
+            let data = NSData(contentsOfURL: url!)
+            let image = UIImage(data: data!)
+            
+            delegate.didReceiveImage!(image!)
+        })
+        
+        downloadTask.resume()
+        
+    }
+    
+    
+
 
 }
