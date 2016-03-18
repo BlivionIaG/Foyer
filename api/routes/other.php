@@ -36,7 +36,7 @@ $app->get('/banniere/', function($request, $response) {
   $config = $yaml->parse(file_get_contents('config/config.yml'));
 
   if($filename = glob($config['parameters']['dir_files'].'mobile/banniere_mobile.*')) {
-    return $response->withJson(array ("url"  => $filename[0]), 200);
+    return $response->withJson(array ("url"  => basename($filename[0])), 200);
   }
   else {
     return $response->withJson(array ("url"  => "not image"), 400);
@@ -89,7 +89,11 @@ $app->post('/banniere/',function ($request, $response)  use ($app) {
     $file->upload();
     $response = $response->withJson(array ("status"  => array("succes" => "fichier upload")), 200);
   } catch (\Exception $e) {
-    $response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
+    if(!empty($file)){
+      $response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
+    }else{
+      $response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+    }
   }
   return $response;
 });
