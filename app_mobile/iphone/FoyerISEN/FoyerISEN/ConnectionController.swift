@@ -27,10 +27,15 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // On s'assure que les constantes network d'utilisateur sont bien clear
+        networkManager.username = nil
+        networkManager.authBasicKey = nil
+        
         //Ajout de l'action (bouton OK) à l'alert
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel,handler: nil))
         
-        //Looks for single or multiple taps.
+        
+        //Looks for single or multiple taps (Textfields).
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         view.addGestureRecognizer(tap)
         
@@ -129,7 +134,7 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
     //-----------------------
     func didFailToReceiveResponse(strError : String) {
         
-        alertController.title = "UIViewController : "
+        alertController.title = "Problème réseau : "
         alertController.message = strError
         //Affichage de l'alerte
         presentViewController(alertController, animated: true, completion: nil)

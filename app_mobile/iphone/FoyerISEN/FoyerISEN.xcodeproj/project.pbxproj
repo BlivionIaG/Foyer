@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		880DAFDA1C9DEF1B000313E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 880DAFD81C9DEF1B000313E1 /* Main.storyboard */; };
 		8825C9381C8227230042AEFC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8825C9371C8227230042AEFC /* Product.swift */; };
 		8825C93A1C8230E80042AEFC /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8825C9391C8230E80042AEFC /* Command.swift */; };
 		8825C93C1C82382F0042AEFC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8825C93B1C82382F0042AEFC /* Notification.swift */; };
+		883BBFA91C9DA147002B4510 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 883BBFA81C9DA147002B4510 /* SWRevealViewController.m */; };
+		883BBFAB1C9DA23E002B4510 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BBFAA1C9DA23E002B4510 /* ProductController.swift */; };
+		883BBFAD1C9DA262002B4510 /* CommandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BBFAC1C9DA262002B4510 /* CommandController.swift */; };
 		886359CA1C959B7200097E55 /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886359C91C959B7200097E55 /* ConnectionController.swift */; };
 		886359CC1C959CB700097E55 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886359CB1C959CB700097E55 /* HomeController.swift */; };
 		889BE4C61C7F897900983D22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889BE4C51C7F897900983D22 /* AppDelegate.swift */; };
-		889BE4CB1C7F897900983D22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889BE4C91C7F897900983D22 /* Main.storyboard */; };
 		889BE4CD1C7F897900983D22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 889BE4CC1C7F897900983D22 /* Assets.xcassets */; };
 		889BE4D01C7F897900983D22 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 889BE4CE1C7F897900983D22 /* LaunchScreen.storyboard */; };
 		889BE4DB1C7F897A00983D22 /* FoyerISENTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889BE4DA1C7F897A00983D22 /* FoyerISENTests.swift */; };
@@ -31,14 +34,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		880DAFD91C9DEF1B000313E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8825C9371C8227230042AEFC /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		8825C9391C8230E80042AEFC /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		8825C93B1C82382F0042AEFC /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		883BBFA61C9DA147002B4510 /* FoyerISEN-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoyerISEN-Bridging-Header.h"; sourceTree = "<group>"; };
+		883BBFA71C9DA147002B4510 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		883BBFA81C9DA147002B4510 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		883BBFAA1C9DA23E002B4510 /* ProductController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
+		883BBFAC1C9DA262002B4510 /* CommandController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandController.swift; sourceTree = "<group>"; };
 		886359C91C959B7200097E55 /* ConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
 		886359CB1C959CB700097E55 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		889BE4C21C7F897900983D22 /* FoyerISEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoyerISEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		889BE4C51C7F897900983D22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		889BE4CA1C7F897900983D22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		889BE4CC1C7F897900983D22 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		889BE4CF1C7F897900983D22 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		889BE4D11C7F897900983D22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,6 +74,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		883BBFA51C9DA135002B4510 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				883BBFA71C9DA147002B4510 /* SWRevealViewController.h */,
+				883BBFA81C9DA147002B4510 /* SWRevealViewController.m */,
+				883BBFA61C9DA147002B4510 /* FoyerISEN-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
 		889BE4B91C7F897900983D22 = {
 			isa = PBXGroup;
 			children = (
@@ -87,13 +105,14 @@
 		889BE4C41C7F897900983D22 /* FoyerISEN */ = {
 			isa = PBXGroup;
 			children = (
+				883BBFA51C9DA135002B4510 /* SWRevealViewController */,
 				88E45AE21C8B046D0081AF88 /* API */,
 				88E45AE41C8B048A0081AF88 /* Model */,
 				88E45AE71C8B05010081AF88 /* View */,
 				88E45AE51C8B04DB0081AF88 /* Controller */,
 				889BE4C51C7F897900983D22 /* AppDelegate.swift */,
-				889BE4C91C7F897900983D22 /* Main.storyboard */,
 				889BE4CC1C7F897900983D22 /* Assets.xcassets */,
+				880DAFD81C9DEF1B000313E1 /* Main.storyboard */,
 				889BE4CE1C7F897900983D22 /* LaunchScreen.storyboard */,
 				889BE4D11C7F897900983D22 /* Info.plist */,
 			);
@@ -132,6 +151,8 @@
 			children = (
 				886359C91C959B7200097E55 /* ConnectionController.swift */,
 				886359CB1C959CB700097E55 /* HomeController.swift */,
+				883BBFAA1C9DA23E002B4510 /* ProductController.swift */,
+				883BBFAC1C9DA262002B4510 /* CommandController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -226,9 +247,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880DAFDA1C9DEF1B000313E1 /* Main.storyboard in Resources */,
 				889BE4D01C7F897900983D22 /* LaunchScreen.storyboard in Resources */,
 				889BE4CD1C7F897900983D22 /* Assets.xcassets in Resources */,
-				889BE4CB1C7F897900983D22 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,8 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				889BE4E61C7F89AB00983D22 /* NetworkManager.swift in Sources */,
+				883BBFAB1C9DA23E002B4510 /* ProductController.swift in Sources */,
 				8825C9381C8227230042AEFC /* Product.swift in Sources */,
 				886359CC1C959CB700097E55 /* HomeController.swift in Sources */,
+				883BBFA91C9DA147002B4510 /* SWRevealViewController.m in Sources */,
+				883BBFAD1C9DA262002B4510 /* CommandController.swift in Sources */,
 				8825C93C1C82382F0042AEFC /* Notification.swift in Sources */,
 				886359CA1C959B7200097E55 /* ConnectionController.swift in Sources */,
 				8825C93A1C8230E80042AEFC /* Command.swift in Sources */,
@@ -275,10 +299,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		889BE4C91C7F897900983D22 /* Main.storyboard */ = {
+		880DAFD81C9DEF1B000313E1 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				889BE4CA1C7F897900983D22 /* Base */,
+				880DAFD91C9DEF1B000313E1 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -379,10 +403,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = FoyerISEN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DigitalDesign.FoyerISEN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoyerISEN/FoyerISEN-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -390,10 +417,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = FoyerISEN/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = DigitalDesign.FoyerISEN;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FoyerISEN/FoyerISEN-Bridging-Header.h";
 			};
 			name = Release;
 		};
