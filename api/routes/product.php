@@ -193,7 +193,11 @@ $app->group('/product', function() use ($app) {
 			Capsule::table('PRODUCT')->where('id_product',$id_product["id_product"])->update(['image' => $file->getNameWithExtension()]);
 			$response = $response->withJson(array ("status"  => array("succes" => "fichier upload")), 200);
 		} catch (\Exception $e) {
-			$response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
+			if(!empty($file)){
+				$response = $response->withJson(array ("status"  => array("error" => $file->getErrors())), 400);
+			}else{
+				$response = $response->withJson(array ("status"  => array("error" => $e->getMessage())), 400);
+			}
 		}
 		return $response;
 	});
