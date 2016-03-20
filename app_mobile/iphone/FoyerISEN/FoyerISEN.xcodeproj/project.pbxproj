@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				883BBFA51C9DA135002B4510 /* SWRevealViewController */,
-				88E45AE21C8B046D0081AF88 /* API */,
+				88E45AE21C8B046D0081AF88 /* Network */,
 				88E45AE41C8B048A0081AF88 /* Model */,
 				88E45AE71C8B05010081AF88 /* View */,
 				88E45AE51C8B04DB0081AF88 /* Controller */,
@@ -128,12 +128,12 @@
 			path = FoyerISENTests;
 			sourceTree = "<group>";
 		};
-		88E45AE21C8B046D0081AF88 /* API */ = {
+		88E45AE21C8B046D0081AF88 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				889BE4E51C7F89AB00983D22 /* NetworkManager.swift */,
 			);
-			name = API;
+			name = Network;
 			sourceTree = "<group>";
 		};
 		88E45AE41C8B048A0081AF88 /* Model */ = {

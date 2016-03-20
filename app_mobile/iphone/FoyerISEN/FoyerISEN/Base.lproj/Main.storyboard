@@ -163,8 +163,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="Axl-1L-h3L" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="11Z-4M-3fb"/>
                         <segue destination="vKE-0j-DPh" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="lXq-b4-gIy"/>
+                        <segue destination="pGa-LX-ala" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="VJx-nZ-nBc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PZ-iI-LGj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -176,41 +176,14 @@
             <objects>
                 <tableViewController title="Menu Table View" id="Axl-1L-h3L" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="static" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="1" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="d1l-ud-Nah">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="530"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="lb7-hT-P0A">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="70" id="Nm3-Wq-NNm">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nm3-Wq-NNm" id="MaB-OP-5WN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fha-Ch-ToT">
-                                                    <rect key="frame" x="43" y="21" width="53" height="28"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Fha-Ch-ToT" firstAttribute="centerX" secondItem="MaB-OP-5WN" secondAttribute="centerX" id="Sml-OP-8ey"/>
-                                                <constraint firstItem="Fha-Ch-ToT" firstAttribute="leading" secondItem="MaB-OP-5WN" secondAttribute="leadingMargin" constant="35" id="kDo-D3-3QI"/>
-                                                <constraint firstItem="Fha-Ch-ToT" firstAttribute="centerY" secondItem="MaB-OP-5WN" secondAttribute="centerY" id="vEd-8H-gEh"/>
-                                            </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="Sml-OP-8ey"/>
-                                                </mask>
-                                            </variation>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.78440219163894653" green="0.23345431685447693" blue="0.22221112251281738" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="Ij3-rT-CjE" userLabel="Home Cell">
-                                        <rect key="frame" x="0.0" y="70" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ij3-rT-CjE" id="Af3-iv-D0r">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
@@ -251,7 +224,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="5yy-9D-Nvj" userLabel="Product Cell">
-                                        <rect key="frame" x="0.0" y="115" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="45" width="600" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5yy-9D-Nvj" id="Yss-xM-BAh">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
@@ -283,7 +256,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="zZC-jA-Ual" userLabel="Command Cell">
-                                        <rect key="frame" x="0.0" y="160" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="90" width="600" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zZC-jA-Ual" id="GK0-ao-9S7">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
@@ -315,7 +288,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4h3-tX-rza" userLabel="Space Cell">
-                                        <rect key="frame" x="0.0" y="205" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="135" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4h3-tX-rza" id="PBg-ah-Kr4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -323,7 +296,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="45" id="AAu-jm-gGv" userLabel="Logout Cell">
-                                        <rect key="frame" x="0.0" y="249" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="179" width="600" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AAu-jm-gGv" id="WH5-vL-rR0">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
@@ -365,7 +338,59 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cP6-2R-4Vo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="477" y="1349"/>
+            <point key="canvasLocation" x="481" y="1314"/>
+        </scene>
+        <!--Menu Container-->
+        <scene sceneID="vha-Nl-acW">
+            <objects>
+                <viewController title="Menu Container" id="pGa-LX-ala" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mR8-Xg-0Dw"/>
+                        <viewControllerLayoutGuide type="bottom" id="G6N-jU-nqN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wOr-5P-HDu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkz-Rs-Vux" userLabel="Menu Header">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qn0-Il-w7r">
+                                        <rect key="frame" x="20" y="21" width="53" height="28"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="f6A-ID-MWL"/>
+                                    <constraint firstItem="Qn0-Il-w7r" firstAttribute="leading" secondItem="nkz-Rs-Vux" secondAttribute="leading" constant="20" id="mJj-FL-N5G"/>
+                                    <constraint firstItem="Qn0-Il-w7r" firstAttribute="centerY" secondItem="nkz-Rs-Vux" secondAttribute="centerY" id="mNd-G9-NtQ"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S1L-Jt-7WN">
+                                <rect key="frame" x="0.0" y="70" width="600" height="530"/>
+                                <connections>
+                                    <segue destination="Axl-1L-h3L" kind="embed" id="Q0R-NJ-Nb8"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="S1L-Jt-7WN" firstAttribute="top" secondItem="nkz-Rs-Vux" secondAttribute="bottom" id="6YP-yM-gcM"/>
+                            <constraint firstAttribute="trailing" secondItem="S1L-Jt-7WN" secondAttribute="trailing" id="Lvw-A4-T5O"/>
+                            <constraint firstItem="G6N-jU-nqN" firstAttribute="top" secondItem="S1L-Jt-7WN" secondAttribute="bottom" id="NMG-MS-bDz"/>
+                            <constraint firstAttribute="trailing" secondItem="nkz-Rs-Vux" secondAttribute="trailing" id="PD7-j0-ubN"/>
+                            <constraint firstItem="nkz-Rs-Vux" firstAttribute="top" secondItem="wOr-5P-HDu" secondAttribute="top" id="UjW-Bu-KjX"/>
+                            <constraint firstItem="S1L-Jt-7WN" firstAttribute="leading" secondItem="wOr-5P-HDu" secondAttribute="leading" id="ud5-ro-nR7"/>
+                            <constraint firstItem="nkz-Rs-Vux" firstAttribute="leading" secondItem="wOr-5P-HDu" secondAttribute="leading" id="xuC-Il-lFP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0l2-HR-M8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-214" y="2107"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PVt-Ee-6i3">
@@ -397,7 +422,12 @@
                         <color key="backgroundColor" red="0.94499540328979492" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Commandes" id="vRs-ho-5LN" userLabel="Command">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" id="QPy-zE-hol" userLabel="MenuButton"/>
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="QPy-zE-hol" userLabel="MenuButton">
+                            <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="baR-D0-1Ve">
+                            <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="QPy-zE-hol" id="JxB-hc-8hs"/>
@@ -453,7 +483,12 @@
                         <color key="backgroundColor" red="0.94499540328979492" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Accueil" id="qpS-fL-7yz" userLabel="Home">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" id="pqh-z7-MuC" userLabel="MenuButton"/>
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="pqh-z7-MuC" userLabel="MenuButton">
+                            <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="HoZ-cP-gRv">
+                            <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="pqh-z7-MuC" id="SRZ-hZ-qvK"/>
@@ -478,7 +513,12 @@
                         <color key="backgroundColor" red="0.94499540328979492" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Produits" id="TRl-iB-1sZ" userLabel="Product">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" id="z1u-ui-EcE" userLabel="MenuButton"/>
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="z1u-ui-EcE" userLabel="MenuButton">
+                            <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="gMA-Yo-1Ta">
+                            <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="z1u-ui-EcE" id="RWH-00-vTz"/>
@@ -498,7 +538,7 @@
         <image name="smallIcon" width="49" height="49"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yKF-r5-pxf"/>
+        <segue reference="UNw-vd-NUb"/>
         <segue reference="IjO-cY-rlu"/>
     </inferredMetricsTieBreakers>
 </document>
