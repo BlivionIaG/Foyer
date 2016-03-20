@@ -14,6 +14,9 @@
 		883BBFA91C9DA147002B4510 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 883BBFA81C9DA147002B4510 /* SWRevealViewController.m */; };
 		883BBFAB1C9DA23E002B4510 /* ProductController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BBFAA1C9DA23E002B4510 /* ProductController.swift */; };
 		883BBFAD1C9DA262002B4510 /* CommandController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883BBFAC1C9DA262002B4510 /* CommandController.swift */; };
+		884DDA881C9ED0CC00677C76 /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884DDA871C9ED0CC00677C76 /* ProductManager.swift */; };
+		884DDA8A1C9ED0D800677C76 /* CommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884DDA891C9ED0D800677C76 /* CommandManager.swift */; };
+		884DDA8E1C9ED14F00677C76 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884DDA8D1C9ED14F00677C76 /* NotificationManager.swift */; };
 		886359CA1C959B7200097E55 /* ConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886359C91C959B7200097E55 /* ConnectionController.swift */; };
 		886359CC1C959CB700097E55 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886359CB1C959CB700097E55 /* HomeController.swift */; };
 		889BE4C61C7F897900983D22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889BE4C51C7F897900983D22 /* AppDelegate.swift */; };
@@ -43,6 +46,9 @@
 		883BBFA81C9DA147002B4510 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		883BBFAA1C9DA23E002B4510 /* ProductController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
 		883BBFAC1C9DA262002B4510 /* CommandController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandController.swift; sourceTree = "<group>"; };
+		884DDA871C9ED0CC00677C76 /* ProductManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
+		884DDA891C9ED0D800677C76 /* CommandManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandManager.swift; sourceTree = "<group>"; };
+		884DDA8D1C9ED14F00677C76 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		886359C91C959B7200097E55 /* ConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionController.swift; sourceTree = "<group>"; };
 		886359CB1C959CB700097E55 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		889BE4C21C7F897900983D22 /* FoyerISEN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoyerISEN.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +148,9 @@
 				8825C9371C8227230042AEFC /* Product.swift */,
 				8825C9391C8230E80042AEFC /* Command.swift */,
 				8825C93B1C82382F0042AEFC /* Notification.swift */,
+				884DDA871C9ED0CC00677C76 /* ProductManager.swift */,
+				884DDA891C9ED0D800677C76 /* CommandManager.swift */,
+				884DDA8D1C9ED14F00677C76 /* NotificationManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -268,9 +277,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				889BE4E61C7F89AB00983D22 /* NetworkManager.swift in Sources */,
+				884DDA8A1C9ED0D800677C76 /* CommandManager.swift in Sources */,
+				884DDA881C9ED0CC00677C76 /* ProductManager.swift in Sources */,
 				883BBFAB1C9DA23E002B4510 /* ProductController.swift in Sources */,
 				8825C9381C8227230042AEFC /* Product.swift in Sources */,
 				886359CC1C959CB700097E55 /* HomeController.swift in Sources */,
+				884DDA8E1C9ED14F00677C76 /* NotificationManager.swift in Sources */,
 				883BBFA91C9DA147002B4510 /* SWRevealViewController.m in Sources */,
 				883BBFAD1C9DA262002B4510 /* CommandController.swift in Sources */,
 				8825C93C1C82382F0042AEFC /* Notification.swift in Sources */,

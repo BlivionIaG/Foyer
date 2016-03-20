@@ -9,6 +9,8 @@
 import UIKit
 
 class ProductController: UIViewController {
+    
+    var productManager = ProductManager()
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     

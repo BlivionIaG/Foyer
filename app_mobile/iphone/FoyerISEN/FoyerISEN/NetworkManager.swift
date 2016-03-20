@@ -11,7 +11,7 @@ import UIKit
 @objc protocol NetworkManagerDelegate {
     optional func didReceiveData(response : String, tabData: NSArray)
     optional func didFailToReceiveResponse(strError : String)
-    optional func didReceiveImage(image: UIImage)
+    optional func didReceiveImage(image: UIImage?)
 }
 
 class NetworkManager: NSObject , NSURLSessionDelegate {
