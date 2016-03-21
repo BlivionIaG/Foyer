@@ -15,9 +15,13 @@ angular.module('foyerApp.controllers')
   });
 
   $scope.submitForm = function() {
-    fileUpload.uploadFileToUrl($scope.banniereImage, CONFIG.API_URL+'banniere/').success(function(data){
-      console.log(data);
+    $scope.submitted = true;
+    if($scope.banniereImage){
+      fileUpload.uploadFileToUrl($scope.banniereImage, CONFIG.API_URL+'banniere/').success(function(data){
+        $window.location.reload();
+      });
+    }else{
       $window.location.reload();
-    });
+    }
   };
 }]);

@@ -15,6 +15,9 @@
   <div class="pull-right">
     <a href="#" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
     <input type="submit" value="Valider" class="btn btn-primary"/>
+    <span ng-show="submitted">
+      <img src="img/loading-default.gif" style="height: 25px;">
+    </span>
   </div>
 </form>
 
