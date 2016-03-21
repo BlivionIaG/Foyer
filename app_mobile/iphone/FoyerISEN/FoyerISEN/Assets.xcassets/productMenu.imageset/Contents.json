@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "productMenu.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "isen-logo.png",
       "scale" : "2x"
     },
     {
