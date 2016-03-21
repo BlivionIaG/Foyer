@@ -22,7 +22,7 @@ $app->get('/login/', function($request, $response) {
   if(isset($_SESSION['uid'])){
     $yaml = new Parser();
     $config = $yaml->parse(file_get_contents('config/config.yml'));
-    return $response->withJson(array ("key" => base64_encode('root:'.$config['parameters']['api_users']['root'])), 200);
+    return $response->withJson(array ("login" => $_SESSION['login'], "key" => base64_encode('root:'.$config['parameters']['api_users']['root'])), 200);
   }
   else
     return $response->withJson(array ("status"  => array("error" => "ok")), 400);
@@ -66,6 +66,7 @@ $app->post('/login/',function ($request, $response)  use ($app) {
     if(!empty($request->getParsedBody()) && Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
       session_start();
       $_SESSION['uid'] = uniqid();
+      $_SESSION['login'] = $request->getParsedBody()['login'];
       $response = $response->withJson(array ("status"  => array("succes" => uniqid())), 200);
     }
     else
