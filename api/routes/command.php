@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Symfony\Component\Yaml\Parser;
 
 $app->group('/command', function() use ($app) {
 
