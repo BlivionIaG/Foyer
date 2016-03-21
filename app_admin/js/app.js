@@ -80,11 +80,10 @@ angular.module('foyerApp', [
 }])
 
 // Route permissions
-.run(function($rootScope, $location) {
-
-  var routeAllowed = ['/identification']; // Route that not required login
-
+.run(['$rootScope', '$location', function($rootScope, $location) {
+  //Routes qui n'ont pas besoin d'être connecté
+  var routeAllowed = ['/identification'];
   $rootScope.$on('$routeChangeStart', function() {
     if(routeAllowed.indexOf($location.path()) === -1);
   });
-});
+}]);
