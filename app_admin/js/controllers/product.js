@@ -66,8 +66,9 @@ angular.module('foyerApp.controllers')
     //edit
     if($scope.action === 'edit'){
       $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function() {
-        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product);
-        $location.path('product');
+        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+data.status.success).success(function(data){
+          $location.path('product');
+        });
       }).error(function(data) {
         $scope.alert = data;
         $document.scrollTop(0, 250);
@@ -76,8 +77,9 @@ angular.module('foyerApp.controllers')
     //ajout
     else{
       $http.post(CONFIG.API_URL+'product/', $scope.product).success(function(data) {
-        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+data.status.success);
-        $location.path('product');
+        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+data.status.success).success(function(data){
+          $location.path('product');
+        });
       }).error(function(data) {
         $scope.alert = data;
         $document.scrollTop(0, 250);
