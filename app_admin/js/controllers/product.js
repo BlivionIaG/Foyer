@@ -77,7 +77,7 @@ angular.module('foyerApp.controllers')
     //ajout
     else{
       $http.post(CONFIG.API_URL+'product/', $scope.product).success(function(data) {
-        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+data.status.success).success(function(data){
+        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product).success(function(data){
           $location.path('product');
         });
       }).error(function(data) {
