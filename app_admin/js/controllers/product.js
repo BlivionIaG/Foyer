@@ -63,12 +63,17 @@ angular.module('foyerApp.controllers')
 
   //Post du formulaire
   $scope.submitForm = function() {
+    $scope.submitted = true;
     //edit
     if($scope.action === 'edit'){
       $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function() {
-        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product).success(function(data){
+        if($scope.productImage){
+          fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product).success(function(data){
+            $location.path('product');
+          });
+        }else{
           $location.path('product');
-        });
+        }
       }).error(function(data) {
         $scope.alert = data;
         $document.scrollTop(0, 250);

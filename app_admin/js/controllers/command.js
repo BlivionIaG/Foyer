@@ -104,8 +104,9 @@ angular.module('foyerApp.controllers')
   });
 
   //Post du formulaire
-  $scope.submitForm = function() {
+  $scope.submitForm = function() {  
    if($scope.command.product !== undefined && $scope.command.product.length !== 0){
+      $scope.submitted = true;
       //edit
       if($scope.action === 'edit'){
         $http.put(CONFIG.API_URL+'command/'+$scope.command.id_command, $scope.command).success(function() {
