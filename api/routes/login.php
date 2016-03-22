@@ -139,6 +139,11 @@ $app->post('/cas/', function($request, $response) use ($app){
       //récupération des identifiants à l'api
       $yaml = new Parser();
       $config = $yaml->parse(file_get_contents('config/config.yml'));
+
+      session_start();
+      $_SESSION['uid'] = uniqid();
+      $_SESSION['login'] = $request->getParsedBody()['login'];
+
       $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => base64_encode('mobile:'.$config['parameters']['api_users']['mobile']))), 200);
     }else{
       $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 401);
@@ -147,4 +152,27 @@ $app->post('/cas/', function($request, $response) use ($app){
     $response = $response->withJson(array ("status"  => array("error" => "Erreur de connexion avec le CAS")), 408);
   }
   return $response;
+});
+
+/**
+* @api {get} /cas/ Check la connexion à l'interface web.
+* @apiName GetConnexionCAS
+* @apiGroup Login
+*
+* @apiSuccess {String} login Login de connexion.
+* @apiSuccess {String} key Code Basic Auth.
+*
+* @apiSuccessExample Success-Response:
+*     HTTP/1.1 200 OK
+*
+*/
+$app->get('/cas/', function($request, $response) {
+  session_start();
+  if(isset($_SESSION['uid'])){
+    $yaml = new Parser();
+    $config = $yaml->parse(file_get_contents('config/config.yml'));
+    return $response->withJson(array ("login" => $_SESSION['login'], "key" => base64_encode('mobile:'.$config['parameters']['api_users']['mobile'])), 200);
+  }
+  else
+    return $response->withJson(array ("status"  => array("error" => "ok")), 400);
 });
