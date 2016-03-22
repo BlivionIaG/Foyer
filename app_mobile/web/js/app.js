@@ -2,10 +2,9 @@
 
 angular.module('foyerApp', [
   'ngRoute',
+  'ngSanitize',
   'ngDialog',
   'ui.bootstrap',
-  'angular.morris-chart',
-  'checklist-model',
   'foyerApp.directives',
   'foyerApp.filters',
   'foyerApp.services',
@@ -13,7 +12,7 @@ angular.module('foyerApp', [
 ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://isenclub.fr/foyer/api/'
+  'API_URL': 'http://192.168.1.24/Foyer/api/'
 })
 
 //gestion des routes
@@ -26,43 +25,38 @@ angular.module('foyerApp', [
   $routeProvider
   .when('/', {
     templateUrl : 'partials/home.html',
-    controller  : 'homeController'
+    controller  : 'homeController',
+    activetab   : 'home'
   })
   .when('/identification', {
     templateUrl : 'partials/identification.html',
-    controller  : 'identificationController'
+    controller  : 'identificationController',
+    activetab   : 'identification'
   })
   .when('/product', {
+    templateUrl : 'partials/products.html',
+    controller  : 'productsController',
+    activetab   : 'product'
+  })
+  .when('/cart', {
+    templateUrl : 'partials/cart.html',
+    controller  : 'cartController',
+    activetab   : 'cart'
+  })
+  .when('/product/:id_product', {
     templateUrl : 'partials/product.html',
-    controller  : 'productController'
-  })
-  .when('/product/edit/:id_product', {
-    templateUrl : 'partials/product-form.html',
-    controller  : 'productFormController'
-  })
-  .when('/product/add', {
-    templateUrl : 'partials/product-form.html',
-    controller  : 'productFormController'
+    controller  : 'productController',
+    activetab   : 'product'
   })
   .when('/command', {
-    templateUrl : 'partials/command.html',
-    controller  : 'commandController'
+    templateUrl : 'partials/commands.html',
+    controller  : 'commandsController',
+    activetab   : 'command'
   })
-  .when('/command/edit/:id_command', {
-    templateUrl : 'partials/command-form.html',
-    controller  : 'commandFormController'
-  })
-  .when('/command/add', {
-    templateUrl : 'partials/command-form.html',
-    controller  : 'commandFormController'
-  })
-  .when('/parametre', {
-    templateUrl : 'partials/parametre.html',
-    controller  : 'parametreController'
-  })
-  .when('/user', {
-    templateUrl : 'partials/user.html',
-    controller  : 'userController'
+  .when('/notification', {
+    templateUrl : 'partials/notifications.html',
+    controller  : 'notificationsController',
+    activetab   : 'notification'
   })
   .otherwise({
     redirectTo: '/'
