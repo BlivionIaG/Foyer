@@ -1,0 +1,67 @@
+<h1>Panier <small>/ Liste <span ng-show="cart">({{ cart.length }})</span></small></h1>
+<hr />
+
+<div class="alert alert-info" role="alert" ng-show="cart.length == 0">
+  <p>Aucun résultat<span>, votre panier est vide</span>.</p>
+</div>
+
+<p ng-show="cart.length !== 0" ><a ng-click="deleteCartAll()" class="btn btn-default">Supprimer votre Panier</a></p>
+
+<p><strong>Total : {{ getCartTotal() }}€</strong></p>
+
+<div ng-hide="cart.length == 0">
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>
+          Image
+        </th>
+        <th>
+          <a ng-click="orderByField = '-name'; sortReverse=!sortReverse">Nom</a>
+          <span ng-show="orderByField == '-name'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-description'; sortReverse=!sortReverse">Description</a>
+          <span ng-show="orderByField == '-description'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-price'; sortReverse=!sortReverse">Prix</a>
+          <span ng-show="orderByField == '-price'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          <a ng-click="orderByField = '-quantity'; sortReverse=!sortReverse">Quantité</a>
+          <span ng-show="orderByField == '-quantity'">
+            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
+            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
+          </span>
+        </th>
+        <th>
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in cart | orderBy:orderByField:sortReverse">
+        <td><img src="{{ apiUrl }}files/product/{{ product.image }}" height="120" width="120"></td>
+        <td>{{ product.name }}</td>
+        <td ng-bind-html="product.description"></td>
+        <td>{{ product.price }}€</td>
+        <td>{{ product.quantity }}</td>
+        <td>
+          <button ng-click="deleteCart(product)" type="button" class="btn btn-default" aria-label="Left Align">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

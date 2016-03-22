@@ -145,6 +145,10 @@ nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav
 	background-color: transparent;
 }
 
+nav.sidebar li h3{
+	margin-left: 5%;
+}
+
 nav:hover .forAnimate{
 	opacity: 1;
 }

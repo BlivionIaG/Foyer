@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('foyerApp.services', [])
 .factory('loginService', ['$http', '$q', '$location', 'sessionService', 'CONFIG', '$rootScope', function($http, $q, $location, sessionService, CONFIG, $rootScope) {
   return {
@@ -8,8 +7,8 @@ angular.module('foyerApp.services', [])
       $http.post(CONFIG.API_URL+'cas/', user).success(function(data) {
         sessionService.set('uid', data.status.success);
         $location.path('home');
-      }).error(function() {
-        $scope.loginMessage = "Erreur d'identification.";
+      }).error(function(data) {
+        $scope.loginMessage = data.status.error;
       });
     },
     logout: function() {
@@ -22,7 +21,7 @@ angular.module('foyerApp.services', [])
     },
     isLogged: function() {
       var defer = $q.defer();
-      $http.get(CONFIG.API_URL+'login/').then(function(response) {
+      $http.get(CONFIG.API_URL+'cas/').then(function(response) {
         $rootScope.login = response.data.login;
         $rootScope.isLogged = true;
         $http.defaults.headers.common['Authorization'] = 'Basic '+response.data.key;
@@ -51,15 +50,4 @@ angular.module('foyerApp.services', [])
       return window.sessionStorage.removeItem(key);
     }
   };
-})
-
-.service('fileUpload', ['$http', function ($http) {
-  this.uploadFileToUrl = function(file, uploadUrl){
-    var fd = new FormData();
-    fd.append('file', file);
-    return $http.post(uploadUrl, fd, {
-      transformRequest: angular.identity,
-      headers: {'Content-Type': undefined}
-    });
-  };
-}]);
+});

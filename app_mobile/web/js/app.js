@@ -5,7 +5,6 @@ angular.module('foyerApp', [
   'ngSanitize',
   'ngDialog',
   'ui.bootstrap',
-  'checklist-model',
   'foyerApp.directives',
   'foyerApp.filters',
   'foyerApp.services',
@@ -39,6 +38,11 @@ angular.module('foyerApp', [
     controller  : 'productsController',
     activetab   : 'product'
   })
+  .when('/cart', {
+    templateUrl : 'partials/cart.html',
+    controller  : 'cartController',
+    activetab   : 'cart'
+  })
   .when('/product/:id_product', {
     templateUrl : 'partials/product.html',
     controller  : 'productController',
@@ -48,6 +52,11 @@ angular.module('foyerApp', [
     templateUrl : 'partials/commands.html',
     controller  : 'commandsController',
     activetab   : 'command'
+  })
+  .when('/notification', {
+    templateUrl : 'partials/notifications.html',
+    controller  : 'notificationsController',
+    activetab   : 'notification'
   })
   .otherwise({
     redirectTo: '/'

@@ -1,31 +1,30 @@
-<div class="container">
 
-  <header class="jumbotron hero-spacer">
-    <img src="{{ apiUrl }}files/mobile/{{ banniere.url }}">
-  </header>
+<h1>Produits <small>/ Liste <span ng-show="products">({{ products.length }})</span></small></h1>
+<hr />
 
-  <hr>
+<div class="alert alert-info" role="alert" ng-hide="loaded">
+  <p class="loading">Chargement en cours, merci de patienter...</p>
+</div>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <h3>Nos produits</h3>
-    </div>
-  </div>
 
-  <hr>
+<header class="jumbotron hero-spacer">
+  <img src="{{ apiUrl }}files/mobile/{{ banniere.url }}">
+</header>
 
-  <div class="row text-center">
-    <div class="col-md-3 col-sm-6 hero-feature" ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
-      <div class="thumbnail">
-        <img src="{{ apiUrl }}files/product/{{ product.image }}" alt="{{ product.nom }}">
-        <div class="caption">
-          <h3>{{ product.name }} - {{ product.price }}€</h3>
-          <p ng-bind-html="product.description"></p>
-          <p>
-            <a class="btn btn-primary"><i class="fa fa-shopping-basket"></i></a> <a href="#product/{{ product.id_product }}" class="btn btn-default"><i class="fa fa-search"></i></a>
-          </p>
-        </div>
+<hr>
+
+<div class="row text-center">
+  <div class="col-md-3 col-sm-6 hero-feature" ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
+    <div class="thumbnail">
+      <img src="{{ apiUrl }}files/product/{{ product.image }}" alt="{{ product.nom }}">
+      <div class="caption">
+        <h3>{{ product.name }} - {{ product.price }}€</h3>
+        <p ng-bind-html="product.description"></p>
+        <p>
+          <a class="btn btn-primary" ng-click="addCart(product)"><i class="fa fa-shopping-basket"></i></a> 
+          <a href="#product/{{ product.id_product }}" class="btn btn-default"><i class="fa fa-search"></i></a>
+        </p>
       </div>
     </div>
-    </div>
+  </div>
 </div>

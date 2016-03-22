@@ -2,9 +2,7 @@
 
 angular.module('foyerApp.controllers')
 //controlleur de la page product
-.controller('productsController', ['$scope', '$http','$document', 'CONFIG', 'loginService', function($scope, $http, $document, CONFIG, loginService) {
-
-  $scope.apiUrl = CONFIG.API_URL;
+.controller('productsController', ['$scope', '$http', 'CONFIG', 'loginService', function($scope, $http, CONFIG, loginService) {
 
   loginService.isLogged().then(function() {
     //recuperation des produits
@@ -22,8 +20,7 @@ angular.module('foyerApp.controllers')
 }])
 
 //controlleur du form de produit
-.controller('productController', ['$scope', '$http', '$routeParams', '$document', '$location', 'CONFIG', 'loginService', function($scope, $http, $routeParams, $document, $location, CONFIG, loginService) {
-  $scope.apiUrl = CONFIG.API_URL;
+.controller('productController', ['$scope', '$http', '$routeParams', 'CONFIG', 'loginService', function($scope, $http, $routeParams, CONFIG, loginService) {
 
   loginService.isLogged().then(function() {
     //recuperation du produit
