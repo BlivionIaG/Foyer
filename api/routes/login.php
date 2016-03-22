@@ -142,7 +142,7 @@ $app->post('/cas/', function($request, $response) use ($app){
 
       session_start();
       $_SESSION['uid'] = uniqid();
-      $_SESSION['login'] = $request->getParsedBody()['login'];
+      $_SESSION['login'] = $request->getParsedBody()['username'];
 
       $response = $response->withJson(array ("status"  => array("username" => $request->getParsedBody()['username'], "key" => base64_encode('mobile:'.$config['parameters']['api_users']['mobile']))), 200);
     }else{
