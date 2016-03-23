@@ -11,15 +11,14 @@
 
 <ons-list>
   <ons-list-item modifier="chevron" class="list-item-container" ng-repeat="product in products">
-    <ons-row>
+    <ons-row ng-click="go('#product/'+product.id_product)">
       <ons-col width="95px">
         <img src="{{ apiUrl }}files/product/{{ product.image }}" class="thumbnail">
       </ons-col>
       <ons-col>
         <div class="name">
-          {{ product.name }} <a class="btn btn-primary" ng-click="addCart(product)"><i class="fa fa-shopping-basket"></i></a>
+          {{ product.name }}
         </div>
-        <a href="#product/{{product.id_product}}">test</a>
         <div class="location">
           {{ product.price }}€
         </div>

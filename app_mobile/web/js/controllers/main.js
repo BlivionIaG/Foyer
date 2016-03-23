@@ -2,7 +2,7 @@
 
 angular.module('foyerApp.controllers', [])
 
-.controller('mainController', ['$rootScope', '$scope', '$http', 'loginService', 'sessionService', 'CONFIG', '$location', function($rootScope, $scope, $http, loginService, sessionService, CONFIG, $location) {
+.controller('mainController', ['$rootScope', '$scope', '$http', 'loginService', 'sessionService', 'CONFIG', '$window', function($rootScope, $scope, $http, loginService, sessionService, CONFIG, $window) {
   
   $scope.apiUrl = CONFIG.API_URL;
 
@@ -81,8 +81,19 @@ angular.module('foyerApp.controllers', [])
     sessionService.set('cart', JSON.stringify($rootScope.cart));
   };
 
-  $scope.go = function ( path ) {
-    $location.path( path );
+  //total quantite panier
+  $scope.getCartQuantity = function() {
+    var quantity = 0;
+    angular.forEach($scope.cart, function(item, key) {
+      quantity += item.quantity;
+    });
+    return quantity;
+  };
+
+  //fonction permettant d'acceder a une url
+  $scope.go = function (path){
+    menu.closeMenu();
+    $window.location = path;
   };
 }])
 
