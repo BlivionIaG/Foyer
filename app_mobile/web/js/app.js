@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('foyerApp', [
+  'onsen',
   'ngRoute',
   'ngSanitize',
-  'ngDialog',
-  'ui.bootstrap',
   'foyerApp.directives',
   'foyerApp.filters',
   'foyerApp.services',

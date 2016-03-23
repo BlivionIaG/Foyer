@@ -2,7 +2,9 @@
 
 angular.module('foyerApp.controllers')
 
-.controller('cartController', ['$scope', '$http', 'CONFIG', function($scope, $http, CONFIG) {
+.controller('cartController', ['$rootScope', '$scope', '$http', 'CONFIG', 'sessionService', 'loginService', function($rootScope, $scope, $http, CONFIG, sessionService, loginService) {
+
+  $rootScope.title = 'Panier';
 
   //total d'une commande
   $scope.getCartTotal = function() {
@@ -14,8 +16,12 @@ angular.module('foyerApp.controllers')
   };
 
   $scope.deleteCartAll = function() {
-    delete $scope.cart;
+    delete $rootScope.cart;
     //enregistrement du panier
     sessionService.destroy('cart');
   };
+
+  loginService.isLogged().then(function() {
+  });
+
 }]);

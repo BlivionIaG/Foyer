@@ -2,15 +2,20 @@
 
 angular.module('foyerApp.controllers')
 
-.controller('homeController', ['$scope', '$http', 'CONFIG', 'loginService', function($scope, $http, CONFIG, loginService) {
+.controller('homeController', ['$rootScope', '$scope', '$http', 'CONFIG', 'loginService', function($rootScope, $scope, $http, CONFIG, loginService) {
+
+  $rootScope.title = 'Accueil';
+
   loginService.isLogged().then(function() {
-    //recuperation des commandes à valider
-    $http.get(CONFIG.API_URL+'command/state/1').success(function(data){
-      $scope.commandsValidate = data;
+    //recuperation des produits
+    $http.get(CONFIG.API_URL+'product/').success(function(data){
+      $scope.products = data;
+      $scope.loaded = true;
     });
-    //recuperation des stats pour le graph
-    $http.get(CONFIG.API_URL+'command/stats/').success(function(data){
-      $scope.commandStats = data;
+    //recuperation de la bannière
+    $http.get(CONFIG.API_URL+'banniere/').success(function(data){
+      $scope.banniere = data;
+      $scope.loaded = true;
     });
   });
 }]);

@@ -2,8 +2,8 @@
 
 angular.module('foyerApp.controllers', [])
 
-.controller('mainController', ['$rootScope', '$scope', '$http', 'loginService', 'sessionService', 'CONFIG', function($rootScope, $scope, $http, loginService, sessionService, CONFIG) {
-
+.controller('mainController', ['$rootScope', '$scope', '$http', 'loginService', 'sessionService', 'CONFIG', '$location', function($rootScope, $scope, $http, loginService, sessionService, CONFIG, $location) {
+  
   $scope.apiUrl = CONFIG.API_URL;
 
   $rootScope.$on(function () {
@@ -17,9 +17,9 @@ angular.module('foyerApp.controllers', [])
   //recuperation du panier
   var cart = JSON.parse(sessionService.get('cart'));
   if(cart){
-    $scope.cart = cart;
+    $rootScope.cart = cart;
   }else{
-    $scope.cart = new Array();
+    $rootScope.cart = new Array();
   }
 
   //ajout d'un produit au panier
@@ -32,13 +32,13 @@ angular.module('foyerApp.controllers', [])
       var exist = false;
       //si vide on init array
       if(!$scope.cart){
-        $scope.cart = new Array();
+        $rootScope.cart = new Array();
       }
       else{
         //on regarde si il existe pas deja pour ajouter quantité
         angular.forEach($scope.cart, function(value, key) {
           if(value.id_product === item.id_product){
-            $scope.cart[key].quantity ++;
+            $rootScope.cart[key].quantity ++;
             exist = true;
           }
         });
@@ -46,12 +46,12 @@ angular.module('foyerApp.controllers', [])
       //sinon on l'ajoute
       if(!exist){
         item.quantity = 1;
-        $scope.cart.push(item);
+        $rootScope.cart.push(item);
       }
     });
 
     //enregistrement du panier
-    sessionService.set('cart', JSON.stringify($scope.cart));
+    sessionService.set('cart', JSON.stringify($rootScope.cart));
   };
 
   //suppression d'un produit du panier
@@ -62,25 +62,28 @@ angular.module('foyerApp.controllers', [])
     }
     angular.forEach(items, function(item) {
       //on parcours le tableau pour l'enlever
-      angular.forEach($scope.cart, function(value, key) {
+      angular.forEach($rootScope.cart, function(value, key) {
         if(value.id_product === item.id_product){
           //si c'est pas le dernier quantité -1
           if(value.quantity > 1){
-            $scope.cart[key].quantity --;
+            $rootScope.cart[key].quantity --;
           }
           //sinon on le supprimer
           else{
-            //delete $scope.cart[key];
-            $scope.cart.splice(key, 1);
+            //delete $rootScope.cart[key];
+            $rootScope.cart.splice(key, 1);
           }
         }
       });
     });
 
     //enregistrement du panier
-    sessionService.set('cart', JSON.stringify($scope.cart));
+    sessionService.set('cart', JSON.stringify($rootScope.cart));
   };
 
+  $scope.go = function ( path ) {
+    $location.path( path );
+  };
 }])
 
 .controller('errorController', function() {})
