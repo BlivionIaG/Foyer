@@ -1,9 +1,9 @@
-<h1>Commande <small>/ n°{{ command.id_command }}</span></small></h1>
+<h1>
+<ons-toolbar-button ng-click="go('#command')">
+  <ons-icon icon="ion-arrow-left-c" style="color: black; font-size: 28px;" fixed-width="false"></ons-icon>
+</ons-toolbar-button>
+Commande <small>/ n°{{ command.id_command }}</span></small></h1>
 <hr />
-
-<div class="left">
-    <ons-toolbar-button ng-click="go('#command')"><ons-icon icon="ion-arrow-left-c" style="color: black; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button>
-</div>
 
 <ons-icon
   ng-hide="loaded"
@@ -13,8 +13,15 @@
   style="text-align: center;width: 100%;">
 </ons-icon>
 
-<p>Etat de la commande : {{ command.state }} <br/>
-Commandé le {{ command.date | date:'dd-MM-yyyy' }} entre {{ command.periode_debut }} - {{ command.periode_fin }} - {{ command.total }}€
+<button ng-show="command.state == 1" class="button button--large--cta" ng-click="deleteCommand()">Annuler la commande</button><br>
+
+<p>Etat de la commande :
+ <span ng-if="command.state == 1">en cours de validation</span>
+ <span ng-if="command.state == 2">validée</span>
+ <span ng-if="command.state == 3">servie</span>
+ <span ng-if="command.state == 0">supprimée</span>
+ <br/>
+Commandée le {{ command.date | date:'dd-MM-yyyy' }} entre {{ command.periode_debut }} - {{ command.periode_fin }} pour un total de {{ command.total }}€.
 </p>
 
 
