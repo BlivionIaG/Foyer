@@ -12,7 +12,7 @@ angular.module('foyerApp', [
 ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://192.168.1.24/Foyer/api/'
+  'API_URL': 'http://isenclub.fr/foyer/api/'
 })
 
 //gestion des routes
