@@ -3,7 +3,7 @@
 
 <p ng-show="cart.length === 0" style="text-align:center">Aucun résultat<span>, votre panier est vide</span>.</p>
 
-<button ng-show="cart.length !== 0" class="button button--large--cta" ng-click="deleteCartAll()">Vider votre Panier</button><br>
+<button ng-show="cart.length !== 0" class="button button--large--cta btn-danger" ng-click="deleteCartAll()">Vider votre Panier</button><br>
 
 <div ng-hide="cart.length === 0">
   <ul class="list">
