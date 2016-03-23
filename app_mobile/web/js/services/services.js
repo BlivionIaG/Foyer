@@ -4,11 +4,13 @@ angular.module('foyerApp.services', [])
 .factory('loginService', ['$http', '$q', '$location', 'sessionService', 'CONFIG', '$rootScope', function($http, $q, $location, sessionService, CONFIG, $rootScope) {
   return {
     login: function(user, $scope) {
+      $rootScope.connect = true;
       $http.post(CONFIG.API_URL+'cas/', user).success(function(data) {
         sessionService.set('uid', data.status.success);
         $location.path('home');
       }).error(function(data) {
         $scope.loginMessage = data.status.error;
+        $rootScope.connect = false;
       });
     },
     logout: function() {

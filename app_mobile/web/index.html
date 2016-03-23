@@ -9,9 +9,9 @@
   <title>App Web Foyer</title>
   <link rel="icon" type="image/png" href="img/logo.png" />
   <link rel="stylesheet" href="css/font-awesome.min.css" />
-  <link rel='stylesheet' href='css/bootstrap.min.css'>
   <link rel='stylesheet' href='css/onsen-css-components.css'>
   <link rel='stylesheet' href='css/onsenui.css'>
+  <link rel='stylesheet' href='css/bootstrap.min.css'>
   <link rel="stylesheet" href="css/main.css" />
 
   <!--<script type="text/javascript" src="vendors/cordova.js"></script>-->
@@ -66,7 +66,7 @@
       <ons-list-item>
           <br/>
       </ons-list-item>
-      <ons-list-item ng-click="logout()">
+      <ons-list-item ng-click="logout()" onclick="menu.closeMenu();">
         <i class="fa fa-power-off"></i> Déconnexion
       </ons-list-item>
     </ons-list>
@@ -79,7 +79,7 @@
           <ons-toolbar-button ng-click="menu.toggleMenu()"><ons-icon icon="fa-bars"></ons-icon></ons-toolbar-button>
         </div>
         <div class="center">{{ title }}</div>
-        <div class="right" ng-click="go('#cart')" style="cursor: pointer;" onclick="menu.closeMenu();">
+        <div class="right" ng-click="go('#cart')" style="cursor: pointer;">
           <span class="toolbar-button--quiet
             navigation-bar__line-height"><i class="fa fa-shopping-basket"></i> ({{ getCartQuantity() }})</span>
         </div>

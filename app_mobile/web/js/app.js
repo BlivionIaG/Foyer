@@ -52,6 +52,11 @@ angular.module('foyerApp', [
     controller  : 'commandsController',
     activetab   : 'command'
   })
+  .when('/command/:id_command', {
+    templateUrl : 'partials/command.html',
+    controller  : 'commandController',
+    activetab   : 'command'
+  })
   .when('/notification', {
     templateUrl : 'partials/notifications.html',
     controller  : 'notificationsController',
