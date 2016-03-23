@@ -13,7 +13,7 @@ Commande <small>/ n°{{ command.id_command }}</span></small></h1>
   style="text-align: center;width: 100%;">
 </ons-icon>
 
-<button ng-show="command.state == 1" class="button button--large--cta" ng-click="deleteCommand()">Annuler la commande</button><br>
+<button ng-show="command.state == 1" class="button button--large--cta btn-danger" ng-click="deleteCommand()">Annuler la commande</button><br>
 
 <p>Etat de la commande :
  <span ng-if="command.state == 1">en cours de validation</span>
