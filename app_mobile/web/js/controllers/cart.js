@@ -6,7 +6,7 @@ angular.module('foyerApp.controllers')
 
   $rootScope.title = 'Panier';
 
-  //total d'une commande
+  //total du panier
   $scope.getCartTotal = function() {
     var total = 0;
     angular.forEach($scope.cart, function(item, key) {
@@ -16,9 +16,9 @@ angular.module('foyerApp.controllers')
   };
 
   $scope.deleteCartAll = function() {
-    delete $rootScope.cart;
+    $rootScope.cart = new Array();
     //enregistrement du panier
-    sessionService.destroy('cart');
+    sessionService.set('cart', JSON.stringify($rootScope.cart));
   };
 
   loginService.isLogged().then(function() {

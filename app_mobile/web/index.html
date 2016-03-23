@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 
   <title>App Web Foyer</title>
   <link rel="icon" type="image/png" href="img/logo.png" />
@@ -43,31 +43,31 @@
   </ons-sliding-menu>
 
   <ons-template id="menu.html">
-    <ons-list>
+    <ons-list class="menu">
       <ons-list-item style="text-align:center">
         <img src="img/logo.png" height="80" />
         <h2>{{ login }}</h2>
       </ons-list-item>
-      <ons-list-item modifier="chevron tappable" style="cursor: pointer;" onclick="window.location='#home';menu.closeMenu();">
-        <i class="fa fa-home"></i>  Accueil
+      <ons-list-item modifier="chevron tappable" ng-click="go('#home')">
+        <i class="fa fa-home"></i> Accueil
       </ons-list-item>
-      <ons-list-item modifier="chevron tappable" style="cursor: pointer;" onclick="window.location='#product';menu.closeMenu();">
-        <i class="fa fa-cutlery"></i>  Produits
+      <ons-list-item modifier="chevron tappable" ng-click="go('#product')">
+        <i class="fa fa-cutlery"></i> Produits
       </ons-list-item>
-      <ons-list-item modifier="chevron tappable" style="cursor: pointer;" onclick="window.location='#cart';menu.closeMenu();">
-        <i class="fa fa-shopping-basket"></i>  Panier ({{ cart.length }})
+      <ons-list-item modifier="chevron tappable" ng-click="go('#cart')">
+        <i class="fa fa-shopping-basket"></i> Panier ({{ getCartQuantity() }})
       </ons-list-item>
-      <ons-list-item modifier="chevron tappable" style="cursor: pointer;" onclick="window.location='#command';menu.closeMenu();">
-        <i class="fa fa-pencil-square"></i>  Commandes
+      <ons-list-item modifier="chevron tappable" ng-click="go('#command')">
+        <i class="fa fa-pencil-square"></i> Commandes
       </ons-list-item>
-      <ons-list-item modifier="chevron tappable" style="cursor: pointer;" onclick="window.location='#notification';menu.closeMenu();">
-        <i class="fa fa-envelope"></i>  Notifications
+      <ons-list-item modifier="chevron tappable" ng-click="go('#notification')">
+        <i class="fa fa-envelope"></i> Notifications
       </ons-list-item>
       <ons-list-item>
           <br/>
       </ons-list-item>
       <ons-list-item ng-click="logout()">
-        <i class="fa fa-power-off"></i>  Déconnexion
+        <i class="fa fa-power-off"></i> Déconnexion
       </ons-list-item>
     </ons-list>
   </ons-template>
@@ -79,6 +79,9 @@
           <ons-toolbar-button ng-click="menu.toggleMenu()"><ons-icon icon="fa-bars"></ons-icon></ons-toolbar-button>
         </div>
         <div class="center">{{ title }}</div>
+        <div class="right" ng-click="go('#cart')" style="cursor: pointer;" onclick="menu.closeMenu();">
+          <span class="toolbar-button--quiet navigation-bar__line-height"><i class="fa fa-shopping-basket"></i></span>
+        </div>
       </ons-toolbar>
 
       <div id="main">

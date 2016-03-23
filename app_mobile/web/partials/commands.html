@@ -1,9 +1,13 @@
 <h1>Commandes <small>/ Liste <span ng-show="commands">({{ commands.length }})</span></small></h1>
 <hr />
 
-<div class="alert alert-info" role="alert" ng-hide="loaded">
-  <p class="loading">Chargement en cours, merci de patienter...</p>
-</div>
+<ons-icon
+  ng-hide="loaded"
+  icon="rotate-right"
+  size="40px"
+  spin="true"
+  style="text-align: center;width: 100%;">
+</ons-icon>
 
 <div>
   <table class="table table-bordered table-condensed">

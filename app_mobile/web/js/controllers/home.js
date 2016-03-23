@@ -7,11 +7,6 @@ angular.module('foyerApp.controllers')
   $rootScope.title = 'Accueil';
 
   loginService.isLogged().then(function() {
-    //recuperation des produits
-    $http.get(CONFIG.API_URL+'product/').success(function(data){
-      $scope.products = data;
-      $scope.loaded = true;
-    });
     //recuperation de la bannière
     $http.get(CONFIG.API_URL+'banniere/').success(function(data){
       $scope.banniere = data;
