@@ -80,7 +80,8 @@
         </div>
         <div class="center">{{ title }}</div>
         <div class="right" ng-click="go('#cart')" style="cursor: pointer;" onclick="menu.closeMenu();">
-          <span class="toolbar-button--quiet navigation-bar__line-height"><i class="fa fa-shopping-basket"></i></span>
+          <span class="toolbar-button--quiet
+            navigation-bar__line-height"><i class="fa fa-shopping-basket"></i> ({{ getCartQuantity() }})</span>
         </div>
       </ons-toolbar>
 
