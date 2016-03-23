@@ -2,7 +2,9 @@
 
 angular.module('foyerApp.controllers')
 //controlleur de la page product
-.controller('productsController', ['$scope', '$http', 'CONFIG', 'loginService', function($scope, $http, CONFIG, loginService) {
+.controller('productsController', ['$rootScope', '$scope', '$http', 'CONFIG', 'loginService', function($rootScope, $scope, $http, CONFIG, loginService) {
+  
+  $rootScope.title = 'Produits';
 
   loginService.isLogged().then(function() {
     //recuperation des produits
@@ -16,7 +18,6 @@ angular.module('foyerApp.controllers')
       $scope.loaded = true;
     });
   });
-
 }])
 
 //controlleur du form de produit
@@ -28,6 +29,7 @@ angular.module('foyerApp.controllers')
       $http.get(CONFIG.API_URL+'product/id_product/'+$routeParams.id_product).success(function(data){
         $scope.product = data;
         $scope.loaded = true;
+        console.log(data);
       });
     }
   });

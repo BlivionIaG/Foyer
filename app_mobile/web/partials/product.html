@@ -1,79 +1,62 @@
+<ons-icon
+  ng-hide="loaded"
+  icon="rotate-right"
+  size="40px"
+  spin="true"
+  style="text-align: center;width: 100%;">
+</ons-icon>
 
-<div class="alert alert-info" role="alert" ng-hide="loaded">
-  <p class="loading">Chargement en cours, merci de patienter...</p>
-</div>
+<ons-page modifier="shop-details">
+        <ons-toolbar modifier="transparent">
+          <div class="right">
+            <ons-toolbar-button><ons-icon icon="ion-ios-chatboxes" style="color: white"></ons-icon></ons-toolbar-button>
+          </div>
+          <div class="left">
+            <ons-toolbar-button><ons-icon icon="ion-arrow-left-c" style="color: white; font-size: 28px;" fixed-width="false"></ons-icon></ons-toolbar-button>
+          </div>
+        </ons-toolbar>
 
-<div class="thumbnail">
-    <img class="img-responsive" src="{{ apiUrl }}files/product/{{ product.image }}" alt="{{ product.name }}">
-    <div class="caption-full">
-        <h4 class="pull-right">{{ product.price }}€</h4>
-        <h4>{{ product.name }}</h4>
-        <span ng-bind-html="product.description"></span>
-        <br/>
-        <a class="btn btn-primary" ng-click="addCart(product)"><i class="fa fa-shopping-basket"></i> Ajouter au panier</a>
-    </div>
-    <div class="ratings">
-        <p class="pull-right">3 commentaires</p>
-        <p>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star-empty"></span>
-            4.0 étoiles
-        </p>
-    </div>
-</div>
+        <div class="card" style="background-image: url({{ apiUrl }}files/product/{{ product.image }});">
 
-<div class="well">
+          <div class="card-name">{{ product.name }}</div>
+          <div class="card-desc" ng-bind-html="product.description"></div>
 
-    <div class="text-right">
-        <a class="btn btn-success">Laisser un commentaire</a>
-    </div>
-
-    <hr>
-
-    <div class="row">
-        <div class="col-md-12">
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star-empty"></span>
-            Anonymous
-            <span class="pull-right">10 days ago</span>
-            <p>This product was great in terms of quality. I would definitely buy another!</p>
         </div>
-    </div>
 
-    <hr>
+        <div class="rating"><div class="rating-num">
+            <ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+            <ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+            <ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+            <ons-icon icon="fa-star" fixed-width="false"></ons-icon>
+            <ons-icon icon="fa-star-half" fixed-width="false"></ons-icon>
+            4.5
+        </div></div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star-empty"></span>
-            Anonymous
-            <span class="pull-right">12 days ago</span>
-            <p>I've alredy ordered another one!</p>
-        </div>
-    </div>
+        <ons-list style="border-top: none"><ons-list-item style="line-height: 1; padding: 0;">
+          <ons-row class="action">
 
-    <hr>
+            <ons-col class="action-col" ng-click="addCart(product)">
+              <div class="action-icon"><ons-icon icon="fa-shopping-basket"></ons-icon></div>
+              <div class="action-label">Ajouter au Panier</div>
+            </ons-col>
 
-    <div class="row">
-        <div class="col-md-12">
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star"></span>
-            <span class="glyphicon glyphicon-star-empty"></span>
-            Anonymous
-            <span class="pull-right">15 days ago</span>
-            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-        </div>
-    </div>
+            <ons-col class="action-col">
+              <div class="action-icon"><ons-icon icon="fa-comment"></ons-icon></div>
+              <div class="action-label">Commenter</div>
+            </ons-col>
 
-</div>
+            <ons-col class="action-col">
+              <div class="action-icon"><ons-icon icon="fa-share"></ons-icon></div>
+              <div class="action-label">Partager</div>
+            </ons-col>
+
+          </ons-row>
+        </ons-list-item></ons-list>
+
+        <ons-list style="margin-top: 12px;">
+          <ons-list-item>
+            <div class="prop-desc" ng-bind-html="product.description">
+            </div>
+          </ons-list-item>
+
+        </ons-list>

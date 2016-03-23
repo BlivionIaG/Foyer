@@ -1,30 +1,32 @@
+<h1>Produits <small>/ Liste <span ng-show="loaded">({{ products.length }})</span></small></h1>
+<hr/>
 
-<h1>Produits <small>/ Liste <span ng-show="products">({{ products.length }})</span></small></h1>
-<hr />
+<ons-icon
+  ng-hide="loaded"
+  icon="rotate-right"
+  size="40px"
+  spin="true"
+  style="text-align: center;width: 100%;">
+</ons-icon>
 
-<div class="alert alert-info" role="alert" ng-hide="loaded">
-  <p class="loading">Chargement en cours, merci de patienter...</p>
-</div>
-
-
-<header class="jumbotron hero-spacer">
-  <img src="{{ apiUrl }}files/mobile/{{ banniere.url }}">
-</header>
-
-<hr>
-
-<div class="row text-center">
-  <div class="col-md-3 col-sm-6 hero-feature" ng-repeat="product in products | filter:search | orderBy:orderByField:sortReverse">
-    <div class="thumbnail">
-      <img src="{{ apiUrl }}files/product/{{ product.image }}" alt="{{ product.nom }}">
-      <div class="caption">
-        <h3>{{ product.name }} - {{ product.price }}€</h3>
-        <p ng-bind-html="product.description"></p>
-        <p>
-          <a class="btn btn-primary" ng-click="addCart(product)"><i class="fa fa-shopping-basket"></i></a> 
-          <a href="#product/{{ product.id_product }}" class="btn btn-default"><i class="fa fa-search"></i></a>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+<ons-list>
+  <ons-list-item modifier="chevron" class="list-item-container" ng-repeat="product in products">
+    <ons-row>
+      <ons-col width="95px">
+        <img src="{{ apiUrl }}files/product/{{ product.image }}" class="thumbnail">
+      </ons-col>
+      <ons-col>
+        <div class="name">
+          {{ product.name }} <a class="btn btn-primary" ng-click="addCart(product)"><i class="fa fa-shopping-basket"></i></a>
+        </div>
+        <a href="#product/{{product.id_product}}">test</a>
+        <div class="location">
+          {{ product.price }}€
+        </div>
+        <div class="desc" ng-bind-html="product.description">
+        </div>
+      </ons-col>
+      <ons-col width="40px"></ons-col>
+    </ons-row>
+  </ons-list-item>
+</ons-list>

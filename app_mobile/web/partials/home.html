@@ -1,2 +1,14 @@
 <h1>Hello! <small>What's going on today?</small></h1>
-<hr />
+<hr/>
+
+<ons-icon
+  ng-hide="loaded"
+  icon="rotate-right"
+  size="40px"
+  spin="true"
+  style="text-align: center;width: 100%;">
+</ons-icon>
+
+<header class="jumbotron hero-spacer">
+  <img src="{{ apiUrl }}files/mobile/{{ banniere.url }}">
+</header>
