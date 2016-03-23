@@ -9,81 +9,18 @@
   style="text-align: center;width: 100%;">
 </ons-icon>
 
-<div>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr ng-hide="(commands | filter:filterCheckBox | filter:search).length == 0">
-        <th>
-          <a ng-click="orderByField = '-id_command'; sortReverse=!sortReverse">Id</a>
-          <span ng-show="orderByField == '-id_command'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
-        <th>
-          <a ng-click="orderByField = '-login'; sortReverse=!sortReverse">Login</a>
-          <span ng-show="orderByField == '-login'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
-        <th>
-          <a ng-click="orderByField = '-commande'; sortReverse=!sortReverse">Commande</a>
-          <span ng-show="orderByField == '-commande'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
-        <th>
-          <a ng-click="orderByField = '-total'; sortReverse=!sortReverse">Total</a>
-          <span ng-show="orderByField == '-total'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
-        <th>
-          <a ng-click="orderByField = '-periode'; sortReverse=!sortReverse">Période</a>
-          <span ng-show="orderByField == '-periode'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
-        <th>
-          <a ng-click="orderByField = '-commande_date'; sortReverse=!sortReverse">Date de commande</a>
-          <span ng-show="orderByField == '-commande_date'">
-            <span class="glyphicon glyphicon-chevron-down" ng-show="sortReverse"></span>
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!sortReverse"></span>
-          </span>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-class="{'success':command.state == 3,
-      'danger':command.state == 1,
-      'warning':command.state == 2,
-      'info':command.state == 0}"
-      ng-repeat="command in commands | filter:filterCheckBox | filter:search | orderBy:orderByField:sortReverse">
-      <td>{{ command.id_command }}</td>
-      <td>{{ command.login }}</td>
-      <td>
-        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#{{ command.id_command }}" aria-expanded="false">Plus d'informations sur la commande</button>
-        <div class="collapse" id="{{ command.id_command }}">
-          <br/>
-          <ul class="list-group">
-            <li class="list-group-item" ng-repeat="product in command.product">
-              <span class="badge">{{ product.quantity }}</span>
-              {{ product.name }} - {{ product.price}}€/u
-            </li>
-            <li class="list-group-item">
-              <strong>Total : {{ command.total }}€</strong>
-            </li>
-          </ul>
-        </div>
-      </td>
-      <td>{{ command.total }}€</td>
-      <td>{{ command.periode_debut }} - {{ command.periode_fin }}</td>
-      <td>{{ command.date | date:'dd-MM-yyyy' }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div ng-hide="commands.length === 0">
+  <ul class="list">
+    <li class="list__header">Commandes</li>
+    <li 
+    ng-repeat="command in commands"
+    class="list__item list__item--chevron"
+    ng-click="go('#command/'+command.id_command)"
+    ng-class="{'list-group-item-success':command.state == 3,
+      'list-group-item-danger':command.state == 1,
+      'list-group-item-warning':command.state == 2,
+      'list-group-item-info':command.state == 0}">
+    Le {{ command.date | date:'dd-MM-yyyy' }} entre {{ command.periode_debut }} - {{ command.periode_fin }} - {{ command.total }}€
+    <span class="notification" style="text-align:right">{{ command.quantity }}</span></li>
+  </ul>
 </div>
