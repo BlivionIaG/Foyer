@@ -10,14 +10,14 @@ angular.module('foyerApp', [
   'foyerApp.filters',
   'foyerApp.services',
   'foyerApp.controllers'
-  ])
+])
 
 .constant('CONFIG', {
-  'API_URL': 'http://foyer.p4ul.tk/api/'
+  'API_URL': 'http://isenclub.fr/foyer/api/'
 })
 
 //gestion des routes
-.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 
   $locationProvider.html5Mode({
     //enabled: true,
@@ -67,10 +67,8 @@ angular.module('foyerApp', [
   .otherwise({
     redirectTo: '/'
   });
-}])
 
-//ajout de headers des requetes
-.config(['$httpProvider', function($httpProvider) {
+  //ajout de headers des requetes
   $httpProvider.defaults.transformRequest = function(data){
     if (data === undefined) {
       return data;
@@ -82,11 +80,10 @@ angular.module('foyerApp', [
 }])
 
 // Route permissions
-.run(function($rootScope, $location, loginService) {
-  var routeAllowed = ['/identification']; // Route that not required login
+.run(['$rootScope', '$location', function($rootScope, $location) {
+  //Routes qui n'ont pas besoin d'être connecté
+  var routeAllowed = ['/identification'];
   $rootScope.$on('$routeChangeStart', function() {
-    if(routeAllowed.indexOf($location.path()) === -1) {
-      loginService.isLogged();
-    }
+    if(routeAllowed.indexOf($location.path()) === -1);
   });
-});
+}]);

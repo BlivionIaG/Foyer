@@ -1,0 +1,43 @@
+<h1>
+<ons-toolbar-button ng-click="go('#command')">
+  <ons-icon icon="ion-arrow-left-c" style="color: black; font-size: 28px;" fixed-width="false"></ons-icon>
+</ons-toolbar-button>
+Commande <small>/ n°{{ command.id_command }}</span></small></h1>
+<hr />
+
+<ons-icon
+  ng-hide="loaded"
+  icon="rotate-right"
+  size="40px"
+  spin="true"
+  style="text-align: center;width: 100%;">
+</ons-icon>
+
+<button ng-show="command.state == 1" class="button button--large--cta btn-danger" ng-click="deleteCommand()">Annuler la commande</button><br>
+
+<p>Etat de la commande :
+ <span ng-if="command.state == 1">en cours de validation</span>
+ <span ng-if="command.state == 2">validée</span>
+ <span ng-if="command.state == 3">servie</span>
+ <span ng-if="command.state == 0">supprimée</span>
+ <br/>
+Commandée le {{ command.date | date:'dd-MM-yyyy' }} entre {{ command.periode_debut }} - {{ command.periode_fin }} pour un total de {{ command.total }}€.
+</p>
+
+
+<ons-list>
+<ons-list-item modifier="chevron" class="list-item-container" ng-repeat="product in command.product" ng-click="go('#product/'+product.id_product)">
+<div class="list-item-left">
+  <img src="{{ apiUrl }}files/product/{{ product.image }}" class="avator">
+</div>
+<div class="list-item-right">
+  <div class="list-item-content">
+    <span class="notification" style="text-align:right">{{ product.quantity }}</span>
+    <div class="name">{{ product.name }}
+      <span class="lucent">{{ product.price }}€</span>
+    </div>
+    <span class="desc" ng-bind-html="product.description"></span>
+  </div>
+</div>
+</ons-list-item>
+</ons-list>

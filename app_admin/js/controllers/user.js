@@ -1,17 +1,20 @@
 'use strict';
 
 angular.module('foyerApp.controllers')
-.controller('userController',['$scope', '$http', 'CONFIG','$window', function($scope, $http, CONFIG,$window) {
-  //recuperation des users
-  $http.get(CONFIG.API_URL+'user/').success(function(data){
-    $scope.logins = data;
-    $scope.loaded = true;
-  });
+.controller('userController',['$scope', '$http', 'CONFIG', '$window', 'loginService', function($scope, $http, CONFIG, $window, loginService) {
+  
+  loginService.isLogged().then(function() {
+    //recuperation des users
+    $http.get(CONFIG.API_URL+'user/').success(function(data){
+      $scope.logins = data;
+      $scope.loaded = true;
+    });
 
-  //recuperation des notifications
-  $http.get(CONFIG.API_URL+'notification/').success(function(data){
-    $scope.notifications = data;
-    $scope.loaded = true;
+    //recuperation des notifications
+    $http.get(CONFIG.API_URL+'notification/').success(function(data){
+      $scope.notifications = data;
+      $scope.loaded = true;
+    });
   });
 
   $scope.delete = function(item){
@@ -30,7 +33,7 @@ angular.module('foyerApp.controllers')
   };
 }])
 
-.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window','$document', function($scope, $http, CONFIG, ngDialog, $window, $document) {
+.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window','$document', function($scope, $http, CONFIG, ngDialog, $window, $document, loginService) {
 
   if($scope.ngDialogData !== undefined){
     $scope.notification = $scope.ngDialogData;

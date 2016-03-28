@@ -3,7 +3,7 @@
 angular.module('foyerApp.controllers')
 
 //controller de commande
-.controller('commandController',['$scope', '$http','$document', 'CONFIG', function($scope, $http, $document, CONFIG) {
+.controller('commandController',['$scope', '$http','$document', 'CONFIG', 'loginService', function($scope, $http, $document, CONFIG, loginService) {
  //liste des etats des commandes
  $scope.roles = {
     0: 'Supprimée',
@@ -22,10 +22,12 @@ angular.module('foyerApp.controllers')
     return false;
   };
 
-  //recuperation des commandes
-  $http.get(CONFIG.API_URL+'command/').success(function(data){
-    $scope.commands = data;
-    $scope.loaded = true;
+  loginService.isLogged().then(function() {
+    //recuperation des commandes
+    $http.get(CONFIG.API_URL+'command/').success(function(data){
+      $scope.commands = data;
+      $scope.loaded = true;
+    });
   });
 
   //total d'une commande
@@ -69,7 +71,7 @@ angular.module('foyerApp.controllers')
 }])
 
 //controller de form commande
-.controller('commandFormController', ['$scope', '$http', '$routeParams', '$document', '$location','CONFIG', function($scope, $http, $routeParams, $document, $location, CONFIG) {
+.controller('commandFormController', ['$scope', '$http', '$routeParams', '$document', '$location','CONFIG', 'loginService', function($scope, $http, $routeParams, $document, $location, CONFIG, loginService) {
   function getTotal(){
     $scope.command.total = 0;
     angular.forEach($scope.command.product, function(value){ $scope.command.total += value.quantity * value.price; });
@@ -79,28 +81,32 @@ angular.module('foyerApp.controllers')
   $scope.action = 'add';
   $scope.command.state = 1;
   $scope.command.total = 0;
-  //recuperation des users
-  $http.get(CONFIG.API_URL+'user/').success(function(data){
-    $scope.users = data;
-  });
 
-  //recuperation des produits
-  $http.get(CONFIG.API_URL+'product/').success(function(data){
-    $scope.products = data;
-  });
-
-  //recuperation de la commande
-  if ($routeParams.id_command) {
-    $http.get(CONFIG.API_URL+'command/id_command/'+$routeParams.id_command).success(function(data){
-      $scope.command = data;
-      $scope.action = 'edit';
-      $scope.command.date = new Date($scope.command.date);
+  loginService.isLogged().then(function() {
+    //recuperation des users
+    $http.get(CONFIG.API_URL+'user/').success(function(data){
+      $scope.users = data;
     });
-  }
+
+    //recuperation des produits
+    $http.get(CONFIG.API_URL+'product/').success(function(data){
+      $scope.products = data;
+    });
+
+    //recuperation de la commande
+    if ($routeParams.id_command) {
+      $http.get(CONFIG.API_URL+'command/id_command/'+$routeParams.id_command).success(function(data){
+        $scope.command = data;
+        $scope.action = 'edit';
+        $scope.command.date = new Date($scope.command.date);
+      });
+    }
+  });
 
   //Post du formulaire
-  $scope.submitForm = function() {
+  $scope.submitForm = function() {  
    if($scope.command.product !== undefined && $scope.command.product.length !== 0){
+      $scope.submitted = true;
       //edit
       if($scope.action === 'edit'){
         $http.put(CONFIG.API_URL+'command/'+$scope.command.id_command, $scope.command).success(function() {

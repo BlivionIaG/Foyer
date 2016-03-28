@@ -81,7 +81,7 @@ $app->post('/banniere/',function ($request, $response)  use ($app) {
 
     //check la validité du fichier pour supprimer le/les ancienne(s) image(s)
     if($file->validate()){
-      foreach (glob($config['parameters']["dir_files"].'product/'.$id_product["id_product"].'.*') as $oldFile) {
+      foreach (glob($config['parameters']["dir_files"].'mobile/banniere_mobile.*') as $oldFile) {
         unlink($oldFile);
       }
     }

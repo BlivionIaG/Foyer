@@ -3,6 +3,7 @@
 angular.module('foyerApp.controllers', [])
 
 .controller('mainController', ['$rootScope', '$scope', '$http', 'loginService', function($rootScope, $scope, $http, loginService) {
+
   $rootScope.$on(function () {
     $rootScope.login = '';
   });
@@ -12,7 +13,7 @@ angular.module('foyerApp.controllers', [])
   };
 }])
 
-.controller('ErrorController', function() {})
+.controller('errorController', function() {})
 
 .controller('identificationController', ['$rootScope', '$scope', '$http', 'loginService', function($rootScope, $scope, $http, loginService) {
   $scope.login = '';
