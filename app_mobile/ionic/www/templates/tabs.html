@@ -1,0 +1,24 @@
+
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+  <!-- Home Tab -->
+  <ion-tab title="Accueil" icon-off="ion-home" icon-on="ion-home" href="#/tab/home">
+    <ion-nav-view name="tab-home"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Products Tab -->
+  <ion-tab title="Produits" icon-off="ion-pizza" icon-on="ion-pizza" href="#/tab/products">
+    <ion-nav-view name="tab-products"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Cart Tab -->
+  <ion-tab title="Panier ({{ getCartQuantity() }})" icon-off="ion-ios-cart" icon-on="ion-ios-cart" href="#/tab/cart">
+    <ion-nav-view name="tab-cart"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Commands Tab -->
+  <ion-tab title="Commandes" icon-off="ion-ios-list" icon-on="ion-ios-list" href="#/tab/commands">
+    <ion-nav-view name="tab-commands"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>
