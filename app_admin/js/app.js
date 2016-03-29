@@ -6,6 +6,7 @@ angular.module('foyerApp', [
   'ui.bootstrap',
   'angular.morris-chart',
   'checklist-model',
+  'ngSanitize',
   'foyerApp.directives',
   'foyerApp.filters',
   'foyerApp.services',
