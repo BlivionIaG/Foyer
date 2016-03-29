@@ -1,0 +1,30 @@
+<ion-view view-title="Panier">
+  <ion-content>
+
+    <br/>
+
+    <p ng-hide="cart.length" style="text-align:center;"><br/>Votre panier est vide.</p>
+    <p ng-show="cart.length" style="text-align:center;">Total de votre panier : {{ getCartTotal() }}€</p>
+
+    <a ng-show="cart.length" href="#/tab/cart-form" class="button button-positive" style="width:100%;">Valider votre panier</a>
+    <br/><br/>
+    <ion-list>
+
+      <ion-item ng-repeat="product in cart" class="item item-thumbnail-left">
+
+            <img ng-src="{{ apiUrl }}files/product/{{ product.image }}">
+            <h2>{{ product.name }} <span class="notification">{{ product.quantity }}</span></h2>
+            <h3>{{ product.price }}€</h3>
+            <h4 ng-bind-html="product.description"></h4>
+
+            <ion-option-button class="button-positive" ng-click="addCart(product)">Ajouter</ion-option-button>
+            <ion-option-button class="button-assertive" ng-click="deleteCart(product)">Supprimer</ion-option-button>
+      </ion-item>
+
+    </ion-list>
+
+    <br/>
+    <button ng-show="cart.length" ng-click="deleteAllCart()" class="button button-assertive" style="width:100%;">Vider votre panier</button>
+
+  </ion-content>
+</ion-view>

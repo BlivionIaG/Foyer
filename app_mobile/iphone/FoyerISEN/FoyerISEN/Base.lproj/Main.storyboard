@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eHa-gm-keV">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HQw-Xf-riz" userLabel="TopTitleView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HQw-Xf-riz" userLabel="TopTitleView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="36"/>
                                 <color key="backgroundColor" red="0.94499540328979492" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -59,10 +59,10 @@
                                     <constraint firstAttribute="bottom" secondItem="oyn-Hm-xZA" secondAttribute="bottom" constant="10" id="ZWc-AZ-zy8"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XdO-of-ICE" userLabel="BottomTitleView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XdO-of-ICE" userLabel="BottomTitleView">
                                 <rect key="frame" x="0.0" y="125" width="600" height="36"/>
                                 <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Eik-6n-V6G">
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Eik-6n-V6G">
                                         <rect key="frame" x="290" y="8" width="20" height="20"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -72,10 +72,10 @@
                                     <constraint firstItem="Eik-6n-V6G" firstAttribute="centerX" secondItem="XdO-of-ICE" secondAttribute="centerX" id="sBx-KN-DWw"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X9c-iv-ESP" userLabel="FieldView">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X9c-iv-ESP" userLabel="FieldView">
                                 <rect key="frame" x="185" y="161" width="230" height="180"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e3l-EY-H13">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="moriceisen" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e3l-EY-H13">
                                         <rect key="frame" x="10" y="75" width="210" height="30"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -92,7 +92,7 @@
                                             <action selector="connectionButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nX1-dw-6Zn"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nom d'utilisateur" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cgF-QG-SLE">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="rmoric18" borderStyle="roundedRect" placeholder="Nom d'utilisateur" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cgF-QG-SLE">
                                         <rect key="frame" x="10" y="25" width="210" height="30"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -446,7 +446,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="HMp-A6-cmO" kind="relationship" relationship="rootViewController" id="o4Y-jz-Lzo"/>
+                        <segue destination="hwt-8x-ptS" kind="relationship" relationship="rootViewController" id="G6u-rV-Z0J"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LW3-nG-xqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -492,7 +492,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="pqh-z7-MuC" id="SRZ-hZ-qvK"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="Logout" id="UNw-vd-NUb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tlq-c1-COr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -500,31 +499,41 @@
             <point key="canvasLocation" x="2160" y="549"/>
         </scene>
         <!--Produits-->
-        <scene sceneID="kn0-nG-Gpt">
+        <scene sceneID="Uhw-t7-qcn">
             <objects>
-                <viewController id="HMp-A6-cmO" customClass="ProductController" customModule="FoyerISEN" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="N7d-Py-fbt"/>
-                        <viewControllerLayoutGuide type="bottom" id="PdH-fV-PXD"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="i5m-26-kvV">
+                <tableViewController id="hwt-8x-ptS" customClass="ProductTableViewController" customModule="FoyerISEN" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="shN-xt-oh4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.94499540328979492" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Produits" id="TRl-iB-1sZ" userLabel="Product">
-                        <barButtonItem key="leftBarButtonItem" image="Menu" id="z1u-ui-EcE" userLabel="MenuButton">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="DVg-hH-G3L">
+                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DVg-hH-G3L" id="3Gs-xi-abc">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hwt-8x-ptS" id="SrO-bq-fKb"/>
+                            <outlet property="delegate" destination="hwt-8x-ptS" id="YCM-km-coo"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Produits" id="yG0-vc-aYU">
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="fpP-Ds-EPp" userLabel="MenuButton">
                             <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="gMA-Yo-1Ta">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Jvd-gC-TyG">
                             <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="menuButton" destination="z1u-ui-EcE" id="RWH-00-vTz"/>
+                        <outlet property="menuButton" destination="fpP-Ds-EPp" id="1oa-Wn-1Yx"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9NR-Df-0ns" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dbN-2o-zer" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2160" y="1349"/>
         </scene>
@@ -538,7 +547,6 @@
         <image name="smallIcon" width="49" height="49"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UNw-vd-NUb"/>
         <segue reference="lXq-b4-gIy"/>
     </inferredMetricsTieBreakers>
 </document>

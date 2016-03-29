@@ -20,7 +20,7 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
     var username : String?
     var authBasicKey : String?
     
-    let basedUrl = "http://foyer.p4ul.tk/api/"
+    let basedUrl = "http://isenclub.fr/foyer/api/"
     
     //class variable : SINGLETON
     class var sharedInstance: NetworkManager {
@@ -93,8 +93,8 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
         }
         
         //Sécurité Auth Basic
-        if (authBasic!) {
-            request.setValue("\(self.authBasicKey!)", forHTTPHeaderField: "Authorization")
+        if let keyAuthBasic = self.authBasicKey {
+            request.setValue("Basic " + keyAuthBasic, forHTTPHeaderField: "Authorization")
         }
         
         launchRequest(delegate: delegate, request: request)
@@ -122,10 +122,12 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
                     }
 
                 } catch let jsonError as NSError {
+                    print(response.debugDescription)
                     delegate.didFailToReceiveResponse!(jsonError.localizedDescription)
                 }
             }
         })
+        
         dataTask.resume()
     }
     

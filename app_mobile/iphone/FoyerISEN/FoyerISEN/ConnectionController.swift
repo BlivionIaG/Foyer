@@ -36,7 +36,7 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
         
         
         //Looks for single or multiple taps (Textfields).
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ConnectionController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         userTextField.delegate = self
@@ -139,6 +139,8 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
         //Affichage de l'alerte
         presentViewController(alertController, animated: true, completion: nil)
         
+        indicator.stopAnimating()
+        indicator.hidden = true
         connectionButton.enabled = true
     }
     

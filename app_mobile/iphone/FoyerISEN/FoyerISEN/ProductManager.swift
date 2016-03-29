@@ -103,5 +103,9 @@ class ProductManager: NSObject, NetworkManagerDelegate{
         }
         
     }
+    
+    func didFailToReceiveResponse(strError: String) {
+        print(strError)
+    }
 
 }
