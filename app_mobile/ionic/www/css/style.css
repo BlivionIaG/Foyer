@@ -41,3 +41,7 @@
   line-height: 19px;
   font-weight: 400;
 }
+
+ion-tabs.tabs-color-active-positive .tab-item.activated, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
+  color:#c0392b;
+}

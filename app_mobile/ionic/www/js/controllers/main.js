@@ -107,7 +107,17 @@ angular.module('starter.controllers', [])
   };
 
   $scope.logout = function(){
-    loginService.logout();
+
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Déconnexion',
+      template: 'Êtes vous sûr de vouloir vous déconnecter ?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        loginService.logout();
+      }
+    }); 
   };
 
 }]);

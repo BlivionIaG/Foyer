@@ -152,7 +152,7 @@ angular.module('starter',[
 .run(function($ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
 
-    //$ionicAnalytics.register();
+    $ionicAnalytics.register();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
