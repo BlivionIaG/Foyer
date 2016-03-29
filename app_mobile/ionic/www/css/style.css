@@ -45,3 +45,7 @@
 ion-tabs.tabs-color-active-positive .tab-item.activated, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
   color:#c0392b;
 }
+
+.popup-body{
+  text-align: center;
+}
