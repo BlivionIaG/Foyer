@@ -6,7 +6,10 @@
     "ionic-platform-web-client": "^0.7.1"
   },
   "dependencies": {
-    "angular-i18n": "^1.5.3",
-    "angular-sanitize": "^1.5.3"
+    "angular-i18n": "^1.4.3",
+    "angular-sanitize": "^1.4.3"	
+  },
+  "resolutions": {
+    "angular": "1.4.3"
   }
 }
