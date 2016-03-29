@@ -1,6 +1,7 @@
 
 angular.module('starter',[
-  'ionic',
+  'ionic','ionic.service.core',
+  'ionic.service.analytics',
   'ngSanitize',
   'starter.controllers',
   'starter.services',
@@ -13,6 +14,13 @@ angular.module('starter',[
 })
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+
+  $stateProvider.state('identification', {
+    url: '/identification',
+    templateUrl: 'templates/identification.html',
+    controller: 'identificationController'
+  });
 
   $stateProvider.state('tab', {
     url: '/tab',
@@ -92,8 +100,7 @@ angular.module('starter',[
   $urlRouterProvider.otherwise('/tab/home');
 
   //Serialization de la requete
-  $httpProvider.defaults.transformRequest = [function(data)
-  {
+  $httpProvider.defaults.transformRequest = [function(data){
     var param = function(obj)
     {
       var query = '';
@@ -140,11 +147,12 @@ angular.module('starter',[
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   
-  $httpProvider.defaults.headers.common['Authorization'] = 'Basic cm9vdDpzM2N1cml0Mw==';
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicAnalytics) {
   $ionicPlatform.ready(function() {
+
+    //$ionicAnalytics.register();
 
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);

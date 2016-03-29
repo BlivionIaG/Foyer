@@ -4,7 +4,7 @@ angular.module('starter.controllers')
 
 .controller('cartController', ['$rootScope', '$scope', '$http', '$ionicPopup', 'CONFIG', function($rootScope, $scope, $http, $ionicPopup, CONFIG) {
 
-  $scope.panier= {};
+  $scope.panier = {};
 
   $scope.valideCart = function(){
   	var error = null;

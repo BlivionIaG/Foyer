@@ -2,10 +2,11 @@
 
 angular.module('starter.controllers', [])
 
-.controller('mainController', ['$rootScope', '$scope', '$ionicPopup', 'CONFIG', 'sessionService', '$http', function($rootScope, $scope, $ionicPopup, CONFIG, sessionService, $http) {
+.controller('mainController', ['$rootScope', '$scope', '$ionicPopup', 'CONFIG', 'sessionService', '$http', 'loginService', function($rootScope, $scope, $ionicPopup, CONFIG, sessionService, $http, loginService) {
   
+  loginService.isLogged();
+
   $scope.apiUrl = CONFIG.API_URL;
-  $rootScope.login = 'ksidor18';
 
   //recuperation du panier
   $rootScope.cart = sessionService.get('cart');
@@ -103,6 +104,10 @@ angular.module('starter.controllers', [])
 		    });
          }
       }); 
+  };
+
+  $scope.logout = function(){
+    loginService.logout();
   };
 
 }]);
