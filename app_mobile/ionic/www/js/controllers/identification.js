@@ -2,7 +2,7 @@
 
 angular.module('starter.controllers')
 
-.controller('identificationController', ['$rootScope', '$scope', '$ionicPopup', 'loginService', 'CONFIG', function($rootScope, $scope, $ionicPopup, loginService, CONFIG) {
+.controller('identificationController', ['$scope', '$ionicPopup', 'loginService', function($scope, $ionicPopup, loginService) {
 
 	$scope.user = {};
 
@@ -15,5 +15,5 @@ angular.module('starter.controllers')
 				template: 'Veuillez remplir les champs'
 			});
 		}
-	}
+	};
 }]);

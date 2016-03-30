@@ -49,7 +49,9 @@ angular.module('starter.services', [])
 .factory('sessionService', function() {
 	return {
 		set: function(key, value) {
-			if(typeof value === 'object') value = JSON.stringify(value);
+			if(typeof value === 'object'){
+				value = JSON.stringify(value);
+			}
 			return window.sessionStorage.setItem(key, value);
 		},
 		get: function(key) {

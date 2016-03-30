@@ -49,7 +49,9 @@ angular.module('starter.controllers')
   $scope.addFavoris = function(item) {
     //ajout du produit aux favoris
     var favoris = sessionService.get('favoris');
-    if(favoris === null) favoris = new Array();
+    if(favoris === null){
+      favoris = new Array();
+    }
     favoris.push(item);
     sessionService.set('favoris', favoris);
   };

@@ -3,7 +3,7 @@
 angular.module('starter.controllers', [])
 
 .controller('mainController', ['$rootScope', '$scope', '$ionicPopup', 'CONFIG', 'sessionService', '$http', 'loginService', function($rootScope, $scope, $ionicPopup, CONFIG, sessionService, $http, loginService) {
-  
+
   loginService.isLogged();
 
   $scope.apiUrl = CONFIG.API_URL;
@@ -17,17 +17,17 @@ angular.module('starter.controllers', [])
     var exist = false;
     //si vide on init array
     if(!$rootScope.cart){
-        $rootScope.cart = new Array();
+      $rootScope.cart = new Array();
     }
     //on regarde si il existe pas deja pour ajouter quantité
     else{
-    	angular.forEach($rootScope.cart, function(value, key) {
-        	if(value.id_product === item.id_product){
-            	$rootScope.cart[key].quantity ++;
-            	exist = true;
-          	}
-        });
-      }
+      angular.forEach($rootScope.cart, function(value, key) {
+       if(value.id_product === item.id_product){
+         $rootScope.cart[key].quantity ++;
+         exist = true;
+       }
+     });
+    }
       //sinon on l'ajoute
       if(!exist){
         item.quantity = 1;
@@ -53,7 +53,7 @@ angular.module('starter.controllers', [])
             $rootScope.cart.splice(key, 1);
           }
         }
-    });
+      });
 
     //enregistrement du panier
     sessionService.set('cart', $rootScope.cart);
@@ -71,7 +71,7 @@ angular.module('starter.controllers', [])
   //total quantite panier
   $scope.getCartQuantity = function() {
     var quantity = 0;
-    angular.forEach($rootScope.cart, function(item, key) {
+    angular.forEach($rootScope.cart, function(item) {
       quantity += item.quantity;
     });
     return quantity;
@@ -80,7 +80,7 @@ angular.module('starter.controllers', [])
   //total du panier
   $scope.getCartTotal = function() {
     var total = 0;
-    angular.forEach($rootScope.cart, function(item, key) {
+    angular.forEach($rootScope.cart, function(item) {
       total += item.quantity * item.price;
     });
     return total;
@@ -89,21 +89,21 @@ angular.module('starter.controllers', [])
   //supprimer une commande
   $scope.deleteCommand = function(item){
 
-      var confirmPopup = $ionicPopup.confirm({
-         title: 'Commande',
-         template: 'Êtes vous sûr de vouloir supprimer la commande n°'+item.id_command+' ?'
-      });
+    var confirmPopup = $ionicPopup.confirm({
+     title: 'Commande',
+     template: 'Êtes vous sûr de vouloir supprimer la commande n°'+item.id_command+' ?'
+   });
 
-      confirmPopup.then(function(res) {
-         if(res) {
-            $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
-		      item.state = "0";
-		    }).error(function(data) {
-		      $scope.alert = data;
-		      $document.scrollTop(0, 250);
-		    });
-         }
-      }); 
+    confirmPopup.then(function(res) {
+     if(res) {
+      $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
+        item.state = "0";
+      }).error(function(data) {
+        $scope.alert = data;
+        $document.scrollTop(0, 250);
+      });
+    }
+  }); 
   };
 
   $scope.logout = function(){
