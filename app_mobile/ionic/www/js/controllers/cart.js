@@ -1,15 +1,8 @@
 'use strict';
 
-function addZero(i){
-	if(i < 10){
-		i = "0" + i;
-	}
-	return i;
-}
-
 angular.module('starter.controllers')
 
-.controller('cartController', ['$rootScope', '$scope', '$http', '$ionicPopup', 'CONFIG', function($rootScope, $scope, $http, $ionicPopup, CONFIG) {
+.controller('cartController', ['$rootScope', '$scope', '$http', '$ionicPopup', 'CONFIG', 'outils', function($rootScope, $scope, $http, $ionicPopup, CONFIG, outils) {
 
 	$scope.panier = {};
 
@@ -24,18 +17,18 @@ angular.module('starter.controllers')
 		date.setMilliseconds(0);
 
 		//check des champs
-		if($scope.panier.date === undefined || $scope.panier.date < date){
+		if($scope.panier.date_picker === undefined || $scope.panier.date_picker < date){
 
 			error = 'Vous devez choisir une date suppérieur ou égale à celle d\'ajourdhui.';
-		}else if($scope.panier.periode_debut === undefined || $scope.panier.periode_fin === undefined || $scope.panier.periode_fin <= $scope.panier.periode_debut ){
+		}else if($scope.panier.periode_debut_picker === undefined || $scope.panier.periode_fin_picker === undefined || $scope.panier.periode_fin_picker <= $scope.panier.periode_debut_picker ){
 
 			error = 'Veuillez revoir vos heures de récupération de commande.';
 		}else{
 
 			//formatage des heures
-			$scope.panier.periode_debut = addZero($scope.panier.periode_debut.getHours())+'h'+addZero($scope.panier.periode_debut.getMinutes());
-			$scope.panier.periode_fin = addZero($scope.panier.periode_fin.getHours())+'h'+addZero($scope.panier.periode_fin.getMinutes());
-			$scope.panier.date = $scope.panier.date.getFullYear()+'-'+($scope.panier.date.getMonth() + 1)+'-'+$scope.panier.date.getDate();
+			$scope.panier.periode_debut = outils.addZero($scope.panier.periode_debut_picker.getHours())+'h'+outils.addZero($scope.panier.periode_debut_picker.getMinutes());
+			$scope.panier.periode_fin = outils.addZero($scope.panier.periode_fin_picker.getHours())+'h'+outils.addZero($scope.panier.periode_fin_picker.getMinutes());
+			$scope.panier.date = $scope.panier.date_picker.getFullYear()+'-'+outils.addZero($scope.panier.date_picker.getMonth() + 1)+'-'+outils.addZero($scope.panier.date_picker.getDate());
 
 			//ajout des donnees
 			$scope.panier.product = $rootScope.cart;

@@ -1,44 +1,48 @@
 <ion-view view-title="Commande">
-  <ion-content>
+	<ion-content>
 
-    <ion-refresher
-      pulling-text="Tirer pour rafraîchir..."
-      on-refresh="reloadCommand()">
-    </ion-refresher>
+		<ion-refresher
+		pulling-text="Tirer pour rafraîchir..."
+		on-refresh="reloadCommand()">
+		</ion-refresher>
 
-    <p ng-hide="command.product.length" style="text-align:center;"><br/>Commande vide.</p>
+		<div class="spinner" ng-hide="loaded">
+			<ion-spinner></ion-spinner>
+		</div>
 
-	<span ng-show="command.product.length">
-	    <p style="text-align:center;"><br/>Total de la commande : {{ command.total }}€</p>
-	    <p style="text-align:center;">Pour le {{ command.date | date : 'dd MMMM yyyy' }} entre {{ command.periode_debut }} et {{ command.periode_fin }}</p>
+		<p ng-hide="!loaded || command.product.length" style="text-align:center;"><br/>Commande vide.</p>
 
-		<p style="text-align:center;">Etat de la commande :
-		 <strong ng-if="command.state == 1">en cours de validation</strong>
-		 <strong ng-if="command.state == 2">validée</strong>
-		 <strong ng-if="command.state == 3">servie</strong>
-		 <strong ng-if="command.state == 0">supprimée</strong>
-		 </p>
+		<span ng-show="command.product.length">
+			<p style="text-align:center;"><br/>Total de la commande : {{ command.total }}€</p>
+			<p style="text-align:center;">Pour le {{ command.date | date : 'dd MMMM yyyy' }} entre {{ command.periode_debut }} et {{ command.periode_fin }}</p>
 
-	    <ion-list>
-	    
-	        <ion-item ng-repeat="product in command.product"
-	           href="#/tab/products/{{ product.id_product }}"
-	           class="item item-thumbnail-left item-icon-right">
+			<p style="text-align:center;">Etat de la commande :
+				<span class="notification" ng-class="{'success':command.state == 3,'info':command.state == 1,'warning':command.state == 2,'danger':command.state == 0}">
+				<strong ng-if="command.state == 1">en cours de validation</strong>
+				<strong ng-if="command.state == 2">validée</strong>
+				<strong ng-if="command.state == 3">servie</strong>
+				<strong ng-if="command.state == 0">supprimée</strong>
+				</span>
+			</p>
 
-	          <img ng-src="{{ apiUrl }}files/product/{{ product.image }}">
-	          <h2>{{ product.name }} <span class="notification">{{ product.quantity }}</span></h2>
-	          <h3>{{ product.price }}€</h3>
-	          <h4 ng-bind-html="product.description"></h4>
-	          <i class="icon ion-chevron-right icon-accessory"></i>
-	        </ion-item>
+			<ion-list>
+				<ion-item ng-repeat="product in command.product"
+					href="#/tab/products/{{ product.id_product }}"
+					class="item item-thumbnail-left item-icon-right">
 
-	    </ion-list>
+					<img ng-src="{{ apiUrl }}files/product/{{ product.image }}">
+					<h2>{{ product.name }} <span class="notification">{{ product.quantity }}</span></h2>
+					<h3>{{ product.price }}€</h3>
+					<h4 ng-bind-html="product.description"></h4>
+					<i class="icon ion-chevron-right icon-accessory"></i>
+				</ion-item>
+			</ion-list>
 
-	    <br/>
+			<br/>
 
-	    <button class="button button-assertive" style="width:100%;" ng-click="deleteCommand(command)" ng-show="command.state == 1">
-	    	Annuler la commande
-	   	</button>
-	</span>
-  </ion-content>
+			<button class="button button-assertive" style="width:100%;" ng-click="deleteCommand(command)" ng-show="command.state == 1">
+				Annuler la commande
+			</button>
+		</span>
+	</ion-content>
 </ion-view>

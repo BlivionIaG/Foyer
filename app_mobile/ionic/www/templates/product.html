@@ -1,28 +1,31 @@
 <ion-view view-title="Produit">
-  <ion-content>
-     <ion-refresher
-      pulling-text="Tirer pour rafraîchir..."
-      on-refresh="realoadProduct()">
-    </ion-refresher>
+	<ion-content>
+		<ion-refresher
+		pulling-text="Tirer pour rafraîchir..."
+		on-refresh="realoadProduct()">
+		</ion-refresher>
 
-    <ion-spinner ng-hide="loaded"></ion-spinner>
-
-	<div class="list card" ng-show="loaded">
-
-	  <div class="item">
-	    <h2>{{ product.name }}</h2>
-	    <p>{{ product.price }}€</p>
-	  </div>
-
-	  <div class="item item-body">
-	    <img class="full-image" ng-src="{{ apiUrl }}files/product/{{ product.image }}">
-	    <p ng-bind-html="product.description"></p>
-		<div class="button-bar">
-		  <a class="button button-positive ion-ios-cart" ng-click="addCart(product)">Panier</a>
-		  <a class="button button-positive ion-star" ng-click="addFavoris(product)">Favoris</a>
+		<div class="spinner" ng-hide="loaded">
+			<ion-spinner></ion-spinner>
 		</div>
-	  </div>
 
-	</div>
-  </ion-content>
+		<div class="list card" ng-show="loaded">
+
+			<div class="item">
+				<h2>{{ product.name }}</h2>
+				<p>{{ product.price }}€</p>
+			</div>
+
+			<div class="item item-body">
+				<img class="full-image" ng-src="{{ apiUrl }}files/product/{{ product.image }}">
+				<p ng-bind-html="product.description"></p>
+				<div class="button-bar">
+					<a class="button button-positive ion-ios-cart" ng-click="addCart(product)">Panier</a>
+					<a class="button button-positive ion-star" ng-click="addFavoris(product.id_product)" ng-show="favoris.indexOf(product.id_product) === -1">Favoris</a>
+					<a class="button button-assertive ion-star" ng-click="deleteFavoris(product.id_product)" ng-show="favoris.indexOf(product.id_product) !== -1">Favoris</a>
+				</div>
+			</div>
+
+		</div>
+	</ion-content>
 </ion-view>

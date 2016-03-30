@@ -1,19 +1,26 @@
-<ion-view view-title="Commandes">
+<ion-view view-title="Commandes" cache-view="false">
   <ion-content>
+    <ion-refresher
+      pulling-text="Tirer pour rafraîchir..."
+      on-refresh="reloadCommands()">
+    </ion-refresher>
 
-  <ion-refresher
-    pulling-text="Tirer pour rafraîchir..."
-    on-refresh="reloadCommands()">
-  </ion-refresher>
+    <div class="spinner" ng-hide="loaded">
+      <ion-spinner></ion-spinner>
+    </div>
 
-  <ion-list>
-  	<ion-item ng-repeat="command in commands" href="#/tab/commands/{{ command.id_command}}" class="item-icon-right">
-  		Commande n°{{ command.id_command }} - Total : {{ command.total }}€
-    	<ion-option-button class="button-assertive" ng-click="deleteCommand(command);" ng-show="command.state == 1">
-     		Annuler
-    	</ion-option-button>
-    	<i class="icon ion-chevron-right icon-accessory"></i>
-  	</ion-item>
-  </ion-list>
+    <ion-list>
+      <ion-item ng-repeat="command in commands" href="#/tab/commands/{{ command.id_command}}" class="item-icon-right">
+        <span class="notification" ng-class="{'success':command.state == 3,
+        'info':command.state == 1,
+        'warning':command.state == 2,
+        'danger':command.state == 0}"></span>
+        Commande n°{{ command.id_command }} - Total : {{ command.total }}€
+        <ion-option-button class="button-assertive" ng-click="deleteCommand(command)" ng-show="command.state == 1">
+          Annuler
+        </ion-option-button>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

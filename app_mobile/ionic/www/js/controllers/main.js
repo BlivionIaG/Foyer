@@ -2,7 +2,7 @@
 
 angular.module('starter.controllers', [])
 
-.controller('mainController', ['$rootScope', '$scope', '$ionicPopup', 'CONFIG', 'sessionService', '$http', 'loginService', function($rootScope, $scope, $ionicPopup, CONFIG, sessionService, $http, loginService) {
+.controller('mainController', ['$rootScope', '$scope', '$ionicPopup', 'CONFIG', 'sessionService', '$http', 'loginService', '$ionicListDelegate', function($rootScope, $scope, $ionicPopup, CONFIG, sessionService, $http, loginService, $ionicListDelegate) {
 
   loginService.isLogged();
 
@@ -10,7 +10,9 @@ angular.module('starter.controllers', [])
 
   //recuperation du panier
   $rootScope.cart = sessionService.get('cart');
-
+  //recuperation des favoris
+  $rootScope.favoris = sessionService.get('favoris');
+  
   //ajout d'un produit au panier
   $scope.addCart = function(item) {
 
@@ -95,12 +97,14 @@ angular.module('starter.controllers', [])
    });
 
     confirmPopup.then(function(res) {
-     if(res) {
-      $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
-        item.state = "0";
-      });
-    }
-  }); 
+       if(res) {
+        $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
+          item.state = "0";
+        });
+      }
+    }).finally(function(){
+        $ionicListDelegate.closeOptionButtons();
+    });
   };
 
   $scope.logout = function(){
@@ -115,6 +119,18 @@ angular.module('starter.controllers', [])
         loginService.logout();
       }
     }); 
+  };
+
+  $scope.addFavoris = function(item) {
+    //ajout du produit aux favoris
+    $rootScope.favoris.push(item);
+    sessionService.set('favoris', $rootScope.favoris);
+  };
+
+  $scope.deleteFavoris = function(item) {
+    //suppression du produit des favoris
+    $rootScope.favoris.splice($rootScope.favoris.indexOf(item), 1);
+    sessionService.set('favoris', $rootScope.favoris);
   };
 
 }]);

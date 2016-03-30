@@ -3,9 +3,6 @@
 angular.module('starter.controllers')
 
 .controller('productsController', ['$scope', '$http', 'CONFIG', 'sessionService', function($scope, $http, CONFIG, sessionService) {
-    
-  //recuperation des favoris
-  $scope.favoris = sessionService.get('favoris');
 
   //recuperation des produits
   $http.get(CONFIG.API_URL+'product/').success(function(data) {
@@ -45,15 +42,4 @@ angular.module('starter.controllers')
       });
     }
   };
-
-  $scope.addFavoris = function(item) {
-    //ajout du produit aux favoris
-    var favoris = sessionService.get('favoris');
-    if(favoris === null){
-      favoris = new Array();
-    }
-    favoris.push(item);
-    sessionService.set('favoris', favoris);
-  };
-
 }]);

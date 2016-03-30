@@ -44,3 +44,55 @@ ion-tabs.tabs-color-active-positive .tab-item.activated, ion-tabs.tabs-color-act
 .popup-body{
   text-align: center;
 }
+
+div.spinner {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.spinner svg {
+  height: 40px !important;
+}
+
+.default{
+  background-color: #ddd;
+}
+
+.success{
+  background-color: #d6e9c6;
+}
+
+.info{
+  background-color: #bce8f1;
+}
+
+.warning{
+  background-color: #faebcc;
+}
+
+.danger{
+  background-color: #ebccd1;
+}
+
+.slider-pager{
+  top: 45px;
+}
+
+#favoris > h1, #products > h1{
+  text-align: center;
+  padding-bottom: 30px;
+  margin-bottom: 0;
+  color:#fff;
+}
+
+#products > h1{
+  background-color: #e74c3c;
+}
+
+#favoris > h1 {
+  background-color: #3498db;
+}
+
+.ion-record{
+  color: #fff;
+}

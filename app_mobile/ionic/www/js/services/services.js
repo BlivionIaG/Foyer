@@ -65,4 +65,15 @@ angular.module('starter.services', [])
 			return window.sessionStorage.removeItem(key);
 		}
 	};
+})
+
+.factory('outils', function(){
+	return {
+		addZero: function(i){
+			if(i < 10){
+				i = "0" + i;
+			}
+			return i;
+		}
+	};
 });
