@@ -3,10 +3,10 @@
 angular.module('foyerApp', [
   'ngRoute',
   'ngDialog',
+  'ngSanitize',
   'ui.bootstrap',
   'angular.morris-chart',
   'checklist-model',
-  'ngSanitize',
   'foyerApp.directives',
   'foyerApp.filters',
   'foyerApp.services',
@@ -78,15 +78,4 @@ angular.module('foyerApp', [
   };
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
   $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-}])
-
-// Route permissions
-.run(['$rootScope', '$location', function($rootScope, $location) {
-  //Routes qui n'ont pas besoin d'être connecté
-  var routeAllowed = ['/identification'];
-  $rootScope.$on('$routeChangeStart', function() {
-    if(routeAllowed.indexOf($location.path()) === -1){
-      
-    }
-  });
 }]);

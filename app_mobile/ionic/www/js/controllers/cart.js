@@ -1,5 +1,12 @@
 'use strict';
 
+function addZero(i){
+	if(i < 10){
+		i = "0" + i;
+	}
+	return i;
+}
+
 angular.module('starter.controllers')
 
 .controller('cartController', ['$rootScope', '$scope', '$http', '$ionicPopup', 'CONFIG', function($rootScope, $scope, $http, $ionicPopup, CONFIG) {

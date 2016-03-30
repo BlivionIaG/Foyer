@@ -62,7 +62,7 @@ angular.module('starter.controllers', [])
   //suppression du panier
   $rootScope.deleteAllCart = function() {
 
-  	$rootScope.cart = new Array();
+    $rootScope.cart = new Array();
 
     //enregistrement du panier
     sessionService.set('cart', $rootScope.cart);
@@ -98,9 +98,6 @@ angular.module('starter.controllers', [])
      if(res) {
       $http.put(CONFIG.API_URL+'command/'+item.id_command+'/state/0').success(function() {
         item.state = "0";
-      }).error(function(data) {
-        $scope.alert = data;
-        $document.scrollTop(0, 250);
       });
     }
   }); 
