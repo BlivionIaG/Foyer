@@ -2,10 +2,10 @@
 <widget id="com.ionicframework.foyer330458" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Foyer</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Une application permettant d'effectuer des commandes au foyer de l'école.
     </description>
-  <author email="you@example.com" href="http://example.com.com/">
-      Your Name Here
+  <author email="konstantin.sidorenko@orange.fr" href="http://konstantin-sidorenko.fr/">
+      TheCampagnards
     </author>
   <content src="index.html"/>
   <access origin="*"/>
