@@ -1,8 +1,10 @@
 
 angular.module('starter',[
-  'ionic','ionic.service.core',
+  'ionic',
+  'ionic.service.core',
   'ionic.service.analytics',
   'ngSanitize',
+  'ngLocale',
   'starter.controllers',
   'starter.services',
   'starter.directives',
