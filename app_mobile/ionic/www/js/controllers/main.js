@@ -12,7 +12,9 @@ angular.module('starter.controllers', [])
   $rootScope.cart = sessionService.get('cart');
   //recuperation des favoris
   $rootScope.favoris = sessionService.get('favoris');
-  
+  if($rootScope.favoris === null){
+    $rootScope.favoris = new Array();
+  }
   //ajout d'un produit au panier
   $scope.addCart = function(item) {
 
