@@ -9,23 +9,21 @@
 			<ion-spinner></ion-spinner>
 		</div>
 
-		<div class="list card" ng-show="loaded">
+		<span ng-show="loaded">
+			<div class="card" style="background-image: url({{ apiUrl }}files/product/{{ product.image }})">
 
-			<div class="item">
-				<h2>{{ product.name }}</h2>
-				<p>{{ product.price }}€</p>
+				<div class="card-name">{{ product.name }}</div>
+				<div class="card-desc">{{ product.price }}€</div>
+
 			</div>
-
 			<div class="item item-body">
-				<img class="full-image" ng-src="{{ apiUrl }}files/product/{{ product.image }}">
-				<p ng-bind-html="product.description"></p>
 				<div class="button-bar">
-					<a class="button button-positive ion-ios-cart" ng-click="addCart(product)">Panier</a>
-					<a class="button button-positive ion-star" ng-click="addFavoris(product.id_product)" ng-show="favoris.indexOf(product.id_product) === -1">Favoris</a>
+					<a class="button button-positive ion-ios-cart" ng-click="addCart(product)" style="border-right: solid 1px #fff;">Panier</a>
+					<a class="button button-positive ion-star" ng-click="addFavoris(product.id_product)" ng-show="favoris.indexOf(product.id_product) === -1" style="border-radius: 0 4px 4px 0;">Favoris</a>
 					<a class="button button-assertive ion-star" ng-click="deleteFavoris(product.id_product)" ng-show="favoris.indexOf(product.id_product) !== -1">Favoris</a>
 				</div>
+				<p ng-bind-html="product.description"></p>
 			</div>
-
-		</div>
+		</span>
 	</ion-content>
 </ion-view>
