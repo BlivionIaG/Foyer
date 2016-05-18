@@ -62,12 +62,15 @@ $app->get('/logout/', function($request, $response) {
 *
 */
 $app->post('/login/',function ($request, $response)  use ($app) {
+  //session_start();
   try {
     if(!empty($request->getParsedBody()) && Capsule::table('USER_CLUB')->where($request->getParsedBody())->first()){
       session_start();
       $_SESSION['uid'] = uniqid();
       $_SESSION['login'] = $request->getParsedBody()['login'];
-      $response = $response->withJson(array ("status"  => array("succes" => uniqid())), 200);
+      $yaml = new Parser();
+      $config = $yaml->parse(file_get_contents('config/config.yml'));
+      $response = $response->withJson(array ("status"  => array("login" => $request->getParsedBody()['login'], "succes" => uniqid(), "key" => base64_encode('root:'.$config['parameters']['api_users']['root']))), 200);
     }
     else
       $response = $response->withJson(array ("status"  => array("error" => "Mauvais identifiants")), 401);

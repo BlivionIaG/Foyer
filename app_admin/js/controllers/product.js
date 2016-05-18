@@ -9,9 +9,12 @@ angular.module('foyerApp.controllers')
   loginService.isLogged().then(function() {
     //recuperation des produits
     $http.get(CONFIG.API_URL+'product/').success(function(data){
+	console.log(data);
       $scope.products = data;
       $scope.loaded = true;
-    });
+    }).error(function(data){
+console.log(data);
+});
   });
 
   //suppression d'un produit

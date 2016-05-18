@@ -14,15 +14,15 @@ angular.module('foyerApp', [
 ])
 
 .constant('CONFIG', {
-  'API_URL': 'http://isenclub.fr/foyer/api/'
+  'API_URL': 'http://foyer.api.isenclub.fr/'
 })
 
 //gestion des routes
 .config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 
   $locationProvider.html5Mode({
-    //enabled: true,
-    //requireBase: false
+    enabled: true,
+    requireBase: false
   });
   $routeProvider
   .when('/', {

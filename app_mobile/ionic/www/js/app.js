@@ -12,7 +12,7 @@ angular.module('starter',[
   ])
 
 .constant('CONFIG', {
-  API_URL: 'http://isenclub.fr/foyer/api/'
+  API_URL: 'http://foyer.api.isenclub.fr/'
 })
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
