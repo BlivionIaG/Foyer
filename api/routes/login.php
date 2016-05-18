@@ -55,7 +55,9 @@ $app->get('/logout/', function($request, $response) {
 * @apiParam {String} login Login club.
 * @apiParam {String} password Mot de passe.
 *
-* @apiSuccess {String} etat Etat de connexion.
+* @apiSuccess {String} succes Etat de connexion.
+* @apiSuccess {String} login Login de connexion.
+* @apiSuccess {String} key Clé d'api.
 *
 * @apiSuccessExample Success-Response:
 *     HTTP/1.1 200 OK
