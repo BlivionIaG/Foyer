@@ -27,8 +27,10 @@ angular.module('starter.controllers')
   //recuperation de la commande
   if ($stateParams.commandId) {
     $http.get(CONFIG.API_URL+'command/id_command/'+$stateParams.commandId).success(function(data) {
-      $scope.command = data;
-      $scope.loaded = true;
+      if(data.login === $rootScope.login){
+        $scope.command = data;
+        $scope.loaded = true;
+      }
     });
   }
 
@@ -37,7 +39,8 @@ angular.module('starter.controllers')
     //recuperation de la commande
     if ($stateParams.commandId) {
       $http.get(CONFIG.API_URL+'command/id_command/'+$stateParams.commandId).success(function(data) {
-        $scope.command = data;
+        if(data.login === $rootScope.login)
+          $scope.command = data;
       }).finally(function() {
         $scope.$broadcast('scroll.refreshComplete');
       });
