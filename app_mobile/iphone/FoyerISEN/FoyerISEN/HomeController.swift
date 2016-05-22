@@ -8,13 +8,15 @@
 
 import UIKit
 
-class HomeController: UIViewController {
+class HomeController: UIViewController, NetworkManagerDelegate {
 
     //Network
     var networkManager = NetworkManager.sharedInstance
     
     //Storyboard Outlets
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var banniereImageView: UIImageView!
+    @IBOutlet weak var welcomeLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -27,11 +29,39 @@ class HomeController: UIViewController {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
+        self.welcomeLabel.text = "Bienvenue \(networkManager.username!)"
+        
+        networkManager.request(delegate: self, urlString: "banniere/", requestType: "GET")
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func didReceiveData(response: String, tabData: NSArray) {
+        print(tabData.description)
+        
+        for item in tabData {
+            
+            if let strUrlBanniere : String = item["url"] as? String {
+                networkManager.downloadImage(delegate: self, urlString: "files/mobile/"+strUrlBanniere)
+            } else {
+                print("erreur urlBanniere")
+            }
+            
+        }
+        
+    }
+    
+    func didReceiveImage(image: UIImage) {
+        self.banniereImageView.image = image
+    }
+    
+    
+    func didFailToReceiveResponse(strError: String) {
+        print(strError)
     }
     
 }

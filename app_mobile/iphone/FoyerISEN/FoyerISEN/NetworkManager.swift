@@ -11,7 +11,7 @@ import UIKit
 @objc protocol NetworkManagerDelegate {
     optional func didReceiveData(response : String, tabData: NSArray)
     optional func didFailToReceiveResponse(strError : String)
-    optional func didReceiveImage(image: UIImage?)
+    optional func didReceiveImage(image: UIImage) //Optional value retirée
 }
 
 class NetworkManager: NSObject , NSURLSessionDelegate {
@@ -20,7 +20,7 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
     var username : String?
     var authBasicKey : String?
     
-    let basedUrl = "http://isenclub.fr/foyer/api/"
+    let basedUrl = "http://foyer.api.isenclub.fr/"//"http://isenclub.fr/foyer/api/"
     
     //class variable : SINGLETON
     class var sharedInstance: NetworkManager {
@@ -75,18 +75,6 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
             
             request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
             
-            //Ancienne méthode
-            //----------------
-            /*do{
-                request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams!, options:[] )
-                
-            } catch let jsonError as NSError {
-                delegate.didFailToReceiveResponse!(jsonError.localizedDescription)
-            }
-            
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            equest.addValue("application/json", forHTTPHeaderField: "Accept")*/
-            
         } else {
             delegate.didFailToReceiveResponse!("Paramètres requestType et/ou postParams ne sont pas bons !")
             return
@@ -131,22 +119,23 @@ class NetworkManager: NSObject , NSURLSessionDelegate {
         dataTask.resume()
     }
     
-    func downloadImage(delegate delegate: NetworkManagerDelegate, urlString: String) {
+    func downloadImage(delegate delegate: NetworkManagerDelegate, urlString: String, timeoutInterval: Int? = 20) {
         
-        let urlRequest = NSURLRequest(URL: NSURL(string: basedUrl + urlString)!)
         
-        let downloadTask = self.session!.downloadTaskWithRequest(urlRequest, completionHandler: { (url: NSURL?, response: NSURLResponse?, error: NSError?) in
+        let request = NSMutableURLRequest(URL: NSURL(string: self.basedUrl + urlString)!, cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringCacheData, timeoutInterval: NSTimeInterval(Int(timeoutInterval!)) )
+        
+        request.HTTPMethod = "GET"
+        request.setValue("Basic " + self.authBasicKey!, forHTTPHeaderField: "Authorization")
+        
+        let downloadTask = self.session!.downloadTaskWithRequest(request, completionHandler: { (url: NSURL?, response: NSURLResponse?, error: NSError?) in
             
             let data = NSData(contentsOfURL: url!)
             let image = UIImage(data: data!)
-            
             delegate.didReceiveImage!(image!)
         })
-        
+
         downloadTask.resume()
-        
     }
-    
     
 
 

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManagerDelegate {
     
     //ALERT

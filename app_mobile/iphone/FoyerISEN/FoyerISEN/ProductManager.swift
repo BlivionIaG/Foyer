@@ -98,8 +98,10 @@ class ProductManager: NSObject, NetworkManagerDelegate{
                 ,strUrlImage: strUrlImage
             )]
             
-            print(products[0].content())
-            
+        }
+        
+        for product in products {
+            print(product.content())
         }
         
     }

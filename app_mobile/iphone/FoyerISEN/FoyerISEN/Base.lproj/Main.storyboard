@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="eHa-gm-keV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -60,7 +60,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XdO-of-ICE" userLabel="BottomTitleView">
-                                <rect key="frame" x="0.0" y="125" width="600" height="36"/>
+                                <rect key="frame" x="0.0" y="124" width="600" height="36"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Eik-6n-V6G">
                                         <rect key="frame" x="290" y="8" width="20" height="20"/>
@@ -199,7 +199,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accueil" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5EQ-nk-WDi">
                                                     <rect key="frame" x="91" y="12" width="46" height="20"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -239,7 +239,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Produits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="se6-vu-I4a">
                                                     <rect key="frame" x="91" y="12" width="52" height="20"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -271,7 +271,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commandes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qMv-BQ-hwx">
                                                     <rect key="frame" x="91" y="12" width="80" height="20"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -311,7 +311,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Déconnexion" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEe-O0-v8u">
                                                     <rect key="frame" x="92" y="12" width="89" height="21"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -480,18 +480,44 @@
                     <view key="view" contentMode="scaleToFill" id="6c3-p0-es6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hAI-5G-ocW" userLabel="Image Banniere">
+                                <rect key="frame" x="30" y="54" width="540" height="288"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hAI-5G-ocW" secondAttribute="height" multiplier="15:8" id="iM9-lp-T8Q"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goj-g6-gVL" userLabel="Welcome Label">
+                                <rect key="frame" x="278" y="362" width="44" height="25"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="0.94499540328979492" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hAI-5G-ocW" firstAttribute="leading" secondItem="6c3-p0-es6" secondAttribute="leadingMargin" constant="10" id="Fhh-Uj-J54"/>
+                            <constraint firstItem="hAI-5G-ocW" firstAttribute="top" secondItem="sM1-4e-Cna" secondAttribute="bottom" constant="10" id="SoH-UY-Pbr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hAI-5G-ocW" secondAttribute="trailing" constant="10" id="Vfw-ma-RG6"/>
+                            <constraint firstItem="hAI-5G-ocW" firstAttribute="top" secondItem="sM1-4e-Cna" secondAttribute="bottom" id="d0A-Sy-dHC"/>
+                            <constraint firstItem="goj-g6-gVL" firstAttribute="centerX" secondItem="6c3-p0-es6" secondAttribute="centerX" id="lbc-Hq-USA"/>
+                            <constraint firstItem="goj-g6-gVL" firstAttribute="top" secondItem="hAI-5G-ocW" secondAttribute="bottom" constant="20" id="xQe-m9-Z90"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="d0A-Sy-dHC"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Accueil" id="qpS-fL-7yz" userLabel="Home">
                         <barButtonItem key="leftBarButtonItem" image="Menu" id="pqh-z7-MuC" userLabel="MenuButton">
                             <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="HoZ-cP-gRv">
-                            <color key="tintColor" red="0.78440219160000002" green="0.23345431689999999" blue="0.2222111225" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="banniereImageView" destination="hAI-5G-ocW" id="PQn-Ts-LUr"/>
                         <outlet property="menuButton" destination="pqh-z7-MuC" id="SRZ-hZ-qvK"/>
+                        <outlet property="welcomeLabel" destination="goj-g6-gVL" id="299-fa-2j4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tlq-c1-COr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -502,23 +528,71 @@
         <scene sceneID="Uhw-t7-qcn">
             <objects>
                 <tableViewController id="hwt-8x-ptS" customClass="ProductTableViewController" customModule="FoyerISEN" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="shN-xt-oh4">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="91" sectionHeaderHeight="28" sectionFooterHeight="28" id="shN-xt-oh4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="DVg-hH-G3L">
-                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ProductCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductCell" rowHeight="91" id="DVg-hH-G3L" customClass="ProductCell" customModule="FoyerISEN" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="600" height="91"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DVg-hH-G3L" id="3Gs-xi-abc">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vsg-Lb-RDV">
+                                            <rect key="frame" x="18" y="18" width="54" height="54"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="vsg-Lb-RDV" secondAttribute="height" multiplier="1:1" id="LGa-ag-LT8"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom produit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axY-Nt-Aws" userLabel="Product Name">
+                                            <rect key="frame" x="82" y="13" width="288" height="22"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description produit" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="URm-4A-Uv9" userLabel="Desc Text">
+                                            <rect key="frame" x="82" y="38" width="500" height="39"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="10"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prix" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn6-YI-Da0" userLabel="Product Price">
+                                            <rect key="frame" x="390" y="13" width="192" height="22"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Xn6-YI-Da0" firstAttribute="leading" secondItem="axY-Nt-Aws" secondAttribute="trailing" constant="20" id="0UX-2e-Qu0"/>
+                                        <constraint firstItem="URm-4A-Uv9" firstAttribute="top" secondItem="axY-Nt-Aws" secondAttribute="bottom" constant="3" id="3MW-Qx-arl"/>
+                                        <constraint firstItem="URm-4A-Uv9" firstAttribute="leading" secondItem="vsg-Lb-RDV" secondAttribute="trailing" constant="10" id="4NT-fm-sas"/>
+                                        <constraint firstItem="vsg-Lb-RDV" firstAttribute="leading" secondItem="3Gs-xi-abc" secondAttribute="leadingMargin" constant="10" id="7w2-Iq-U5G"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="URm-4A-Uv9" secondAttribute="trailing" constant="10" id="9jX-G3-2zy"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Xn6-YI-Da0" secondAttribute="trailing" constant="10" id="AhD-Wq-eTy"/>
+                                        <constraint firstItem="vsg-Lb-RDV" firstAttribute="top" secondItem="3Gs-xi-abc" secondAttribute="topMargin" constant="10" id="Bjk-2r-Ugf"/>
+                                        <constraint firstItem="Xn6-YI-Da0" firstAttribute="top" secondItem="3Gs-xi-abc" secondAttribute="topMargin" constant="5" id="EyM-hn-0zV"/>
+                                        <constraint firstItem="vsg-Lb-RDV" firstAttribute="centerY" secondItem="3Gs-xi-abc" secondAttribute="centerY" id="Ik2-uu-lbk"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="vsg-Lb-RDV" secondAttribute="bottom" constant="10" id="Lfo-ZC-6YH"/>
+                                        <constraint firstItem="axY-Nt-Aws" firstAttribute="top" secondItem="3Gs-xi-abc" secondAttribute="topMargin" constant="5" id="V8h-Gi-kTX"/>
+                                        <constraint firstItem="axY-Nt-Aws" firstAttribute="leading" secondItem="vsg-Lb-RDV" secondAttribute="trailing" constant="10" id="hw3-Tv-IDl"/>
+                                        <constraint firstItem="Xn6-YI-Da0" firstAttribute="width" secondItem="axY-Nt-Aws" secondAttribute="width" multiplier="2:3" id="tu0-NE-JKw"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="URm-4A-Uv9" secondAttribute="bottom" constant="5" id="vpr-bK-cb9"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="productDesc" destination="URm-4A-Uv9" id="gVe-JH-UaV"/>
+                                    <outlet property="productImage" destination="vsg-Lb-RDV" id="Mxc-4x-ona"/>
+                                    <outlet property="productNameLabel" destination="axY-Nt-Aws" id="aKn-E4-L2g"/>
+                                    <outlet property="productPrice" destination="Xn6-YI-Da0" id="bhF-GW-EEi"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="hwt-8x-ptS" id="SrO-bq-fKb"/>
-                            <outlet property="delegate" destination="hwt-8x-ptS" id="YCM-km-coo"/>
+                            <outlet property="dataSource" destination="hwt-8x-ptS" id="wEg-xq-Q5B"/>
+                            <outlet property="delegate" destination="hwt-8x-ptS" id="jB3-6g-6CI"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Produits" id="yG0-vc-aYU">
@@ -531,6 +605,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="fpP-Ds-EPp" id="1oa-Wn-1Yx"/>
+                        <outlet property="productTableView" destination="shN-xt-oh4" id="wi9-J5-GgH"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbN-2o-zer" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -547,6 +622,6 @@
         <image name="smallIcon" width="49" height="49"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lXq-b4-gIy"/>
+        <segue reference="IjO-cY-rlu"/>
     </inferredMetricsTieBreakers>
 </document>
