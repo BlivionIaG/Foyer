@@ -1,0 +1,29 @@
+<ion-view view-title="Produit">
+	<ion-content>
+		<ion-refresher
+		pulling-text="Tirer pour rafraîchir..."
+		on-refresh="realoadProduct()">
+		</ion-refresher>
+
+		<div class="spinner" ng-hide="loaded">
+			<ion-spinner></ion-spinner>
+		</div>
+
+		<span ng-show="loaded">
+			<div class="card" style="background-image: url({{ apiUrl }}files/product/{{ product.image }})">
+
+				<div class="card-name">{{ product.name }}</div>
+				<div class="card-desc">{{ product.price }}€</div>
+
+			</div>
+			<div class="item item-body">
+				<div class="button-bar">
+					<a class="button button-positive ion-ios-cart" ng-click="addCart(product)" style="border-right: solid 1px #fff;">Panier</a>
+					<a class="button button-positive ion-star" ng-click="addFavoris(product.id_product)" ng-show="favoris.indexOf(product.id_product) === -1" style="border-radius: 0 4px 4px 0;">Favoris</a>
+					<a class="button button-assertive ion-star" ng-click="deleteFavoris(product.id_product)" ng-show="favoris.indexOf(product.id_product) !== -1">Favoris</a>
+				</div>
+				<p ng-bind-html="product.description"></p>
+			</div>
+		</span>
+	</ion-content>
+</ion-view>

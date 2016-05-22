@@ -5,6 +5,8 @@ require 'vendor/autoload.php';
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Symfony\Component\Yaml\Parser;
 
+date_default_timezone_set('Europe/Paris');
+
 $yaml = new Parser();
 $config = $yaml->parse(file_get_contents('config/config.yml'));
 

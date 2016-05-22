@@ -1,0 +1,14 @@
+<ion-view view-title="Accueil">
+  <ion-content>
+    <div class="spinner" ng-hide="loaded">
+      <ion-spinner></ion-spinner>
+    </div>
+    <span ng-show="loaded">
+      <img ng-src="{{ apiUrl }}files/mobile/{{ banniere.url }}" style="width:100%;">
+      <div style="margin-left: 10px;">
+        <h1>Bienvenue {{ login }} !</h1>
+        <p>Vous pouvez effectuer vos commandes au Foyer via cette application.</p>
+      </div>
+    </span>
+  </ion-content>
+</ion-view>

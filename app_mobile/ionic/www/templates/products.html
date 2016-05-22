@@ -1,0 +1,80 @@
+<ion-view view-title="Produits">
+
+  <ion-content>
+    <ion-refresher
+      pulling-text="Tirer pour rafraîchir..."
+      on-refresh="realoadProducts()">
+    </ion-refresher>
+
+
+    <ion-slide-box on-slide-changed="slideHasChanged($index)" show-pager="true">
+      <ion-slide id="products">
+        <!-- Produits -->
+        <h1>Tous</h1>
+
+        <div class="bar bar-header item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Rechercher" ng-model="search">
+          </label>
+          <button class="button button-clear" ng-click="search = ''">Annuler</button>
+        </div>
+
+        <div class="spinner" ng-hide="loaded">
+          <ion-spinner></ion-spinner>
+        </div>
+
+        <p ng-hide="!loaded || (products | filter:search).length" style="text-align:center;"><br/>Aucun résultat trouvé.</p>
+
+        <ion-list>
+            <ion-item ng-repeat="product in products | filter:search"
+               href="#/tab/products/{{ product.id_product }}"
+               class="item item-thumbnail-left item-icon-right">
+
+              <img ng-src="{{ apiUrl }}files/product/{{ product.image }}">
+              <h2>{{ product.name }}</h2>
+              <h3>{{ product.price }}€</h3>
+              <h4 ng-bind-html="product.description"></h4>
+              <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+      </ion-slide>
+
+      <ion-slide id="favoris">
+        <!-- Favoris -->
+        <h1>Favoris</h1>
+
+        <div class="bar bar-header item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Rechercher" ng-model="search">
+          </label>
+          <button class="button button-clear" ng-click="search = ''">Annuler</button>
+        </div>
+
+        <div class="spinner" ng-hide="loaded">
+          <ion-spinner></ion-spinner>
+        </div>
+
+        <p ng-hide="(favoris | filter:search).length" style="text-align:center;"><br/>Aucun résultat trouvé.</p>
+        
+        <ion-list>
+            <ion-item ng-repeat="product in products | filter:search"
+               href="#/tab/products/{{ product.id_product }}"
+               class="item item-thumbnail-left item-icon-right"
+               ng-show="favoris.indexOf(product.id_product) !== -1">
+
+              <img ng-src="{{ apiUrl }}files/product/{{ product.image }}">
+              <h2>{{ product.name }}</h2>
+              <h3>{{ product.price }}€</h3>
+              <h4 ng-bind-html="product.description"></h4>
+              <ion-option-button class="button button-assertive ion-star" ng-click="deleteFavoris(product.id_product)">
+                Supprimer
+              </ion-option-button>
+              <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+</ion-view>

@@ -33,7 +33,7 @@ angular.module('foyerApp.controllers')
   };
 }])
 
-.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window','$document', function($scope, $http, CONFIG, ngDialog, $window, $document, loginService) {
+.controller('notificationPopupController',['$scope', '$http', 'CONFIG', 'ngDialog','$window','$document', function($scope, $http, CONFIG, ngDialog, $window, $document) {
 
   if($scope.ngDialogData !== undefined){
     $scope.notification = $scope.ngDialogData;

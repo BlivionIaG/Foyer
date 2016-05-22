@@ -9,9 +9,12 @@ angular.module('foyerApp.controllers')
   loginService.isLogged().then(function() {
     //recuperation des produits
     $http.get(CONFIG.API_URL+'product/').success(function(data){
+	console.log(data);
       $scope.products = data;
       $scope.loaded = true;
-    });
+    }).error(function(data){
+console.log(data);
+});
   });
 
   //suppression d'un produit
@@ -68,7 +71,7 @@ angular.module('foyerApp.controllers')
     if($scope.action === 'edit'){
       $http.put(CONFIG.API_URL+'product/'+$scope.product.id_product, $scope.product).success(function() {
         if($scope.productImage){
-          fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product).success(function(data){
+          fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+$scope.product.id_product).success(function(){
             $location.path('product');
           });
         }else{
@@ -82,7 +85,7 @@ angular.module('foyerApp.controllers')
     //ajout
     else{
       $http.post(CONFIG.API_URL+'product/', $scope.product).success(function(data) {
-        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+data.status.success).success(function(data){
+        fileUpload.uploadFileToUrl($scope.productImage, CONFIG.API_URL+'product/img/'+data.status.success).success(function(){
           $location.path('product');
         });
       }).error(function(data) {

@@ -6,7 +6,9 @@ angular.module('foyerApp.services', [])
   return {
     login: function(user, $scope) {
       $http.post(CONFIG.API_URL+'login/', user).success(function(data) {
-        sessionService.set('uid', data.status.success);
+	sessionService.set('uid', data.status.success);
+        sessionService.set('login', data.status.login);
+        sessionService.set('key', data.status.key);
         $location.path('home');
       }).error(function() {
         $scope.loginMessage = "Erreur d'identification.";
@@ -22,18 +24,23 @@ angular.module('foyerApp.services', [])
     },
     isLogged: function() {
       var defer = $q.defer();
-      $http.get(CONFIG.API_URL+'login/').then(function(response) {
-        $rootScope.login = response.data.login;
+      /*$http.get(CONFIG.API_URL+'login/').then(function(response) {
+	$rootScope.login = response.data.login;
         $rootScope.isLogged = true;
         $http.defaults.headers.common['Authorization'] = 'Basic '+response.data.key;
         defer.resolve('done');
-
       }).catch(function() {
         $location.path('identification');
         $rootScope.isLogged = false;
         $rootScope.login = false;
         defer.reject();
-      });
+      });*/
+      
+      $rootScope.login = sessionService.get('login');
+      $rootScope.isLogged = true;
+      $http.defaults.headers.common['Authorization'] = 'Basic '+sessionService.get('key');
+
+      defer.resolve('done');
       return defer.promise;
     }
   };

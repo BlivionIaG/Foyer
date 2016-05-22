@@ -1,0 +1,23 @@
+<ion-view view-title="Validation du Panier">
+	<ion-content>
+		<br/>
+		<p style="text-align:center;">Vous avez {{ getCartQuantity() }} article(s) pour un total de {{ getCartTotal() }}€</p>
+		<div class="list">
+			<label class="item item-input">
+				<span class="input-label">Date de Commande : </span>
+				<input type="date" ng-model="panier.date_picker">
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Heure de Début : </span>
+				<input type="time" ng-model="panier.periode_debut_picker">
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Heure de Fin : </span>
+				<input type="time" ng-model="panier.periode_fin_picker">
+			</label>
+		</div>
+		<button class="button button-positive" style="width:100%;" ng-click="valideCart()">
+			Valider
+		</button>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,200 @@
+.notification {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  margin: 0;
+  font: inherit;
+  background: transparent;
+  border: none;
+  font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: none;
+  padding: 0 4px;
+  width: auto;
+  height: 19px;
+  -webkit-border-radius: 19px;
+  border-radius: 19px;
+  background-color: #dc5236;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  min-width: 19px;
+  line-height: 19px;
+  font-weight: 400;
+}
+
+ion-tabs.tabs-color-active-positive .tab-item.activated, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
+  color:#c0392b;
+}
+
+.popup-body{
+  text-align: center;
+}
+
+div.spinner {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.spinner svg {
+  height: 40px !important;
+}
+
+.default{
+  background-color: #ddd;
+}
+
+.success{
+  background-color: #d6e9c6;
+}
+
+.info{
+  background-color: #bce8f1;
+}
+
+.warning{
+  background-color: #faebcc;
+}
+
+.danger{
+  background-color: #ebccd1;
+}
+
+.slider-pager{
+  top: 45px;
+}
+
+#favoris > h1, #products > h1{
+  text-align: center;
+  padding-bottom: 30px;
+  margin-bottom: 0;
+  color:#fff;
+}
+
+#products > h1{
+  background-color: #e74c3c;
+}
+
+#favoris > h1 {
+  background-color: #3498db;
+}
+
+.ion-record{
+  color: #fff;
+}
+
+.page--shop-details__content {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px !important;
+  bottom: 0px;
+}
+
+.card {
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  height: 250px;
+}
+
+.card-toolbar ons-back-button span {
+  color: white;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 20px;
+  padding: 66px 0 8px 0;
+  text-align: center;
+}
+
+.card-desc {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.9;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.rating {
+  text-align: center;
+  position: relative;
+  height: 0px;
+}
+
+.rating-num {
+  position: relative;
+  top: -24px;
+  height: 24px;
+  color: white;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
+  padding: 0 6px;
+  background-color: #eb482f;
+  color: white;
+  width: auto;
+  margin: 0 auto 0 auto;
+  display: inline-block;
+}
+
+.rating-num ons-icon {
+  font-size: 11px;
+  vertical-align: -0px;
+}
+
+.action-col {
+  text-align: center;
+  opacity: 0.4;
+  padding: 10px 0 8px;
+}
+
+.action-col:active {
+  opacity: 0.7;
+}
+
+.action-col ons-button {
+  padding: 0;
+  line-height: 1;
+}
+
+.action-icon {
+  padding: 0 0 4px 0;
+}
+
+.action-icon ons-icon {
+  font-size: 28px;
+}
+
+.action-label {
+  font-size: 12px;
+}
+
+.prop-desc {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.prop-desc ons-icon {
+  font-size: 14px;
+  vertical-align: -0px;
+  opacity: 0.5;
+}
