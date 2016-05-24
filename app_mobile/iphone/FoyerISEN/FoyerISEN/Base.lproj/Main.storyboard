@@ -672,10 +672,12 @@
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Desc" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="V1s-hx-H5b" userLabel="Product Desc">
                                 <rect key="frame" x="30" y="540" width="540" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FyC-nK-vY3" firstAttribute="leading" secondItem="Tpu-Lo-sFs" secondAttribute="leadingMargin" constant="10" id="32B-yb-NpO"/>
                             <constraint firstItem="tcc-Qi-X5W" firstAttribute="leading" secondItem="FyC-nK-vY3" secondAttribute="leading" id="7M7-bv-QM3"/>
