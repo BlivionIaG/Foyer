@@ -24,6 +24,8 @@ class ProductCell: UITableViewCell {
         // Initialization code
         
         notificationsCenter.addObserver(self, selector: #selector(notifyObservers), name: MyNotifications.productImageDownloaded, object: nil)
+        
+        productDesc.userInteractionEnabled = false
     }
     
 
@@ -42,7 +44,15 @@ class ProductCell: UITableViewCell {
             self.productImage.image = image
         }
     
+
         self.productNameLabel.text = product.name
+        
+        if product.available == 1 { // 1 : Dispo
+            self.productNameLabel.textColor = UIColor(netHex: MyHexaColors.green)
+        }else{
+            self.productNameLabel.textColor = UIColor(netHex: MyHexaColors.red)
+        }
+        
         self.productDesc.text = product.desc
         self.productPrice.text = String("\(product.price) €")
     }

@@ -40,8 +40,9 @@ class HomeController: UIViewController, NetworkManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     func didReceiveData(response: String, tabData: NSArray) {
-        print(tabData.description)
         
         for item in tabData {
             
@@ -54,6 +55,8 @@ class HomeController: UIViewController, NetworkManagerDelegate {
         }
         
     }
+    
+    
     
     func didReceiveImage(image: UIImage) {
         self.banniereImageView.image = image

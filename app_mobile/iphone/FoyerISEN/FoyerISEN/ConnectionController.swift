@@ -83,8 +83,8 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
     //------------------
     func didReceiveData(response : String, tabData: NSArray) {
         
-        print("reponse : \(response)")
-        print(" data : \(tabData.description)")
+        /*print("reponse : \(response)")
+        print(" data : \(tabData.description)")*/
         
         for item in tabData {
             
