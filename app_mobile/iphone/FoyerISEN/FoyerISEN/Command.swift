@@ -15,11 +15,11 @@ class Command: NSObject {
     var date : NSDate!
     var periode_debut : String!
     var periode_fin : String!
-    var product : NSArray!
+    var tabProductCommand: [ProductCommand]?
     var total : Int!
     var state : Int!
     
-    init(id_command: Int, date: NSDate, periode_debut: String, periode_fin: String, product: NSArray, total: Int, state: Int){
+    init(id_command: Int, date: NSDate, periode_debut: String, periode_fin: String, tabProductCommand: [ProductCommand], total: Int, state: Int){
         super.init()
         
         self.id_command = id_command
@@ -27,7 +27,7 @@ class Command: NSObject {
         self.date = date
         self.periode_debut = periode_debut
         self.periode_fin = periode_fin
-        self.product = product
+        self.tabProductCommand = tabProductCommand
         self.total = total
         self.state = state
     }

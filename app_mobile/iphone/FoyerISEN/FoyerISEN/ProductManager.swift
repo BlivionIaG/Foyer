@@ -54,7 +54,7 @@ class ProductManager: NSObject, NetworkManagerDelegate {
             var strUrlImage : String!
             
             if let strAvailable : String = item["available"] as? String {
-                available = Int(strAvailable)!
+                available = Int(strAvailable)
                 
             } else {
                 print("erreur available")

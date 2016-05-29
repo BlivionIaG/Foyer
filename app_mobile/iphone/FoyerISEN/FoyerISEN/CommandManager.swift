@@ -41,73 +41,100 @@ class CommandManager: NSObject, NetworkManagerDelegate {
     //----------------------------------
     func didReceiveData(response: String, tabData: NSArray) {
         
-        print("response : " + response)
-         print("tabData" + tabData.description)
+        /*print("response : " + response)
+        print("tabData" + tabData.description)*/
         
-        /*for item in tabData {
+        for item in tabData {
             
-            var id_product : Int!
-            var name : String!
-            var firstLetter : String!
-            var price : Int!
-            var desc : String!
-            var available : Int!
+            var id_command : Int!
             var date : NSDate!
-            var strUrlImage : String!
+            var periode_debut : String!
+            var periode_fin : String!
+            var tabProductCommand = [ProductCommand]()
+            var state: Int!
+            var total : Int!
             
-            if let strAvailable : String = item["available"] as? String {
-                available = Int(strAvailable)!
+            if let str_id_command : String = item["id_command"] as? String {
+                id_command = Int(str_id_command)
                 
             } else {
-                print("erreur available")
+                print("erreur id_command")
             }
             
             if let strDate : String = item["date"] as? String {
                 let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                dateFormatter.dateFormat = "yyyy-MM-dd"
                 date = dateFormatter.dateFromString(strDate)!
                 
             } else {
                 print("erreur date")
             }
             
-            if let strDescription : String = item["description"] as? String {
-                desc = strDescription
+            if let str_periode_debut : String = item["periode_debut"] as? String {
+                periode_debut = str_periode_debut
             } else {
-                print("erreur description")
+                print("erreur periode_debut")
             }
             
-            if let str_first_letter : String = item["first_letter"] as? String {
-                firstLetter = str_first_letter
+            if let str_periode_fin : String = item["periode_fin"] as? String {
+                periode_fin = str_periode_fin
             } else {
-                print("erreur first_letter")
+                print("erreur periode_fin")
             }
             
-            if let str_id_product : String = item["id_product"] as? String {
-                id_product = Int(str_id_product)
-            } else {
-                print("erreur id_product")
+            
+            if let products:NSArray = item["product"] as? NSArray{
+                
+                for product in products{
+                    
+                    var id_product: Int!
+                    var quantity : Int!
+                    
+                    if let str_id_product : String = product["id_product"] as? String {
+                        id_product = Int(str_id_product)
+                        
+                    } else {
+                        print("erreur id_product")
+                    }
+                    
+                    if let str_quantity : String = product["quantity"] as? String {
+                        quantity = Int(str_quantity)
+                        
+                    } else {
+                        print("erreur quantity")
+                    }
+                    
+                    tabProductCommand += [ProductCommand(id_product: id_product, quantity: quantity)]
+                }
             }
             
-            if let strUrlImg : String = item["image"] as? String {
-                strUrlImage = strUrlImg
+            if let str_state : String = item["state"] as? String {
+                state = Int(str_state)
+                
             } else {
-                print("erreur image")
+                print("erreur id_command")
             }
             
-            if let strName : String = item["name"] as? String {
-                name = strName
+            if let int_total : Int = item["total"] as? Int{ //La méthode avec String ne fonctionne pas ?!!
+                total = int_total
+                
             } else {
-                print("erreur name")
+                print("erreur total")
             }
             
-            if let strPrice : String = item["price"] as? String {
-                price = Int(strPrice)
-            } else {
-                print("erreur price")
-            }
-        }*/
             
+            self.commands += [Command(id_command: id_command
+                ,date: date
+                ,periode_debut: periode_debut
+                ,periode_fin: periode_fin
+                ,tabProductCommand: tabProductCommand
+                ,total: total
+                ,state: state
+                )]
+            
+        }
+        
+        notificationsCenter.postNotificationName(MyNotifications.commandDownloaded, object: self)
         
     }
     

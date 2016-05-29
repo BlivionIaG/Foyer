@@ -22,6 +22,7 @@ struct MyNotifications{
     static let productImageDownloaded = "productImageDownloaded"
     static let productsDownloaded = "productsDownloaded"
     static let banniereDownloaded = "banniereDownloaded"
+    static let commandDownloaded = "commandDownloaded"
 }
 
 struct MyHexaColors{
