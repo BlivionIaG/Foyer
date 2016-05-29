@@ -10,9 +10,12 @@ import UIKit
 
 class CommandController: UIViewController {
 
-    
+    /*----------  VARIABLES  ----------*/
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    /*--------------------------------*/
     
+    //Au chargement de la vue
+    //-----------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         

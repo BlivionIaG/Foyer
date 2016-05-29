@@ -17,10 +17,9 @@ import UIKit
 class NetworkManager: NSObject , NSURLSessionDelegate {
     
     var session : NSURLSession?
-    var username : String?
     var authBasicKey : String?
     
-    let basedUrl = "http://foyer.api.isenclub.fr/"//"http://isenclub.fr/foyer/api/"
+    let basedUrl = "http://foyer.api.isenclub.fr/"
     
     //class variable : SINGLETON
     class var sharedInstance: NetworkManager {

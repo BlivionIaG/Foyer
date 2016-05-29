@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88027F421CFAFD9D00B497A5 /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88027F411CFAFD9D00B497A5 /* ProductManager.swift */; };
+		88027F471CFB09D700B497A5 /* BanniereManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88027F461CFB09D700B497A5 /* BanniereManager.swift */; };
+		88027F491CFB26A800B497A5 /* CommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88027F481CFB26A800B497A5 /* CommandManager.swift */; };
 		8825C9381C8227230042AEFC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8825C9371C8227230042AEFC /* Product.swift */; };
 		8825C93A1C8230E80042AEFC /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8825C9391C8230E80042AEFC /* Command.swift */; };
 		8825C93C1C82382F0042AEFC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8825C93B1C82382F0042AEFC /* Notification.swift */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		88027F411CFAFD9D00B497A5 /* ProductManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
+		88027F461CFB09D700B497A5 /* BanniereManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BanniereManager.swift; sourceTree = "<group>"; };
+		88027F481CFB26A800B497A5 /* CommandManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandManager.swift; sourceTree = "<group>"; };
 		8825C9371C8227230042AEFC /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		8825C9391C8230E80042AEFC /* Command.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		8825C93B1C82382F0042AEFC /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -152,6 +158,9 @@
 				8825C9371C8227230042AEFC /* Product.swift */,
 				8825C9391C8230E80042AEFC /* Command.swift */,
 				8825C93B1C82382F0042AEFC /* Notification.swift */,
+				88027F411CFAFD9D00B497A5 /* ProductManager.swift */,
+				88027F461CFB09D700B497A5 /* BanniereManager.swift */,
+				88027F481CFB26A800B497A5 /* CommandManager.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -280,10 +289,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				889BE4E61C7F89AB00983D22 /* NetworkManager.swift in Sources */,
+				88027F421CFAFD9D00B497A5 /* ProductManager.swift in Sources */,
 				8825C9381C8227230042AEFC /* Product.swift in Sources */,
 				886359CC1C959CB700097E55 /* HomeController.swift in Sources */,
 				88D6083D1CF4D25300BA5D8A /* ProductDetailCrontroller.swift in Sources */,
 				88729DFB1CF0BBD200BD3396 /* ProductCell.swift in Sources */,
+				88027F471CFB09D700B497A5 /* BanniereManager.swift in Sources */,
 				883BBFA91C9DA147002B4510 /* SWRevealViewController.m in Sources */,
 				883BBFAD1C9DA262002B4510 /* CommandController.swift in Sources */,
 				88D608371CF4CC6C00BA5D8A /* UIColorExtension.swift in Sources */,
@@ -293,6 +304,7 @@
 				8825C93A1C8230E80042AEFC /* Command.swift in Sources */,
 				889BE4C61C7F897900983D22 /* AppDelegate.swift in Sources */,
 				882D565B1CA94E1D005AFEE9 /* ProductTableViewController.swift in Sources */,
+				88027F491CFB26A800B497A5 /* CommandManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

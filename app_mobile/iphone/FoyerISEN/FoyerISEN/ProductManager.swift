@@ -2,28 +2,45 @@
 //  ProductManager.swift
 //  FoyerISEN
 //
-//  Created by Renald Morice on 20/03/2016.
+//  Created by Renald Morice on 29/05/2016.
 //  Copyright © 2016 Digital Design. All rights reserved.
 //
 
 import UIKit
 
-class ProductManager: NSObject, NetworkManagerDelegate{
+class ProductManager: NSObject, NetworkManagerDelegate {
     
+    /*----------  VARIABLES  ----------*/
     var products = [Product]()
     
-    //Network
-    let networkManager = NetworkManager.sharedInstance
+    //class variable : SINGLETON
+    class var sharedInstance: ProductManager {
+        struct Singleton {
+            static let instance = ProductManager()
+        }
+        return Singleton.instance
+    }
+    /*---------------------------------*/
     
+    //Au chargement de l'objet
+    //------------------------
     override init(){
         super.init()
+    }
+    
+    //Charger les produits
+    //--------------------
+    func loadProducts(){
+        self.products.removeAll()
         networkManager.request(delegate: self, urlString: "product/", requestType: "GET")
     }
     
+    //Lors de la reception des produits
+    //---------------------------------
     func didReceiveData(response: String, tabData: NSArray) {
-        print("response : " + response)
-        print("tabData" + tabData.description)
         
+        /*print("response : " + response)
+         print("tabData" + tabData.description)*/
         
         for item in tabData {
             
@@ -88,7 +105,7 @@ class ProductManager: NSObject, NetworkManagerDelegate{
                 print("erreur price")
             }
             
-            products += [Product(id_product: id_product
+            self.products += [Product(id_product: id_product
                 ,name: name
                 ,firstLetter: firstLetter
                 ,price: price
@@ -96,16 +113,19 @@ class ProductManager: NSObject, NetworkManagerDelegate{
                 ,available: available
                 ,date: date
                 ,strUrlImage: strUrlImage
-            )]
+                )]
             
         }
         
-        for product in products {
-            print(product.content())
-        }
+        /*for product in products {
+         print(product.content())
+         }*/
+        notificationsCenter.postNotificationName(MyNotifications.productsDownloaded, object: self)
         
     }
     
+    //Problème réseau
+    //---------------
     func didFailToReceiveResponse(strError: String) {
         print(strError)
     }

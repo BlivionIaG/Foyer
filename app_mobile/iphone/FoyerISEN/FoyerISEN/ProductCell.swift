@@ -10,38 +10,48 @@ import UIKit
 
 class ProductCell: UITableViewCell {
     
+    /*----------  VARIABLES  ----------*/
+    var product: Product!
     
     @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var imageLoader: UIActivityIndicatorView!
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var productDesc: UITextView!
     @IBOutlet weak var productPrice: UILabel!
-    
-    var product: Product!
+    /*--------------------------------*/
 
-    
+    //Chargement de la cellule
+    //------------------------
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
-        notificationsCenter.addObserver(self, selector: #selector(notifyObservers), name: MyNotifications.productImageDownloaded, object: nil)
+        notificationsCenter.addObserver(self, selector: #selector(productImageDownloaded), name: MyNotifications.productImageDownloaded, object: nil)
         
+        imageLoader.startAnimating()
         productDesc.userInteractionEnabled = false
     }
     
 
+    //Quand une cellule est selectionnée
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
+        
     }
     
     
-    
+    //Gérer l'affichage d'une cellule
+    //-------------------------------
     func setProductCell(product: Product){
         
         self.product = product
         
         if let image: UIImage =  self.product.image {
             self.productImage.image = image
+            imageLoader.stopAnimating()
+            imageLoader.hidden = true
+        } else {
+            imageLoader.startAnimating()
         }
     
 
@@ -58,9 +68,12 @@ class ProductCell: UITableViewCell {
     }
     
     
-    //Lorsque l'objet product envoi une notification pour signaler que son image a été téléchargée...
-    func notifyObservers(){
+    //Lorsque l'objet product a téléchargé son image
+    //----------------------------------------------
+    func productImageDownloaded(){
         self.productImage.image = self.product.image
+        imageLoader.stopAnimating()
+        imageLoader.hidden = true
     }
     
     deinit{

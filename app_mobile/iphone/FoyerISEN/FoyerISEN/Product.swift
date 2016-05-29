@@ -10,9 +10,6 @@ import UIKit
 
 class Product: NSObject, NetworkManagerDelegate{
     
-    //Network
-    let networkManager = NetworkManager.sharedInstance
-    
     var id_product : Int!
     var name : String!
     var firstLetter : String!
@@ -21,7 +18,7 @@ class Product: NSObject, NetworkManagerDelegate{
     var available : Int!
     var date : NSDate!
     var strUrlImage : String!
-    dynamic var image: UIImage?
+    var image: UIImage?
     
     init(id_product: Int, name: String, firstLetter : String, price: Int, desc: String, available: Int, date: NSDate, strUrlImage: String){
         super.init()
@@ -35,7 +32,6 @@ class Product: NSObject, NetworkManagerDelegate{
         self.date = date
         self.strUrlImage = strUrlImage
         
-        //appel du DL de l'image + dans la fonction de callback, envoyé l'image par notif à la Product Cell
         networkManager.downloadImage( delegate: self, urlString: "files/product/"+self.strUrlImage )
     }
     

@@ -2,12 +2,120 @@
 //  CommandManager.swift
 //  FoyerISEN
 //
-//  Created by Renald Morice on 20/03/2016.
+//  Created by Renald Morice on 29/05/2016.
 //  Copyright © 2016 Digital Design. All rights reserved.
 //
 
 import UIKit
 
-class CommandManager: NSObject {
+class CommandManager: NSObject, NetworkManagerDelegate {
+    
+    /*----------  VARIABLES  ----------*/
+    var commands = [Command]()
+    
+    //class variable : SINGLETON
+    class var sharedInstance: CommandManager {
+        struct Singleton {
+            static let instance = CommandManager()
+        }
+        return Singleton.instance
+    }
+    /*---------------------------------*/
+    
+    //Au chargement de l'objet
+    //------------------------
+    override init(){
+        super.init()
+    }
+    
+    //Charger les produits
+    //--------------------
+    func loadCommands(){
+        self.commands.removeAll()
+        
+        networkManager.request(delegate: self, urlString: "/command/login/\(user!)", requestType: "GET")
+    }
+    
+    
+    //Lors de la reception des commandes
+    //----------------------------------
+    func didReceiveData(response: String, tabData: NSArray) {
+        
+        print("response : " + response)
+         print("tabData" + tabData.description)
+        
+        /*for item in tabData {
+            
+            var id_product : Int!
+            var name : String!
+            var firstLetter : String!
+            var price : Int!
+            var desc : String!
+            var available : Int!
+            var date : NSDate!
+            var strUrlImage : String!
+            
+            if let strAvailable : String = item["available"] as? String {
+                available = Int(strAvailable)!
+                
+            } else {
+                print("erreur available")
+            }
+            
+            if let strDate : String = item["date"] as? String {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                date = dateFormatter.dateFromString(strDate)!
+                
+            } else {
+                print("erreur date")
+            }
+            
+            if let strDescription : String = item["description"] as? String {
+                desc = strDescription
+            } else {
+                print("erreur description")
+            }
+            
+            if let str_first_letter : String = item["first_letter"] as? String {
+                firstLetter = str_first_letter
+            } else {
+                print("erreur first_letter")
+            }
+            
+            if let str_id_product : String = item["id_product"] as? String {
+                id_product = Int(str_id_product)
+            } else {
+                print("erreur id_product")
+            }
+            
+            if let strUrlImg : String = item["image"] as? String {
+                strUrlImage = strUrlImg
+            } else {
+                print("erreur image")
+            }
+            
+            if let strName : String = item["name"] as? String {
+                name = strName
+            } else {
+                print("erreur name")
+            }
+            
+            if let strPrice : String = item["price"] as? String {
+                price = Int(strPrice)
+            } else {
+                print("erreur price")
+            }
+        }*/
+            
+        
+    }
+    
+    //Problème réseau
+    //---------------
+    func didFailToReceiveResponse(strError: String) {
+        print(strError)
+    }
+    
 
 }

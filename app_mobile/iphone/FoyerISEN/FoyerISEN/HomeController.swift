@@ -8,17 +8,17 @@
 
 import UIKit
 
-class HomeController: UIViewController, NetworkManagerDelegate {
+class HomeController: UIViewController {
 
-    //Network
-    var networkManager = NetworkManager.sharedInstance
-    
-    //Storyboard Outlets
+    /*----------  VARIABLES  ----------*/    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var banniereImageView: UIImageView!
+    @IBOutlet weak var imageLoader: UIActivityIndicatorView!
     @IBOutlet weak var welcomeLabel: UILabel!
+    /*--------------------------------*/
     
-    
+    // Au chargement de la vue
+    //------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,42 +29,35 @@ class HomeController: UIViewController, NetworkManagerDelegate {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
-        self.welcomeLabel.text = "Bienvenue \(networkManager.username!)"
+        notificationsCenter.addObserver(self, selector: #selector(banniereDownloaded), name: MyNotifications.banniereDownloaded, object: nil)
         
-        networkManager.request(delegate: self, urlString: "banniere/", requestType: "GET")
+        if let image: UIImage =  banniereManager.image {
+            self.banniereImageView.image = image
+            imageLoader.stopAnimating()
+            imageLoader.hidden = true
+        } else{
+            imageLoader.startAnimating()
+        }
         
+        self.welcomeLabel.text = "Bienvenue \(user!)"
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    func didReceiveData(response: String, tabData: NSArray) {
-        
-        for item in tabData {
-            
-            if let strUrlBanniere : String = item["url"] as? String {
-                networkManager.downloadImage(delegate: self, urlString: "files/mobile/"+strUrlBanniere)
-            } else {
-                print("erreur urlBanniere")
-            }
-            
-        }
-        
+    // Quand la bannière en téléchargée
+    //---------------------------------
+    func banniereDownloaded(){
+        self.banniereImageView.image = banniereManager.image
+        imageLoader.stopAnimating()
+        imageLoader.hidden = true
     }
     
-    
-    
-    func didReceiveImage(image: UIImage) {
-        self.banniereImageView.image = image
-    }
-    
-    
-    func didFailToReceiveResponse(strError: String) {
-        print(strError)
+    deinit{
+        notificationsCenter.removeObserver(self)
     }
     
 }

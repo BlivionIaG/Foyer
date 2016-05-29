@@ -11,9 +11,17 @@ import Foundation
 /*  Variables globales  */
 /*---------------------*/
 let notificationsCenter = NSNotificationCenter.defaultCenter()
+let productsManager = ProductManager.sharedInstance
+let banniereManager = BanniereManager.sharedInstance
+let networkManager = NetworkManager.sharedInstance
+let commandManager = CommandManager.sharedInstance
+
+var user: String?
 
 struct MyNotifications{
     static let productImageDownloaded = "productImageDownloaded"
+    static let productsDownloaded = "productsDownloaded"
+    static let banniereDownloaded = "banniereDownloaded"
 }
 
 struct MyHexaColors{
