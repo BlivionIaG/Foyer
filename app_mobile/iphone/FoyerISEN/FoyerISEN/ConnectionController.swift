@@ -8,27 +8,25 @@
 
 import UIKit
 
+
 class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManagerDelegate {
     
-    //ALERT
-    var alertController = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-    
-    //Network
-    var networkManager = NetworkManager.sharedInstance
+    /*----------  VARIABLES  ----------*/
+    var alertController = UIAlertController(title: "", message: "", preferredStyle: UIAlertControllerStyle.Alert) //Affichage d'alerte
     
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwdTextField: UITextField!
-    //@IBOutlet weak var label: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var connectionButton: UIButton!
     @IBOutlet weak var fieldView: UIView!
+    /*---------------------------------*/
     
-    
+    //Au chargement de la vue
+    //-----------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // On s'assure que les constantes network d'utilisateur sont bien clear
-        networkManager.username = nil
         networkManager.authBasicKey = nil
         
         //Ajout de l'action (bouton OK) à l'alert
@@ -53,8 +51,9 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
         // Dispose of any resources that can be recreated.
     }
     
-    // Bouton de connexion appuyé :
-    //-----------------------------
+    
+    // Bouton de connexion appuyé
+    //---------------------------
     @IBAction func connectionButtonTouched(sender: AnyObject) {
         
         connectionButton.enabled = false
@@ -68,7 +67,8 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
         networkManager.request(delegate : self, urlString: "cas/", requestType: "POST", postParams: postParams)
     }
     
-    //Calls this function when the tap is recognized.
+    //Quitter l'éditeur de texte
+    //--------------------------
     func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -77,13 +77,12 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
     //MARK: NetworkManagerDelegate
     //----------------------------
     
-    
-    // Réponse serveur :
-    //------------------
+    // Réponse serveur
+    //----------------
     func didReceiveData(response : String, tabData: NSArray) {
         
-        print("reponse : \(response)")
-        print(" data : \(tabData.description)")
+        /*print("reponse : \(response)")
+        print(" data : \(tabData.description)")*/
         
         for item in tabData {
             
@@ -111,10 +110,16 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
                             
                         } else{
                             networkManager.authBasicKey = tabStatus["key"] as? String
-                            networkManager.username = tabStatus["username"] as? String
+                            user = tabStatus["username"] as? String
+                            
+                            //Lancer la récupération des données des variables globales
+                            banniereManager.loadBanniere()
+                            productsManager.loadProducts()
+                            commandManager.loadCommands()
                             
                             //Switch à la page d'accueil
                             self.performSegueWithIdentifier("ConnectionSuccessful", sender: nil)
+                            
                         }
                     }
                     
@@ -130,8 +135,8 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
         
     }
     
-    // Probème de connexion :
-    //-----------------------
+    // Probème de connexion
+    //---------------------
     func didFailToReceiveResponse(strError : String) {
         
         alertController.title = "Problème réseau : "
@@ -150,7 +155,7 @@ class ConnectionController: UIViewController, UITextFieldDelegate,  NetworkManag
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true;
+        return true
     }
     
     
