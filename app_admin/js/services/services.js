@@ -35,12 +35,15 @@ angular.module('foyerApp.services', [])
         $rootScope.login = false;
         defer.reject();
       });*/
-      
-      $rootScope.login = sessionService.get('login');
-      $rootScope.isLogged = true;
-      $http.defaults.headers.common['Authorization'] = 'Basic '+sessionService.get('key');
-
-      defer.resolve('done');
+      if(sessionService.get('key')){ 
+        $rootScope.login = sessionService.get('login');
+        $rootScope.isLogged = true;
+        $http.defaults.headers.common['Authorization'] = 'Basic '+sessionService.get('key');
+        defer.resolve('done');
+      }else{
+         defer.reject();
+      }
+      //defer.resolve('done');
       return defer.promise;
     }
   };

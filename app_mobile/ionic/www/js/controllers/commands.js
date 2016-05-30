@@ -22,7 +22,7 @@ angular.module('starter.controllers')
 
 }])
 
-.controller('commandController', ['$scope', '$http', '$stateParams', 'CONFIG', function($scope, $http, $stateParams, CONFIG) {
+.controller('commandController', ['$rootScope', '$scope', '$http', '$stateParams', 'CONFIG', function($rootScope, $scope, $http, $stateParams, CONFIG) {
 
   //recuperation de la commande
   if ($stateParams.commandId) {
