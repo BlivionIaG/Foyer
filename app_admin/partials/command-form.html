@@ -107,7 +107,7 @@
     <input type="radio" ng-model="command.state" ng-value="3" ng-checked="command.state == 3"/>Servie
   </div>
   <div class="pull-right">
-    <a href="#command" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
+    <a href="command" class="btn btn-default" ng-confirm-click="Êtes-vous sûr de vouloir annuler ?">Annuler</a>
     <a ng-if="action == 'edit'" class="btn btn-danger" ng-click="delete()" ng-confirm-click="Êtes-vous sûr de vouloir supprimer ?">Supprimer</a>
     <a class="btn btn-danger" ng-if="action == 'add'" ng-click="reinitialiser()" ng-confirm-click="Êtes-vous sûr de vouloir tout effacer ?">Ré-initialiser</a>
     <input type="submit" value="Valider" class="btn btn-primary" ng-disabled="form.periode_fin.$error.pattern || form.periode_debut.$error.pattern || command.login === ''"/>
