@@ -41,6 +41,7 @@ angular.module('foyerApp.services', [])
         $http.defaults.headers.common['Authorization'] = 'Basic '+sessionService.get('key');
         defer.resolve('done');
       }else{
+	 $location.path('identification');
          defer.reject();
       }
       //defer.resolve('done');
